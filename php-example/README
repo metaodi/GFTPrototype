@@ -1,0 +1,66 @@
+Overview
+--------
+
+This library allows for easier access to Fusion Tables. It contains:
+
+1. Authentication/Authorization mechanisms (OAuth and ClientLogin)
+2. SQL builder
+3. CSV importer
+
+
+Authentication/Authorization
+----------------------------
+This library provides 3 mechanisms for authentication / authorization:
+1. ClientLogin
+2. OAuth through PHP extension
+3. OAuth through 3rd party library
+
+
+OAuth through PHP extension
+---------------------------
+To use the OAuth PHP extension, please follow instructions for installation:
+
+http://www.php.net/manual/en/oauth.setup.php
+
+
+3rd party OAuth library
+-----------------------
+The following 3rd party OAuth php library was used: 
+
+http://code.google.com/p/oauth-php/
+
+For the full functionality of this library you will need:
+
+PHP 5
+Apache extension as getallheaders() is used
+libcurl
+mysql extension
+openssl for RSA-SHA1 support
+
+Initial set-up
+
+The oauth-php library will require some initial set-up, depending on how plan
+to use it. The library requires the creation of a store. The store could be 
+just the session (not recommended), a mysql database, an oracle database, etc.
+If you plan on using the database, you will have to run an install script to create
+the appropriate tables in the database. This install script is found within:
+
+./oauth-php/library/store/*
+
+Remove the comments from the appropriate code, enter your own credentials and 
+database (if not already created, you will have to create this database), and
+run the code. 
+
+Once this is complete, you also need to register your server. Run storeServer
+method in OAuthClient. For example:
+
+OAuthClient::storeServer($consumer_key, $consumer_secret, "MySQL", 1, $extra_options);
+
+Setup is complete at this point.
+
+
+Sample code
+-----------
+Please see the sample directory for samples of code usage.
+
+
