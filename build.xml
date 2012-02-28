@@ -1,0 +1,39 @@
+<project name="gftprototype-build" basedir="." default="deploy">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+	
+	<property name="result.dir"		value="test-results" />
+	<property name="test.dir"		value="test/php" />
+	<property name="js.dir"			value="js" />
+	
+	<tstamp>
+		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
+	</tstamp>
+	
+	<target name="test">
+		<echo message="Running tests"/>
+		<mkdir dir="${result.dir}"/>
+		<foreach target="exec_php" param="filename">
+			<path>
+				<fileset dir="${test.dir}" includes="**/Test*.php"/>
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="deploy" depends="test">
+		<echo message="Deploying application"/>
+	</target>
+	
+	<target name="exec_php">
+		<basename file="${filename}" property="basename"/>
+		<echo message="Run ${basename}"/>
+		<exec executable="php" dir="${test.dir}" output="${result.dir}/${basename}.xml" logError="true">
+			<arg value="-f"/>
+			<arg value="index.php"/>
+			<arg value="${filename}" />
+		</exec>
+	</target>
+</project>
