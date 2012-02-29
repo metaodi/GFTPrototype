@@ -5,7 +5,7 @@
 		</classpath>
 	</taskdef>
 	<taskdef name="latex"    classname="de.dokutransdata.antlatex.LaTeX" 
-	classpath="/path/to/ant/lib/ant_latex_0.0.9_1.jar"/>
+	classpath="lib/antlibs/ant_latex_0.0.9_1.jar"/>
 	
 	<property name="webapp.dir"		value="/var/www/gft" />
 	<property name="result.dir"		value="test-results" />
