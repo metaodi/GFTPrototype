@@ -33,7 +33,14 @@
 				<fileset dir="${test.dir}" includes="**/Test*.php"/>
 			</path>
 		</foreach>
-	</target>	
+		<antcall target="test-js" />
+	</target>
+	
+	<target name="test-js">
+		<echo message="###############################################################"/>
+		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
+		<echo message="###############################################################"/>
+	</target>
 	
 	<target name="documentation" depends="test">  
 	  <latex  
