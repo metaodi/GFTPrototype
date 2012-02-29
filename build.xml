@@ -4,11 +4,14 @@
 			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
 		</classpath>
 	</taskdef>
+	<taskdef name="latex"    classname="de.dokutransdata.antlatex.LaTeX" 
+	classpath="/path/to/ant/lib/ant_latex_0.0.9_1.jar"/>
 	
 	<property name="webapp.dir"		value="/var/www/gft" />
 	<property name="result.dir"		value="test-results" />
 	<property name="test.dir"		value="test/php" />
 	<property name="js.dir"			value="js" />
+	<property name="docu.path"		value="_DOCUMENTATION/GFTPrototype.tex" />
 	
 	<tstamp>
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
@@ -30,9 +33,19 @@
 				<fileset dir="${test.dir}" includes="**/Test*.php"/>
 			</path>
 		</foreach>
+	</target>	
+	
+	<target name="documentation" depends="test">  
+	  <latex  
+		latexfile="${docu.path}"
+		verbose="on"  
+		clean="on"  
+		pdftex="off"  
+		workingDir="${basedir}"  
+	  />  
 	</target>
 	
-	<target name="deploy" depends="test">
+	<target name="deploy" depends="documentation">
 		<echo message="Deploying application"/>
 		<copy todir="${webapp.dir}" overwrite="true">
 			<fileset dir="."/>
