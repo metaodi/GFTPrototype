@@ -5,6 +5,7 @@
 		</classpath>
 	</taskdef>
 	
+	<property name="webapp.dir"		value="/var/www/gft" />
 	<property name="result.dir"		value="test-results" />
 	<property name="test.dir"		value="test/php" />
 	<property name="js.dir"			value="js" />
@@ -13,7 +14,15 @@
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
 	</tstamp>
 	
-	<target name="test">
+	<target name="clean">
+		<echo message="Clean previously deployed files"/>
+		<delete includeemptydirs="true">
+			<fileset dir="${webapp.dir}" includes="**/*"/>
+		</delete>
+		<delete dir="test-results"/>
+	</target>
+	
+	<target name="test" depends="clean">
 		<echo message="Running tests"/>
 		<mkdir dir="${result.dir}"/>
 		<foreach target="exec_php" param="filename">
@@ -25,6 +34,9 @@
 	
 	<target name="deploy" depends="test">
 		<echo message="Deploying application"/>
+		<copy todir="${webapp.dir}" overwrite="true">
+			<fileset dir="."/>
+		</copy>
 	</target>
 	
 	<target name="exec_php">
