@@ -11,7 +11,8 @@
 	<property name="result.dir"		value="test-results" />
 	<property name="test.dir"		value="test/php" />
 	<property name="js.dir"			value="js" />
-	<property name="docu.path"		value="_DOCUMENTATION/GFTPrototype.tex" />
+	<property name="docu.path"		value="${basedir}/_DOCUMENTATION" />
+	<property name="docu.file"		value="GFTPrototype.tex" />
 	
 	<tstamp>
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
@@ -44,11 +45,11 @@
 	
 	<target name="documentation" depends="test">  
 	  <latex  
-		latexfile="${docu.path}"
+		latexfile="${docu.path}/${docu.file}"
 		verbose="on"  
 		clean="on"  
-		pdftex="off"  
-		workingDir="${basedir}"  
+		pdftex="on"  
+		workingDir="${docu.path}"  
 	  />  
 	</target>
 	
