@@ -1,5 +1,5 @@
 % document type: science report
-\documentclass[a4paper, 12pt]{scrreprt}
+\documentclass[abstracton, a4paper, 12pt]{scrreprt}
 
 % font encoding (utf8)
 \usepackage[utf8]{inputenc}
@@ -16,13 +16,16 @@
 % wrapping pictures and tables with text
 \usepackage{wrapfig}
 
+% hyperlinks
+\usepackage{hyperref}
+
+
 % define toc formatting
 \usepackage[titles]{tocloft}
 \setlength{\cftsubsecindent}{3em}
 \setlength{\cftsubsecnumwidth}{3.3em}
 \setlength{\cftsubsubsecindent}{4.5em}
 \setlength{\cftsubsubsecnumwidth}{4em}
-
 
 % figure numbering
 \newcounter{myfigure}
@@ -64,11 +67,6 @@
 	\chapter{#1}
 	\markboth {Kapitel \thechapter.  {#1}}{Kapitel \thechapter.  {#1}}
 }
-
-% Footnote numbering
-\newcounter{myfootnote}
-\renewcommand{\thefootnote}{\themyfootnote}
-\newcommand{\myfootnote}[1]{\stepcounter{myfootnote}\footnote{#1}}
 
 % command to import a figure
 \newcommand{\fig}[5]{
