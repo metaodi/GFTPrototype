@@ -1,0 +1,149 @@
+% document type: science report
+\documentclass[a4paper, 12pt]{scrreprt}
+
+% font encoding (utf8)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% german spelling
+\usepackage{ngerman}
+% german hyphenation
+\usepackage[ngerman]{babel}
+
+% german literature directory
+\usepackage{bibgerm}
+
+% graphics
+\usepackage[pdftex]{graphicx}
+% wrapping pictures and tables with text
+\usepackage{wrapfig}
+
+% define toc formatting
+\usepackage[titles]{tocloft}
+\setlength{\cftsubsecindent}{3em}
+\setlength{\cftsubsecnumwidth}{3.3em}
+\setlength{\cftsubsubsecindent}{4.5em}
+\setlength{\cftsubsubsecnumwidth}{4em}
+
+
+% figure numbering
+\newcounter{myfigure}
+\renewcommand{\thefigure}{\arabic{myfigure}}
+\newcounter{mytable}
+\renewcommand{\thetable}{\arabic{mytable}}
+\usepackage{makeidx} \makeindex
+\makeglossary
+
+% Definition vom Seitenlayout
+\setlength{\topmargin}{-1.2cm}
+\setlength{\oddsidemargin}{0.5cm} 
+\setlength{\evensidemargin}{0.5cm}
+
+\setlength{\textheight}{24.5cm} 
+\setlength{\textwidth}{15cm}
+
+\setlength{\footskip}{1.2cm} 
+\setlength{\footnotesep}{0.4cm}
+
+% Definition vom Header und Footer im Seitenlayout
+\usepackage{fancyhdr} 
+\pagestyle{fancy} 
+\fancyhf{}
+
+% Linien nach dem Header und vor dem Footer
+%\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\fancyhead[L]{\footnotesize{\leftmark}}
+\fancyhead[R]{}
+\fancyfoot[C]{\footnotesize{\thepage}}
+
+% Plain Pagestyle fuer Kapitelanfangsseite
+\fancypagestyle{plain}{%
+  \fancyhf{} 
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[C]{\footnotesize{\thepage}}
+}
+
+
+% Neues Kapitel Makro, damit die Variablen korrekt abgefuellt werden
+\newcommand{\newchap}[1]{
+	\chapter{#1}
+	\markboth {Kapitel \thechapter.  {#1}}{Kapitel \thechapter.  {#1}}
+}
+
+% Footnote numbering
+\newcounter{myfootnote}
+\renewcommand{\thefootnote}{\themyfootnote}
+\newcommand{\myfootnote}[1]{\stepcounter{myfootnote}\footnote{#1}}
+
+% command to import a figure
+\newcommand{\fig}[5]{
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[width=#4cm]{#1}
+    \end{center}
+    \stepcounter{myfigure}
+    \caption[#5]{#3}
+    \label{#2}
+  \end{figure}
+}
+
+\newcommand{\figtable}[4]{
+  \begin{figure}[h]
+    \begin{center}
+      {  
+			  \footnotesize
+  			\sffamily
+			  #3
+      }
+    \end{center}
+    \stepcounter{myfigure}
+    \caption[#4]{#2}
+    \label{#1}
+  \end{figure}
+}
+
+\newcommand{\tab}[4]{
+  \begin{table}[h]
+    \begin{center}
+      {  
+			  \footnotesize
+  			\sffamily
+  			\renewcommand{\arraystretch}{1.4}
+			  #3  			
+      }
+    \end{center}
+    \stepcounter{mytable}
+    \caption[#4]{#2}
+    \label{#1}
+  \end{table}
+}
+
+% command to refere to a figure
+\newcommand{\reffig}[1]{Abbildung \ref{#1}}
+
+% Definition des Nummerierungslevel
+\setcounter{secnumdepth}{4} 
+\setcounter{tocdepth}{4} 
+\setcounter{lofdepth}{1} 
+
+% Definition von Paragraphen
+\parskip=0.3cm
+\parindent=0cm
+
+% Definition vom Zeilenabstand
+\usepackage{setspace} % Zeilenabstand
+\onehalfspacing
+
+% Befehle fuer Anfuehrungszeichen
+\usepackage{xspace} % Leerschlag nach Anfuehrungszeichen
+\newcommand{\qr}{\grqq\xspace}
+\newcommand{\qrs}{\grqq\ }
+\newcommand{\ql}{\glqq}
+
+% Formatierungsbefehle zum Zitieren
+\newcommand{\page}[1]{S.~#1}
+\newcommand{\pagef}[1]{S.~#1f.}
+\newcommand{\pageff}[1]{S.~#1ff.}
+\newcommand{\pages}[2]{S.~#1--#2}
