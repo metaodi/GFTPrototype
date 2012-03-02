@@ -7,12 +7,13 @@
 	<taskdef name="latex"    classname="de.dokutransdata.antlatex.LaTeX" 
 	classpath="lib/antlibs/ant_latex_0.0.9_1.jar"/>
 	
-	<property name="webapp.dir"		value="/var/www/gft" />
-	<property name="result.dir"		value="test-results" />
-	<property name="test.dir"		value="test/php" />
-	<property name="js.dir"			value="js" />
-	<property name="docu.path"		value="${basedir}/_DOCUMENTATION" />
-	<property name="docu.file"		value="GFTPrototype.tex" />
+	<property name="webapp.dir"			value="/var/www/gft" />
+	<property name="result.dir"			value="test-results" />
+	<property name="test.dir"			value="test/php" />
+	<property name="js.dir"				value="js" />
+	<property name="docu.path"			value="${basedir}/_DOCUMENTATION/02_Documentation" />
+	<property name="docu.file"			value="GFTPrototype.tex" />
+	<property name="docu.revisionfile"	value="aenderungsverlauf.tex" />
 	
 	<tstamp>
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
@@ -43,14 +44,15 @@
 		<echo message="###############################################################"/>
 	</target>
 	
-	<target name="documentation" depends="test">  
-	  <latex  
+	<target name="documentation" depends="test">
+		<antcall target="docu_revision" />
+		<latex  
 		latexfile="${docu.path}/${docu.file}"
 		verbose="on"  
 		clean="on"  
 		pdftex="on"  
 		workingDir="${docu.path}"  
-	  />  
+		/>  
 	</target>
 	
 	<target name="deploy" depends="documentation">
@@ -68,5 +70,15 @@
 			<arg value="index.php"/>
 			<arg value="${filename}" />
 		</exec>
+	</target>
+	
+	<target name="docu_revision">
+		<chmod file="${basedir}/directory_revision.sh" perm="ugo+rx"/>
+		<exec executable="bash" outputproperty="docu.revisions">
+			<arg value="-c" />
+			<arg line='"${basedir}/directory_revision.sh ${docu.path}"'/>
+		</exec>
+		
+		<replace value="${docu.revisions}" token="% revisions from git" file="${docu.path}/${docu.revisionfile}" summary="true" />
 	</target>
 </project>
