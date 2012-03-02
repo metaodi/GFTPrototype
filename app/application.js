@@ -10,7 +10,25 @@ Ext.application({
     name: 'GFTPrototype',
 	views: ['Main'],
 
-    launch: function() {
-        Ext.create('GFTPrototype.view.Main');
-    }
+	launch: function() {
+		var mapView = Ext.create('GFTPrototype.view.Main');
+		
+		var layer = new google.maps.FusionTablesLayer({
+			query: {
+				select: 'Location',
+				from: '3107027'
+			},
+			styles: [{
+				polylineOptions: {
+					strokeColor: "#rrggbb",
+					strokeWeight: 2
+				},
+				markerOptions: {
+					iconName: "falling_rocks"
+				}
+			}]
+
+		});
+		layer.setMap(mapView.map);
+	}
 });

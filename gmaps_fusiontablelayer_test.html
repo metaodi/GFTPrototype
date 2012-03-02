@@ -10,21 +10,38 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript">
 		function initialize() {
-			var switzerland = new google.maps.LatLng(46.85, 8.7);
+			var switzerland = new google.maps.LatLng(50.85, 9.7);
 			
 			var map = new google.maps.Map(document.getElementById('map_canvas'), {
 				center: switzerland,
-				zoom: 9,
+				zoom: 5,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 
 			var layer = new google.maps.FusionTablesLayer({
 				query: {
 					select: 'Location',
+					from: '3107027'
+				},
+				styles: [{
+					polylineOptions: {
+						strokeColor: "#rrggbb",
+						strokeWeight: 2
+					},
+					markerOptions: {
+						iconName: "falling_rocks"
+					}
+				}]
+				
+			});
+			layer.setMap(map);
+			var layer2 = new google.maps.FusionTablesLayer({
+				query: {
+					select: 'Location',
 					from: '2741123'
 				}
 			});
-			layer.setMap(map);
+			layer2.setMap(map);
 		}
 
 	</script>

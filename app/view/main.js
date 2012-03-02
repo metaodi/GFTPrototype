@@ -1,8 +1,14 @@
 Ext.define('GFTPrototype.view.Main', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.Map',
 	
 	config: {
 		fullscreen: true,
-		html: 'Hello World'
+		useCurrentLocation: true,
+		
+		mon {
+			
+		}
 	}
+	
+	
 });
