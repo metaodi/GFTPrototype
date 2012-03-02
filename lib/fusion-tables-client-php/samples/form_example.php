@@ -3,9 +3,9 @@
 <?php
 
 //include the files from the PHP FT client library
-include('../clientlogin.php');
-include('../sql.php');
-include('../file.php');
+include('fusion-tables-client-php/clientlogin.php');
+include('fusion-tables-client-php/sql.php');
+include('fusion-tables-client-php/file.php');
 
 // Table id
 $tableid = 750563;
