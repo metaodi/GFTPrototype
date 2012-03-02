@@ -1,6 +1,9 @@
-\input{Settings/preamble}
+\input{settings/preamble}
 \begin{document}
 
+% -----------------------------------------
+% HEAD
+% -----------------------------------------
 % Titelseite
 \title{Studienarbeit: Google Fusion Table Prototype}
 \author{Jürg Hunziker\\jhunzike@hsr.ch
@@ -10,21 +13,65 @@
 \date{29. Mai 2012}
 \maketitle
 
+% TODO Liste
+\listoftodos
+
 \chapter*{Impressum}
-\input{impressum.tex}
+\input{head/impressum.tex}
 
 \chapter*{Änderungsverlauf}
-\input{aenderungsverlauf.tex}
+\input{head/aenderungsverlauf.tex}
 
 % Abstract
-\begin{abstract}
-Dies ist das Abstract der Arbeit.
-\end{abstract}
+\input{head/abstract.tex}
 
+% Management Summary / Web-Publikation
+\chapter*{Management Summary und Web-Publikation}
+\input{head/pubsummary.tex}
+
+% Inhaltsverzeichnis
 \tableofcontents
 
-\chapter{Einleitung}
-\label{chp:einleitung}
-\input{Chapters/einleitung.tex}
+% -----------------------------------------
+% BODY
+% -----------------------------------------
+% Einleitung
+\part{Einleitung}
+\input{body/einleitung.tex}
+
+% Projektdokumentation
+\part{Projektdokumentation}
+\input{body/projektdokumentation.tex}
+
+% Projektmanagement
+\part{Projektmanagement}
+\input{body/projektmanagement.tex}
+
+
+% -----------------------------------------
+% FOOT
+% -----------------------------------------
+\part{Anhänge}
+
+% Glossar
+% Beispiel Glossareintrag
+\newglossaryentry{computer}
+{ name=computer,
+  description={is a programmable machine that receives input,
+               stores and manipulates data, and provides
+               output in a useful format}
+}
+
+\todo[inline]{Glossar funktioniert nicht korrekt}
+\gls{computer}
+\printglossaries
+% Referenz auf Glossar aus Inhaltsverzeichnis
+\addcontentsline{toc}{chapter}{Glossar}
+
+\chapter{Literatur}
+\label{sec:Literatur}
+\textsc{Jan Tschichold}:\textit{ Geschichte der Schrift in
+  Bildern}.\par \hspace{9.0 pt} Hamburg, 1961.
+
 
 \end{document}

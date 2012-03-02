@@ -13,7 +13,7 @@
 	<property name="js.dir"				value="js" />
 	<property name="docu.path"			value="${basedir}/_DOCUMENTATION/02_Documentation" />
 	<property name="docu.file"			value="GFTPrototype.tex" />
-	<property name="docu.revisionfile"	value="aenderungsverlauf.tex" />
+	<property name="docu.revisionfile"	value="head/aenderungsverlauf.tex" />
 	
 	<tstamp>
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
