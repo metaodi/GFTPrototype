@@ -70,7 +70,7 @@
 	<target name="generate_css" depends="documentation">
 		<echo message="Compile sass files to css"/>
 		<apply executable="sass" dest="${css.dir}" verbose="true" force="true" failonerror="true">
-			<arg value="-unix-newlines" />
+			<arg value="--unix-newlines" />
 			<srcfile />
 			<targetfile />
 			<fileset dir="${css.dir}" includes="**/*.scss" />
