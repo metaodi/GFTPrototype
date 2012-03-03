@@ -1,0 +1,10 @@
+ok /Warning : There are multiple branch changesets here/
+
+# match line starting with 'error', case-insensitive
+error /(?i)error/
+
+# list of warnings here...
+warning /(?i)warning/
+
+# build steps
+start /[a-z_-]*:$/
