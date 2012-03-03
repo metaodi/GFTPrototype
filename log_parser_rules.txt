@@ -5,6 +5,7 @@ error /(?i)error/
 
 # list of warnings here...
 warning /(?i)warning/
+warning /\[latex\] !/
 
 # build steps
 start /[a-z_-]*:$/
