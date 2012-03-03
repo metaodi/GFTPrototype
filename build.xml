@@ -57,7 +57,6 @@
 	
 	<target name="documentation" depends="docu_revision">
 		<echo message="Generate documentation"/>
-		<antcall target="docu_revision" />
 		<latex  
 		latexfile="${docu.path}/${docu.file}"
 		verbose="on"  
