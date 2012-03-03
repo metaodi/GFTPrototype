@@ -1,0 +1,9 @@
+# match line starting with 'error', case-insensitive
+error /(?i)^error/
+
+# list of warnings here...
+warning /[Ww]arning/
+warning /WARNING/
+
+# build steps
+start /[a-z_-]*:/
