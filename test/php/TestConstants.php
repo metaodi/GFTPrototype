@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/../GFTPrototypeUnitTestCase.php');
-require_once(dirname(__FILE__) . '/../../php-example/constants.php');
+require_once(dirname(__FILE__) . '/../../lib/fusion-tables-client-php/constants.php');
 
 class TestConstants extends GFTPrototypeUnitTestCase 
 {
