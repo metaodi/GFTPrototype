@@ -1,24 +1,44 @@
 function GftLib () {
-	this.GFT_URL = 'https://fusiontables.googleusercontent.com/fusiontables/api/query';
+	this.GFT_URL = 'http://www.google.com/fusiontables/api/query?';
 	
-	this.doPost = function(url,params,callback) {
-		var http = new XMLHttpRequest();
-		http.open("POST", url, true);
-		//Send the proper header information along with the request
-		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		http.setRequestHeader("Content-length", params.length);
-		http.setRequestHeader("Connection", "close");
-		
-		http.onreadystatechange = function() {//Call a function when the state changes.
-			if(http.readyState == 4) {
-				callback.call(this, http.responseText, http.status);
-			}
-		}
-		http.send(params);
+	
+	this.doGet = function(url, params, callback) {
+		var jqxhr = $.get(url, callback);
 	}
 	
-    this.select = function(query,callback) {
-		var params = "sql=" + escape(query);
-		this.doPost(this.GFT_URL, params, callback);
+	this.doGetJSONP = function(url, params, callback) {
+		var jqxhr = $.get(url + params, callback, "jsonp");
+	}
+	
+	this.doPost = function(url, params, callback) {
+		var jqxhr = $.post(url, params, callback);
+	}
+	
+	this.doPostJSONP = function(url, params, callback) {
+		var jqxhr = $.post(url, params, callback, "jsonp");
+	}
+	
+    this.select = function(query, callback) {
+		var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
+		var params = "sql=" + encodeURI(query + queryUrlTail);
+		this.doPostJSONP(this.GFT_URL, params, callback);
     };
+	
+	this.convertToObject = function(gftData) {
+		console.log(gftData);
+		var rows = gftData.table.rows;
+		var cols = gftData.table.cols;
+		var allObjects = new Array();
+		
+		for (var rowNr = 0; rowNr < rows.length; rowNr++) {
+			var gftObj = new Object();
+			for (var colNr = 0; colNr < cols.length; colNr++) {
+				var colName = cols[colNr];
+				gftObj[colName.toLowerCase()] = rows[rowNr][colNr];
+			}
+			allObjects.push(gftObj);
+		}
+		
+		return allObjects;
+	}
 }
