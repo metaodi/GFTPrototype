@@ -23,4 +23,6 @@
 *.mtc
 *.mtc1
 *.out
+*.syg
 *.synctex.gz
+*.tdo
