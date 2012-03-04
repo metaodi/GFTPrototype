@@ -12,10 +12,8 @@ asyncTest("doGet",1, function() {
 		
 		var testCb = function(data, status) {
 			equal(status, 'success',"Status 'success' expected");
+			start(); 
 		}
-		setTimeout(function() {  
-			start();  
-		}, 1000); 
 		gft.doGet('http://localhost','',testCb);
 });
 asyncTest("doPost",1, function() {
@@ -23,10 +21,8 @@ asyncTest("doPost",1, function() {
 		
 		var testCb = function(data, status) {
 			equal(status, 'success',"Status 'success' expected");
-		}
-		setTimeout(function() {  
 			start();  
-		}, 1000); 
+		}
 		gft.doPost('http://localhost','',testCb);
 });
 asyncTest("doGetJSONP",1, function() {
@@ -34,10 +30,8 @@ asyncTest("doGetJSONP",1, function() {
 		
 		var testCb = function(data, status) {
 			equal(status, 'success',"Status 'success' expected");
-		}
-		setTimeout(function() {  
 			start();  
-		}, 1000); 
+		}
 		gft.doGetJSONP('http://api.twitter.com/trends/1.json','',testCb);
 });
 asyncTest("doPostJSONP",1, function() {
@@ -45,10 +39,8 @@ asyncTest("doPostJSONP",1, function() {
 		
 		var testCb = function(data, status) {
 			equal(status, 'success',"Status 'success' expected");
+			start();
 		}
-		setTimeout(function() {  
-			start();  
-		}, 1000); 
 		gft.doPostJSONP('http://api.twitter.com/trends/1.json','',testCb);
 });
 asyncTest("Select", 7, function() {
@@ -62,10 +54,8 @@ asyncTest("Select", 7, function() {
 			equal(data.table.rows[0][0],"Some record");
 			equal(data.table.rows[0][2],"Zurich");
 			equal(status,'success',"Status 'success' expected");
-		}
-		setTimeout(function() {  
 			start();  
-		}, 1000); 
+		}
 		gft.select('select * from 3119397 limit 1',testCb);
 });
 asyncTest("ConvertToObject for single object", 4, function() {
@@ -76,10 +66,8 @@ asyncTest("ConvertToObject for single object", 4, function() {
 			equal(gftObjs[0].number, 3);
 			equal(gftObjs[0].location, 'Zurich');
 			equal(gftObjs[0].date, '03.03.2012');
-		}
-		setTimeout(function() {  
 			start();  
-		}, 1000); 
+		}
 		gft.select('select * from 3119397 limit 1',testCb);
 });
 asyncTest("ConvertToObject for multiple objects", 4, function() {
@@ -90,9 +78,7 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 			equal(gftObjs[1].text, 'Another record');
 			equal(gftObjs[2].text, 'And another record');
 			equal(gftObjs[3].text, 'Yet another record');
-		}
-		setTimeout(function() {  
 			start();  
-		}, 1000); 
+		}
 		gft.select('select * from 3119397 limit 4',testCb);
 });
