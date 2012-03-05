@@ -18,11 +18,17 @@ if (count($lines) >= 3) {
 	preg_match("(\d*) tests of (\d*) passed, (\d*) failed.", $lines[2], $testRe);
 	$tests = $testRe[2];
 	$failures = $testRe[3];
-
-	echo "<?xml version=\"1.0\"?>";
-	echo "<testsuite name=\"GFTPrototype - JavaScript Tests\" timestamp=\"".$timestamp."\" hostname=\"localhost\" tests=\"".$tests."\" failures=\"".$failures."\" errors=\"0\" time=\"".$time."\">";
-	echo "<testcase name=\"phantomjs.tests\" classname=\"GFTPrototype - JavaScript Tests\" time=\"".$time."\"/>";
-	echo "</testsuite>";
+	
+	
+	echo "<?xml version=\"1.0\"?>\n";
+	
+	echo "<!--\n";
+	echo $value;
+	echo "-->\n\n"; 
+	
+	echo "<testsuite name=\"GFTPrototype - JavaScript Tests\" timestamp=\"".$timestamp."\" hostname=\"localhost\" tests=\"".$tests."\" failures=\"".$failures."\" errors=\"0\" time=\"".$time."\">\n";
+	echo "<testcase name=\"phantomjs.tests\" classname=\"GFTPrototype - JavaScript Tests\" time=\"".$time."\"/>\n";
+	echo "</testsuite>\n";
 } else {
 	echo $value;
 }
