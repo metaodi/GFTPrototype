@@ -33,7 +33,7 @@
 	<target name="test" depends="clean">
 		<echo message="Running tests"/>
 		<mkdir dir="${result.dir}"/>
-		<foreach target="exec_php" param="filename">
+		<foreach target="exec_test_php" param="filename">
 			<path>
 				<fileset dir="${test.dir}" includes="**/Test*.php"/>
 			</path>
