@@ -1,101 +1,84 @@
-load("../lib/qunit/qunit.js");
-load("../../js-example/GftLib.js");
+function importJs(scriptName) {
+ console.log('Importing ' + scriptName);
+ phantom.injectJs(scriptName);
+}
 
-var stop_watch = {
-    start_time: null, stop_time: null,
+console.log('Starting QUnit tests...');
 
-    start: function() {
-	this.start_time = new Date();
-    },
+//libraries
+importJs("../lib/qunit/qunit.js");
+importJs("../../lib/jquery-1.7.1/jquery-1.7.1.min.js");
 
-    stop: function() {
-	this.stop_time = new Date();
-    },
+//code to test
+importJs("../../js-example/GftLib.js");
 
-    elapsed_seconds: function() {
-	return ( this.stop_time.getMilliseconds() - this.start_time.getMilliseconds() ) / 1000;
-    }
-};
+//test code
+importJs("TestGftLib.js");
 
-(function() {
+var usrTestScript = "TestGftLib.js";
 
-    var out = (typeof println !== "undefined") ? println : print;
+//Run QUnit
+var testsPassed = 0;
+var testsFailed = 0;
 
-    QUnit.init();
-    QUnit.config.blocking = true;
-    QUnit.config.autorun = true;
-    QUnit.config.updateRate = 0;
+//extend copied from QUnit.js
+function extend(a, b) {
+ for ( var prop in b ) {
+  if ( b[prop] === undefined ) {
+   delete a[prop];
+  } else {
+   a[prop] = b[prop];
+  }
+ }
 
-    // Hack for Rhino's error objects
-    var current_object_parser = QUnit.jsDump.parsers.object;
-    QUnit.jsDump.setParser('object', function(obj) {
-	if(typeof obj.rhinoException !== 'undefined') {
-	    return obj.name + " { message: '" + obj.message + "', fileName: '" + obj.fileName + "', lineNumber: " + obj.lineNumber + " }";
-	}
-	else {
-	    return current_object_parser(obj);
-	}
-    });
+ return a;
+}
 
-    var current_test_name = null;
-    var current_test_assertions = [];
-    var totals = { pass: 0, fail: 0};
+QUnit.begin({});
 
-    QUnit.testStart = function(name) {
-	current_test_name = name;
-	current_test_assertions = [];
-    };
+// Initialize the config, saving the execution queue
+var oldconfig = extend({}, QUnit.config);
+QUnit.init();
+extend(QUnit.config, oldconfig);
 
-    QUnit.testDone = function(name, fail_count, total_count) {
-	if(fail_count > 0) {
-	    out("FAIL - " + name);
+QUnit.testDone = function(t) {
+ if (0 === t.failed) 
+  testsPassed++;
+ else
+  testsFailed++;
+  
+ console.log(t.name + ' completed: ' + (0 === t.failed ? 'pass' : 'FAIL'))
+}
 
-	    for(var i = 0; i < current_test_assertions.length; i++) {
-		out("    " + current_test_assertions[i]);
-	    }
+var running = true;
+QUnit.done = function(i) {
+ console.log(testsPassed + ' of ' + (testsPassed + testsFailed) + ' tests successful');
+ console.log('TEST RUN COMPLETED (' + usrTestScript + '): ' + (0 === testsFailed ? 'SUCCESS' : 'FAIL')); 
+ running = false;
+}
 
+//Instead of QUnit.start(); just directly exec; the timer stuff seems to invariably screw us up and we don't need it
+QUnit.config.semaphore = 0;
+while( QUnit.config.queue.length )
+ QUnit.config.queue.shift()();
 
-	    totals.fail = totals.fail + 1;
-	}
-	else {
-	    out("PASS - " + name);
-	    totals.pass = totals.pass + 1;
-	}
-    };
+//wait for completion
+var ct = 0;
+while ( running ) {
+ if (ct++ % 1000000 == 0) {
+  console.log('queue is at ' + QUnit.config.queue.length);
+ }
+ if (!QUnit.config.queue.length) {
+  QUnit.done();
+ }
+}
 
-    QUnit.log = function(result, message, details) {
-	details = details || new Object();
-	details.message = details.message || "";
+//exit code is # of failed tests; this facilitates Ant failonerror. Alternately, 1 if testsFailed > 0.
+phantom.exit(testsFailed);
 
-	var type = (typeof details.expected !== "undefined") ? "EQ" : "OK";
-
-	var outcome = result ? "PASS" : "FAIL";
-	
-	var response = "";
-	if(!result && typeof details.expected !== "undefined") {
-	    response = "Expected: " + details.expected + ", Actual: " + details.actual;
-	}
-
-	current_test_assertions.push([outcome, type, details.message, response].join("|"));
-    };
-
-    QUnit.done = function() {
-	stop_watch.stop();
-
-	out("----------------------------------------");
-	out(" PASS: " + totals.pass + "  FAIL: " + totals.fail + "  TOTAL: " + (totals.pass + totals.fail));
-	out(" Finished in " + stop_watch.elapsed_seconds() + " seconds.");
-	out("----------------------------------------");
-    };
-
-    QUnit.begin = function() {
-	stop_watch.start();
-    }
-
-})();
 
 // run the tests
-load("TestGftLib.js");
+
 
 QUnit.begin(); // hacked b/c currently QUnit.begin is normally called on document.load
-QUnit.start();
+//QUnit.start();
