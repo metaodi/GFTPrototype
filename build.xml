@@ -1,4 +1,4 @@
-<project name="gftprototype-build" basedir="." default="deploy">
+<project name="gftprototype-build" basedir="." default="finish_build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
@@ -39,17 +39,7 @@
 		</foreach>
 	</target>
 	
-	<target name="test-js" depends="test">
-		<echo message="###############################################################"/>
-		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
-		<echo message="###############################################################"/>
-		<get src="http://ec2-46-137-54-58.eu-west-1.compute.amazonaws.com/gftprototype.php" dest="${result.dir}/${result.js.file}"/>
-		<concat>
-			<fileset dir="${result.dir}" includes="${result.js.file}"/>
-		 </concat>
-	</target>
-	
-	<target name="docu_revision" depends="test-js">
+	<target name="docu_revision" depends="test">
 		<echo message="Generate documentation revision history"/>
 		<chmod file="${basedir}/directory_revision.sh" perm="ugo+rx"/>
 		<exec executable="bash" outputproperty="docu.revisions">
@@ -89,6 +79,18 @@
 		</copy>
 	</target>
 	
+	<target name="test-js" depends="deploy">
+		<echo message="###############################################################"/>
+		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
+		<echo message="###############################################################"/>
+		<get src="http://ec2-46-137-54-58.eu-west-1.compute.amazonaws.com/gftprototype.php" dest="${result.dir}/${result.js.file}"/>
+		<concat>
+			<fileset dir="${result.dir}" includes="${result.js.file}"/>
+		 </concat>
+	</target>
+	
+	
+	
 	<target name="exec_php">
 		<basename file="${filename}" property="basename"/>
 		<echo message="Run ${basename}"/>
@@ -97,5 +99,10 @@
 			<arg value="index.php"/>
 			<arg value="${filename}" />
 		</exec>
+	</target>
+	
+	
+	<target name="finish_build" depends="test-js">
+		<echo message="BUILD FINISHED!"/>
 	</target>
 </project>
