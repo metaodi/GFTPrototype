@@ -13,7 +13,7 @@ $timestamp = date("c");
 
 if (count($lines) >= 3) {
 	preg_match("/Tests completed in (\d*) milliseconds./", $lines[1], $timeRe);
-	$time = $timeRe / 1000;
+	$time = $timeRe[1] / 1000;
 	
 	preg_match("/(\d*) tests of (\d*) passed, (\d*) failed./", $lines[2], $testRe);
 	$tests = $testRe[2];
