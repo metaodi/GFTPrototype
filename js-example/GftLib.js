@@ -1,6 +1,6 @@
 function GftLib () {
 	this.GFT_URL = 'http://www.google.com/fusiontables/api/query?';
-	
+	this.jsonUrlTail = '&jsonCallback=?'; // ? could be a function name
 	
 	this.doGet = function(url, params, callback) {
 		var jqxhr = $.get(url, callback);
@@ -19,8 +19,7 @@ function GftLib () {
 	}
 	
     this.select = function(query, callback) {
-		var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
-		var params = "sql=" + encodeURI(query + queryUrlTail);
+		var params = "sql=" + encodeURI(query + this.jsonUrlTail);
 		this.doPostJSONP(this.GFT_URL, params, callback);
     };
 	

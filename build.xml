@@ -10,6 +10,7 @@
 	<property name="webapp.dir"			value="/var/www/gft" />
 	<property name="result.dir"			value="test-results" />
 	<property name="test.dir"			value="test/php" />
+	<property name="test.js.file"		value="JavaScript.txt" />
 	<property name="js.dir"				value="js" />
 	<property name="css.dir"			value="resources/styles" />
 	<property name="docu.path"			value="${basedir}/_DOCUMENTATION/02_Documentation" />
@@ -42,6 +43,10 @@
 		<echo message="###############################################################"/>
 		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
 		<echo message="###############################################################"/>
+		<get src="http://ec2-46-137-54-58.eu-west-1.compute.amazonaws.com/gftprototype.php" dest="${test.dir}/${test.js.file}"/>
+		<concat>
+			<fileset dir="${test.dir}" includes="${test.js.file}"/>
+		 </concat>
 	</target>
 	
 	<target name="docu_revision" depends="test-js">
