@@ -9,7 +9,7 @@
 	
 	<property name="webapp.dir"			value="/var/www/gft" />
 	<property name="result.dir"			value="test-results" />
-	<property name="result.js.file"		value="JavaScript.txt" />
+	<property name="result.js.file"		value="JavaScript.xml" />
 	<property name="test.dir"			value="test/php" />
 	<property name="js.dir"				value="js" />
 	<property name="css.dir"			value="resources/styles" />
