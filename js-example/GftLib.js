@@ -25,7 +25,6 @@ function GftLib () {
     };
 	
 	this.convertToObject = function(gftData) {
-		console.log(gftData);
 		var rows = gftData.table.rows;
 		var cols = gftData.table.cols;
 		var allObjects = new Array();
