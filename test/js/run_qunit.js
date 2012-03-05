@@ -35,6 +35,10 @@ function waitFor(testFx, onReady, timeOutMillis) {
         }, 100); //< repeat check every 250ms
 };
 
+function generateJUnitXML(root, output) {
+	output.log('JUnit-XML:' + document.getElementById('qunit-testresult').innerHTML);
+}
+
 
 if (phantom.args.length === 0 || phantom.args.length > 2) {
     console.log('Usage: run-qunit.js URL');
@@ -64,7 +68,11 @@ page.open(phantom.args[0], function(status){
         }, function(){
             var failedNum = page.evaluate(function(){
                 var el = document.getElementById('qunit-testresult');
-                console.log(el.innerText);
+				if (phantom.args[1] == 'junit-xml') {
+					generateJUnitXml(document, console);
+				} else {
+					console.log(el.innerText);
+				}
                 try {
                     return el.getElementsByClassName('failed')[0].innerHTML;
                 } catch (e) { }

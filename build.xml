@@ -9,7 +9,7 @@
 	
 	<property name="webapp.dir"			value="/var/www/gft" />
 	<property name="result.dir"			value="test-results" />
-	<property name="result.js.file"		value="JavaScript.txt" />
+	<property name="result.js.file"		value="JavaScript.xml" />
 	<property name="test.dir"			value="test/php" />
 	<property name="js.dir"				value="js" />
 	<property name="css.dir"			value="resources/styles" />
@@ -32,7 +32,7 @@
 	<target name="test" depends="clean">
 		<echo message="Running tests"/>
 		<mkdir dir="${result.dir}"/>
-		<foreach target="exec_php" param="filename">
+		<foreach target="exec_test_php" param="filename">
 			<path>
 				<fileset dir="${test.dir}" includes="**/Test*.php"/>
 			</path>
@@ -83,7 +83,7 @@
 		<echo message="###############################################################"/>
 		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
 		<echo message="###############################################################"/>
-		<get src="http://ec2-46-137-54-58.eu-west-1.compute.amazonaws.com/gftprototype.php" dest="${result.dir}/${result.js.file}"/>
+		<get src="http://phantomjs.rdmr.ch/gftprototype.php" dest="${result.dir}/${result.js.file}"/>
 		<concat>
 			<fileset dir="${result.dir}" includes="${result.js.file}"/>
 		 </concat>
@@ -91,7 +91,7 @@
 	
 	
 	
-	<target name="exec_php">
+	<target name="exec_test_php">
 		<basename file="${filename}" property="basename"/>
 		<echo message="Run ${basename}"/>
 		<exec executable="php" dir="${test.dir}" output="${result.dir}/${basename}.xml" logError="true">
