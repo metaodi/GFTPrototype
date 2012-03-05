@@ -14,7 +14,7 @@ asyncTest("doGet",1, function() {
 			equal(status, 'success',"Status 'success' expected");
 			start(); 
 		}
-		gft.doGet('http://localhost','',testCb);
+		gft.doGet('index.html','',testCb);
 });
 asyncTest("doPost",1, function() {
 		var gft = new GftLib();
@@ -23,7 +23,7 @@ asyncTest("doPost",1, function() {
 			equal(status, 'success',"Status 'success' expected");
 			start();  
 		}
-		gft.doPost('http://localhost','',testCb);
+		gft.doPost('index.html','',testCb);//
 });
 asyncTest("doGetJSONP",1, function() {
 		var gft = new GftLib();
