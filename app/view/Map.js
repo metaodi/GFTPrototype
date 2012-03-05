@@ -24,8 +24,8 @@ Ext.define('GFTPrototype.view.Map', {
 			maprender: function(comp, map) {
 				var layer = new google.maps.FusionTablesLayer({
 					query: {
-						select: 'Location',
-						from: '2741123'
+						select: 'geometry',
+						from: '3133838'
 					}
 				});
 				layer.setMap(map);
