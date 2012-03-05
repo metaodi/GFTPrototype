@@ -1,4 +1,4 @@
-<project name="gftprototype-build" basedir="." default="deploy">
+<project name="gftprototype-build" basedir="." default="finish_build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
@@ -98,5 +98,10 @@
 			<arg value="index.php"/>
 			<arg value="${filename}" />
 		</exec>
+	</target>
+	
+	
+	<target name="finish_build" depends="test-js">
+		<echo message="BUILD FINISHED!"/>
 	</target>
 </project>
