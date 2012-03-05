@@ -12,10 +12,10 @@ $lines = explode ("\n", $value);
 $timestamp = date("c");
 
 if (count($lines) >= 3) {
-	preg_match("Tests completed in (\d*) milliseconds.", $lines[1], $timeRe);
+	preg_match("/Tests completed in (\d*) milliseconds./", $lines[1], $timeRe);
 	$time = $timeRe / 1000;
 	
-	preg_match("(\d*) tests of (\d*) passed, (\d*) failed.", $lines[2], $testRe);
+	preg_match("/(\d*) tests of (\d*) passed, (\d*) failed./", $lines[2], $testRe);
 	$tests = $testRe[2];
 	$failures = $testRe[3];
 	
