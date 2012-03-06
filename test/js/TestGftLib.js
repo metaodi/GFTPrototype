@@ -109,6 +109,11 @@ test("Select (fields, table, condition)", function() {
 	equal(gft.select("*", testGftTableId, "Text = 'Some record'"), "SELECT * FROM " + testGftTableId + " WHERE Text = 'Some record'");
 });
 
+test("Select (fields, table, condition with AND)", function() {
+	var gft = new GftLib;
+	equal(gft.select("*", testGftTableId, " AND Text = 'Some record'"), "SELECT * FROM " + testGftTableId + " WHERE Text = 'Some record'");
+});
+
 test("Select (fields, table, condition, orderby)", function() {
 	var gft = new GftLib;
 	equal(gft.select("*", testGftTableId, "Text = 'Some record'", 'text DESC'), "SELECT * FROM " + testGftTableId + " WHERE Text = 'Some record' ORDERBY text DESC");
