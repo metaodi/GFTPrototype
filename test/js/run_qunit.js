@@ -27,7 +27,6 @@ function waitFor(testFx, onReady, timeOutMillis) {
                     phantom.exit(1);
                 } else {
                     // Condition fulfilled (timeout and/or condition is 'true')
-                    console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
                     typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
                     clearInterval(interval); //< Stop this interval
                 }
@@ -49,7 +48,7 @@ function ISODateString(d) {
 
 var generateJUnitXML = function(result) {
 	console.log('<?xml version="1.0"?>');
-	console.log('<!-- ' + result.testresult + ' -->');
+	console.log('<!--\n ' + result.testresult + ' \n-->');
 	
 	var summaryArr = result.testresult.split("\n",3);
 	var duration = /Tests completed in (\d+) milliseconds./(summaryArr[0])[1] / 1000;
@@ -94,7 +93,7 @@ if (phantom.args.length === 0 || phantom.args.length > 2) {
 }
 
 var page = new WebPage();
-var output = new Object;
+var output = new Object();
 output.type = phantom.args[1] || 'text';
 output.fn = generateText;
 if (output.type == 'junit-xml') {
