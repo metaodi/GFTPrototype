@@ -65,12 +65,12 @@ var generateJUnitXML = function(result) {
 		var resultLine = testElements[i].innerText;
 		var resultMatch = /^(\w*): (\w+) \((\d+), (\d+), (\d+)\)Rerun/(resultLine);
 		if (resultMatch) {
-			var module = resultMatch[1];
-			var name = resultMatch[2];
+			var moduleName = resultMatch[1];
+			var testName = resultMatch[2];
 			var failure = resultMatch[3];
-			console.log('<testcase name="'+ name +'" classname="'+ module +'">');
+			console.log('<testcase name="'+ testName +'" classname="'+ moduleName +'">');
 			if (failure > 0) {
-				console.log('<failure message="'+ module +'" type="'+ module +'">');
+				console.log('<failure message="'+ moduleName +'" type="'+ moduleName +'">');
 				console.log(resultLine);
 				console.log('</failure>');
 			}
