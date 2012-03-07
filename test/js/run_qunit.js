@@ -66,7 +66,8 @@ var generateJUnitXML = function(result) {
 	var testElements = testList.getElementsByTagName('li');
 	for (var i = 0; i < testElements.length; i++) {
 		var resultLine = testElements[i].innerText;
-		var resultMatch = resultLine.match(/^(\w*): (\w+) \((\d+), (\d+), (\d+)\)Rerun/);
+		var resultRE = /^(\w*): (\w+) \((\d+), (\d+), (\d+)\)Rerun/;
+		var resultMatch = resultLine.match(resultRE);
 		if (resultMatch) {
 			var moduleName = resultMatch[1];
 			var testName = resultMatch[2];
@@ -74,7 +75,7 @@ var generateJUnitXML = function(result) {
 			console.log('<testcase name="'+ testName +'" classname="'+ moduleName +'">');
 			if (failure > 0) {
 				console.log('<failure message="'+ moduleName +'" type="'+ moduleName +'">');
-				console.log(resultLine);
+				console.log(resultLine.replace(resultRE,''));
 				console.log('</failure>');
 			}
 			console.log('</testcase>');
