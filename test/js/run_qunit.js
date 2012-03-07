@@ -51,8 +51,11 @@ var generateJUnitXML = function(result) {
 	console.log('<!--\n ' + result.testresult + ' \n-->');
 	
 	var summaryArr = result.testresult.split("\n",3);
-	var duration = /Tests completed in (\d+) milliseconds./(summaryArr[0])[1] / 1000;
-	var countMatch = /(\d+) tests of (\d+) passed, (\d+) failed./(summaryArr[1]);
+	var durationLine = summaryArr[0];
+	var countLine = summaryArr[1];
+	
+	var duration = durationLine.match(/Tests completed in (\d+) milliseconds./)[1] / 1000;
+	var countMatch = countLine.match(/(\d+) tests of (\d+) passed, (\d+) failed./);
 	var testCount = countMatch[2];
 	var failures = countMatch[3];
 	var timestamp = ISODateString(new Date());
@@ -63,7 +66,7 @@ var generateJUnitXML = function(result) {
 	var testElements = testList.getElementsByTagName('li');
 	for (var i = 0; i < testElements.length; i++) {
 		var resultLine = testElements[i].innerText;
-		var resultMatch = /^(\w*): (\w+) \((\d+), (\d+), (\d+)\)Rerun/(resultLine);
+		var resultMatch = resultLine.match(/^(\w*): (\w+) \((\d+), (\d+), (\d+)\)Rerun/);
 		if (resultMatch) {
 			var moduleName = resultMatch[1];
 			var testName = resultMatch[2];
