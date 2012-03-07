@@ -48,6 +48,9 @@ function ISODateString(d) {
 }
 
 var generateJUnitXML = function(result) {
+	console.log('<?xml version="1.0"?>');
+	console.log('<!-- ' + result.testresult + ' -->');
+	
 	var summaryArr = result.testresult.split("\n",3);
 	var duration = /Tests completed in (\d+) milliseconds./(summaryArr[0])[1] / 1000;
 	var countMatch = /(\d+) tests of (\d+) passed, (\d+) failed./(summaryArr[1]);
