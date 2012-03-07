@@ -15,7 +15,7 @@ test("Constants", function() {
 asyncTest("doGet", 1, function() {
 	var gft = new GftLib();
 	var testCb = function(data, status) {
-		equal(status, "success", "Status 'success' expected");
+		equal(status, "succes", "Status 'success' expected");
 		start();
 	}
 	gft.doGet('index.html', '', testCb);
