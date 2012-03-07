@@ -85,9 +85,6 @@
 		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
 		<echo message="###############################################################"/>
 		<get src="${test.url}" dest="${result.dir}/${result.js.file}"/>
-		<concat>
-			<fileset dir="${result.dir}" includes="${result.js.file}"/>
-		 </concat>
 	</target>
 	
 	<target name="exec_test_php">
