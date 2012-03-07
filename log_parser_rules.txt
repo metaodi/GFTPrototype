@@ -1,7 +1,4 @@
 ok /Warning : There are multiple branch changesets here/
-ok /Package natbib Warning: Citation\\\(s\\\) may have changed/
-ok /Package hyperref Warning: old tdo file detected, not used; run LaTeX again./
-ok /LaTeX Warning: Label\(s\) may have changed. Rerun to get cross-references right./
 
 # match line starting with 'error', case-insensitive
 error /(?i)error/
