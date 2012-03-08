@@ -11,6 +11,7 @@
 	<property name="result.dir"			value="test-results" />
 	<property name="result.js.file"		value="JavaScript.xml" />
 	<property name="test.dir"			value="test/php" />
+	<property name="test.url"           value="http://phantomjs.rdmr.ch/gftprototype.php?type=junit-xml" />
 	<property name="js.dir"				value="js" />
 	<property name="css.dir"			value="resources/styles" />
 	<property name="docu.path"			value="${basedir}/_DOCUMENTATION/02_Documentation" />
@@ -83,13 +84,8 @@
 		<echo message="###############################################################"/>
 		<echo message="# Check JavaScript Unit-Tests: http://gft.rdmr.ch/test/js     #"/>
 		<echo message="###############################################################"/>
-		<get src="http://phantomjs.rdmr.ch/gftprototype.php" dest="${result.dir}/${result.js.file}"/>
-		<concat>
-			<fileset dir="${result.dir}" includes="${result.js.file}"/>
-		 </concat>
+		<get src="${test.url}" dest="${result.dir}/${result.js.file}"/>
 	</target>
-	
-	
 	
 	<target name="exec_test_php">
 		<basename file="${filename}" property="basename"/>
