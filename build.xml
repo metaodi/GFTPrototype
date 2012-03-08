@@ -56,7 +56,9 @@
 		<echo message="Generate documentation in 2 latex runs"/>
 		<echo message="First latex run:"/>
 		<antcall target="exec_latex">
-			<param name="clean" value="off"/>
+			<param name="clean"   value="off"/>
+			<param name="verbose" value="off"/>
+			<param name="pdftex"  value="off"/>
 		</antcall>
 		
 		<echo message="Generate glossary:"/>
@@ -66,7 +68,9 @@
 		
 		<echo message="2nd latex run (re-use generated files from first run):"/>
 		<antcall target="exec_latex">
-			<param name="clean" value="on"/>
+			<param name="clean"   value="on"/>
+			<param name="verbose" value="on"/>
+			<param name="pdftex"  value="on"/>
 		</antcall>
 	</target>
 	
@@ -108,9 +112,9 @@
 	<target name="exec_latex">
 		<latex  
 			latexfile="${docu.path}/${docu.file}"
-			verbose="on"  
+			verbose="${verbose}"  
 			clean="${clean}"  
-			pdftex="on"  
+			pdftex="{pdftex}"  
 			workingDir="${docu.path}"  
 			/>  
 	</target>
