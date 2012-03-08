@@ -16,6 +16,7 @@
 	<property name="css.dir"			value="resources/styles" />
 	<property name="docu.path"			value="${basedir}/_DOCUMENTATION/02_Documentation" />
 	<property name="docu.file"			value="GFTPrototype.tex" />
+	<property name="docu.glossary"		value="GFTPrototype.glo" />
 	<property name="docu.revisionfile"	value="head/aenderungsverlauf.tex" />
 	
 	<tstamp>
@@ -52,14 +53,21 @@
 	</target>
 	
 	<target name="documentation" depends="docu_revision">
-		<echo message="Generate documentation"/>
-		<latex  
-		latexfile="${docu.path}/${docu.file}"
-		verbose="on"  
-		clean="on"  
-		pdftex="on"  
-		workingDir="${docu.path}"  
-		/>  
+		<echo message="Generate documentation in 2 latex runs"/>
+		<echo message="First latex run:"/>
+		<antcall target="exec_latex">
+			<param name="clean" value="off"/>
+		</antcall>
+		
+		<echo message="Generate glossary:"/>
+		<exec executable="makeglossaries" dir="${docu.path}" logError="true">
+			<arg value="${docu.glossary}"/>
+		</exec>
+		
+		<echo message="2nd latex run (re-use generated files from first run):"/>
+		<antcall target="exec_latex">
+			<param name="clean" value="on"/>
+		</antcall>
 	</target>
 	
 	<target name="generate_css" depends="documentation">
@@ -97,6 +105,15 @@
 		</exec>
 	</target>
 	
+	<target name="exec_latex">
+		<latex  
+			latexfile="${docu.path}/${docu.file}"
+			verbose="on"  
+			clean="${clean}"  
+			pdftex="on"  
+			workingDir="${docu.path}"  
+			/>  
+	</target>
 	
 	<target name="finish_build" depends="test-js">
 		<echo message="BUILD FINISHED!"/>

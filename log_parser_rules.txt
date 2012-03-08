@@ -1,4 +1,6 @@
+# list of false positives
 ok /Warning : There are multiple branch changesets here/
+ok /LaTeX Warning: Label\(s\) may have changed. Rerun to get cross-references right./
 
 # match line starting with 'error', case-insensitive
 error /(?i)error/
