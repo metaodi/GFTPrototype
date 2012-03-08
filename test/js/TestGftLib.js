@@ -92,32 +92,7 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 	gft.execSql('select * from ' + testGftTableId + ' limit 4',testCb);
 });
 
-test("Select (fields)", function() {
-	var gft = new GftLib;
-	raises(function() {
-		gft.select("*");
-	}, "must throw error to pass");
-});
 
-test("Select (fields, table)", function() {
-	var gft = new GftLib;
-	equal(gft.select("*", testGftTableId), 'SELECT * FROM ' + testGftTableId + ';');
-});
-
-test("Select (fields, table, condition)", function() {
-	var gft = new GftLib;
-	equal(gft.select("*", testGftTableId, "Text = 'Some record'"), "SELECT * FROM " + testGftTableId + " WHERE Text = 'Some record';");
-});
-
-test("Select (fields, table, condition with AND)", function() {
-	var gft = new GftLib;
-	equal(gft.select("*", testGftTableId, " AND Text = 'Some record'"), "SELECT * FROM " + testGftTableId + " WHERE Text = 'Some record';");
-});
-
-test("Select (fields, table, condition, orderby)", function() {
-	var gft = new GftLib;
-	equal(gft.select("*", testGftTableId, "Text = 'Some record'", 'text DESC'), "SELECT * FROM " + testGftTableId + " WHERE Text = 'Some record' ORDERBY text DESC;");
-});
 
 asyncTest("ExecSelect", 8, function() {
 	var gft = new GftLib;
