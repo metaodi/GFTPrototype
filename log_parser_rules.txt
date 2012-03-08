@@ -1,6 +1,9 @@
 # list of false positives
 ok /Warning : There are multiple branch changesets here/
 ok /LaTeX Warning: Label\(s\) may have changed. Rerun to get cross-references right./
+ok /0 warnings/
+ok /Package glosstex Warning: Term |There were undefined references/
+ok /Package natbib Warning: Citation\\\(s\\\) may have changed/
 
 # match line starting with 'error', case-insensitive
 error /(?i)error/
