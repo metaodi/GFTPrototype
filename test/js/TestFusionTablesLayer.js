@@ -1,4 +1,4 @@
-module("GoogleFusionTable");
+module("FusionTablesLayer");
 test("PaintSwitzerland", function() {
 	var switzerland = new google.maps.LatLng(46.85, 8.7);
 

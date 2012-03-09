@@ -1,5 +1,5 @@
 module("SqlBuilder");
-var testGftTableId = 'testtable';
+var testGftTableId = '3119397';
 
 test("Select (fields)", function() {
 	var gft = new GftLib;
