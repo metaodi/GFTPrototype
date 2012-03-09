@@ -12,7 +12,7 @@
  * as a callback function.
  * @param timeOutMillis the max amount of time to wait. If not specified, 3 sec is used.
  */
-function waitFor(testFx, onReady, timeOutMillis) {
+function waitFor(testFx, onReady, onError, timeOutMillis) {
     var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 3001, //< Default Max Timout is 3s
         start = new Date().getTime(),
         condition = false,
@@ -23,7 +23,7 @@ function waitFor(testFx, onReady, timeOutMillis) {
             } else {
                 if(!condition) {
                     // If condition still not fulfilled (timeout but condition is 'false')
-                    console.log("'waitFor()' timeout");
+                    onError("'waitFor()' timeout");
                     phantom.exit(1);
                 } else {
                     // Condition fulfilled (timeout and/or condition is 'true')
@@ -84,11 +84,30 @@ var generateJUnitXML = function(result) {
 	console.log('</testsuite>');
 };
 
+var onErrorXML = function(msg) {
+	var testName = 'QUnit Timeout';
+	var moduleName = "QUnit ";
+	var timestamp = ISODateString(new Date());
+	
+	console.log('<?xml version="1.0"?>');
+	console.log('<!--\n ' + msg + ' \n-->');
+	console.log('<testsuite name="QUnit - JavaScript Tests" timestamp="'+ timestamp +'" tests="1" failures="1">');
+	console.log('<testcase name="'+ testName +'" classname="'+ moduleName +'">');
+	console.log('<failure message="'+ moduleName +'" type="'+ moduleName +'">');
+	console.log(msg);
+	console.log('</failure>');
+	console.log('</testcase>');
+	console.log('</testsuite>');
+}
+
 var generateText = function(result) {
 	console.log(result.testresult);
 	console.log(result.tests);
 }
 
+var onErrorText = function(msg) {
+	console.log(msg);
+}
 
 if (phantom.args.length === 0 || phantom.args.length > 2) {
     console.log('Usage: run-qunit.js URL <TYPE>');
@@ -100,10 +119,11 @@ var page = new WebPage();
 var output = new Object();
 output.type = phantom.args[1] || 'text';
 output.fn = generateText;
+output.onError = onErrorText;
 if (output.type == 'junit-xml') {
 	output.fn  = generateJUnitXML;
+	output.onError  = onErrorXML;
 }
-
 
 // Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = function(msg) {
@@ -143,5 +163,6 @@ page.open(phantom.args[0], function(status){
             phantom.exit((parseInt(failedNum, 10) > 0) ? 1 : 0);
 			
         },
+		output.onError,
 		30000);
     }});
