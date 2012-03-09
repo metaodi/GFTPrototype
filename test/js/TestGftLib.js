@@ -1,58 +1,53 @@
-module("GftLib");
-var testGftTableId = 3119397;
+module("GftLib", {
+    setup: function() {
+		this.gft = new GftLib();
+		this.testGftTableId = 3119397;
+	},
+	teardown: function(){}
+});
 
 test("Construtor", function() {
-	var gft = new GftLib();
-	ok(gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
+	ok(this.gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
 });
 
 test("Constants", function() {
-	var gft = new GftLib();
-	equal(gft.GFT_URL,'http://www.google.com/fusiontables/api/query?');
-	equal(gft.jsonUrlTail, '&jsonCallback=?');
+	equal(this.gft.GFT_URL,'http://www.google.com/fusiontables/api/query?');
+	equal(this.gft.jsonUrlTail, '&jsonCallback=?');
 });
 
 asyncTest("doGet", 1, function() {
-	var gft = new GftLib();
 	var testCb = function(data, status) {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	gft.doGet('index.html', '', testCb);
+	this.gft.doGet('index.html', '', testCb);
 });
 
 asyncTest("doPost", 1, function() {
-	var gft = new GftLib();
-
 	var testCb = function(data, status) {
 		equal(status, "success", "Status 'success' expected");
 		start();  
 	}
-	gft.doPost('index.html', '', testCb);//
+	this.gft.doPost('index.html', '', testCb);//
 });
 
 asyncTest("doGetJSONP", 1, function() {
-	var gft = new GftLib();
-
 	var testCb = function(data, status) {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	gft.doGetJSONP('http://api.twitter.com/trends/1.json', '', testCb);
+	this.gft.doGetJSONP('http://api.twitter.com/trends/1.json', '', testCb);
 });
 
 asyncTest("doPostJSONP", 1, function() {
-	var gft = new GftLib();
-	
 	var testCb = function(data, status) {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	gft.doPostJSONP('http://api.twitter.com/trends/1.json', '', testCb);
+	this.gft.doPostJSONP('http://api.twitter.com/trends/1.json', '', testCb);
 });
 
 asyncTest("Exec SQL", 7, function() {
-	var gft = new GftLib;
 	var testCb = function(data,status) {
 		equal(data.table.cols[0],"Text");
 		equal(data.table.cols[1],"Number");
@@ -63,11 +58,11 @@ asyncTest("Exec SQL", 7, function() {
 		equal(status, 'success', "Status 'success' expected");
 		start();
 	}
-	gft.execSql("select * from " + testGftTableId + " limit 1", testCb);
+	this.gft.execSql("select * from " + this.testGftTableId + " limit 1", testCb);
 });
 
 asyncTest("ConvertToObject for single object", 4, function() {
-	var gft = new GftLib;
+	var gft = this.gft;
 	var testCb = function(data,status) {
 		var gftObjs = gft.convertToObject(data);
 		equal(gftObjs[0].text, 'Some record');
@@ -76,11 +71,11 @@ asyncTest("ConvertToObject for single object", 4, function() {
 		equal(gftObjs[0].date, '03.03.2012');
 		start();
 	}
-	gft.execSql('select * from ' + testGftTableId + ' limit 1',testCb);
+	this.gft.execSql('select * from ' + this.testGftTableId + ' limit 1',testCb);
 });
 
 asyncTest("ConvertToObject for multiple objects", 4, function() {
-	var gft = new GftLib;
+	var gft = this.gft;
 	var testCb = function(data,status) {
 		var gftObjs = gft.convertToObject(data);
 		equal(gftObjs[0].text, 'Some record');
@@ -89,13 +84,12 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 		equal(gftObjs[3].text, 'Yet another record');
 		start();
 	}
-	gft.execSql('select * from ' + testGftTableId + ' limit 4',testCb);
+	this.gft.execSql('select * from ' + this.testGftTableId + ' limit 4',testCb);
 });
 
 
 
 asyncTest("ExecSelect", 8, function() {
-	var gft = new GftLib;
 	var testCb = function(data,status) {
 		equal(data.table.rows.length,1);
 		equal(data.table.cols[0],"Text");
@@ -107,5 +101,5 @@ asyncTest("ExecSelect", 8, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	gft.execSelect(testCb, "*", testGftTableId, "Text = 'Some record'");
+	this.gft.execSelect(testCb, "*", this.testGftTableId, "Text = 'Some record'");
 });
