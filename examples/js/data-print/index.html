@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>JS Example - Select data</title>
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>
-		<script src="../../../lib/gftlib-js/GftLib.js" type="text/javascript"></script>
-		<script src="../../../lib/gftlib-js/SqlBuilder.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			function init() {
-				var tableId = 2741123;
-				var gft = new GftLib();
-				var sqlBuilder = new SqlBuilder();
-				var resultList = document.getElementById("result");
-				
-				var printer = function(data) {
-					var objs = gft.convertToObject(data);
-					
-					for (var i = 0; i < objs.length; i++) {
-						
-						var listElem = document.createElement('li');
-						listElem.innerHTML = objs[i].location;
-						resultList.appendChild(listElem);
-					}
+<head>
+	<title>JS Example - Select data</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
+	<script type="text/javascript">
+		function init() {
+			var tableId = 2741123;
+			var gft = new GftLib();
+			var sqlBuilder = new SqlBuilder();
+			var resultList = document.getElementById("result");
+
+			var printer = function(data) {
+				var objs = gft.convertToObject(data);
+
+				for (var i = 0; i < objs.length; i++) {
+					var listElem = document.createElement('li');
+					listElem.innerHTML = 'City: ' + objs[i].name + ' / Population: ' + objs[i].population;
+					resultList.appendChild(listElem);
 				}
-				
-				var sqlQuery = sqlBuilder.select('*', tableId);
-				document.getElementById('query').innerHTML = sqlQuery;
-				document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
-				gft.execSql(printer, sqlQuery);
 			}
-		</script>
-	</head>
-	<body onload="init();">
-		<h1>JS Example - Select data</h1>
-		<h2>Query</h2>
-		<div id="query"></div>
-		<h2>Source</h2>
-		<div id="source"></div>
-		<h2>Result</h2>
-		<ul id="result"></ul>
-	</body>
+
+			var sqlQuery = sqlBuilder.select('*', tableId);
+			document.getElementById('query').innerHTML = sqlQuery;
+			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
+			gft.execSql(printer, sqlQuery);
+		}
+	</script>
+</head>
+<body onload="init();">
+	<h1>JS Example - Select data</h1>
+	<h2>Query</h2>
+	<div id="query"></div>
+	<h2>Source</h2>
+	<div id="source"></div>
+	<h2>Result</h2>
+	<ul id="result"></ul>
+</body>
 </html>
