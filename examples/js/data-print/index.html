@@ -1,8 +1,9 @@
 <html>
 	<head>
-		<title>JS Example</title>
+		<title>JS Example - Select Data from Google Fusion Tables</title>
 		<script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>
-		<script src="../lib/gftlib-js/GftLib.js" type="text/javascript"></script>
+		<script src="../../../lib/gftlib-js/GftLib.js" type="text/javascript"></script>
+		<script src="../../../lib/gftlib-js/SqlBuilder.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			function init() {
 				var gft = new GftLib();
@@ -19,7 +20,7 @@
 					}
 				}
 				
-				gft.select('select * from 2741123',printer);
+				gft.execSelect(printer, '*', '2741123');
 			}
 		</script>
 	</head>
@@ -31,7 +32,7 @@
 		</div>
 		
 		<div>
-			Data from Google Fusion Table (ID: 2741123): <a href="https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw">https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw</a>
+			Data from Google Fusion Table (ID: 2741123)
 		</div>
 	</body>
 </html>

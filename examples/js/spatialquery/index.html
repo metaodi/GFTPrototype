@@ -2,11 +2,10 @@
 	<head>
 		<title>JS Example</title>
 		<script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>
-		<script src="js-example/GftLib.js" type="text/javascript"></script>
+		<script src="../../../lib/gftlib-js/GftLib.js" type="text/javascript"></script>
+		<script src="../../../lib/gftlib-js/SqlBuilder.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			function init() {
-				// 3133936 = Points
-				// 3133838 = Landuse
 				var tableid = 3133838;
 				var gft = new GftLib();
 				var list = document.getElementById("loc-list");
@@ -23,7 +22,7 @@
 					}
 				}
 				
-				gft.select('select * from ' + tableid + ' WHERE ST_INTERSECTS(geometry, CIRCLE(LATLNG(47.555,8.5),5000))', printer);
+				gft.execSelect(printer, '*', tableid, 'ST_INTERSECTS(geometry, CIRCLE(LATLNG(47.555,8.5),5000))');
 			}
 		</script>
 	</head>
@@ -35,7 +34,7 @@
 		</div>
 		
 		<div>
-			Data from Google Fusion Table (ID: 2741123): <a href="https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw">https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw</a>
+			Data from Google Fusion Table (ID: 3133838)
 		</div>
 	</body>
 </html>
