@@ -58,7 +58,7 @@ asyncTest("Exec SQL", 7, function() {
 		equal(status, 'success', "Status 'success' expected");
 		start();
 	}
-	this.gft.execSql("select * from " + this.testGftTableId + " limit 1", testCb);
+	this.gft.execSql(testCb, 'select * from ' + this.testGftTableId + ' limit 1');
 });
 
 asyncTest("ConvertToObject for single object", 4, function() {
@@ -71,7 +71,7 @@ asyncTest("ConvertToObject for single object", 4, function() {
 		equal(gftObjs[0].date, '03.03.2012');
 		start();
 	}
-	this.gft.execSql('select * from ' + this.testGftTableId + ' limit 1',testCb);
+	this.gft.execSql(testCb, 'select * from ' + this.testGftTableId + ' limit 1');
 });
 
 asyncTest("ConvertToObject for multiple objects", 4, function() {
@@ -84,7 +84,7 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 		equal(gftObjs[3].text, 'Yet another record');
 		start();
 	}
-	this.gft.execSql('select * from ' + this.testGftTableId + ' limit 4',testCb);
+	this.gft.execSql(testCb, 'select * from ' + this.testGftTableId + ' limit 4');
 });
 
 
