@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JS Example - Goolge Maps - Show raw data</title>
+	<title>JS Example - Goolge Maps - Show raw data with geocoding</title>
 	<meta charset="utf-8">
 	
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -26,6 +26,8 @@
 			var resultList = document.getElementById("result");
 			
 			var printer = function(data) {
+				test = data;
+				
 				var objs = gft.convertToObject(data);
 				
 				// create infowindow (all markers will use this infowindow)
@@ -33,38 +35,47 @@
 		
 				// handle rows
 				for (var i = 0; i < objs.length; i++) {
+					
 					// print data
 					var listElem = document.createElement('li');
 					listElem.innerHTML = 'City: ' + objs[i].name + ' / Population: ' + objs[i].population;
 					resultList.appendChild(listElem);
 					
 					// add marker
-					var positionArr = objs[i].location.split(',');
-					var position = new google.maps.LatLng(positionArr[0], positionArr[1]);
-					
-					var marker = new google.maps.Marker({
-						map: map,
-						position: position,
-						title: objs[i].name,
-						animation: google.maps.Animation.DROP
-					});
-					
-					marker.content =	'<div class="city">' +
-											'<h1>' + objs[i].name + '</h1>' +
-											'<dl>' +
-												'<dt>Description:</dt>' +
-												'<dd>' + objs[i].description + '</dd>' +
-												'<dt>Population:</dt>' +
-												'<dd>' + objs[i].population + '</dd>' +
-											'</dl>' +
-										'</div>';
-					
-					// add infowindow to marker
-					google.maps.event.addListener(marker, 'mouseup', function() {
-						// this attribute references to the current marker
-						markerInfoWindow.setContent(this.content);
-						markerInfoWindow.open(map, this);
-					});
+					var geocoder = new google.maps.Geocoder();
+					(function(cur) {
+						geocoder.geocode({address: cur.location}, function(results, status) {
+							if (status == google.maps.GeocoderStatus.OK) {
+								position = results[0].geometry.location;
+
+								var marker = new google.maps.Marker({
+									map: map,
+									position: position,
+									title: cur.name,
+									animation: google.maps.Animation.DROP
+								});
+
+								marker.content =	'<div class="city">' +
+														'<h1>' + cur.name + '</h1>' +
+														'<dl>' +
+															'<dt>Description:</dt>' +
+															'<dd>' + cur.description + '</dd>' +
+															'<dt>Population:</dt>' +
+															'<dd>' + cur.population + '</dd>' +
+														'</dl>' +
+													'</div>';
+
+								// add infowindow to marker
+								google.maps.event.addListener(marker, 'mouseup', function() {
+									// this attribute references to the current marker
+									markerInfoWindow.setContent(this.content);
+									markerInfoWindow.open(map, this);
+								});
+							} else {
+								alert('Error geocoding address');
+							}
+						});
+					})(objs[i]);
 				}
 			}
 			
@@ -72,12 +83,15 @@
 			document.getElementById('query').innerHTML = sqlQuery;
 			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
 			gft.execSql(printer, sqlQuery);
-		}
+		};
 
+		function geocodeAddress(address) {
+			
+		};
 	</script>
 </head>
 <body onload="init()">
-	<h1>JS Example - Goolge Maps - Show raw data</h1>
+	<h1>JS Example - Goolge Maps - Show raw data with geocoding</h1>
 	<h2>Query</h2>
 	<div id="query"></div>
 	<h2>Source</h2>
