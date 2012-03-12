@@ -29,5 +29,5 @@ test("Select (fields, table, condition with AND)", function() {
 
 test("Select (fields, table, condition, orderby)", function() {
 	var sql = new SqlBuilder;
-	equal(sql.select("*", this.testGftTableId, "Text = 'Some record'", 'text DESC'), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' ORDERBY text DESC;");
+	equal(sql.select("*", this.testGftTableId, "Text = 'Some record'", 'text DESC'), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' ORDER BY text DESC;");
 });
