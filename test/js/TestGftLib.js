@@ -99,7 +99,7 @@ asyncTest("ExecSelect: Condition", 8, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.execSelect(testCb, "*", this.testGftTableId, "Text = 'Some record'");
+	this.gft.execSelect(testCb, {table:this.testGftTableId, condition:"Text = 'Some record'"});
 });
 
 asyncTest("ExecSelect: Projection", 6, function() {
@@ -112,7 +112,7 @@ asyncTest("ExecSelect: Projection", 6, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.execSelect(testCb, "Text as mytext", this.testGftTableId, null, null, null, 1);
+	this.gft.execSelect(testCb, {table:this.testGftTableId, fields:"Text as mytext",  limit:1});
 });
 
 asyncTest("ExecSelect: Order by", 3, function() {
@@ -122,7 +122,7 @@ asyncTest("ExecSelect: Order by", 3, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.execSelect(testCb, "Text", this.testGftTableId, null, "Text desc", null, 2);
+	this.gft.execSelect(testCb, {table:this.testGftTableId, fields:"Text", orderby:"Text desc", limit:2});
 });
 
 asyncTest("ExecSelect: Group by", 4, function() {
@@ -133,5 +133,5 @@ asyncTest("ExecSelect: Group by", 4, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.execSelect(testCb, "count(),Number", this.testGftTableId, "Number = 3", null, "Number");
+	this.gft.execSelect(testCb, {table:this.testGftTableId, fields:"count(),Number", condition:"Number = 3", groupby:"Number"});
 });

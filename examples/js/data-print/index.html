@@ -24,7 +24,7 @@
 				}
 			}
 
-			var sqlQuery = sqlBuilder.select('*', tableId);
+			var sqlQuery = sqlBuilder.select({table:tableId});
 			document.getElementById('query').innerHTML = sqlQuery;
 			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
 			gft.execSql(printer, sqlQuery);
