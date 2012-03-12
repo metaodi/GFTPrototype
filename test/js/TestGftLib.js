@@ -87,7 +87,7 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 	this.gft.execSql(testCb, 'select * from ' + this.testGftTableId + ' limit 4');
 });
 
-asyncTest("ExecSelect", 8, function() {
+asyncTest("ExecSelect: Condition", 8, function() {
 	var testCb = function(data,status) {
 		equal(data.table.rows.length,1);
 		equal(data.table.cols[0],"Text");
@@ -107,12 +107,12 @@ asyncTest("ExecSelect: Projection", 6, function() {
 		equal(data.table.rows.length,1);
 		equal(data.table.rows[0].length,1);
 		equal(data.table.cols.length,1);
-		equal(data.table.cols[0],"Text");
+		equal(data.table.cols[0],"mytext");
 		equal(data.table.rows[0][0],"Some record");
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.execSelect(testCb, "Text", this.testGftTableId, null, null, null, 1);
+	this.gft.execSelect(testCb, "Text as mytext", this.testGftTableId, null, null, null, 1);
 });
 
 asyncTest("ExecSelect: Order by", 3, function() {
@@ -123,4 +123,15 @@ asyncTest("ExecSelect: Order by", 3, function() {
 		start();
 	}
 	this.gft.execSelect(testCb, "Text", this.testGftTableId, null, "Text desc", null, 2);
+});
+
+asyncTest("ExecSelect: Group by", 4, function() {
+	var testCb = function(data,status) {
+		equal(data.table.rows.length,1);
+		equal(data.table.rows[0][0],2);
+		equal(data.table.rows[0][1],3);
+		equal(status, "success", "Status 'success' expected");
+		start();
+	}
+	this.gft.execSelect(testCb, "count(),Number", this.testGftTableId, "Number = 3", null, "Number");
 });

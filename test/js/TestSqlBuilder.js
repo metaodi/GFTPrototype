@@ -14,7 +14,7 @@ test("Select (fields)", function() {
 
 test("Select (fields, table)", function() {
 	var sql = new SqlBuilder;
-	equal(sql.select("*", this.testGftTableId), 'SELECT * FROM ' + this.testGftTableId + ';');
+	equal(sql.select("Text, Number, Location", this.testGftTableId), 'SELECT Text, Number, Location FROM ' + this.testGftTableId + ';');
 });
 
 test("Select (fields, table, condition)", function() {
@@ -30,4 +30,14 @@ test("Select (fields, table, condition with AND)", function() {
 test("Select (fields, table, condition, orderby)", function() {
 	var sql = new SqlBuilder;
 	equal(sql.select("*", this.testGftTableId, "Text = 'Some record'", 'text DESC'), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' ORDER BY text DESC;");
+});
+
+test("Select (fields, table, condition, orderby, groupby)", function() {
+	var sql = new SqlBuilder;
+	equal(sql.select("*", this.testGftTableId, "Text = 'Some record'", 'text DESC','Number'), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' GROUP BY Number ORDER BY text DESC;");
+});
+
+test("Select (fields, table, condition, orderby, groupby limit)", function() {
+	var sql = new SqlBuilder;
+	equal(sql.select("*", this.testGftTableId, "Text = 'Some record'", 'text DESC','Number', 4), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' GROUP BY Number ORDER BY text DESC LIMIT 4;");
 });
