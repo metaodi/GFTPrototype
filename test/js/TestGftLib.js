@@ -115,7 +115,7 @@ asyncTest("ExecSelect: Projection", 6, function() {
 	this.gft.execSelect(testCb, "Text", this.testGftTableId, null, null, null, 1);
 });
 
-asyncTest("ExecSelect: Order by", 3, function() {
+asyncTest("ExecSelect: Order by", 4, function() {
 	var testCb = function(data,status) {
 		equal(data.table.rows[0][0],"Yet another record");
 		equal(data.table.rows[1][0],"Some record");
