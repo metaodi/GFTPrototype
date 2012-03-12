@@ -66,7 +66,7 @@ var generateJUnitXML = function(result) {
 	var testElements = testList.getElementsByTagName('li');
 	for (var i = 0; i < testElements.length; i++) {
 		var resultLine = testElements[i].innerText;
-		var resultRE = /^(\w*): (\w+) \((\d+), (\d+), (\d+)\)Rerun/;
+		var resultRE = /^(\w*): (.+) \((\d+), (\d+), (\d+)\)Rerun/;
 		var resultMatch = resultLine.match(resultRE);
 		if (resultMatch) {
 			var moduleName = resultMatch[1];
