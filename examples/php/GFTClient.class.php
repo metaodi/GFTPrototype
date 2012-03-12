@@ -1,8 +1,8 @@
 <?php
 //include the files from the PHP FT client library
-include('../lib/fusion-tables-client-php/clientlogin.php');
-include('../lib/fusion-tables-client-php/sql.php');
-include('../lib/fusion-tables-client-php/file.php');
+include('../../lib/fusion-tables-client-php/clientlogin.php');
+include('../../lib/fusion-tables-client-php/sql.php');
+include('../../lib/fusion-tables-client-php/file.php');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

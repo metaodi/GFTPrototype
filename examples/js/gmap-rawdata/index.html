@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - Goolge Maps - Show raw data</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
+	<script type="text/javascript">
+		function init() {
+			// create google map
+			var position = new google.maps.LatLng(47, 8);
+
+			var map = new google.maps.Map(document.getElementById('map_canvas'), {
+				center: position,
+				zoom: 7,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			
+			// select data from google fusion table
+			var tableId = 2741123
+			var gft = new GftLib();
+			var sqlBuilder = new SqlBuilder();
+			var resultList = document.getElementById("result");
+			
+			var printer = function(data) {
+				var objs = gft.convertToObject(data);
+				
+				// create infowindow (all markers will use this infowindow)
+				var markerInfoWindow = new google.maps.InfoWindow();
+		
+				// handle rows
+				for (var i = 0; i < objs.length; i++) {
+					// print data
+					var listElem = document.createElement('li');
+					listElem.innerHTML = 'City: ' + objs[i].name + ' / Population: ' + objs[i].population;
+					resultList.appendChild(listElem);
+					
+					// add marker
+					var positionArr = objs[i].location.split(',');
+					var position = new google.maps.LatLng(positionArr[0], positionArr[1]);
+					
+					var marker = new google.maps.Marker({
+						map: map,
+						position: position,
+						title: objs[i].city
+					});
+					
+					marker.content =	'<div class="city">' +
+											'<h1>' + objs[i].name + '</h1>' +
+											'<dl>' +
+												'<dt>Desription:</dt>' +
+												'<dd>' + objs[i].description + '</dd>' +
+												'<dt>Population:</dt>' +
+												'<dd>' + objs[i].population + '</dd>' +
+											'</dl>' +
+										'</div>';
+					
+					// add infowindow to marker
+					google.maps.event.addListener(marker, 'mouseup', function() {
+						// this attribute references to the current marker
+						markerInfoWindow.setContent(this.content);
+						markerInfoWindow.open(map, this);
+					});
+				}
+			}
+			
+			var sqlQuery = sqlBuilder.select('*', tableId);
+			document.getElementById('query').innerHTML = sqlQuery;
+			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
+			gft.execSql(printer, sqlQuery);
+		}
+
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example - Goolge Maps - Show raw data</h1>
+	<h2>Query</h2>
+	<div id="query"></div>
+	<h2>Source</h2>
+	<div id="source"></div>
+	<h2>Result</h2>
+	<ul id="result"></ul>
+	<h2>Map</h2>
+	<div id="map_canvas" style="width:600px; height:400px"></div>
+</body>
+</html>
