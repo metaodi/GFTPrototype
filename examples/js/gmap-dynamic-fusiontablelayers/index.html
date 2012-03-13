@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - Goolge Maps - Dynamic FusionTableLayers</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript">
+		function init() {
+			fusiontables = {
+				3107027: {
+					name: 'Coin',
+					field: 'Location'
+				},
+				2741123: {
+					name: 'Own',
+					field: 'location',
+					where: 'population > 340000',
+					styles: [{
+						where: 'population > 510000',
+						markerOptions: {
+							iconName: "buildings"
+						}
+					}]
+				}
+			};
+			
+			layers = new Array();
+			var position = new google.maps.LatLng(51.5, 10);
+			map = new google.maps.Map(document.getElementById('map_canvas'), {
+				center: position,
+				zoom: 5,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			
+			for(var tableId in fusiontables) {
+				createCheckbox(tableId);
+			}
+		}
+		
+		function createCheckbox(tableId) {
+			var checkboxDiv = document.createElement('div');
+			
+			// create checkbox lable field and add it to the form
+			var checkboxLabel = document.createElement('label');
+			checkboxLabel.setAttribute('for', tableId);
+			checkboxLabel.innerHTML = fusiontables[tableId].name;
+			checkboxDiv.appendChild(checkboxLabel);
+
+			// create checkbox input field and add it to the form
+			var checkboxInput = document.createElement('input');
+			checkboxInput.setAttribute('type', 'checkbox');
+			checkboxInput.setAttribute('id', tableId);
+			checkboxInput.setAttribute('onclick', 'toggleLayer(' + tableId + ')');
+			checkboxDiv.appendChild(checkboxInput);
+			
+			// append div element to form
+			document.getElementById('layers').appendChild(checkboxDiv);
+		}
+	
+		function createLayer(tableId) {
+			return new google.maps.FusionTablesLayer({
+				query: {
+					select: fusiontables[tableId].field,
+					from: tableId,
+					where: fusiontables[tableId].where
+				},
+				styles: fusiontables[tableId].styles
+			});
+		}
+		
+		function toggleLayer(tableId) {
+			if(document.getElementById(tableId).checked) {
+				// create layer if it doens't exist already
+				if(!layers[tableId]) {
+					console.log('createing layer for table ' + tableId);
+					layers[tableId] = createLayer(tableId);
+				}
+				layers[tableId].setMap(map);
+			} else {
+				layers[tableId].setMap(null);
+			}
+		}
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example - Goolge Maps - Dynamic FusionTableLayers</h1>
+	<h2>Map</h2>
+	<form id="layers">
+		<input type="range"  min="0" max="100" />
+	</form>
+	<div id="map_canvas" style="width:600px; height:400px"></div>
+</body>
+</html>
