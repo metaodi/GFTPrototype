@@ -37,7 +37,7 @@ test("Select (fields, table, condition, orderby, groupby)", function() {
 	equal(sql.select({table:this.testGftTableId, condition:"Text = 'Some record'", orderby:'text DESC', groupby:'Number'}), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' GROUP BY Number ORDER BY text DESC;");
 });
 
-test("Select (fields, table, condition, orderby, groupby limit)", function() {
+test("Select (fields, table, condition, orderby, groupby, limit)", function() {
 	var sql = new SqlBuilder;
 	equal(sql.select({table:this.testGftTableId, condition:"Text = 'Some record'", orderby:'text DESC', groupby:'Number', limit:4}), "SELECT * FROM " + this.testGftTableId + " WHERE Text = 'Some record' GROUP BY Number ORDER BY text DESC LIMIT 4;");
 });
