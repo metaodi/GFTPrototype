@@ -15,11 +15,11 @@
 				2741123: {
 					name: 'Own',
 					field: 'location',
-					where: 'population > 340000',
+					where: 'population > ' + document.getElementById('populationRangeValue').value,
 					styles: [{
 						where: 'population > 510000',
 						markerOptions: {
-							iconName: "buildings"
+							iconName: 'buildings'
 						}
 					}]
 				}
@@ -69,16 +69,35 @@
 			});
 		}
 		
+		function updateLayer(tableId) {
+			layers[tableId].setOptions({
+				query: {
+					select: fusiontables[tableId].field,
+					from: tableId,
+					where: fusiontables[tableId].where
+				}
+			});
+		}
+		
 		function toggleLayer(tableId) {
 			if(document.getElementById(tableId).checked) {
 				// create layer if it doens't exist already
 				if(!layers[tableId]) {
-					console.log('createing layer for table ' + tableId);
+					console.log('creating layer for table ' + tableId);
 					layers[tableId] = createLayer(tableId);
 				}
 				layers[tableId].setMap(map);
 			} else {
 				layers[tableId].setMap(null);
+			}
+		}
+		
+		function changePopulation(tableId, minPopulation) {
+			console.log('population > ' + minPopulation);
+			document.getElementById('populationRangeValue').value = minPopulation;
+			fusiontables[tableId].where = 'population > ' + minPopulation
+			if(layers[tableId]) {
+				updateLayer(tableId);
 			}
 		}
 	</script>
@@ -87,7 +106,9 @@
 	<h1>JS Example - Goolge Maps - Dynamic FusionTableLayers</h1>
 	<h2>Map</h2>
 	<form id="layers">
-		<input type="range"  min="0" max="100" />
+		<label for="populationRange">Population over:</label>
+		<input id="populationRange" type="range"  min="200000" max="600000" value="200000" onchange="changePopulation(2741123, this.value)" />
+		<input id="populationRangeValue" type="text" value="200000" />
 	</form>
 	<div id="map_canvas" style="width:600px; height:400px"></div>
 </body>
