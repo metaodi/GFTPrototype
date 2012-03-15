@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Google Visualization API Sample</title>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {packages: ['corechart']});
+    function drawNumberChart() {
+      google.visualization.drawChart({
+        "containerId": "number_div",
+        "dataSourceUrl": 'http://www.google.com/fusiontables/gvizdata?tq=',
+        "query":"SELECT Location,Number FROM 3119397",
+        "refreshInterval": 5,
+        "chartType": "PieChart",
+        "options": {
+          "title":"Number distribution over cities"
+        }
+      });
+    }
+	
+	function drawPopulationChart() {
+      google.visualization.drawChart({
+        "containerId": "population_div",
+        "dataSourceUrl": 'http://www.google.com/fusiontables/gvizdata?tq=',
+        "query":"SELECT name,population FROM 2741123",
+        "refreshInterval": 5,
+        "chartType": "BarChart",
+        "options": {
+          "title":"Population by city"
+        }
+      });
+    }
+
+    google.setOnLoadCallback(drawNumberChart);
+	google.setOnLoadCallback(drawPopulationChart);
+  </script>
+</head>
+<body style="font-family: Arial;border: 0 none;">
+  <div id="number_div" style="width: 600px; height: 400px;"></div>
+  <div id="population_div" style="width: 600px; height: 400px;"></div>
+</body>
+</html>
