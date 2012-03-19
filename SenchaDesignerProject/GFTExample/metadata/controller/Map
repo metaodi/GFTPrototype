@@ -1,0 +1,78 @@
+{
+    "id": "ExtBox1-ext-gen13730",
+    "type": "controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "views": [
+            "Viewport"
+        ],
+        "designer|init": "",
+        "designer|launch": "",
+        "designer|userClassName": "Map"
+    },
+    "customConfigs": [],
+    "designerId": "7797a4ee-fc49-4209-a0f1-e825c455883b",
+    "$viewOrder": 0,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen2628",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "gftmap",
+                "selector": "#gftmap",
+                "xtype": null,
+                "designer|userClassName": "gftmap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen3779",
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "createLayer",
+                "designer|params": [
+                    "tableId"
+                ],
+                "implHandler": "var layer = new google.maps.FusionTablesLayer({\n    query: {\n        select: 'location',\n        from: tableId,\n    }\n});\n\nlayer.setMap(this.getGftmap().getMap());\nconsole.log('createLayer controller function done');",
+                "designer|userClassName": "createLayer"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen10820",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onCheckboxfieldCheck",
+                "implHandler": "console.log(\"controller function executed\");\nthis.createLayer(2741123);",
+                "name": "check",
+                "designer|targetType": "Ext.field.Checkbox",
+                "designer|controlQuery": "checkboxfield[name=SchweizerStaedteCheckbox]",
+                "designer|userClassName": "onCheckboxfieldCheck"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}

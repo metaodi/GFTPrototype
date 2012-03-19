@@ -1,0 +1,18 @@
+{
+    "id": "ExtBox1-ext-gen2184",
+    "type": "application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "views": [],
+        "designer|launch": "",
+        "name": "MyApp"
+    },
+    "customConfigs": [],
+    "designerId": "application",
+    "$viewOrder": 0,
+    "expanded": true
+}

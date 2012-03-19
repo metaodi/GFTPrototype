@@ -1,0 +1,105 @@
+{
+    "id": "ExtBox1-ext-gen2233",
+    "type": "container",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userClassName": "Viewport"
+    },
+    "customConfigs": [],
+    "designerId": "7dfc0ae5-8cad-43ef-912a-54c5ce42c1f1",
+    "$viewOrder": 0,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen2909",
+            "type": "fieldset",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "title": "Ebenen",
+                "designer|userClassName": "MyFieldSet"
+            },
+            "customConfigs": [],
+            "expanded": true,
+            "cn": [
+                {
+                    "id": "ExtBox1-ext-gen4451",
+                    "type": "checkboxfield",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "itemId": "SchweizerStaedteCheckbox",
+                        "label": "Schweizer Städte",
+                        "name": "SchweizerStaedteCheckbox",
+                        "value": null,
+                        "designer|userClassName": "MyCheckbox"
+                    },
+                    "customConfigs": [],
+                    "expanded": true
+                },
+                {
+                    "id": "ExtBox1-ext-gen5544",
+                    "type": "checkboxfield",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "label": "Coin",
+                        "name": "CoinCheckbox",
+                        "designer|userClassName": "MyCheckbox1"
+                    },
+                    "customConfigs": [],
+                    "expanded": true
+                }
+            ]
+        },
+        {
+            "id": "ExtBox1-ext-gen6511",
+            "type": "map",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 300,
+                "id": "gftmap",
+                "itemId": null,
+                "mapOptions": "{ zoom: 5 }",
+                "useCurrentLocation": true,
+                "designer|userClassName": "MyMap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen7428",
+            "type": "titlebar",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "docked": "top",
+                "title": "GFTPrototype",
+                "designer|userClassName": "MyTitleBar"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}
