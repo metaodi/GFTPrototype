@@ -59,6 +59,25 @@
             "expanded": true
         },
         {
+            "id": "ExtBox1-ext-gen11711",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onSliderfieldChange",
+                "implHandler": "var tableId = 2741123;\n\nif(this.layers[tableId]) {\n    var tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n    tableData.data.condition = 'population > ' + newValue;\n\n    this.layers[tableId].setOptions({\n        query: {\n            select: tableData.data.locationField,\n            from: tableData.data.id,\n            where: tableData.data.condition\n        }\n    });\n}",
+                "name": "change",
+                "designer|targetType": "Ext.field.Slider",
+                "designer|controlQuery": "sliderfield",
+                "designer|userClassName": "onSliderfieldChange"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
             "id": "ExtBox1-ext-gen10820",
             "type": "controlleraction",
             "reference": {

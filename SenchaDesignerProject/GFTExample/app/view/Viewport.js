@@ -17,38 +17,56 @@ Ext.define('MyApp.view.Viewport', {
     extend: 'Ext.Container',
 
     config: {
+        layout: {
+            type: 'card'
+        },
+        activeItem: 1,
         items: [
-            {
-                xtype: 'fieldset',
-                title: 'Ebenen',
-                items: [
-                    {
-                        xtype: 'checkboxfield',
-                        itemId: 'SchweizerStaedteCheckbox',
-                        label: 'Schweizer Städte',
-                        name: 2741123
-                    },
-                    {
-                        xtype: 'checkboxfield',
-                        itemId: 'CoinCheckbox',
-                        label: 'Coin',
-                        name: 3107027
-                    }
-                ]
-            },
-            {
-                xtype: 'map',
-                height: 300,
-                id: 'gftmap',
-                mapOptions: {
-                    zoom: 5
-                },
-                useCurrentLocation: true
-            },
             {
                 xtype: 'titlebar',
                 docked: 'top',
                 title: 'GFTPrototype'
+            },
+            {
+                xtype: 'panel',
+                scrollable: true,
+                items: [
+                    {
+                        xtype: 'fieldset',
+                        title: 'Ebenen',
+                        items: [
+                            {
+                                xtype: 'checkboxfield',
+                                itemId: 'SchweizerStaedteCheckbox',
+                                label: 'Schweizer Städte',
+                                name: 2741123
+                            },
+                            {
+                                xtype: 'sliderfield',
+                                id: 'schweizerStaedteEinwohner',
+                                label: 'Einwohner',
+                                name: 'Einwohner',
+                                increment: 1000,
+                                maxValue: 600000
+                            },
+                            {
+                                xtype: 'checkboxfield',
+                                itemId: 'CoinCheckbox',
+                                label: 'Coin',
+                                name: 3107027
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'map',
+                        height: 250,
+                        id: 'gftmap',
+                        mapOptions: {
+                            zoom: 5
+                        },
+                        useCurrentLocation: true
+                    }
+                ]
             }
         ]
     }

@@ -28,6 +28,9 @@ Ext.define('MyApp.controller.Map', {
         },
 
         control: {
+            "sliderfield": {
+                change: 'onSliderfieldChange'
+            },
             "checkboxfield": {
                 check: 'onCheckboxfieldCheck',
                 uncheck: 'onCheckboxfieldUncheck'
@@ -37,6 +40,23 @@ Ext.define('MyApp.controller.Map', {
 
     init: function() {
         this.layers = [];
+    },
+
+    onSliderfieldChange: function(slider, thumb, newValue, oldValue, options) {
+        var tableId = 2741123;
+
+        if(this.layers[tableId]) {
+            var tableData = Ext.getStore('FusionTablesStore').getById(tableId);
+            tableData.data.condition = 'population > ' + newValue;
+
+            this.layers[tableId].setOptions({
+                query: {
+                    select: tableData.data.locationField,
+                    from: tableData.data.id,
+                    where: tableData.data.condition
+                }
+            });
+        }
     },
 
     onCheckboxfieldCheck: function(checkboxfield, e, options) {
