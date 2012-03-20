@@ -1,0 +1,21 @@
+{
+    "id": "ExtBox1-ext-gen4474",
+    "type": "store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "clearOnPageLoad": false,
+        "data": "[\n{id: 2741123, name: 'Schweizer Städte', locationField: 'location', condition: '', styles: [{\n\t\t\t\t\t\twhere: 'population > 510000',\n\t\t\t\t\t\tmarkerOptions: {\n\t\t\t\t\t\t\ticonName: 'buildings'\n\t\t\t\t\t\t}\n\t\t\t\t\t}]},\n{id: 3107027, name: 'Coin', locationField: 'location', condition: '', styles: ''}\n]",
+        "model": "FusionTableModel",
+        "storeId": "FusionTablesStore",
+        "designer|userClassName": "FusionTablesStore"
+    },
+    "customConfigs": [],
+    "designerId": "bbf4964d-5a58-42f9-b503-dc5727a4738e",
+    "$viewOrder": 0,
+    "expanded": true
+}

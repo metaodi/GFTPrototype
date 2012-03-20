@@ -7,10 +7,13 @@
     },
     "codeClass": null,
     "userConfig": {
+        "stores": [
+            "FusionTablesStore"
+        ],
         "views": [
             "Viewport"
         ],
-        "designer|init": "",
+        "designer|init": "this.layers = [];",
         "designer|launch": "",
         "designer|userClassName": "Map"
     },
@@ -47,9 +50,9 @@
             "userConfig": {
                 "fn": "createLayer",
                 "designer|params": [
-                    "tableId"
+                    "tableData"
                 ],
-                "implHandler": "var layer = new google.maps.FusionTablesLayer({\n    query: {\n        select: 'location',\n        from: tableId,\n    }\n});\n\nlayer.setMap(this.getGftmap().getMap());\nconsole.log('createLayer controller function done');",
+                "implHandler": "var layer = new google.maps.FusionTablesLayer({\n    query: {\n        select: tableData.data.locationField,\n        from: tableData.data.id,\n        where: tableData.data.condition\n    },\n    styles: tableData.data.styles\n});\n\nthis.layers[tableData.data.id] = layer;",
                 "designer|userClassName": "createLayer"
             },
             "customConfigs": [],
@@ -65,11 +68,30 @@
             "codeClass": null,
             "userConfig": {
                 "fn": "onCheckboxfieldCheck",
-                "implHandler": "console.log(\"controller function executed\");\nthis.createLayer(2741123);",
+                "implHandler": "var tableId = checkboxfield.getName();\nvar tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n\nif(!this.layers[tableId]) {\n    this.createLayer(tableData);\n}\n\nthis.layers[tableId].setMap(this.getGftmap().getMap());",
                 "name": "check",
                 "designer|targetType": "Ext.field.Checkbox",
-                "designer|controlQuery": "checkboxfield[name=SchweizerStaedteCheckbox]",
+                "designer|controlQuery": "checkboxfield",
                 "designer|userClassName": "onCheckboxfieldCheck"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen4115",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onCheckboxfieldUncheck",
+                "implHandler": "var tableId = checkboxfield.getName();\n\nif(this.layers[tableId]) {\n    this.layers[tableId].setMap(null);\n}",
+                "name": "uncheck",
+                "designer|targetType": "Ext.field.Checkbox",
+                "designer|controlQuery": "checkboxfield",
+                "designer|userClassName": "onCheckboxfieldUncheck"
             },
             "customConfigs": [],
             "expanded": true

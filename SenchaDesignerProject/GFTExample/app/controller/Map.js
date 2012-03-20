@@ -17,6 +17,9 @@ Ext.define('MyApp.controller.Map', {
     extend: 'Ext.app.Controller',
 
     config: {
+        stores: [
+            'FusionTablesStore'
+        ],
         views: [
             'Viewport'
         ],
@@ -25,27 +28,47 @@ Ext.define('MyApp.controller.Map', {
         },
 
         control: {
-            "checkboxfield[name=SchweizerStaedteCheckbox]": {
-                check: 'onCheckboxfieldCheck'
+            "checkboxfield": {
+                check: 'onCheckboxfieldCheck',
+                uncheck: 'onCheckboxfieldUncheck'
             }
         }
     },
 
-    onCheckboxfieldCheck: function(checkboxfield, e, options) {
-        console.log("controller function executed");
-        this.createLayer(2741123);
+    init: function() {
+        this.layers = [];
     },
 
-    createLayer: function(tableId) {
+    onCheckboxfieldCheck: function(checkboxfield, e, options) {
+        var tableId = checkboxfield.getName();
+        var tableData = Ext.getStore('FusionTablesStore').getById(tableId);
+
+        if(!this.layers[tableId]) {
+            this.createLayer(tableData);
+        }
+
+        this.layers[tableId].setMap(this.getGftmap().getMap());
+    },
+
+    onCheckboxfieldUncheck: function(checkboxfield, e, options) {
+        var tableId = checkboxfield.getName();
+
+        if(this.layers[tableId]) {
+            this.layers[tableId].setMap(null);
+        }
+    },
+
+    createLayer: function(tableData) {
         var layer = new google.maps.FusionTablesLayer({
             query: {
-                select: 'location',
-                from: tableId,
-            }
+                select: tableData.data.locationField,
+                from: tableData.data.id,
+                where: tableData.data.condition
+            },
+            styles: tableData.data.styles
         });
 
-        layer.setMap(this.getGftmap().getMap());
-        console.log('createLayer controller function done');
+        this.layers[tableData.data.id] = layer;
     }
 
 });

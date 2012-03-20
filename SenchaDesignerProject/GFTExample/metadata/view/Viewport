@@ -39,9 +39,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "id": null,
                         "itemId": "SchweizerStaedteCheckbox",
                         "label": "Schweizer Städte",
-                        "name": "SchweizerStaedteCheckbox",
+                        "name": 2741123,
                         "value": null,
                         "designer|userClassName": "MyCheckbox"
                     },
@@ -57,8 +58,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "itemId": "CoinCheckbox",
                         "label": "Coin",
-                        "name": "CoinCheckbox",
+                        "name": 3107027,
                         "designer|userClassName": "MyCheckbox1"
                     },
                     "customConfigs": [],

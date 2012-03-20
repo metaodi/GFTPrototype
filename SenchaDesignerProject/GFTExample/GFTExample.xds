@@ -36,6 +36,22 @@
                 "app/controller/Map.js"
             ],
             "className": "Map"
+        },
+        "bbf4964d-5a58-42f9-b503-dc5727a4738e": {
+            "paths": [
+                "metadata/store/FusionTablesStore",
+                "app/store/override/FusionTablesStore.js",
+                "app/store/FusionTablesStore.js"
+            ],
+            "className": "FusionTablesStore"
+        },
+        "0ee5eb5a-2c93-4e75-ba08-3eda9a4a3ee4": {
+            "paths": [
+                "metadata/model/FusionTableModel",
+                "app/model/override/FusionTableModel.js",
+                "app/model/FusionTableModel.js"
+            ],
+            "className": "FusionTableModel"
         }
     },
     "expandedState": {
