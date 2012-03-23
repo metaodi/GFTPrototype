@@ -114,6 +114,25 @@
             },
             "customConfigs": [],
             "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen3825",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onTogglefieldChange",
+                "implHandler": "var tableId = slider.getName();\nvar tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n\n// if togglefield activated\nif(newValue) {\n    if(!this.layers[tableId]) {\n        this.createLayer(tableData);\n    }\n    this.layers[tableId].setMap(this.getGftmap().getMap());\n} else {\n    if(this.layers[tableId]) {\n        this.layers[tableId].setMap(null);\n    }\n}\n\n",
+                "name": "change",
+                "designer|targetType": "Ext.field.Toggle",
+                "designer|controlQuery": "togglefield",
+                "designer|userClassName": "onTogglefieldChange"
+            },
+            "customConfigs": [],
+            "expanded": true
         }
     ]
 }

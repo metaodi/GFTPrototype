@@ -34,6 +34,9 @@ Ext.define('MyApp.controller.Map', {
             "checkboxfield": {
                 check: 'onCheckboxfieldCheck',
                 uncheck: 'onCheckboxfieldUncheck'
+            },
+            "togglefield": {
+                change: 'onTogglefieldChange'
             }
         }
     },
@@ -76,6 +79,25 @@ Ext.define('MyApp.controller.Map', {
         if(this.layers[tableId]) {
             this.layers[tableId].setMap(null);
         }
+    },
+
+    onTogglefieldChange: function(slider, thumb, newValue, oldValue, options) {
+        var tableId = slider.getName();
+        var tableData = Ext.getStore('FusionTablesStore').getById(tableId);
+
+        // if togglefield activated
+        if(newValue) {
+            if(!this.layers[tableId]) {
+                this.createLayer(tableData);
+            }
+            this.layers[tableId].setMap(this.getGftmap().getMap());
+        } else {
+            if(this.layers[tableId]) {
+                this.layers[tableId].setMap(null);
+            }
+        }
+
+
     },
 
     createLayer: function(tableData) {

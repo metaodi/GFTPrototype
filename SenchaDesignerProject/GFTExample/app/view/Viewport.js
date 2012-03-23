@@ -37,7 +37,13 @@ Ext.define('MyApp.view.Viewport', {
                         items: [
                             {
                                 xtype: 'checkboxfield',
-                                itemId: 'SchweizerStaedteCheckbox',
+                                id: 'schweizerStaedteCheckbox',
+                                label: 'Schweizer Städte',
+                                name: 2741123
+                            },
+                            {
+                                xtype: 'togglefield',
+                                id: 'schweizerStaedteToggle',
                                 label: 'Schweizer Städte',
                                 name: 2741123
                             },
@@ -51,7 +57,13 @@ Ext.define('MyApp.view.Viewport', {
                             },
                             {
                                 xtype: 'checkboxfield',
-                                itemId: 'CoinCheckbox',
+                                id: 'coinCheckbox',
+                                label: 'Coin',
+                                name: 3107027
+                            },
+                            {
+                                xtype: 'togglefield',
+                                id: 'coinToggle',
                                 label: 'Coin',
                                 name: 3107027
                             }

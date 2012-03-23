@@ -74,12 +74,29 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": null,
-                                "itemId": "SchweizerStaedteCheckbox",
+                                "id": "schweizerStaedteCheckbox",
+                                "itemId": null,
                                 "label": "Schweizer Städte",
                                 "name": 2741123,
                                 "value": null,
                                 "designer|userClassName": "MyCheckbox"
+                            },
+                            "customConfigs": [],
+                            "expanded": true
+                        },
+                        {
+                            "id": "ExtBox1-ext-gen2559",
+                            "type": "togglefield",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "schweizerStaedteToggle",
+                                "label": "Schweizer Städte",
+                                "name": 2741123,
+                                "designer|userClassName": "MyToggleField"
                             },
                             "customConfigs": [],
                             "expanded": true
@@ -114,10 +131,28 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "itemId": "CoinCheckbox",
+                                "id": "coinCheckbox",
+                                "itemId": null,
                                 "label": "Coin",
                                 "name": 3107027,
                                 "designer|userClassName": "MyCheckbox1"
+                            },
+                            "customConfigs": [],
+                            "expanded": true
+                        },
+                        {
+                            "id": "ExtBox1-ext-gen6441",
+                            "type": "togglefield",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "coinToggle",
+                                "label": "Coin",
+                                "name": 3107027,
+                                "designer|userClassName": "MyToggleField1"
                             },
                             "customConfigs": [],
                             "expanded": true
