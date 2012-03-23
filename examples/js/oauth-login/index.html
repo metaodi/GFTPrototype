@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - OAuth 2.0</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript">
+		function init() {
+			document.getElementById('login').setAttribute('onclick', 'openPopup()');
+		}
+		
+		function openPopup() {
+			var url = 'https://accounts.google.com/o/oauth2/auth?';
+			url += 'response_type=token';
+			url += '&client_id=947868938219.apps.googleusercontent.com';
+			url += '&redirect_uri=http://localhost/GFTPrototype/examples/js/oauth';
+			url += '&scope=https://www.googleapis.com/auth/fusiontables';
+			
+			window.location = url;
+		}
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example - OAuth 2.0 Login</h1>
+	<h2>Login</h2>
+	<form>
+		<input type="button" id="login" value="Login" />
+	</form>
+</body>
+</html>
