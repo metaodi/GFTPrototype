@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JS Example - Select data with a spatial condition</title>
+	<title>JS Example - Select data with a spatial condition in order clause</title>
 	<meta charset="utf-8">
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -24,15 +24,18 @@
 				}
 			}
 
-			var sqlQuery = sqlBuilder.select({table:tableId, fields:'ST_INTERSECTS(location, CIRCLE(LATLNG(46.519962,6.633597),100000))'});
-			document.getElementById('query').innerHTML = sqlQuery;
-			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
+			var sqlQuery = sqlBuilder.select({
+				table: tableId,
+				orderby: 'ST_DISTANCE(location, LATLNG(46.519962,6.633597))'
+			});
+			document.getElementById('query').innerHTML += '<br />' + sqlQuery;
+			document.getElementById('source').innerHTML += '<br />' + 'Data from Google Fusion Table (ID: ' + tableId + ')';
 			gft.execSql(printer, sqlQuery);
 		}
 	</script>
 </head>
 <body onload="init();">
-	<h1>JS Example - Select data with a spatial condition</h1>
+	<h1>JS Example - Select data with a spatial condition in ordering clause</h1>
 	<h2>Query</h2>
 	<div id="query"></div>
 	<h2>Source</h2>

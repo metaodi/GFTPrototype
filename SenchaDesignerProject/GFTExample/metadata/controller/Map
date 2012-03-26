@@ -1,0 +1,138 @@
+{
+    "id": "ExtBox1-ext-gen13730",
+    "type": "controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "stores": [
+            "FusionTablesStore"
+        ],
+        "views": [
+            "Viewport"
+        ],
+        "designer|init": "this.layers = [];",
+        "designer|launch": "",
+        "designer|userClassName": "Map"
+    },
+    "customConfigs": [],
+    "designerId": "7797a4ee-fc49-4209-a0f1-e825c455883b",
+    "$viewOrder": 0,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen2628",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "gftmap",
+                "selector": "#gftmap",
+                "xtype": null,
+                "designer|userClassName": "gftmap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen3779",
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "createLayer",
+                "designer|params": [
+                    "tableData"
+                ],
+                "implHandler": "var layer = new google.maps.FusionTablesLayer({\n    query: {\n        select: tableData.data.locationField,\n        from: tableData.data.id,\n        where: tableData.data.condition\n    },\n    styles: tableData.data.styles\n});\n\nthis.layers[tableData.data.id] = layer;",
+                "designer|userClassName": "createLayer"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen11711",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onSliderfieldChange",
+                "implHandler": "var tableId = 2741123;\n\nif(this.layers[tableId]) {\n    var tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n    tableData.data.condition = 'population > ' + newValue;\n\n    this.layers[tableId].setOptions({\n        query: {\n            select: tableData.data.locationField,\n            from: tableData.data.id,\n            where: tableData.data.condition\n        }\n    });\n}",
+                "name": "change",
+                "designer|targetType": "Ext.field.Slider",
+                "designer|controlQuery": "sliderfield",
+                "designer|userClassName": "onSliderfieldChange"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen10820",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onCheckboxfieldCheck",
+                "implHandler": "var tableId = checkboxfield.getName();\nvar tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n\nif(!this.layers[tableId]) {\n    this.createLayer(tableData);\n}\n\nthis.layers[tableId].setMap(this.getGftmap().getMap());",
+                "name": "check",
+                "designer|targetType": "Ext.field.Checkbox",
+                "designer|controlQuery": "checkboxfield",
+                "designer|userClassName": "onCheckboxfieldCheck"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen4115",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onCheckboxfieldUncheck",
+                "implHandler": "var tableId = checkboxfield.getName();\n\nif(this.layers[tableId]) {\n    this.layers[tableId].setMap(null);\n}",
+                "name": "uncheck",
+                "designer|targetType": "Ext.field.Checkbox",
+                "designer|controlQuery": "checkboxfield",
+                "designer|userClassName": "onCheckboxfieldUncheck"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen3825",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onTogglefieldChange",
+                "implHandler": "var tableId = slider.getName();\nvar tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n\n// if togglefield activated\nif(newValue) {\n    if(!this.layers[tableId]) {\n        this.createLayer(tableData);\n    }\n    this.layers[tableId].setMap(this.getGftmap().getMap());\n} else {\n    if(this.layers[tableId]) {\n        this.layers[tableId].setMap(null);\n    }\n}\n\n",
+                "name": "change",
+                "designer|targetType": "Ext.field.Toggle",
+                "designer|controlQuery": "togglefield",
+                "designer|userClassName": "onTogglefieldChange"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+{
+    "name": "GFTExample",
+    "settings": {
+        "urlPrefix": "http://localhost/GFTPrototype/SenchaDesignerProject/GFTExampleDeploy/",
+        "directAPI": "",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "exportPath": "C:/xampp/htdocs/GFTPrototype/SenchaDesignerProject/GFTExampleDeploy",
+        "extPath": "http://extjs.cachefly.net/touch/sencha-touch-2.0.0/",
+        "senchaIoKey": "",
+        "senchaIoPath": "http://extjs.cachefly.net/designer/IO/",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "genTimestamps": false,
+        "saveOnDeploy": false,
+        "appName": "MyApp",
+        "mapsAPI": "http://maps.google.com/maps/api/js?sensor=true",
+        "cssPath": ""
+    },
+    "xdsVersion": "2.0.0",
+    "xdsBuild": "311",
+    "framework": "touch20",
+    "topInstanceFileMap": {
+        "7dfc0ae5-8cad-43ef-912a-54c5ce42c1f1": {
+            "paths": [
+                "metadata/view/Viewport",
+                "app/view/override/Viewport.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "Viewport"
+        },
+        "7797a4ee-fc49-4209-a0f1-e825c455883b": {
+            "paths": [
+                "metadata/controller/Map",
+                "app/controller/override/Map.js",
+                "app/controller/Map.js"
+            ],
+            "className": "Map"
+        },
+        "bbf4964d-5a58-42f9-b503-dc5727a4738e": {
+            "paths": [
+                "metadata/store/FusionTablesStore",
+                "app/store/override/FusionTablesStore.js",
+                "app/store/FusionTablesStore.js"
+            ],
+            "className": "FusionTablesStore"
+        },
+        "0ee5eb5a-2c93-4e75-ba08-3eda9a4a3ee4": {
+            "paths": [
+                "metadata/model/FusionTableModel",
+                "app/model/override/FusionTableModel.js",
+                "app/model/FusionTableModel.js"
+            ],
+            "className": "FusionTableModel"
+        }
+    },
+    "expandedState": {
+        "data": true,
+        "model": true,
+        "component": true,
+        "controller": true
+    }
+}
