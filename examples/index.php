@@ -37,7 +37,7 @@ function listDir($currentDir) {
 
 $currentDir = ".";
 if(isset($_GET['dir'])) {
-	if(strpos($_GET['dir'], "..") === false) {
+	if(preg_match("/^\.\//",$_GET['dir'])) {
 		$currentDir = $_GET['dir'];
 	}
 }
