@@ -18,7 +18,7 @@
         "cssPath": ""
     },
     "xdsVersion": "2.0.0",
-    "xdsBuild": "311",
+    "xdsBuild": "341",
     "framework": "touch20",
     "topInstanceFileMap": {
         "7dfc0ae5-8cad-43ef-912a-54c5ce42c1f1": {

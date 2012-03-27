@@ -8,10 +8,11 @@
     "codeClass": null,
     "userConfig": {
         "designer|initialView": true,
+        "eventsRefGroup": 0.6001450754702091,
         "layout": "card",
         "scrollable": null,
         "designer|userClassName": "Viewport",
-        "activeItem": 1
+        "functionsRefGroup": 0.7890871551353484
     },
     "customConfigs": [],
     "designerId": "7dfc0ae5-8cad-43ef-912a-54c5ce42c1f1",
@@ -28,131 +29,88 @@
             "codeClass": null,
             "userConfig": {
                 "docked": "top",
+                "eventsRefGroup": 0.0863101277500391,
                 "title": "GFTPrototype",
-                "designer|userClassName": "MyTitleBar"
+                "designer|userClassName": "MyTitleBar",
+                "functionsRefGroup": 0.9773428083863109
             },
             "customConfigs": [],
             "expanded": true
         },
         {
             "id": "ExtBox1-ext-gen17488",
-            "type": "panel",
+            "type": "tabpanel",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
+                "eventsRefGroup": 0.6724573916289955,
                 "layout": null,
-                "scrollable": "true",
-                "designer|userClassName": "MyPanel"
+                "tabBarRefGroup": 0.7701465981081128,
+                "designer|userClassName": "MyTabPanel1",
+                "functionsRefGroup": 0.6112024304457009
             },
             "customConfigs": [],
             "expanded": true,
             "cn": [
                 {
-                    "id": "ExtBox1-ext-gen2909",
-                    "type": "fieldset",
+                    "id": "ExtBox1-ext-gen6031",
+                    "type": "tabbar",
+                    "reference": {
+                        "name": "tabBar",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "docked": "bottom",
+                        "eventsRefGroup": 0.9545404345262796,
+                        "designer|userClassName": "MyTabBar",
+                        "functionsRefGroup": 0.9085215327795595,
+                        "container|align": null,
+                        "container|pack": null
+                    },
+                    "customConfigs": [],
+                    "expanded": true
+                },
+                {
+                    "id": "ExtBox1-ext-gen21254",
+                    "type": "panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "title": "Ebenen",
-                        "designer|userClassName": "MyFieldSet"
+                        "eventsRefGroup": 0.20105615933425725,
+                        "layout": "fit",
+                        "designer|userClassName": "MyPanel2",
+                        "functionsRefGroup": 0.2942657528910786,
+                        "title": "Karte",
+                        "badgeText": null,
+                        "iconCls": "maps"
                     },
                     "customConfigs": [],
                     "expanded": true,
                     "cn": [
                         {
-                            "id": "ExtBox1-ext-gen4451",
-                            "type": "checkboxfield",
+                            "id": "ExtBox1-ext-gen6511",
+                            "type": "map",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "id": "schweizerStaedteCheckbox",
+                                "height": null,
+                                "id": "gftmap",
                                 "itemId": null,
-                                "label": "Schweizer Städte",
-                                "name": 2741123,
-                                "value": null,
-                                "designer|userClassName": "MyCheckbox"
-                            },
-                            "customConfigs": [],
-                            "expanded": true
-                        },
-                        {
-                            "id": "ExtBox1-ext-gen2559",
-                            "type": "togglefield",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "schweizerStaedteToggle",
-                                "label": "Schweizer Städte",
-                                "name": 2741123,
-                                "designer|userClassName": "MyToggleField"
-                            },
-                            "customConfigs": [],
-                            "expanded": true
-                        },
-                        {
-                            "id": "ExtBox1-ext-gen9286",
-                            "type": "sliderfield",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "schweizerStaedteEinwohner",
-                                "label": "Einwohner",
-                                "name": "Einwohner",
-                                "value": null,
-                                "increment": 1000,
-                                "maxValue": 600000,
-                                "minValue": null,
-                                "designer|userClassName": "MySliderField"
-                            },
-                            "customConfigs": [],
-                            "expanded": true
-                        },
-                        {
-                            "id": "ExtBox1-ext-gen5544",
-                            "type": "checkboxfield",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "coinCheckbox",
-                                "itemId": null,
-                                "label": "Coin",
-                                "name": 3107027,
-                                "designer|userClassName": "MyCheckbox1"
-                            },
-                            "customConfigs": [],
-                            "expanded": true
-                        },
-                        {
-                            "id": "ExtBox1-ext-gen6441",
-                            "type": "togglefield",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "id": "coinToggle",
-                                "label": "Coin",
-                                "name": 3107027,
-                                "designer|userClassName": "MyToggleField1"
+                                "eventsRefGroup": 0.17245626798830926,
+                                "mapOptions": "{ zoom: 5 }",
+                                "useCurrentLocation": true,
+                                "designer|userClassName": "MyMap",
+                                "functionsRefGroup": 0.43850808939896524
                             },
                             "customConfigs": [],
                             "expanded": true
@@ -160,23 +118,166 @@
                     ]
                 },
                 {
-                    "id": "ExtBox1-ext-gen6511",
-                    "type": "map",
+                    "id": "ExtBox1-ext-gen22377",
+                    "type": "panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "height": 250,
-                        "id": "gftmap",
-                        "itemId": null,
-                        "mapOptions": "{ zoom: 5 }",
-                        "useCurrentLocation": true,
-                        "designer|userClassName": "MyMap"
+                        "eventsRefGroup": 0.8491882071830332,
+                        "designer|userClassName": "MyPanel3",
+                        "functionsRefGroup": 0.030581777449697256,
+                        "title": "Ebenen",
+                        "iconCls": "locate"
                     },
                     "customConfigs": [],
-                    "expanded": true
+                    "expanded": true,
+                    "cn": [
+                        {
+                            "id": "ExtBox1-ext-gen2909",
+                            "type": "fieldset",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "eventsRefGroup": 0.8701720600947738,
+                                "title": "Ebenen",
+                                "designer|userClassName": "MyFieldSet",
+                                "functionsRefGroup": 0.1291203589644283
+                            },
+                            "customConfigs": [],
+                            "expanded": true,
+                            "cn": [
+                                {
+                                    "id": "ExtBox1-ext-gen4451",
+                                    "type": "checkboxfield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "schweizerStaedteCheckbox",
+                                        "itemId": null,
+                                        "eventsRefGroup": 0.6939441321883351,
+                                        "label": "Schweizer Städte",
+                                        "name": 2741123,
+                                        "value": null,
+                                        "designer|userClassName": "MyCheckbox",
+                                        "functionsRefGroup": 0.6786988847889006
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen2559",
+                                    "type": "togglefield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "schweizerStaedteToggle",
+                                        "eventsRefGroup": 0.24486396764405072,
+                                        "label": "Schweizer Städte",
+                                        "name": 2741123,
+                                        "designer|userClassName": "MyToggleField",
+                                        "functionsRefGroup": 0.6845913105644286
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen9286",
+                                    "type": "sliderfield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "id": "schweizerStaedteEinwohner",
+                                        "eventsRefGroup": 0.34033496072515845,
+                                        "label": "Einwohner",
+                                        "name": "Einwohner",
+                                        "value": null,
+                                        "increment": 1000,
+                                        "maxValue": 600000,
+                                        "minValue": null,
+                                        "designer|userClassName": "MySliderField",
+                                        "functionsRefGroup": 0.49652160215191543
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen24105",
+                                    "type": "numberfield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "id": "populationValue",
+                                        "eventsRefGroup": 0.8407781315036118,
+                                        "label": "Einwohner",
+                                        "readOnly": true,
+                                        "designer|userClassName": "MyNumberField",
+                                        "functionsRefGroup": 0.8774691086728126
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen5544",
+                                    "type": "checkboxfield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "coinCheckbox",
+                                        "itemId": null,
+                                        "eventsRefGroup": 0.33481853781268,
+                                        "label": "Coin",
+                                        "name": 3107027,
+                                        "designer|userClassName": "MyCheckbox1",
+                                        "functionsRefGroup": 0.5218169058207422
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                },
+                                {
+                                    "id": "ExtBox1-ext-gen6441",
+                                    "type": "togglefield",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "coinToggle",
+                                        "eventsRefGroup": 0.16868244134820998,
+                                        "label": "Coin",
+                                        "name": 3107027,
+                                        "designer|userClassName": "MyToggleField1",
+                                        "functionsRefGroup": 0.3170958224218339
+                                    },
+                                    "customConfigs": [],
+                                    "expanded": true
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }

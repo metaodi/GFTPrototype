@@ -20,7 +20,6 @@ Ext.define('MyApp.view.Viewport', {
         layout: {
             type: 'card'
         },
-        activeItem: 1,
         items: [
             {
                 xtype: 'titlebar',
@@ -28,55 +27,81 @@ Ext.define('MyApp.view.Viewport', {
                 title: 'GFTPrototype'
             },
             {
-                xtype: 'panel',
-                scrollable: true,
+                xtype: 'tabpanel',
+                tabBar: {
+                    docked: 'bottom'
+                },
                 items: [
                     {
-                        xtype: 'fieldset',
-                        title: 'Ebenen',
+                        xtype: 'panel',
+                        layout: {
+                            type: 'fit'
+                        },
+                        title: 'Karte',
+                        iconCls: 'maps',
                         items: [
                             {
-                                xtype: 'checkboxfield',
-                                id: 'schweizerStaedteCheckbox',
-                                label: 'Schweizer Städte',
-                                name: 2741123
-                            },
-                            {
-                                xtype: 'togglefield',
-                                id: 'schweizerStaedteToggle',
-                                label: 'Schweizer Städte',
-                                name: 2741123
-                            },
-                            {
-                                xtype: 'sliderfield',
-                                id: 'schweizerStaedteEinwohner',
-                                label: 'Einwohner',
-                                name: 'Einwohner',
-                                increment: 1000,
-                                maxValue: 600000
-                            },
-                            {
-                                xtype: 'checkboxfield',
-                                id: 'coinCheckbox',
-                                label: 'Coin',
-                                name: 3107027
-                            },
-                            {
-                                xtype: 'togglefield',
-                                id: 'coinToggle',
-                                label: 'Coin',
-                                name: 3107027
+                                xtype: 'map',
+                                id: 'gftmap',
+                                mapOptions: {
+                                    zoom: 5
+                                },
+                                useCurrentLocation: true
                             }
                         ]
                     },
                     {
-                        xtype: 'map',
-                        height: 250,
-                        id: 'gftmap',
-                        mapOptions: {
-                            zoom: 5
-                        },
-                        useCurrentLocation: true
+                        xtype: 'panel',
+                        title: 'Ebenen',
+                        iconCls: 'locate',
+                        items: [
+                            {
+                                xtype: 'fieldset',
+                                title: 'Ebenen',
+                                items: [
+                                    {
+                                        xtype: 'checkboxfield',
+                                        id: 'schweizerStaedteCheckbox',
+                                        label: 'Schweizer Städte',
+                                        name: 2741123
+                                    },
+                                    {
+                                        xtype: 'togglefield',
+                                        id: 'schweizerStaedteToggle',
+                                        label: 'Schweizer Städte',
+                                        name: 2741123
+                                    },
+                                    {
+                                        xtype: 'sliderfield',
+                                        disabled: true,
+                                        id: 'schweizerStaedteEinwohner',
+                                        label: 'Einwohner',
+                                        name: 'Einwohner',
+                                        increment: 1000,
+                                        maxValue: 600000
+                                    },
+                                    {
+                                        xtype: 'numberfield',
+                                        disabled: true,
+                                        id: 'populationValue',
+                                        label: 'Einwohner',
+                                        readOnly: true
+                                    },
+                                    {
+                                        xtype: 'checkboxfield',
+                                        id: 'coinCheckbox',
+                                        label: 'Coin',
+                                        name: 3107027
+                                    },
+                                    {
+                                        xtype: 'togglefield',
+                                        id: 'coinToggle',
+                                        label: 'Coin',
+                                        name: 3107027
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }

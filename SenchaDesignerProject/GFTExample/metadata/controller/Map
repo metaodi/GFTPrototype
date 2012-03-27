@@ -7,6 +7,8 @@
     },
     "codeClass": null,
     "userConfig": {
+        "actionsRefGroup": 0.46826757839880884,
+        "refsRefGroup": 0.11064385063946247,
         "stores": [
             "FusionTablesStore"
         ],
@@ -14,8 +16,12 @@
             "Viewport"
         ],
         "designer|init": "this.layers = [];",
-        "designer|launch": "",
-        "designer|userClassName": "Map"
+        "beforeFiltersRefGroup": 0.16311637684702873,
+        "designer|launch": 0.5205490959342569,
+        "routesRefGroup": 0.7517817465122789,
+        "eventsRefGroup": 0.5665553025901318,
+        "designer|userClassName": "Map",
+        "functionsRefGroup": 0.21588554326444864
     },
     "customConfigs": [],
     "designerId": "7797a4ee-fc49-4209-a0f1-e825c455883b",
@@ -35,6 +41,39 @@
                 "selector": "#gftmap",
                 "xtype": null,
                 "designer|userClassName": "gftmap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen25338",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "populationValue",
+                "selector": "#populationValue",
+                "xtype": null,
+                "designer|userClassName": "populationValue"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen4104",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "schweizerStaedteEinwohnerSlider",
+                "selector": "#schweizerStaedteEinwohner",
+                "designer|userClassName": "schweizerStaedteEinwohnerSlider"
             },
             "customConfigs": [],
             "expanded": true
@@ -68,7 +107,7 @@
             "codeClass": null,
             "userConfig": {
                 "fn": "onSliderfieldChange",
-                "implHandler": "var tableId = 2741123;\n\nif(this.layers[tableId]) {\n    var tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n    tableData.data.condition = 'population > ' + newValue;\n\n    this.layers[tableId].setOptions({\n        query: {\n            select: tableData.data.locationField,\n            from: tableData.data.id,\n            where: tableData.data.condition\n        }\n    });\n}",
+                "implHandler": "var tableId = 2741123;\n\nif(slider.getId() == 'schweizerStaedteEinwohner') {\n    if(this.layers[tableId]) {\n        var tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n        tableData.data.condition = 'population > ' + newValue;\n\n        this.layers[tableId].setOptions({\n            query: {\n                select: tableData.data.locationField,\n                from: tableData.data.id,\n                where: tableData.data.condition\n            }\n        });\n    }\n\n    this.getPopulationValue().setValue(newValue);\n}",
                 "name": "change",
                 "designer|targetType": "Ext.field.Slider",
                 "designer|controlQuery": "sliderfield",
@@ -125,7 +164,7 @@
             "codeClass": null,
             "userConfig": {
                 "fn": "onTogglefieldChange",
-                "implHandler": "var tableId = slider.getName();\nvar tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n\n// if togglefield activated\nif(newValue) {\n    if(!this.layers[tableId]) {\n        this.createLayer(tableData);\n    }\n    this.layers[tableId].setMap(this.getGftmap().getMap());\n} else {\n    if(this.layers[tableId]) {\n        this.layers[tableId].setMap(null);\n    }\n}\n\n",
+                "implHandler": "var tableId = slider.getName();\nvar tableData = Ext.getStore('FusionTablesStore').getById(tableId);\n\n// if togglefield activated\nif(newValue) {\n    if(!this.layers[tableId]) {\n        this.createLayer(tableData);\n    }\n    this.layers[tableId].setMap(this.getGftmap().getMap());\n\n    this.getPopulationValue().setDisabled(false);\n    this.getSchweizerStaedteEinwohnerSlider().setDisabled(false);\n} else {\n    if(this.layers[tableId]) {\n        this.layers[tableId].setMap(null);\n    }\n    this.getPopulationValue().setDisabled(true);\n    this.getSchweizerStaedteEinwohnerSlider().setDisabled(true);\n}\n",
                 "name": "change",
                 "designer|targetType": "Ext.field.Toggle",
                 "designer|controlQuery": "togglefield",

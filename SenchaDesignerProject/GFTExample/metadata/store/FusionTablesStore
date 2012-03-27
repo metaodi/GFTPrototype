@@ -12,7 +12,14 @@
         "data": "[\n{id: 2741123, name: 'Schweizer Städte', locationField: 'location', condition: '', styles: [{\n\t\t\t\t\t\twhere: 'population > 510000',\n\t\t\t\t\t\tmarkerOptions: {\n\t\t\t\t\t\t\ticonName: 'buildings'\n\t\t\t\t\t\t}\n\t\t\t\t\t}]},\n{id: 3107027, name: 'Coin', locationField: 'location', condition: '', styles: ''}\n]",
         "model": "FusionTableModel",
         "storeId": "FusionTablesStore",
-        "designer|userClassName": "FusionTablesStore"
+        "fields": 0.44124649884179235,
+        "proxy": 0.7793695596046746,
+        "filters": 0.7916544347535819,
+        "grouper": 0.6848868157248944,
+        "sorters": 0.24709133827127516,
+        "eventsRefGroup": 0.12976559600792825,
+        "designer|userClassName": "FusionTablesStore",
+        "functionsRefGroup": 0.19968443107791245
     },
     "customConfigs": [],
     "designerId": "bbf4964d-5a58-42f9-b503-dc5727a4738e",

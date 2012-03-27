@@ -7,13 +7,20 @@
     },
     "codeClass": null,
     "userConfig": {
+        "actionsRefGroup": 0.21603971347212791,
         "models": [
             "FusionTableModel"
         ],
+        "refsRefGroup": 0.8712583263404667,
         "stores": [],
         "views": [],
+        "beforeFiltersRefGroup": 0.14953958988189697,
         "designer|launch": "",
-        "name": "MyApp"
+        "routesRefGroup": 0.7399556185118854,
+        "eventsRefGroup": 0.9847725408617407,
+        "name": "MyApp",
+        "viewport": 0.29137193760834634,
+        "functionsRefGroup": 0.8807984802406281
     },
     "customConfigs": [],
     "designerId": "application",

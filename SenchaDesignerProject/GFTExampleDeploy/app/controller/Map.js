@@ -24,7 +24,9 @@ Ext.define('MyApp.controller.Map', {
             'Viewport'
         ],
         refs: {
-            gftmap: '#gftmap'
+            gftmap: '#gftmap',
+            populationValue: '#populationValue',
+            schweizerStaedteEinwohnerSlider: '#schweizerStaedteEinwohner'
         },
 
         control: {
@@ -48,17 +50,21 @@ Ext.define('MyApp.controller.Map', {
     onSliderfieldChange: function(slider, thumb, newValue, oldValue, options) {
         var tableId = 2741123;
 
-        if(this.layers[tableId]) {
-            var tableData = Ext.getStore('FusionTablesStore').getById(tableId);
-            tableData.data.condition = 'population > ' + newValue;
+        if(slider.getId() == 'schweizerStaedteEinwohner') {
+            if(this.layers[tableId]) {
+                var tableData = Ext.getStore('FusionTablesStore').getById(tableId);
+                tableData.data.condition = 'population > ' + newValue;
 
-            this.layers[tableId].setOptions({
-                query: {
-                    select: tableData.data.locationField,
-                    from: tableData.data.id,
-                    where: tableData.data.condition
-                }
-            });
+                this.layers[tableId].setOptions({
+                    query: {
+                        select: tableData.data.locationField,
+                        from: tableData.data.id,
+                        where: tableData.data.condition
+                    }
+                });
+            }
+
+            this.getPopulationValue().setValue(newValue);
         }
     },
 
@@ -91,12 +97,16 @@ Ext.define('MyApp.controller.Map', {
                 this.createLayer(tableData);
             }
             this.layers[tableId].setMap(this.getGftmap().getMap());
+
+            this.getPopulationValue().setDisabled(false);
+            this.getSchweizerStaedteEinwohnerSlider().setDisabled(false);
         } else {
             if(this.layers[tableId]) {
                 this.layers[tableId].setMap(null);
             }
+            this.getPopulationValue().setDisabled(true);
+            this.getSchweizerStaedteEinwohnerSlider().setDisabled(true);
         }
-
 
     },
 
