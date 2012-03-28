@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - Goolge Maps - Spatial condition</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript">
+		function init() {
+			fusiontables = {
+				2741123: {
+					name: 'Own',
+					field: 'location',
+					where: 'ST_INTERSECTS(location, CIRCLE(LATLNG(46.519962,6.633597),' + (document.getElementById('distanceRangeValue').value * 1000) + '))'
+				}
+			};
+			
+			layers = new Array();
+			circle = null;
+			marker = null;
+			
+			var position = new google.maps.LatLng(46.519962,6.633597);
+			map = new google.maps.Map(document.getElementById('map_canvas'), {
+				center: position,
+				zoom: 8,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			
+			for(var tableId in fusiontables) {
+				createCheckbox(tableId);
+			}
+		}
+		
+		function createCheckbox(tableId) {
+			var checkboxDiv = document.createElement('div');
+			
+			// create checkbox lable field and add it to the form
+			var checkboxLabel = document.createElement('label');
+			checkboxLabel.setAttribute('for', tableId);
+			checkboxLabel.innerHTML = fusiontables[tableId].name;
+			checkboxDiv.appendChild(checkboxLabel);
+
+			// create checkbox input field and add it to the form
+			var checkboxInput = document.createElement('input');
+			checkboxInput.setAttribute('type', 'checkbox');
+			checkboxInput.setAttribute('id', tableId);
+			checkboxInput.setAttribute('onclick', 'toggleLayer(' + tableId + ')');
+			checkboxDiv.appendChild(checkboxInput);
+			
+			// append div element to form
+			document.getElementById('layers').appendChild(checkboxDiv);
+		}
+		
+		function createLayer(tableId) {
+			return new google.maps.FusionTablesLayer({
+				query: {
+					select: fusiontables[tableId].field,
+					from: tableId,
+					where: fusiontables[tableId].where
+				},
+				styles: fusiontables[tableId].styles
+			});
+		}
+		function createCircle(distance) {
+			return new google.maps.Circle({
+				center: new google.maps.LatLng(46.519962,6.633597),
+				radius: parseInt(distance * 1000),
+				strokeWeight: 1,
+				fillColor: 'green',
+				fillOpacity: 0.2
+			});
+		}
+		function createMarker(position) {
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(46.519962,6.633597),
+				draggable: true
+			});
+			
+			google.maps.event.addListener(marker, 'dragend', function() {
+				changeMarkerPosition()
+			});
+			
+			return marker;
+		}
+		
+		function updateLayer(tableId) {
+			layers[tableId].setOptions({
+				query: {
+					select: fusiontables[tableId].field,
+					from: tableId,
+					where: fusiontables[tableId].where
+				}
+			});
+		}
+		
+		function toggleLayer(tableId) {
+			if(document.getElementById(tableId).checked) {
+				// create layer if it doens't exist already
+				if(!layers[tableId]) {
+					console.log('creating layer for table ' + tableId);
+					layers[tableId] = createLayer(tableId);
+				}
+				if(!circle) {
+					console.log('creating circle');
+					circle = createCircle(document.getElementById('distanceRangeValue').value);
+					circle.setMap(map);
+				}
+				if(!marker) {
+					console.log('creating marker');
+					marker = createMarker();
+					marker.setMap(map);
+				}
+				layers[tableId].setMap(map);
+				circle.setVisible(true);
+				marker.setVisible(true);
+			} else {
+				layers[tableId].setMap(null);
+				circle.setVisible(false);
+				marker.setVisible(false);
+			}
+		}
+		
+		function changeDistance(tableId, distance) {
+			distance = parseInt(distance);
+			console.log('new distance = ' + distance + 'km');
+			document.getElementById('distanceRangeValue').value = distance;
+			
+			if(marker) {
+				fusiontables[tableId].where = 'ST_INTERSECTS(location, CIRCLE(LATLNG(' + marker.getPosition().lat() +',' + marker.getPosition().lng() + '),' + distance * 1000 + '))';
+			} else {
+				fusiontables[tableId].where = 'ST_INTERSECTS(location, CIRCLE(LATLNG(46.519962,6.633597),' + distance * 1000 + '))';
+			}
+			if(layers[tableId]) {
+				updateLayer(tableId);
+			}
+			if(circle) {
+				circle.setRadius(distance * 1000);
+			}
+		}
+		
+		function changeMarkerPosition() {
+			console.log('marker dragged! new position = ' + marker.getPosition().toString());
+			if(circle) {
+				circle.setCenter(marker.getPosition());
+			}
+			fusiontables[2741123].where = 'ST_INTERSECTS(location, CIRCLE(LATLNG(' + marker.getPosition().lat() +',' + marker.getPosition().lng() + '),' + (document.getElementById('distanceRangeValue').value * 1000) + '))';
+			console.log(fusiontables[2741123].where);
+			if(layers[2741123]) {
+				updateLayer(2741123);
+			}
+		}
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example - Goolge Maps - Spatial condition</h1>
+	<h2>Map</h2>
+	<form id="layers">
+		<label for="populationRange">Distance:</label>
+		<input id="distanceRange" type="range" min="10" max="250" value="0" step="10" onchange="changeDistance(2741123, this.value)" />
+		<input id="distanceRangeValue" type="text" size="5" value="10" /> km
+		<!-- <br />
+		<input type="radio" id="geometryCircle" name="geometry" value="CIRCLE" /><label for="geometryCircle">Kreis</label>
+		<input type="radio" id="geometryRectangle" name="geometry" value="RECTANGLE" /><label for="geometryRectangle">Rechteck</label>
+		<input type="radio" id="geometryPolygon" name="geometry" value="POLYGON" /><label for="geometryPolygon">Polygon</label> -->
+	</form>
+	<div id="map_canvas" style="width:600px; height:400px"></div>
+</body>
+</html>
