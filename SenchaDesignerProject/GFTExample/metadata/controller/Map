@@ -7,8 +7,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "actionsRefGroup": 0.46826757839880884,
-        "refsRefGroup": 0.11064385063946247,
+        "actionsRefGroup": 0.8181045509409159,
+        "refsRefGroup": 0.9490916728973389,
         "stores": [
             "FusionTablesStore"
         ],
@@ -16,12 +16,12 @@
             "Viewport"
         ],
         "designer|init": "this.layers = [];",
-        "beforeFiltersRefGroup": 0.16311637684702873,
-        "designer|launch": 0.5205490959342569,
-        "routesRefGroup": 0.7517817465122789,
-        "eventsRefGroup": 0.5665553025901318,
+        "beforeFiltersRefGroup": 0.9861178987193853,
+        "designer|launch": 0.5975935710594058,
+        "routesRefGroup": 0.8648436891380697,
+        "eventsRefGroup": 0.2334298596251756,
         "designer|userClassName": "Map",
-        "functionsRefGroup": 0.21588554326444864
+        "functionsRefGroup": 0.2701039547100663
     },
     "customConfigs": [],
     "designerId": "7797a4ee-fc49-4209-a0f1-e825c455883b",

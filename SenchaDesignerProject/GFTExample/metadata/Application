@@ -7,20 +7,20 @@
     },
     "codeClass": null,
     "userConfig": {
-        "actionsRefGroup": 0.21603971347212791,
+        "actionsRefGroup": 0.8043864800129086,
         "models": [
             "FusionTableModel"
         ],
-        "refsRefGroup": 0.8712583263404667,
+        "refsRefGroup": 0.4142154345754534,
         "stores": [],
         "views": [],
-        "beforeFiltersRefGroup": 0.14953958988189697,
+        "beforeFiltersRefGroup": 0.5787911266088486,
         "designer|launch": "",
-        "routesRefGroup": 0.7399556185118854,
-        "eventsRefGroup": 0.9847725408617407,
+        "routesRefGroup": 0.7901378648821265,
+        "eventsRefGroup": 0.40011843224056065,
         "name": "MyApp",
-        "viewport": 0.29137193760834634,
-        "functionsRefGroup": 0.8807984802406281
+        "viewport": 0.4866933156736195,
+        "functionsRefGroup": 0.744948621140793
     },
     "customConfigs": [],
     "designerId": "application",
