@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Use Case - Countries</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript">
+		function init() {
+			lowPopulation = 5000000;
+			mediumPopulation = 50000000;
+			highPopulation = 100000000;
+			
+			fusiontables = {
+				3378569: {
+					name: 'Countries',
+					field: 'geometry',
+					styles: [
+						 {
+							polygonOptions: {
+								fillColor: "#ff0000",
+								strokeColor: "#ff0000",
+								strokeWeight: 1
+							}
+						},
+						{
+							where: '\'' + document.getElementById('yearValue').value + '\' < ' + highPopulation,
+							polygonOptions: {
+								fillColor: "#ff9900",
+								strokeColor: "#ff9900",
+								strokeWeight: 1
+							}
+						},
+						{
+							where: '\'' + document.getElementById('yearValue').value + '\' < ' + mediumPopulation,
+							polygonOptions: {
+								fillColor: "#ffff00",
+								strokeColor: "#ffff00",
+								strokeWeight: 1
+							}
+						},
+						{
+							where: '\'' + document.getElementById('yearValue').value + '\' < ' + lowPopulation,
+							polygonOptions: {
+								fillColor: "#ffffcc",
+								strokeColor: "#ffffcc",
+								strokeWeight: 1
+							}
+						},
+						{
+							where: '\'' + document.getElementById('yearValue').value + '\' = \'\'',
+							polygonOptions: {
+								fillColor: "#ffffff",
+								strokeColor: "#ffffff",
+								strokeWeight: 1
+							}
+						}
+					]
+				}
+			};
+			
+			
+			
+			infoWindowTemplate = 
+				'<div class="googft-info-window" style="font-family:sans-serif">' +
+				'	<dl>' +
+				'		<dt>Country:</dt>' +
+				'		<dd>###COUNTRY###</dd>' +
+				'		<dt>Population:</dt>' +
+				'		<dd>###POPULATION###</dd>' +
+				'	</dl>' +
+				'</div>';
+			
+			layers = new Array();
+			var position = new google.maps.LatLng(45, 8);
+			map = new google.maps.Map(document.getElementById('map_canvas'), {
+				center: position,
+				zoom: 2,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			
+			for(var tableId in fusiontables) {
+				createCheckbox(tableId);
+			}
+		}
+		
+		function createCheckbox(tableId) {
+			var checkboxDiv = document.createElement('div');
+			
+			// create checkbox lable field and add it to the form
+			var checkboxLabel = document.createElement('label');
+			checkboxLabel.setAttribute('for', tableId);
+			checkboxLabel.innerHTML = fusiontables[tableId].name;
+			checkboxDiv.appendChild(checkboxLabel);
+
+			// create checkbox input field and add it to the form
+			var checkboxInput = document.createElement('input');
+			checkboxInput.setAttribute('type', 'checkbox');
+			checkboxInput.setAttribute('id', tableId);
+			checkboxInput.setAttribute('onclick', 'toggleLayer(' + tableId + ')');
+			checkboxDiv.appendChild(checkboxInput);
+			
+			// append div element to form
+			document.getElementById('layers').appendChild(checkboxDiv);
+		}
+		
+		function createLayer(tableId) {
+			var layer = new google.maps.FusionTablesLayer({
+				query: {
+					select: fusiontables[tableId].field,
+					from: tableId,
+					where: fusiontables[tableId].where
+				},
+				styles: fusiontables[tableId].styles
+			});
+			
+			this.createInfoWindow(layer);
+
+			return layer;
+		}
+		
+		function updateLayer(tableId) {
+			layers[tableId].setOptions({
+				query: {
+					select: fusiontables[tableId].field,
+					from: tableId
+				}/*,
+				styles: fusiontables[tableId].styles*/
+			});
+			
+			google.maps.event.clearInstanceListeners(map);
+			this.createInfoWindow(layers[tableId]);
+		}
+		
+		function createInfoWindow(layer) {
+			google.maps.event.addListener(layer, 'click', function(e) {
+				// Change the content of the InfoWindow
+				var tempInfoWindow = infoWindowTemplate;
+				tempInfoWindow = tempInfoWindow.replace('###COUNTRY###', e.row['name'].value);
+				tempInfoWindow = tempInfoWindow.replace('###POPULATION###', e.row[document.getElementById('yearValue').value].value);
+				e.infoWindowHtml = tempInfoWindow;
+			});
+		}
+		
+		function toggleLayer(tableId) {
+			if(document.getElementById(tableId).checked) {
+				// create layer if it doens't exist already
+				if(!layers[tableId]) {
+					console.log('creating layer for table ' + tableId);
+					layers[tableId] = createLayer(tableId);
+				}
+				layers[tableId].setMap(map);
+			} else {
+				layers[tableId].setMap(null);
+			}
+		}
+		
+		function changeYear(tableId, newYear) {
+			console.log('new Year: ' + newYear);
+			document.getElementById('yearValue').value = newYear;
+			fusiontables[tableId].styles[1].where = '\'' + document.getElementById('yearValue').value + '\' < ' + highPopulation;
+			fusiontables[tableId].styles[2].where = '\'' + document.getElementById('yearValue').value + '\' < ' + mediumPopulation;
+			fusiontables[tableId].styles[3].where = '\'' + document.getElementById('yearValue').value + '\' < ' + lowPopulation;
+			
+			if(layers[tableId]) {
+				this.updateLayer(tableId);
+			}
+		}
+	</script>
+</head>
+<body onload="init()">
+	<h1>Use Case: Countries</h1>
+	<h2>Map</h2>
+	<form id="layers">
+		<label for="populationRange">Year:</label>
+		<input id="year" type="range"  min="1960" max="2010" value="1960" onchange="changeYear(3378569, this.value)" />
+		<input id="yearValue" type="text" value="1960" />
+	</form>
+	<div id="map_canvas" style="width:600px; height:400px"></div>
+</body>
+</html>
