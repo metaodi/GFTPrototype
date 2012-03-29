@@ -15,6 +15,16 @@
 				}
 			};
 			
+			infoWindowTemplate = 
+				'<div class="googft-info-window" style="font-family:sans-serif">' +
+				'	<dl>' +
+				'		<dt>Stadt:</dt>' +
+				'		<dd>###CITYNAME###</dd>' +
+				'		<dt>Einwohner:</dt>' +
+				'		<dd>###POPULATION###</dd>' +
+				'	</dl>' +
+				'</div>';
+			
 			layers = new Array();
 			circle = null;
 			marker = null;
@@ -52,7 +62,7 @@
 		}
 		
 		function createLayer(tableId) {
-			return new google.maps.FusionTablesLayer({
+			var layer = new google.maps.FusionTablesLayer({
 				query: {
 					select: fusiontables[tableId].field,
 					from: tableId,
@@ -60,6 +70,16 @@
 				},
 				styles: fusiontables[tableId].styles
 			});
+			
+			google.maps.event.addListener(layer, 'click', function(e) {
+				// Change the content of the InfoWindow
+				var tempInfoWindow = infoWindowTemplate;
+				tempInfoWindow = tempInfoWindow.replace('###CITYNAME###', e.row['name'].value);
+				tempInfoWindow = tempInfoWindow.replace('###POPULATION###', e.row['population'].value);
+				e.infoWindowHtml = tempInfoWindow;
+			});
+
+			return layer;
 		}
 		function createCircle(distance) {
 			return new google.maps.Circle({
@@ -67,7 +87,8 @@
 				radius: parseInt(distance * 1000),
 				strokeWeight: 1,
 				fillColor: 'green',
-				fillOpacity: 0.2
+				fillOpacity: 0.2,
+				clickable: false
 			});
 		}
 		function createMarker(position) {
