@@ -1,11 +1,7 @@
 $(document).ready(function() {
 	$.constants = {
 		minYear: 1960,
-		maxYear: 2010,
-		
-		lowPopulation: 5000000,
-		mediumPopulation: 50000000,
-		highPopulation: 100000000
+		maxYear: 2010
 	}
 	
 	$.infoWindowTemplate = 
@@ -21,6 +17,7 @@ $(document).ready(function() {
 	$.layerStyles = {
 		polygons: [
 			{
+				id: 'veryhigh',
 				polygonOptions: {
 					fillColor: "#ff0000",
 					strokeColor: "#ff0000",
@@ -28,6 +25,7 @@ $(document).ready(function() {
 				}
 			},
 			{
+				id: 'high',
 				polygonOptions: {
 					fillColor: "#ff9900",
 					strokeColor: "#ff9900",
@@ -35,6 +33,7 @@ $(document).ready(function() {
 				}
 			},
 			{
+				id: 'medium',
 				polygonOptions: {
 					fillColor: "#ffff00",
 					strokeColor: "#ffff00",
@@ -42,6 +41,7 @@ $(document).ready(function() {
 				}
 			},
 			{
+				id: 'low',
 				polygonOptions: {
 					fillColor: "#ffffcc",
 					strokeColor: "#ffffcc",
@@ -49,9 +49,10 @@ $(document).ready(function() {
 				}
 			},
 			{
+				id: 'nodata',
 				polygonOptions: {
 					fillColor: "#ffffff",
-					strokeColor: "#ffffff",
+					strokeColor: "#ebebeb",
 					strokeWeight: 1
 				}
 			}

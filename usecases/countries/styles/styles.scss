@@ -15,9 +15,6 @@ h1 {
 	width: 800px;
 }
 
-#yearSlider {
-}
-
 #yearSliderValue {
 	position: relative;
 	width: 4em;
@@ -43,4 +40,38 @@ h1 {
 	width: 100%;
 	height: 600px;
 	margin-top: 2em;
+}
+
+#layerLegend {
+	overflow: hidden;
+	margin: 1em 0;
+	display: none;
+	
+	.nodata-color,
+	.low-color,
+	.medium-color,
+	.high-color,
+	.veryhigh-color {
+		float: left;
+		width: 1em;
+		height: 1em;
+		border: solid 1px #fff;
+	}
+	.nodata-text,
+	.low-text,
+	.medium-text,
+	.high-text,
+	.veryhigh-text {
+		float: left;
+		margin-left: 0.5em;
+		margin-right: 0.5em;
+	}
+}
+
+#timeline {
+	margin: 1em 0;
+}
+
+.clear {
+	clear: both;
 }

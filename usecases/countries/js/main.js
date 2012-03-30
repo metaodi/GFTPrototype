@@ -34,6 +34,13 @@ $(document).ready(function() {
 		);
 	});
 	
+	// fill legend colors
+	$.each($.layerStyles.polygons, function(val, text) {
+		console.log(text.id);
+		$('#layerLegend .' + text.id + '-color').css('background-color', text.polygonOptions.fillColor);
+		$('#layerLegend .' + text.id + '-color').css('border-color', text.polygonOptions.strokeColor);
+	});
+	
 	var layers = Array();
 	var activeLayerId = 0;
 	var position = new google.maps.LatLng(45, 8);
@@ -50,6 +57,7 @@ $(document).ready(function() {
 		if(activeLayerId != 0 && layers[activeLayerId]) {
 			layers[activeLayerId].setMap(null);
 			activeLayerId = 0;
+			$('#layerLegend').css('display', 'none');
 		}
 		if(tableId != 0) {
 			if(!layers[tableId]) {
@@ -57,6 +65,7 @@ $(document).ready(function() {
 			} else {
 				updateLayer(layers[tableId], tableId, $("#yearSlider").slider("value"));
 			}
+			$('#layerLegend').css('display', 'block');
 			activeLayerId = tableId;
 			layers[tableId].setMap(map);
 		}
@@ -73,6 +82,23 @@ $(document).ready(function() {
 		$.fusiontables[tableId].styles[2].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.medium;
 		$.fusiontables[tableId].styles[3].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.low;
 		$.fusiontables[tableId].styles[4].where = '\'' + year + '\' = \'\'';
+		
+		$.each($.layerStyles.polygons, function(val, text) {
+			console.log(text.id);
+			var tmpText = "";
+			if(text.id == "veryhigh") {
+				tmpText = '>= ' + $.fusiontables[tableId].styleConditions.high;
+			} else if(text.id == "high") {
+				tmpText = '< ' + $.fusiontables[tableId].styleConditions.high;
+			} else if(text.id == "medium") {
+				tmpText = '< ' + $.fusiontables[tableId].styleConditions.medium;
+			} else if(text.id == "low") {
+				tmpText = '< ' + $.fusiontables[tableId].styleConditions.low;
+			} else if(text.id == "nodata") {
+				tmpText = 'keine Daten vorhanden';
+			}
+			$('#layerLegend .' + text.id + '-text').html(tmpText);
+		});
 	}
 	
 	function createLayer(tableId, year) {
