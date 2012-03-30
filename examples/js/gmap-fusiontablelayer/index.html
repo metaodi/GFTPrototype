@@ -7,6 +7,8 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript">
 		function init() {
+			var infoWindow = new google.maps.InfoWindow();
+			
 			var position = new google.maps.LatLng(51.5, 10);
 
 			var map = new google.maps.Map(document.getElementById('map_canvas'), {
@@ -40,6 +42,10 @@
 			
 			layer.setMap(map);
 			layer2.setMap(map);
+			
+			infoWindow.setContent('Hallo Velo!');
+            infoWindow.setPosition(position);
+            infoWindow.open(map);
 		}
 
 	</script>
