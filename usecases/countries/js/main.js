@@ -36,7 +36,6 @@ $(document).ready(function() {
 	
 	// fill legend colors
 	$.each($.layerStyles.polygons, function(val, text) {
-		console.log(text.id);
 		$('#layerLegend .' + text.id + '-color').css('background-color', text.polygonOptions.fillColor);
 		$('#layerLegend .' + text.id + '-color').css('border-color', text.polygonOptions.strokeColor);
 	});
@@ -84,7 +83,6 @@ $(document).ready(function() {
 		$.fusiontables[tableId].styles[4].where = '\'' + year + '\' = \'\'';
 		
 		$.each($.layerStyles.polygons, function(val, text) {
-			console.log(text.id);
 			var tmpText = "";
 			if(text.id == "veryhigh") {
 				tmpText = '>= ' + $.fusiontables[tableId].styleConditions.high;
