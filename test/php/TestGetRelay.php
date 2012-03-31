@@ -61,7 +61,7 @@ class TestGetRelay extends GFTPrototypeUnitTestCase
 			$this->fail("Should not reach this line, RemoteException should be thrown");
 		} catch (Exception $e) {
 			$this->assertIsA($e, "RemoteException");
-			$this->assertPattern("/Error from adsasd: cURL Errornumber: 6 cURL Error: (Could not|Couldn't) resolve host: '?adsasd'?/", $e->getMessage());
+			$this->assertPattern("/Error from adsasd: cURL Errornumber: 6 cURL Error: (Could not|Couldn't) resolve host:? '?adsasd'?/", $e->getMessage());
 		}
 		
     }
