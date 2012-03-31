@@ -16,7 +16,7 @@ class TestGetRelay extends GFTPrototypeUnitTestCase
 	
 	function setUp() {
 		parent::setUp();
-		$this->localUrl = "http://".$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF'])."/test.html";
+		$this->localUrl = "http://localhost".dirname($_SERVER['PHP_SELF'])."/test.html";
 		$this->remoteUrl = "http://google.com";
 		$this->dataString = "test=testdata";
 		$this->dataArray = array(
