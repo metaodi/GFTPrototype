@@ -1,8 +1,16 @@
+
+// colors
 $dark-grey: #606060;
 $light-grey: #ebebeb;
+$dark-blue: #8ebadb;
+$light-blue: #E3F1FA;
+
+$font-size: 16px;
 
 body {
 	font-family: Arial;
+	font-size: $font-size;
+	color: $dark-grey;
 }
 
 h1 {
@@ -20,11 +28,10 @@ h1 {
 	width: 4em;
 	padding: 0.3em 0;
 	text-align: center;
-	background-color: #E3F1FA;
-	border: solid 1px #8ebadb;
+	background-color: $light-blue;
+	border: solid 1px $dark-blue;
 	border-radius: 1em;
 	margin-left: -2em;
-	color: $dark-grey;
 }
 
 #yearSliderValueArrow {
@@ -38,33 +45,64 @@ h1 {
 	
 #map_canvas {
 	width: 100%;
-	height: 600px;
+	height: 500px;
 	margin-top: 2em;
+	
+	
+	.gmap-info-window {
+		text-align: left;
+		
+		h1 {
+			font-size: 1.2em;
+			margin: 0.2em 0;
+		}
+		
+		dl.info {
+			overflow: hidden;
+			margin: 0.5em 0 0 0;
+		}
+		dl.info dt {
+			clear: both;
+			float: left;
+			width: 10em;
+			margin-top: 0.3em;
+		}
+		dl.info dd {
+			float: left;
+			margin-left: 1em;
+			margin-top: 0.3em;
+		}
+	}
 }
 
-#layerLegend {
+dl#layerLegend {
+	font-size: 0.9em;
 	overflow: hidden;
-	margin: 1em 0;
+	margin: 1em auto;
 	display: none;
+	background-color: $light-blue;
+	border-radius: 0.7em;
+	padding: 0.5em 1em;
+	width: 300px;
+	text-align: left;
 	
-	.nodata-color,
-	.low-color,
-	.medium-color,
-	.high-color,
-	.veryhigh-color {
+	dt {
+		clear: both;
 		float: left;
 		width: 1em;
 		height: 1em;
 		border: solid 1px #fff;
+		margin-top: 0.3em;
 	}
-	.nodata-text,
-	.low-text,
-	.medium-text,
-	.high-text,
-	.veryhigh-text {
+	
+	dd {
 		float: left;
-		margin-left: 0.5em;
-		margin-right: 0.5em;
+		margin-left: 1em;
+		margin-top: 0.3em;
+		
+		&.nodata-text {
+			font-style: italic;
+		}
 	}
 }
 

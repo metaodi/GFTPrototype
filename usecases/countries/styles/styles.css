@@ -1,5 +1,7 @@
 body {
   font-family: Arial;
+  font-size: 16px;
+  color: #606060;
 }
 
 h1 {
@@ -17,11 +19,10 @@ h1 {
   width: 4em;
   padding: 0.3em 0;
   text-align: center;
-  background-color: #E3F1FA;
+  background-color: #e3f1fa;
   border: solid 1px #8ebadb;
   border-radius: 1em;
   margin-left: -2em;
-  color: #606060;
 }
 
 #yearSliderValueArrow {
@@ -35,33 +36,58 @@ h1 {
 
 #map_canvas {
   width: 100%;
-  height: 600px;
+  height: 500px;
   margin-top: 2em;
 }
-
-#layerLegend {
-  overflow: hidden;
-  margin: 1em 0;
-  display: none;
+#map_canvas .gmap-info-window {
+  text-align: left;
 }
-#layerLegend .nodata-color,
-#layerLegend .low-color,
-#layerLegend .medium-color,
-#layerLegend .high-color,
-#layerLegend .veryhigh-color {
+#map_canvas .gmap-info-window h1 {
+  font-size: 1.2em;
+  margin: 0.2em 0;
+}
+#map_canvas .gmap-info-window dl.info {
+  overflow: hidden;
+  margin: 0.5em 0 0 0;
+}
+#map_canvas .gmap-info-window dl.info dt {
+  clear: both;
+  float: left;
+  width: 10em;
+  margin-top: 0.3em;
+}
+#map_canvas .gmap-info-window dl.info dd {
+  float: left;
+  margin-left: 1em;
+  margin-top: 0.3em;
+}
+
+dl#layerLegend {
+  font-size: 0.9em;
+  overflow: hidden;
+  margin: 1em auto;
+  display: none;
+  background-color: #e3f1fa;
+  border-radius: 0.7em;
+  padding: 0.5em 1em;
+  width: 300px;
+  text-align: left;
+}
+dl#layerLegend dt {
+  clear: both;
   float: left;
   width: 1em;
   height: 1em;
   border: solid 1px #fff;
+  margin-top: 0.3em;
 }
-#layerLegend .nodata-text,
-#layerLegend .low-text,
-#layerLegend .medium-text,
-#layerLegend .high-text,
-#layerLegend .veryhigh-text {
+dl#layerLegend dd {
   float: left;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+  margin-left: 1em;
+  margin-top: 0.3em;
+}
+dl#layerLegend dd.nodata-text {
+  font-style: italic;
 }
 
 #timeline {

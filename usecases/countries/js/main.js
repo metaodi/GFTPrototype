@@ -7,7 +7,6 @@ $(document).ready(function() {
 			$("#yearSliderValue").html(ui.value);
 			changeYear(activeLayerId, ui.value);
 			var position = ((ui.value - $.constants.minYear) * 100 / ($.constants.maxYear - $.constants.minYear)); 
-			//position = $("#yearSlider a").position().left + 20;
 			$("#yearSliderValue").css('left', position + '%');
 			$("#yearSliderValueArrow").css('left', position + '%');
 		}
@@ -23,7 +22,7 @@ $(document).ready(function() {
 				medium: 50000000,
 				high: 100000000
 			},
-			styles: $.layerStyles.polygons
+			styles: $.layerStyles
 		}
 	};
 	
@@ -35,9 +34,11 @@ $(document).ready(function() {
 	});
 	
 	// fill legend colors
-	$.each($.layerStyles.polygons, function(val, text) {
-		$('#layerLegend .' + text.id + '-color').css('background-color', text.polygonOptions.fillColor);
-		$('#layerLegend .' + text.id + '-color').css('border-color', text.polygonOptions.strokeColor);
+	$.each($.layerStyles, function(val, text) {
+		if(text.polygonOptions) {
+			$('#layerLegend .' + text.id + '-color').css('background-color', hex2rgb(text.polygonOptions.fillColor, text.polygonOptions.fillOpacity));
+			$('#layerLegend .' + text.id + '-color').css('border-color', text.polygonOptions.strokeColor);
+		}
 	});
 	
 	var layers = Array();
@@ -82,18 +83,20 @@ $(document).ready(function() {
 		$.fusiontables[tableId].styles[3].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.low;
 		$.fusiontables[tableId].styles[4].where = '\'' + year + '\' = \'\'';
 		
-		$.each($.layerStyles.polygons, function(val, text) {
+		$.each($.layerStyles, function(val, text) {
 			var tmpText = "";
-			if(text.id == "veryhigh") {
-				tmpText = '>= ' + $.fusiontables[tableId].styleConditions.high;
-			} else if(text.id == "high") {
-				tmpText = '< ' + $.fusiontables[tableId].styleConditions.high;
-			} else if(text.id == "medium") {
-				tmpText = '< ' + $.fusiontables[tableId].styleConditions.medium;
-			} else if(text.id == "low") {
-				tmpText = '< ' + $.fusiontables[tableId].styleConditions.low;
-			} else if(text.id == "nodata") {
-				tmpText = 'keine Daten vorhanden';
+			if(text.polygonOptions) {
+				if(text.id == "veryhigh") {
+					tmpText = '>= ' + formatNumber($.fusiontables[tableId].styleConditions.high);
+				} else if(text.id == "high") {
+					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.high);
+				} else if(text.id == "medium") {
+					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.medium);
+				} else if(text.id == "low") {
+					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.low);
+				} else if(text.id == "nodata") {
+					tmpText = 'keine Daten vorhanden';
+				}
 			}
 			$('#layerLegend .' + text.id + '-text').html(tmpText);
 		});
@@ -125,16 +128,47 @@ $(document).ready(function() {
 			}
 		});
 
-		google.maps.event.clearInstanceListeners(map);
 		createInfoWindow(layer);
 	}
 
 	function createInfoWindow(layer) {
+		google.maps.event.clearInstanceListeners(map);
 		google.maps.event.addListener(layer, 'click', function(e) {
+			var selectedTableId = $('#layerSelection').val();
+			
 			// Change the content of the InfoWindow
 			var tempInfoWindow = $.infoWindowTemplate;
+			var currentYear = $("#yearSlider").slider("value");
+			var valueCurrentYear = e.row[currentYear].value;
+			var valueCurrentYearText = valueCurrentYear;
+			if(!valueCurrentYearText) {
+				valueCurrentYearText = '-';
+			}
+			
 			tempInfoWindow = tempInfoWindow.replace('###COUNTRY###', e.row['name'].value);
-			tempInfoWindow = tempInfoWindow.replace('###POPULATION###', e.row[$("#yearSlider").slider("value")].value);
+			tempInfoWindow = tempInfoWindow.replace('###YEAR###', currentYear);
+			tempInfoWindow = tempInfoWindow.replace('###LAYERTITLE###', $.fusiontables[selectedTableId].name);
+			tempInfoWindow = tempInfoWindow.replace('###LAYERVALUE###', formatNumber(valueCurrentYearText));
+			
+			var differencePreviousYear = '';
+			if(currentYear > $.constants.minYear && valueCurrentYear) {
+				var valuePreviousYear = e.row[currentYear - 1].value
+				if(valuePreviousYear) {
+					differencePreviousYear = (valueCurrentYear * 100 / valuePreviousYear) - 100;
+					differencePreviousYear = round(differencePreviousYear, 2);
+
+					if(differencePreviousYear >= 0) {
+						differencePreviousYear = '+' + differencePreviousYear + '%';
+					} else {
+						differencePreviousYear = '-' + differencePreviousYear + '%';
+					}
+				}
+			} else {
+				differencePreviousYear = '-';
+			}
+			
+			tempInfoWindow = tempInfoWindow.replace('###DIFFERENCEPREVIOUSYEAR###', differencePreviousYear);
+			
 			e.infoWindowHtml = tempInfoWindow;
 		});
 	}

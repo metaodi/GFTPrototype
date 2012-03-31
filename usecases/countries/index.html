@@ -18,17 +18,18 @@
 	<div id="box">
 		<h1>Use Case: Countries</h1>
 		
+		<label for="layerSelection">Aktive Ebene:</label>
 		<select id="layerSelection">
 			<option value="0">--- Ebene auswählen ---</option>
 		</select>
 		
-		<div id="layerLegend">
-			<div class="nodata-color"></div><div class="nodata-text"></div>
-			<div class="low-color"></div><div class="low-text"></div>
-			<div class="medium-color"></div><div class="medium-text"></div>
-			<div class="high-color"></div><div class="high-text"></div>
-			<div class="veryhigh-color"></div><div class="veryhigh-text"></div>
-		</div>
+		<dl id="layerLegend">
+			<dt class="nodata-color"></dt><dd class="nodata-text"></dd>
+			<dt class="low-color"></dt><dd class="low-text"></dd>
+			<dt class="medium-color"></dt><dd class="medium-text"></dd>
+			<dt class="high-color"></dt><dd class="high-text"></dd>
+			<dt class="veryhigh-color"></dt><dd class="veryhigh-text"></dd>
+		</dl>
 		
 		<div id="timeline">
 			<div id="yearSliderValue"></div>
