@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - OAuth 2.0 INSERT</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
+	<script type="text/javascript">
+		function init() {
+			var gft = new GftLib();
+			var sqlBuilder = new SqlBuilder();
+			
+			// Parse oauth response
+			var params = {};
+			var queryString = location.hash.substring(1);
+			var regex = /([^&=]+)=([^&]*)/g;
+			var m;
+			
+			while (m = regex.exec(queryString)) {
+				params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+			}
+			var accessToken = params['access_token'];
+			
+			//insert new data
+			var gftinsert = document.getElementById('gftinsert');
+			var insert_printer = function(data) {
+					gftinsert.innerHTML = data;
+			}
+			var options = new Object();
+			options.table = 3350749;
+		    options.fields = 'Text, Number, Location, Date'
+			options.values = "'',2,'',''";
+			gft.execInsert(insert_printer, options, accessToken);
+			
+			// show all records
+			var gftquery = document.getElementById('gftquery');
+			var printer = function(data) {
+				var objs = gft.convertToObject(data);
+				
+				for (var i = 0; i < objs.length; i++) {
+					var listElem = document.createElement('li');
+					listElem.innerHTML = 'Number ' + objs[i].number;
+					gftquery.appendChild(listElem);
+				}
+			}
+			gft.execSql(printer, 'select Number from 3350749', accessToken);
+		}
+		
+		
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example - OAuth 2.0</h1>
+	<h2>Fusion Tables INSERT</h2>
+	<ul id="gftinsert"></ul>
+	<h2>Fusion Tables Query</h2>
+	<ul id="gftquery"></ul>
+</body>
+</html>
