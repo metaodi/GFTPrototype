@@ -23,17 +23,19 @@
 <body>
 	<div data-role="page" id="mapPage">
 		<div id="box">
-			<div data-role="header">
+			<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
 				<h1>Use Case: Countries</h1>
-			</div>
+			</div><!-- /header -->
 
 			<div data-role="content" role="main">
-				<label for="layerSelection">Aktive Ebene:</label>
-				<select id="layerSelection">
-					<option value="0">--- Ebene auswählen ---</option>
-				</select>
+				<div data-role="fieldcontain">
+					<label for="layerSelection" id="layerSelectionLabel">Aktive Ebene:</label>
+					<select id="layerSelection">
+						<option value="0">--- Ebene auswählen ---</option>
+					</select>
+				</div><!-- /fieldcontain -->
 
-				<dl id="layerLegend">
+				<dl id="layerLegend" class="ui-bar-c ui-corner-all ui-shadow">
 					<dt class="nodata-color"></dt><dd class="nodata-text"></dd>
 					<dt class="low-color"></dt><dd class="low-text"></dd>
 					<dt class="medium-color"></dt><dd class="medium-text"></dd>
@@ -42,15 +44,45 @@
 				</dl>
 
 				<form id="timeline">
+					<input type="text" id="yearSliderValue" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" />
+					<div id="yearSliderValueArrow"></div>
 					<input type="range" name="slider" id="yearSlider" />
 				</form>
 
 				<div class="ui-bar-c ui-corner-all ui-shadow map">
 					<div id="map_canvas"></div>
 				</div>
-			</div>
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false">		
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#mapPage" data-icon="home" data-transition="slide" class="ui-btn-active">Karte</a></li>
+						<li><a href="#diagramPage" data-icon="grid" data-transition="slide">Diagramme</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
 		
 		</div>
+	</div><!-- /page mapPage -->
+	
+	<div data-role="page" id="diagramPage">
+		<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
+			<h1>Use Case: Countries</h1>
+		</div><!-- /header -->
+		
+		<div data-role="content" role="main">
+			hello
+		</div>
+		
+		<div data-role="footer" data-position="fixed" data-tap-toggle="false">		
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#mapPage" data-icon="home" data-transition="slide">Karte</a></li>
+						<li><a href="#diagramPage" data-icon="grid" data-transition="slide" class="ui-btn-active">Diagramme</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
 	</div>
 </body>
 </html>

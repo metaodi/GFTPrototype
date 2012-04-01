@@ -1,7 +1,30 @@
 $('#mapPage').live('pageinit', function(event){
 	$.constants = {
 		minYear: 1960,
-		maxYear: 2010
+		maxYear: 2010,
+		
+		colors: {
+			veryhigh: {
+				fillColor: "#ff0000",
+				strokeColor: "#ff0000"
+			},
+			high: {
+				fillColor: "#ff9900",
+				strokeColor: "#ff9900"
+			},
+			medium: {
+				fillColor: "#ffff00",
+				strokeColor: "#ffff00"
+			},
+			low: {
+				fillColor: "#ffffcc",
+				strokeColor: "#ffffcc"
+			},
+			nodata: {
+				fillColor: "#ffffff",
+				strokeColor: "#ebebeb"
+			}
+		}
 	}
 	
 	$.infoWindowTemplate = 
@@ -17,53 +40,42 @@ $('#mapPage').live('pageinit', function(event){
 		'	</dl>' +
 		'</div>';
 	
-	$.layerStyles = [
-		{
-			id: 'veryhigh',
+	$.layerStyles = Array();
+	
+	// create layer styles
+	$.each($.constants.colors, function(val, text) {
+		/*$.layerStyles[val.toString()] = {
+			id: val.toString(),
 			polygonOptions: {
-				fillColor: "#ff0000",
-				strokeColor: "#ff0000",
+				fillColor: text.fillColor,
+				strokeColor: text.strokeColor,
 				strokeWeight: 1,
 				fillOpacity: 0.3
 			}
-		},
-		{
-			id: 'high',
+		}*/
+		$.layerStyles.push({
+			id: val.toString(),
 			polygonOptions: {
-				fillColor: "#ff9900",
-				strokeColor: "#ff9900",
+				fillColor: text.fillColor,
+				strokeColor: text.strokeColor,
 				strokeWeight: 1,
 				fillOpacity: 0.3
 			}
-		},
-		{
-			id: 'medium',
-			polygonOptions: {
-				fillColor: "#ffff00",
-				strokeColor: "#ffff00",
-				strokeWeight: 1,
-				fillOpacity: 0.3
-			}
-		},
-		{
-			id: 'low',
-			polygonOptions: {
-				fillColor: "#ffffcc",
-				strokeColor: "#ffffcc",
-				strokeWeight: 1,
-				fillOpacity: 0.3
-			}
-		},
-		{
-			id: 'nodata',
-			polygonOptions: {
-				fillColor: "#ffffff",
-				strokeColor: "#ebebeb",
-				strokeWeight: 1,
-				fillOpacity: 0.3
-			}
+		});
+	});
+	
+	$.fusiontables = {
+		3378569: {
+			name: 'Einwohner',
+			field: 'geometry',
+			styleConditions: {
+				low: 5000000,
+				medium: 50000000,
+				high: 100000000
+			},
+			styles: $.layerStyles
 		}
-	];
+	};
 });
 
 

@@ -1,33 +1,23 @@
-$('#mapPage').live('pageinit', function(event){
+$('#mapPage').live('pageinit', function(event) {
+	// set intial values
 	$("#yearSlider").attr("value", $.constants.minYear);
 	$("#yearSlider").attr("min", $.constants.minYear);
 	$("#yearSlider").attr("max", $.constants.maxYear);
+	$("#yearSliderValue").val($("#yearSlider").val());
+	// don't us disable() method to prevent jquery styling
+	$("#yearSliderValue").attr("disabled", "disabled");
 	
+	// year slider change event
 	$("#yearSlider").bind("change", function(event, ui) {
-		var newValue = event.currentTarget.value;
-		changeYear(activeLayerId, newValue);
+		var newYear = event.currentTarget.value;
 		
-		/*
-		$("#yearSliderValue").html(newValue);
-		var position = ((newValue - $.constants.minYear) * 100 / ($.constants.maxYear - $.constants.minYear)); 
-		$("#yearSliderValue").css('left', position + '%');
-		$("#yearSliderValueArrow").css('left', position + '%');
-		*/
-	});
-	//$("#yearSliderValue").html($("#yearSlider").val());
-	
-	$.fusiontables = {
-		3378569: {
-			name: 'Einwohner',
-			field: 'geometry',
-			styleConditions: {
-				low: 5000000,
-				medium: 50000000,
-				high: 100000000
-			},
-			styles: $.layerStyles
+		// only update ui if year changes
+		if($("#yearSliderValue").val() != newYear) {
+			changeYear(activeLayerId, newYear);
 		}
-	};
+		$("#yearSliderValue").css('left', $("#timeline a.ui-slider-handle").position().left);
+		$("#yearSliderValueArrow").css('left', $("#timeline a.ui-slider-handle").position().left);
+	});
 	
 	// add layers to selectfield
 	$.each($.fusiontables, function(val, text) {
@@ -50,7 +40,8 @@ $('#mapPage').live('pageinit', function(event){
 	var map = new google.maps.Map(document.getElementById('map_canvas'), {
 		center: position,
 		zoom: 2,
-		streetViewControl: false,
+		disableDefaultUI: true, // disable all controls
+		zoomControl: true,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 	
@@ -71,10 +62,14 @@ $('#mapPage').live('pageinit', function(event){
 			$('#layerLegend').css('display', 'block');
 			activeLayerId = tableId;
 			layers[tableId].setMap(map);
+			
+			// refresh map to avoid rendering bugs
+			google.maps.event.trigger(map, 'resize');
 		}
 	});
 	
 	function changeYear(tableId, newYear) {
+		$("#yearSliderValue").val(newYear);
 		if(layers[tableId]) {
 			updateLayer(layers[tableId], tableId, newYear);
 		}
@@ -164,7 +159,7 @@ $('#mapPage').live('pageinit', function(event){
 					if(differencePreviousYear >= 0) {
 						differencePreviousYear = '+' + differencePreviousYear + '%';
 					} else {
-						differencePreviousYear = '-' + differencePreviousYear + '%';
+						differencePreviousYear = differencePreviousYear + '%';
 					}
 				}
 			} else {
@@ -178,16 +173,6 @@ $('#mapPage').live('pageinit', function(event){
 	}
 });
 
-/*
+
 $('#mapPage').live('pageshow', function() {
-	$('#map_canvas').gmap({
-		center: position,
-		zoom: 2, 
-		mapTypeControl: false, 
-		navigationControl: false,
-		streetViewControl: false
-	});
-	//$('#map_canvas').gmap('refresh');
-	//google.maps.event.trigger(map, 'resize');
 });
-*/
