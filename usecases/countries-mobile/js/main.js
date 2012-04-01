@@ -1,11 +1,10 @@
 $('#mapPage').live('pageinit', function(event) {
 	var layers = Array();
 	var activeLayerId = 0;
-	var map = null;
 	
 	addIosHeader();
 	setInitialUiValues();
-	map = createMap('map_canvas', new google.maps.LatLng(45, 8));
+	var map = createMap('map_canvas', new google.maps.LatLng(45, 8));
 	
 	// year slider change event
 	$("#yearSlider").bind("change", function(event, ui) {
@@ -74,6 +73,7 @@ $('#mapPage').live('pageinit', function(event) {
 		$("#yearSlider").attr("value", $.config.minYear);
 		$("#yearSlider").attr("min", $.config.minYear);
 		$("#yearSlider").attr("max", $.config.maxYear);
+		$("#timeline a.ui-slider-handle").attr("title", $.config.minYear);
 		$("#yearSliderValue").val($("#yearSlider").val());
 		// don't us disable() method to prevent jquery styling
 		$("#yearSliderValue").attr("disabled", "disabled");
@@ -112,28 +112,32 @@ $('#mapPage').live('pageinit', function(event) {
 	}
 	
 	function setStyleConditions(tableId, year) {
-		$.fusiontables[tableId].styles[1].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.high;
-		$.fusiontables[tableId].styles[2].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.medium;
-		$.fusiontables[tableId].styles[3].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.low;
-		$.fusiontables[tableId].styles[4].where = '\'' + year + '\' = \'\'';
+		if($.fusiontables[tableId].styleConditions !== undefined) {
+			$.fusiontables[tableId].styles[1].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.high;
+			$.fusiontables[tableId].styles[2].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.medium;
+			$.fusiontables[tableId].styles[3].where = '\'' + year + '\' < ' + $.fusiontables[tableId].styleConditions.low;
+			$.fusiontables[tableId].styles[4].where = '\'' + year + '\' = \'\'';
+		}
 		
-		$.each($.layerStyles, function(val, text) {
-			var tmpText = "";
-			if(text.polygonOptions) {
-				if(text.id == "veryhigh") {
-					tmpText = '>= ' + formatNumber($.fusiontables[tableId].styleConditions.high);
-				} else if(text.id == "high") {
-					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.high);
-				} else if(text.id == "medium") {
-					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.medium);
-				} else if(text.id == "low") {
-					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.low);
-				} else if(text.id == "nodata") {
-					tmpText = 'keine Daten vorhanden';
+		if($.fusiontables[tableId].styles !== undefined) {
+			$.each($.fusiontables[tableId].styles, function(val, text) {
+				var tmpText = "";
+				if(text.polygonOptions) {
+					if(text.id == "veryhigh") {
+						tmpText = '>= ' + formatNumber($.fusiontables[tableId].styleConditions.high);
+					} else if(text.id == "high") {
+						tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.high);
+					} else if(text.id == "medium") {
+						tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.medium);
+					} else if(text.id == "low") {
+						tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.low);
+					} else if(text.id == "nodata") {
+						tmpText = 'keine Daten vorhanden';
+					}
 				}
-			}
-			$('#layerLegend .' + text.id + '-text').html(tmpText);
-		});
+				$('#layerLegend .' + text.id + '-text').html(tmpText);
+			});
+		}
 	}
 	
 	function createLayer(tableId, year) {

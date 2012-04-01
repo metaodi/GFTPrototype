@@ -1,4 +1,8 @@
 $('#mapPage').live('pageinit', function(event){
+	// configuring jquery mobile
+	$.mobile.defaultPageTransition = 'slide';
+	$.mobile.touchOverflowEnabled = true;
+	
 	$.config = {
 		icon: {
 			phone: {
