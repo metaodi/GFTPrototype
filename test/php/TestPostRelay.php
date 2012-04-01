@@ -16,7 +16,7 @@ class TestPostRelay extends GFTPrototypeUnitTestCase
 	
 	function setUp() {
 		parent::setUp();
-		$this->localUrl = "http://localhost/".dirname($_SERVER['PHP_SELF'])."/test.html";
+		$this->localUrl = "http://localhost".dirname($_SERVER['PHP_SELF'])."/test.html";
 		$this->remoteUrl = "http://www.snee.com/xml/crud/posttest.cgi";
 		$this->dataString = "fname=testname";
 		$this->dataArray = array(
@@ -61,7 +61,7 @@ class TestPostRelay extends GFTPrototypeUnitTestCase
 			$this->fail("Should not reach this line, RemoteException should be thrown");
 		} catch (Exception $e) {
 			$this->assertIsA($e, "RemoteException");
-			$this->assertPattern("/Error from adsasd: cURL Errornumber: 6 cURL Error: (Could not|Couldn't) resolve host: '?adsasd'?/", $e->getMessage());
+			$this->assertPattern("/Error from adsasd: cURL Errornumber: 6 cURL Error: (Could not|Couldn't) resolve host:? '?adsasd'?/", $e->getMessage());
 		}
 		
     }
