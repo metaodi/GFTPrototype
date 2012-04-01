@@ -1,5 +1,18 @@
 $('#mapPage').live('pageinit', function(event){
-	$.constants = {
+	$.config = {
+		icon: {
+			phone: {
+				57: './images/app-icon_countires_72px.png',
+				72: './images/app-icon_countires_72px.png',
+				114: './images/app-icon_countires_114px.png'
+			}
+		},
+		glossOnIcon: true,
+		startupScreen: {
+			phone: ''
+		},
+		statusBarStyle: 'black',
+		
 		minYear: 1960,
 		maxYear: 2010,
 		
@@ -43,7 +56,7 @@ $('#mapPage').live('pageinit', function(event){
 	$.layerStyles = Array();
 	
 	// create layer styles
-	$.each($.constants.colors, function(val, text) {
+	$.each($.config.colors, function(val, text) {
 		/*$.layerStyles[val.toString()] = {
 			id: val.toString(),
 			polygonOptions: {

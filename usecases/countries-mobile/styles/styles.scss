@@ -5,9 +5,15 @@ $dark-blue: #8ebadb;
 $light-blue: #E3F1FA;
 
 $font-size: 16px;
+$font-size-header: 20px;
 
 dt, dd {
 	font-weight: normal;
+}
+
+.ui-header .ui-title {
+	font-size: $font-size-header;
+	margin: .4em 30% .4em;
 }
 
 #box {
@@ -17,7 +23,6 @@ dt, dd {
 }
 
 #layerSelectionLabel {
-	
 	line-height: 2.5em;
 }
 
@@ -94,7 +99,7 @@ dl#layerLegend {
 	font-size: 0.9em;
 	overflow: hidden;
 	display: none;
-	padding: 0.5em;
+	padding: 0.5em 1em;
 	
 	dt {
 		clear: both;

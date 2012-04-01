@@ -1,11 +1,11 @@
 $('#mapPage').live('pageinit', function(event) {
-	// set intial values
-	$("#yearSlider").attr("value", $.constants.minYear);
-	$("#yearSlider").attr("min", $.constants.minYear);
-	$("#yearSlider").attr("max", $.constants.maxYear);
-	$("#yearSliderValue").val($("#yearSlider").val());
-	// don't us disable() method to prevent jquery styling
-	$("#yearSliderValue").attr("disabled", "disabled");
+	var layers = Array();
+	var activeLayerId = 0;
+	var map = null;
+	
+	addIosHeader();
+	setInitialUiValues();
+	map = createMap('map_canvas', new google.maps.LatLng(45, 8));
 	
 	// year slider change event
 	$("#yearSlider").bind("change", function(event, ui) {
@@ -17,32 +17,6 @@ $('#mapPage').live('pageinit', function(event) {
 		}
 		$("#yearSliderValue").css('left', $("#timeline a.ui-slider-handle").position().left);
 		$("#yearSliderValueArrow").css('left', $("#timeline a.ui-slider-handle").position().left);
-	});
-	
-	// add layers to selectfield
-	$.each($.fusiontables, function(val, text) {
-		$('#layerSelection').append(
-			$('<option></option>').val(val).html(text.name)
-		);
-	});
-	
-	// fill legend colors
-	$.each($.layerStyles, function(val, text) {
-		if(text.polygonOptions) {
-			$('#layerLegend .' + text.id + '-color').css('background-color', hex2rgb(text.polygonOptions.fillColor, text.polygonOptions.fillOpacity));
-			$('#layerLegend .' + text.id + '-color').css('border-color', text.polygonOptions.strokeColor);
-		}
-	});
-	
-	var layers = Array();
-	var activeLayerId = 0;
-	var position = new google.maps.LatLng(45, 8);
-	var map = new google.maps.Map(document.getElementById('map_canvas'), {
-		center: position,
-		zoom: 2,
-		disableDefaultUI: true, // disable all controls
-		zoomControl: true,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 	
 	$("#layerSelection").change(function() {
@@ -63,11 +37,73 @@ $('#mapPage').live('pageinit', function(event) {
 			activeLayerId = tableId;
 			layers[tableId].setMap(map);
 			
-			// refresh map to avoid rendering bugs
-			google.maps.event.trigger(map, 'resize');
 		}
+		// refresh map to avoid rendering bugs
+		google.maps.event.trigger(map, 'resize');
 	});
 	
+	function addIosHeader() {
+		// add ios styles to head
+		var iconRel = 'apple-touch-icon';
+		if($.config.glossOnIcon !== undefined && !$.config.glossOnIcon) {
+			iconRel = 'apple-touch-icon-precomposed';
+		}
+		if($.config.icon !== undefined) {
+			var iconPhoneType = typeof($.config.icon.phone);
+			if(iconPhoneType == 'object') {
+				$('head').append('<link rel="' + iconRel + '" href="' + $.config.icon.phone[57] + '" />');
+				$('head').append('<link rel="' + iconRel + '" sizes="72x72" href="' + $.config.icon.phone[72] + '" />');
+				$('head').append('<link rel="' + iconRel + '" sizes="114x114" href="' + $.config.icon.phone[114] + '" />');
+			} else if(iconPhoneType == 'string') {
+				$('head').append('<link rel="' + iconRel + '" href="' + $.config.icon.phone + '" />');
+			}
+		}
+
+		if($.config.startupScreen !== undefined && $.config.startupScreen.phone) {
+			$('head').append('<link rel="apple-touch-startup-image" href="' + $.config.startupScreen.phone + '">');
+		}
+		var statusBarStyle = 'black';
+		if($.config.statusBarStyle !== undefined) {
+			statusBarStyle = $.config.statusBarStyle;
+		}
+		$('head').append('<meta name="apple-mobile-web-app-status-bar-style" content="' + statusBarStyle + '" />');
+	}
+	
+	function setInitialUiValues() {
+		// set intial values
+		$("#yearSlider").attr("value", $.config.minYear);
+		$("#yearSlider").attr("min", $.config.minYear);
+		$("#yearSlider").attr("max", $.config.maxYear);
+		$("#yearSliderValue").val($("#yearSlider").val());
+		// don't us disable() method to prevent jquery styling
+		$("#yearSliderValue").attr("disabled", "disabled");
+		
+		// add layers to selectfield
+		$.each($.fusiontables, function(val, text) {
+			$('#layerSelection').append(
+				$('<option></option>').val(val).html(text.name)
+			);
+		});
+
+		// fill legend colors
+		$.each($.layerStyles, function(val, text) {
+			if(text.polygonOptions) {
+				$('#layerLegend .' + text.id + '-color').css('background-color', hex2rgb(text.polygonOptions.fillColor, text.polygonOptions.fillOpacity));
+				$('#layerLegend .' + text.id + '-color').css('border-color', text.polygonOptions.strokeColor);
+			}
+		});
+	}
+	
+	function createMap(domElementId, position) {
+		return new google.maps.Map(document.getElementById(domElementId), {
+			center: position,
+			zoom: 2,
+			disableDefaultUI: true, // disable all controls
+			zoomControl: true,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+	}
+
 	function changeYear(tableId, newYear) {
 		$("#yearSliderValue").val(newYear);
 		if(layers[tableId]) {
@@ -150,7 +186,7 @@ $('#mapPage').live('pageinit', function(event) {
 			tempInfoWindow = tempInfoWindow.replace('###LAYERVALUE###', formatNumber(valueCurrentYearText));
 			
 			var differencePreviousYear = '';
-			if(currentYear > $.constants.minYear && valueCurrentYear) {
+			if(currentYear > $.config.minYear && valueCurrentYear) {
 				var valuePreviousYear = e.row[currentYear - 1].value
 				if(valuePreviousYear) {
 					differencePreviousYear = (valueCurrentYear * 100 / valuePreviousYear) - 100;
@@ -172,7 +208,6 @@ $('#mapPage').live('pageinit', function(event) {
 		});
 	}
 });
-
 
 $('#mapPage').live('pageshow', function() {
 });
