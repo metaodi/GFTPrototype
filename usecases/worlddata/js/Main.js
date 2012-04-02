@@ -12,9 +12,7 @@ $('#mapPage').live('pageinit', function(event) {
 			controller.setYear(event.currentTarget.value);
 			$("#yearSliderValue").val(controller.getYear());
 			if(controller.getLayer() && controller.getLayer().getMap()) {
-				controller.getLayer().setMap(null);
 				controller.updateLayer();
-				controller.getLayer().setMap(controller.getMap());
 			}
 		}
 		$("#yearSliderValue").css('left', $("#timeline a.ui-slider-handle").position().left);
@@ -27,13 +25,11 @@ $('#mapPage').live('pageinit', function(event) {
 			controller.getLayer().setMap(null);
 			$('#layerLegend').css('display', 'none');
 		} else {
-			$.fusiontable.where = '\'Indicator Code\' = \'' + controller.getConditionType() + '\'';
+			$.fusiontable.where = '\'' + $.fusiontable.typeField + '\' = \'' + controller.getConditionType() + '\'';
 			if(!controller.getLayer()) {
 				controller.createLayer();
 			}
 			controller.updateLayer();
-			
-			controller.getLayer().setMap(controller.getMap());
 			$('#layerLegend').css('display', 'block');
 		}
 		
@@ -79,8 +75,15 @@ $('#mapPage').live('pageinit', function(event) {
 		// don't us disable() method to prevent jquery styling
 		$("#yearSliderValue").attr("disabled", "disabled");
 		
+		// add layer types to selectfield
+		$.each($.fusiontable.types, function(val, text) {
+			$('#typeSelection').append(
+				$('<option></option>').val(val).html(text.name)
+			);
+		});
+		
 		// add legend entries
-		$.each($.layerStyles, function(val, text) {
+		$.each($.fusiontable.styles, function(val, text) {
 			if(text.polygonOptions) {
 				var backgroundColor = hex2rgb(text.polygonOptions.fillColor, text.polygonOptions.fillOpacity);
 				$('#layerLegend').prepend(
@@ -90,30 +93,4 @@ $('#mapPage').live('pageinit', function(event) {
 			}
 		});
 	}
-	
-	function addTypeOption(id, name) {
-		$.types[id] = name;
-			
-		$('#typeSelection').append(
-			$('<option></option>').val(id).html(name)
-		);
-	}
-	
-	var gftlib = new GftLib();
-	var config = {
-		table: $.fusiontable.id,
-		fields: '\'' + $.fusiontable.typeField.id + '\', \'' + $.fusiontable.typeField.name + '\', COUNT()',
-		condition: '\'' + $.fusiontable.typeField.id + '\' NOT EQUAL TO \'\'',
-		groupby: '\'' + $.fusiontable.typeField.id + '\', \'' + $.fusiontable.typeField.name + '\''
-	}
-	var gftDataHandler = function(data) {
-		var objs = gftlib.convertToObject(data);
-		$.each(objs, function(val, text) {
-			addTypeOption(text.indicatorcode, text.indicatorname);
-		});
-	}
-	gftlib.execSelect(gftDataHandler, config);
-});
-
-$('#mapPage').live('pageshow', function() {
 });

@@ -5,20 +5,17 @@ $('#mapPage').live('pageinit', function(event){
 	$.mobile.defaultPageTransition = 'slide';
 	$.mobile.touchOverflowEnabled = true;
 	
-	// types are dynamically filled by reading data of table
-	$.types = {};
-	
 	$.config = {
 		icon: {
 			phone: {
-				57: './images/app-icon_countires_72px.png',
-				72: './images/app-icon_countires_72px.png',
-				114: './images/app-icon_countires_114px.png'
+				57: './images/worlddata-icon_114px.png',
+				72: './images/worlddata-icon_114px.png',
+				114: './images/worlddata-icon_114px.png'
 			}
 		},
 		glossOnIcon: true,
 		startupScreen: {
-			phone: ''
+			phone: 'worlddata-startup_phone.png'
 		},
 		statusBarStyle: 'black',
 		
@@ -46,27 +43,50 @@ $('#mapPage').live('pageinit', function(event){
 				fillColor: "#ffffff",
 				strokeColor: "#ebebeb"
 			}
-		}
+		},
+		
+		infoWindowTemplate: 
+			'<div class="gmap-info-window" style="font-family:sans-serif">' +
+			'	<h1 class="country">###COUNTRY###</h1>' +
+			'	<dl class="info">' +
+			'		<dt>Jahr:</dt>' +
+			'		<dd>###YEAR###</dd>' +
+			'		<dt>###LAYERTITLE###:</dt>' +
+			'		<dd>###LAYERVALUE###</dd>' +
+			'		<dt>Differenz zum Vorjahr:</dt>' +
+			'		<dd>###DIFFERENCEPREVIOUSYEAR###</dd>' +
+			'	</dl>' +
+			'</div>'
 	}
 	
-	$.infoWindowTemplate = 
-		'<div class="gmap-info-window" style="font-family:sans-serif">' +
-		'	<h1 class="country">###COUNTRY###</h1>' +
-		'	<dl class="info">' +
-		'		<dt>Jahr:</dt>' +
-		'		<dd>###YEAR###</dd>' +
-		'		<dt>###LAYERTITLE###:</dt>' +
-		'		<dd>###LAYERVALUE###</dd>' +
-		'		<dt>Differenz zum Vorjahr:</dt>' +
-		'		<dd>###DIFFERENCEPREVIOUSYEAR###</dd>' +
-		'	</dl>' +
-		'</div>';
-	
-	$.layerStyles = [];
+	$.fusiontable = {
+		id: 3417016,
+		field: 'geometry',
+		types: {
+			'SP.POP.TOTL': {
+				name: 'Population',
+				styleBoundaries: {
+					low: 5000000,
+					medium: 50000000,
+					high: 100000000
+				}
+			},
+			'EN.ATM.CO2E.KT': {
+				name: 'CO2 Emission (in kt)',
+				styleBoundaries: {
+					low: 50000,
+					medium: 500000,
+					high: 1000000
+				}
+			}
+		},
+		typeField: 'Indicator Code',
+		styles: []
+	};
 	
 	// create layer styles
 	$.each($.config.colors, function(val, text) {
-		$.layerStyles.push({
+		$.fusiontable.styles.push({
 			id: val.toString(),
 			polygonOptions: {
 				fillColor: text.fillColor,
@@ -76,23 +96,6 @@ $('#mapPage').live('pageinit', function(event){
 			}
 		});
 	});
-	
-	$.fusiontable = {
-		id: 3378569,
-		field: 'geometry',
-		styleConditions: {
-			'SP.POP.TOTL': {
-				low: 5000000,
-				medium: 50000000,
-				high: 100000000
-			}
-		},
-		styles: $.layerStyles,
-		typeField: {
-			id: 'Indicator Code',
-			name: 'Indicator Name'
-		}
-	};
 });
 
 
