@@ -15,7 +15,7 @@ $('#mapPage').live('pageinit', function(event){
 		},
 		glossOnIcon: true,
 		startupScreen: {
-			phone: 'worlddata-startup_phone.png'
+			phone: './images/worlddata-startup_phone.png'
 		},
 		statusBarStyle: 'black',
 		
