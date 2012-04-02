@@ -13,7 +13,7 @@ dt, dd {
 
 .ui-header .ui-title {
 	font-size: $font-size-header;
-	margin: .4em 30% .4em;
+	margin: 0.4em 1em;
 }
 
 #box {
@@ -22,17 +22,17 @@ dt, dd {
 	max-width: 800px;
 }
 
-#typeSelectionLabel {
-	line-height: 2.5em;
-}
-
 #yearSlider {
 	display: none;
 }
 
-#timeline div.ui-slider {
-	margin: 0;
-	width: 92%;
+#timeline {
+	margin: 1em 0;
+	
+	div.ui-slider {
+		margin: 0;
+		width: 92%;
+	}
 }
 
 #yearSliderValue {
@@ -119,12 +119,4 @@ dl#layerLegend {
 			font-style: italic;
 		}
 	}
-}
-
-#timeline {
-	margin: 1em 0;
-}
-
-.clear {
-	clear: both;
 }
