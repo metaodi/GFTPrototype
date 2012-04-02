@@ -55,7 +55,7 @@ function CountriesController() {
 					var tmpText = "";
 					if(text.polygonOptions) {
 						if(text.id == "veryhigh") {
-							tmpText = '>= ' + formatNumber($.fusiontable.types[conditionType].styleBoundaries.high);
+							tmpText = '&ge; ' + formatNumber($.fusiontable.types[conditionType].styleBoundaries.high);
 						} else if(text.id == "high") {
 							tmpText = '< ' + formatNumber($.fusiontable.types[conditionType].styleBoundaries.high);
 						} else if(text.id == "medium") {
