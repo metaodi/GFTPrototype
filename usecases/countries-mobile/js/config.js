@@ -1,7 +1,12 @@
+var global = this;
+
 $('#mapPage').live('pageinit', function(event){
 	// configuring jquery mobile
 	$.mobile.defaultPageTransition = 'slide';
 	$.mobile.touchOverflowEnabled = true;
+	
+	// types are dynamically filled by reading data of table
+	$.types = {};
 	
 	$.config = {
 		icon: {
@@ -57,19 +62,10 @@ $('#mapPage').live('pageinit', function(event){
 		'	</dl>' +
 		'</div>';
 	
-	$.layerStyles = Array();
+	$.layerStyles = [];
 	
 	// create layer styles
 	$.each($.config.colors, function(val, text) {
-		/*$.layerStyles[val.toString()] = {
-			id: val.toString(),
-			polygonOptions: {
-				fillColor: text.fillColor,
-				strokeColor: text.strokeColor,
-				strokeWeight: 1,
-				fillOpacity: 0.3
-			}
-		}*/
 		$.layerStyles.push({
 			id: val.toString(),
 			polygonOptions: {
@@ -81,16 +77,20 @@ $('#mapPage').live('pageinit', function(event){
 		});
 	});
 	
-	$.fusiontables = {
-		3378569: {
-			name: 'Einwohner',
-			field: 'geometry',
-			styleConditions: {
+	$.fusiontable = {
+		id: 3378569,
+		field: 'geometry',
+		styleConditions: {
+			'SP.POP.TOTL': {
 				low: 5000000,
 				medium: 50000000,
 				high: 100000000
-			},
-			styles: $.layerStyles
+			}
+		},
+		styles: $.layerStyles,
+		typeField: {
+			id: 'Indicator Code',
+			name: 'Indicator Name'
 		}
 	};
 });

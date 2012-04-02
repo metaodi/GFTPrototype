@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="../../lib/jquery-ui-map-3.0-rc/ui/jquery.ui.map.overlays.js"></script>
 	
 	<script type="text/javascript" src="./js/config.js"></script>
+	<script type="text/javascript" src="./js/CountriesController.js"></script>
 	<script type="text/javascript" src="./js/main.js"></script>
 	
 	<link href="./styles/styles.css" rel="stylesheet" type="text/css" />
@@ -25,6 +26,10 @@
 	<!-- add to homescreen popup -->
 	<link rel="stylesheet" href="./lib/cubiq-add-to-homescreen/style/add2home.css">
 	<script type="application/javascript" src="./lib/cubiq-add-to-homescreen/src/add2home.js"></script>
+	
+	<!-- google fusion table library -->
+	<script type="text/javascript" src="../../lib/gftlib-js/SqlBuilder.js"></script>
+	<script type="text/javascript" src="../../lib/gftlib-js/GftLib.js"></script>
 </head>
 <body>
 	<div data-role="page" id="mapPage">
@@ -35,9 +40,9 @@
 
 			<div data-role="content" role="main">
 				<div data-role="fieldcontain">
-					<label for="layerSelection" id="layerSelectionLabel">Aktive Ebene:</label>
-					<select id="layerSelection">
-						<option value="0">--- Ebene auswählen ---</option>
+					<label for="typeSelection" id="typeSelectionLabel">Aktive Ebene:</label>
+					<select id="typeSelection">
+						<option value="0">--- Ebenentyp auswählen ---</option>
 					</select>
 				</div><!-- /fieldcontain -->
 				
@@ -51,13 +56,7 @@
 					<div id="map_canvas"></div>
 				</div>
 				
-				<dl id="layerLegend" class="ui-bar-c ui-corner-all ui-shadow">
-					<dt class="nodata-color"></dt><dd class="nodata-text"></dd>
-					<dt class="low-color"></dt><dd class="low-text"></dd>
-					<dt class="medium-color"></dt><dd class="medium-text"></dd>
-					<dt class="high-color"></dt><dd class="high-text"></dd>
-					<dt class="veryhigh-color"></dt><dd class="veryhigh-text"></dd>
-				</dl>
+				<dl id="layerLegend" class="ui-bar-c ui-corner-all ui-shadow"></dl>
 			</div><!-- /content -->
 			
 			<div data-role="footer" data-position="fixed" data-tap-toggle="false">		
