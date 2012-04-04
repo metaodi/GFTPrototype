@@ -1,7 +1,7 @@
 module("GftLib", {
     setup: function() {
 		this.gft = new GftLib();
-		this.testGftTableId = 3119397;
+		this.testGftTableId = '1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg';
 	},
 	teardown: function(){}
 });
@@ -49,12 +49,12 @@ asyncTest("doPostJSONP", 1, function() {
 
 asyncTest("Exec SQL", 7, function() {
 	var testCb = function(data,status) {
-		equal(data.table.cols[0],"Text");
-		equal(data.table.cols[1],"Number");
-		equal(data.table.cols[2],"Location");
-		equal(data.table.cols[3],"Date");
-		equal(data.table.rows[0][0],"Some record");
-		equal(data.table.rows[0][2],"Zurich");
+		equal(data.columns[0],"Text");
+		equal(data.columns[1],"Number");
+		equal(data.columns[2],"Location");
+		equal(data.columns[3],"Date");
+		equal(data.rows[0][0],"Some record");
+		equal(data.rows[0][2],"Zurich");
 		equal(status, 'success', "Status 'success' expected");
 		start();
 	}
@@ -89,13 +89,13 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 
 asyncTest("ExecSelect: Condition", 8, function() {
 	var testCb = function(data,status) {
-		equal(data.table.rows.length,1);
-		equal(data.table.cols[0],"Text");
-		equal(data.table.cols[1],"Number");
-		equal(data.table.cols[2],"Location");
-		equal(data.table.cols[3],"Date");
-		equal(data.table.rows[0][0],"Some record");
-		equal(data.table.rows[0][2],"Zurich");
+		equal(data.rows.length,1);
+		equal(data.columns[0],"Text");
+		equal(data.columns[1],"Number");
+		equal(data.columns[2],"Location");
+		equal(data.columns[3],"Date");
+		equal(data.rows[0][0],"Some record");
+		equal(data.rows[0][2],"Zurich");
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
@@ -104,11 +104,11 @@ asyncTest("ExecSelect: Condition", 8, function() {
 
 asyncTest("ExecSelect: Projection", 6, function() {
 	var testCb = function(data,status) {
-		equal(data.table.rows.length,1);
-		equal(data.table.rows[0].length,1);
-		equal(data.table.cols.length,1);
-		equal(data.table.cols[0],"mytext");
-		equal(data.table.rows[0][0],"Some record");
+		equal(data.rows.length,1);
+		equal(data.rows[0].length,1);
+		equal(data.columns.length,1);
+		equal(data.columns[0],"mytext");
+		equal(data.rows[0][0],"Some record");
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
@@ -117,8 +117,8 @@ asyncTest("ExecSelect: Projection", 6, function() {
 
 asyncTest("ExecSelect: Order by", 3, function() {
 	var testCb = function(data,status) {
-		equal(data.table.rows[0][0],"Yet another record");
-		equal(data.table.rows[1][0],"Some record");
+		equal(data.rows[0][0],"Yet another record");
+		equal(data.rows[1][0],"Some record");
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
@@ -127,9 +127,10 @@ asyncTest("ExecSelect: Order by", 3, function() {
 
 asyncTest("ExecSelect: Group by", 4, function() {
 	var testCb = function(data,status) {
-		equal(data.table.rows.length,1);
-		equal(data.table.rows[0][0],2);
-		equal(data.table.rows[0][1],3);
+		console.log(data);
+		equal(data.rows.length,1);
+		equal(data.rows[0][0],2);
+		equal(data.rows[0][1],3);
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
