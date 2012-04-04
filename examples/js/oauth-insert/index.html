@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
 	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
 	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
 	<script type="text/javascript">
@@ -21,7 +22,6 @@
 			while (m = regex.exec(queryString)) {
 				params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
 			}
-			var accessToken = params['access_token'];
 			
 			//insert new data
 			var gftinsert = document.getElementById('gftinsert');
@@ -29,14 +29,15 @@
 					gftinsert.innerHTML = data;
 			}
 			var options = new Object();
-			options.table = 3350749;
+			options.table = '1uMyelq7qaA9htJLYIcEdD9jyV3MYjB_PrMUiwmE';
 		    options.fields = 'Text, Number, Location, Date'
 			options.values = "'',2,'',''";
-			gft.execInsert(insert_printer, options, accessToken);
+			
 			
 			// show all records
 			var gftquery = document.getElementById('gftquery');
 			var printer = function(data) {
+				console.log(data);
 				var objs = gft.convertToObject(data);
 				
 				for (var i = 0; i < objs.length; i++) {
@@ -45,7 +46,16 @@
 					gftquery.appendChild(listElem);
 				}
 			}
-			gft.execSql(printer, 'select Number from 3350749', accessToken);
+			
+			var callback = function(result) {
+				if (result) {
+					gft.execInsert(insert_printer, options);
+					gft.execSql(printer, 'select Number from 1uMyelq7qaA9htJLYIcEdD9jyV3MYjB_PrMUiwmE');
+				} else {
+					throw new Error("Auth failed!");
+				}
+			}
+			gft.auth(callback);
 		}
 		
 		
