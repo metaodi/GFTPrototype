@@ -88,6 +88,7 @@ dl#layerLegend {
   overflow: hidden;
   display: none;
   padding: 0.5em 1em;
+  margin-bottom: 0.5em;
 }
 dl#layerLegend dt {
   clear: both;
@@ -104,4 +105,14 @@ dl#layerLegend dd {
 }
 dl#layerLegend dd.nodata-text {
   font-style: italic;
+}
+
+#data-copyright {
+  display: none;
+  text-align: right;
+  font-size: 0.7em;
+  color: #606060;
+}
+#data-copyright p {
+  margin-top: 0;
 }

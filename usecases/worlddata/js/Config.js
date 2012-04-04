@@ -60,7 +60,7 @@ $('#mapPage').live('pageinit', function(event){
 	}
 	
 	$.fusiontable = {
-		id: 3417016,
+		id: 3441052,
 		field: 'geometry',
 		types: {
 			'SP.POP.TOTL': {
@@ -77,6 +77,14 @@ $('#mapPage').live('pageinit', function(event){
 					low: 50000,
 					medium: 500000,
 					high: 1000000
+				}
+			},
+			'NY.GDP.PCAP.CD': {
+				name: 'Pro-Kopf-Einkommen (aktueller US$-Kurs)',
+				styleBoundaries: {
+					low: 1000,
+					medium: 10000,
+					high: 50000
 				}
 			}
 		},

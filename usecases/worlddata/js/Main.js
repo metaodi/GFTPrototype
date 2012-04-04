@@ -24,6 +24,7 @@ $('#mapPage').live('pageinit', function(event) {
 		if(controller.getConditionType() == 0 && controller.getLayer()) {
 			controller.getLayer().setMap(null);
 			$('#layerLegend').css('display', 'none');
+			$('#data-copyright').css('display', 'none');
 		} else {
 			$.fusiontable.where = '\'' + $.fusiontable.typeField + '\' = \'' + controller.getConditionType() + '\'';
 			if(!controller.getLayer()) {
@@ -31,6 +32,7 @@ $('#mapPage').live('pageinit', function(event) {
 			}
 			controller.updateLayer();
 			$('#layerLegend').css('display', 'block');
+			$('#data-copyright').css('display', 'block');
 		}
 		
 		// refresh map to avoid rendering bugs

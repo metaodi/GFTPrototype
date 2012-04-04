@@ -93,7 +93,7 @@ function CountriesController() {
 			tempInfoWindow = tempInfoWindow.replace('###COUNTRY###', e.row['name'].value);
 			tempInfoWindow = tempInfoWindow.replace('###YEAR###', currentYear);
 			tempInfoWindow = tempInfoWindow.replace('###LAYERTITLE###', $.fusiontable.types[conditionType].name);
-			tempInfoWindow = tempInfoWindow.replace('###LAYERVALUE###', formatNumber(valueCurrentYearText));
+			tempInfoWindow = tempInfoWindow.replace('###LAYERVALUE###', formatNumber(round(valueCurrentYearText, 2)));
 			var differencePreviousYear = '';
 			if(currentYear > $.config.minYear && valueCurrentYear) {
 				var valuePreviousYear = e.row[currentYear - 1].value
