@@ -13,7 +13,7 @@ test("Construtor", function() {
 
 test("Constants", function() {
 	deepEqual(this.gft.GFT_URL,'https://www.googleapis.com/fusiontables/v1/query?');
-	deepEqual(this.gft.INSERT_GFT_URL,'http://localhost/gft/examples/RelayToGFT.php');
+	deepEqual(this.gft.INSERT_GFT_URL,'http://'+window.location.hostname+'/gft/examples/RelayToGFT.php');
 	deepEqual(this.gft.jsonUrlTail, '&callback=?');
 	deepEqual(this.gft.clientId, '63601791805.apps.googleusercontent.com');
     deepEqual(this.gft.apiKey, 'AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
