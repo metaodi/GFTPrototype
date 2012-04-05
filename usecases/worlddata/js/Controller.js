@@ -7,10 +7,10 @@ function CountriesController() {
 	this.conditionType = 0;
 	this.mouseClickListener = null;
 	
-	this.createMap = function(domElementId, position) {
+	this.createMap = function(domElementId, centerLatLng, initialZoom) {
 		var map = new google.maps.Map(document.getElementById(domElementId), {
-			center: position,
-			zoom: 2,
+			center: centerLatLng,
+			zoom: initialZoom,
 			disableDefaultUI: true, // disable all controls
 			zoomControl: true,
 			mapTypeId: google.maps.MapTypeId.ROADMAP

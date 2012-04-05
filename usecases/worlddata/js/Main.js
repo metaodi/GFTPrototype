@@ -3,7 +3,7 @@ $('#mapPage').live('pageinit', function(event) {
 	
 	addIosHeader();
 	setInitialUiValues();
-	controller.createMap('map_canvas', new google.maps.LatLng(45, 8));
+	controller.createMap('map_canvas', new google.maps.LatLng($.config.map.center.lat, $.config.map.center.lng), $.config.map.zoom);
 	
 	// year slider change event
 	$("#yearSlider").bind("change", function(event, ui) {

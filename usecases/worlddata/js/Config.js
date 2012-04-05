@@ -56,7 +56,15 @@ $('#mapPage').live('pageinit', function(event){
 			'		<dt>Differenz zum Vorjahr:</dt>' +
 			'		<dd>###DIFFERENCEPREVIOUSYEAR###</dd>' +
 			'	</dl>' +
-			'</div>'
+			'</div>',
+		
+		map: {
+			center: {
+				lat: 30,
+				lng: 8
+			},
+			zoom: 2
+		}
 	}
 	
 	$.fusiontable = {
