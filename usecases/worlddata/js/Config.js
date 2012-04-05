@@ -48,6 +48,7 @@ $('#mapPage').live('pageinit', function(event){
 		infoWindowTemplate: 
 			'<div class="gmap-info-window" style="font-family:sans-serif">' +
 			'	<h1 class="country">###COUNTRY###</h1>' +
+			'   ###IMAGETAG###' +
 			'	<dl class="info">' +
 			'		<dt>Jahr:</dt>' +
 			'		<dd>###YEAR###</dd>' +
@@ -68,7 +69,7 @@ $('#mapPage').live('pageinit', function(event){
 	}
 	
 	$.fusiontable = {
-		id: 3441052,
+		id: 3444289,
 		field: 'geometry',
 		types: {
 			'SP.POP.TOTL': {

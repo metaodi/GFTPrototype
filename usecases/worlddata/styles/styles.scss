@@ -69,22 +69,31 @@ dt, dd {
 		h1 {
 			font-size: 1.2em;
 			margin: 0.2em 0;
+			float: left;
+		}
+		
+		.flag {
+			height: 1.2em;
+			margin: 0.3em 0 0.2em 0.6em;
+			float: left;
 		}
 		
 		dl.info {
+			clear: both;
 			overflow: hidden;
 			margin: 0.5em 0 0 0;
-		}
-		dl.info dt {
-			clear: both;
-			float: left;
-			width: 10em;
-			margin-top: 0.3em;
-		}
-		dl.info dd {
-			float: left;
-			margin-left: 1em;
-			margin-top: 0.3em;
+			
+			dt {
+				clear: both;
+				float: left;
+				width: 10em;
+				margin-top: 0.3em;
+			}
+			dd {
+				float: left;
+				margin-left: 1em;
+				margin-top: 0.3em;
+			}
 		}
 	}
 }
