@@ -15,7 +15,7 @@ $(document).ready(function() {
 	
 	$.fusiontables = {
 		3378569: {
-			name: 'Einwohner',
+			name: 'Population',
 			field: 'geometry',
 			styleConditions: {
 				low: 5000000,
@@ -95,7 +95,7 @@ $(document).ready(function() {
 				} else if(text.id == "low") {
 					tmpText = '< ' + formatNumber($.fusiontables[tableId].styleConditions.low);
 				} else if(text.id == "nodata") {
-					tmpText = 'keine Daten vorhanden';
+					tmpText = 'no data available';
 				}
 			}
 			$('#layerLegend .' + text.id + '-text').html(tmpText);
