@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<RefData version="1.0" exporter="EA.25">
+	<DataSet name="Model Data Types - Google Fusion Tables - Code and DDL" table="t_datatypes" filter="Type='#Type#' and ProductName='#ProductName#' and DataType='#DataType#'" stoplist=";DatatypeID;">
+		<DataRow>
+			<Column name="Type" value="DDL"/>
+			<Column name="ProductName" value="Google Fusion Tables"/>
+			<Column name="DataType" value="Text"/>
+			<Column name="Size" value="0"/>
+			<Column name="MaxLen" value="0"/>
+			<Column name="MaxPrec" value="0"/>
+			<Column name="MaxScale" value="0"/>
+			<Column name="DefaultLen" value="0"/>
+			<Column name="DefaultPrec" value="0"/>
+			<Column name="DefaultScale" value="0"/>
+			<Column name="User" value="0"/>
+			<Column name="GenericType" value="text"/>
+			<Column name="DatatypeID" value="510"/>
+		</DataRow>
+		<DataRow>
+			<Column name="Type" value="DDL"/>
+			<Column name="ProductName" value="Google Fusion Tables"/>
+			<Column name="DataType" value="Number"/>
+			<Column name="Size" value="0"/>
+			<Column name="MaxLen" value="0"/>
+			<Column name="MaxPrec" value="0"/>
+			<Column name="MaxScale" value="0"/>
+			<Column name="DefaultLen" value="0"/>
+			<Column name="DefaultPrec" value="0"/>
+			<Column name="DefaultScale" value="0"/>
+			<Column name="User" value="0"/>
+			<Column name="GenericType" value="number"/>
+			<Column name="DatatypeID" value="511"/>
+		</DataRow>
+		<DataRow>
+			<Column name="Type" value="DDL"/>
+			<Column name="ProductName" value="Google Fusion Tables"/>
+			<Column name="DataType" value="Location"/>
+			<Column name="Size" value="0"/>
+			<Column name="MaxLen" value="0"/>
+			<Column name="MaxPrec" value="0"/>
+			<Column name="MaxScale" value="0"/>
+			<Column name="DefaultLen" value="0"/>
+			<Column name="DefaultPrec" value="0"/>
+			<Column name="DefaultScale" value="0"/>
+			<Column name="User" value="0"/>
+			<Column name="GenericType" value="location"/>
+			<Column name="DatatypeID" value="512"/>
+		</DataRow>
+		<DataRow>
+			<Column name="Type" value="DDL"/>
+			<Column name="ProductName" value="Google Fusion Tables"/>
+			<Column name="DataType" value="Date/Time"/>
+			<Column name="Size" value="0"/>
+			<Column name="MaxLen" value="0"/>
+			<Column name="MaxPrec" value="0"/>
+			<Column name="MaxScale" value="0"/>
+			<Column name="DefaultLen" value="0"/>
+			<Column name="DefaultPrec" value="0"/>
+			<Column name="DefaultScale" value="0"/>
+			<Column name="User" value="0"/>
+			<Column name="GenericType" value="datetime"/>
+			<Column name="DatatypeID" value="513"/>
+		</DataRow>
+	</DataSet>
+</RefData>

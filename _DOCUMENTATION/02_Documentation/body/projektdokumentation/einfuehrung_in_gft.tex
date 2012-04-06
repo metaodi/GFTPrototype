@@ -135,23 +135,24 @@ Ein weiteres mächtiges Feature ist zudem die Möglichkeit die Daten der Tabelle
 
 \includegraphics{images/gmap_fusiontableslayer_heatmap.png}
 
-\subsection{Vorteil}
+\subsection{Vorteile}
 Der grösste Vorteil der Fusion Table-Ebenen findet man aber eher darin, dass die Geocodierung der Standort-Daten direkt aus der Tabelle gelesen wird und nicht manuell abgefragt werden muss. Dadurch kann die Ebene komplett auf den Servern von Google aufbereitet werden. Der Client muss die erhaltenen Daten lediglich noch darstellen. Der Vorteil davon wird durch das folgende Diagramm schnell ersichtlich.
 
 \includegraphics[scale=0.5]{images/gmap_fusiontableslayer_vs_markers.png}
 
 Die Zeit für das Rendering der Karte bleibt demnach bei der Verwendung von Fusion Table-Ebenen konstant und somit unabhängig von der Anzahl Markierungen, welche gesetzt werden müssen. Der Rechenaufwand, der für das Erstellen der Javascript Marker-Objekte verwendet werden müsste, wird direkt von den Google Servern übernommen und das Resultat als Bild zum Client gesendet. Daraus resultiert die konstante Zeit, welche für die Anfrage zum Server und für das Senden der Antwort zum Client verwendet wird.
 
-\subsection{Nachteil}
-Ein grosser Nachteil dieser Fusion Table-Ebenen besteht aber darin, dass die verwendeten Fusion Tables als  \emph{öffentlich} markiert sein müssen. Sprich jeder kann die Tabellen anzeigen oder auslesen. Es ist also nicht möglich eine Tabelle mit sensiblen Daten als Fusion Table-Ebene darzustellen.
+\subsection{Nachteile}
+\subsubsection{Freigabe der Tabelle}
+Ein grosser Nachteil der Fusion Table-Ebenen besteht aber darin, dass die verwendeten Fusion Tables als  \emph{öffentlich} markiert sein müssen, um diese auf einer Karte darzustellen. Sprich jeder kann die Tabellen anzeigen oder auslesen. Es ist also nicht möglich eine Tabelle mit sensiblen Daten als Fusion Table-Ebene darzustellen.
 
 Von Google wird zur Lösung dieses Problems aber folgendes Vorgehen vorgeschlagen: Man kann für Tabellen mit sensiblen Inhalten eine View erstellen, welche lediglich die öffentlichen Spalten und Zeilen selektiert. Diese View könnte man dann als \emph{öffentlich} markieren und in einer Fusion Table-Ebene verwenden.
 
-Es bleibt die Frage offen, wie es möglich ist sensible Daten trotzdem in eine Ebene einzubringen.
+Eine Ausnahme dieser Regelung bilden dabei die Maps API Premier Kunden. Diese haben die Möglichkeit eine Fusion Table als \emph{Protectet Map Layer} freizugeben, wodurch sich diese nur in einer definierten Applikation als Ebene einbinden lässt. Die Datenbank bleibt dabei komplett privat und kann nicht ausgelesen werden.
 
-\subsection{Einschränkungen}
-Einige Einschränkungen sind aber auch bei der Verwendung der Fusion Tables-Ebenen zu beachten. Wie bereits erwähnt ist es nur möglich \emph{öffentliche} Fusion Tables als FusionTablesLayer darzustellen.
+Die Lizenzpreise für Maps API Premier Kunden beginnen bei 10000\$ pro Jahr und unterscheiden sich je nach Bedürfnis und Verwendung. 
 
+\subsubsection{Anzahl Markierungen}
 Zusätzlich ist die Anzahl an Markierungen, die auf einer Fusion Table-Ebene angezeigt werden können, auf 100000 Stück beschränkt. Diese Zahl sollte grundsätzlich aber für die meisten Anwendungsfälle gut ausreichen.
 
 Bei einer grösseren Anzahl von Daten sollte man sich bezüglich Übersicht zuerst die Überlegung machen, ob es Sinn macht alle Markierungen auf einmal darzustellen. Man könnte beispielsweise nur die Daten in einem gegebenen Umkreis darstellen. Auch die Performance nimmt bei einer grossen Anzahl von Markierungen schnell ab.
