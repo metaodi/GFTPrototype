@@ -4,7 +4,7 @@ $('#mapPage').live('pageinit', function(event){
 	// -------------------------------------
 	// CONFIGURATION STARTS HERE
 	// -------------------------------------
-	// fusion table condiguration
+	// fusion table configuration
 	$.fusiontable = {
 		id: 3444289,
 		field: 'geometry',
