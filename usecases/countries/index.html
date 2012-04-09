@@ -4,18 +4,9 @@
 	<title>Use Case - Countries</title>
 	<meta charset="utf-8">
 	
+	<link href="styles/styles.css" rel="stylesheet" type="text/css" />
 	<link href="../../lib/bootstrap-2.0.2/css/bootstrap.css" rel="stylesheet" />
 	<link href="../../lib/jquery-ui-1.8.18/css/cupertino/jquery-ui-1.8.18.custom.css" rel="stylesheet" type="text/css" />
-	<link href="styles/styles.css" rel="stylesheet" type="text/css" />
-	
-	<script type="text/javascript" src="../../lib/bootstrap-2.0.2/js/bootstap.js"></script>
-	<script type="text/javascript" src="../../lib/bootstrap-2.0.2/js/bootstap-tab.js"></script>
-	<script type="text/javascript" src="../../lib/jquery-1.7.1/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="../../lib/jquery-ui-1.8.18/js/jquery-ui-1.8.18.custom.min.js"></script>
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-	
-	<script type="text/javascript" src="js/constants.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -26,11 +17,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">CountryData</a>
+          <a class="brand" href="index.html">CountryData</a>
           <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
+            <ul class="nav" id="main-nav">
+              <li class="active" id="home-nav"><a href="#" data-toggle="page">Home</a></li>
+              <li id="about-nav"><a href="#about" data-toggle="page">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -40,48 +31,34 @@
 		<div class="hero-unit">
 			<h1>CountryData</h1>
 			<p>This use case gives you more information about how to visualize data you have on a map. With just a few clicks.</p>
-			<p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+			<p><a class="btn btn-primary btn-large" data-toggle="page" href="#about">Learn more &raquo;</a></p>
 		</div>
 		
-		<div class="row">
+		<div class="tabbable">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#map" data-toggle="tab">Map</a></li>
 				<li><a href="#chart" data-toggle="tab">Chart</a></li>
 			</ul>
-		</div>
 		
-		
-		<div class="tab-content">
-			<div class="tab-pane active" id="map">
-				<label for="layerSelection">Active layer:</label>
-				<select id="layerSelection">
-					<option value="0">--- Choose layer ---</option>
-				</select>
-
-				<dl id="layerLegend">
-					<dt class="nodata-color"></dt><dd class="nodata-text"></dd>
-					<dt class="low-color"></dt><dd class="low-text"></dd>
-					<dt class="medium-color"></dt><dd class="medium-text"></dd>
-					<dt class="high-color"></dt><dd class="high-text"></dd>
-					<dt class="veryhigh-color"></dt><dd class="veryhigh-text"></dd>
-				</dl>
-
-				<div id="timeline">
-					<div id="yearSliderValue"></div>
-					<div id="yearSliderValueArrow"></div>
-					<div id="yearSlider"></div>
-				</div>
-
-				<div id="map_canvas"></div>
+			<div class="tab-content">
+				<div class="tab-pane active" id="map"></div>
+				<div class="tab-pane" id="chart"></div>
 			</div>
-			<div class="tab-pane" id="Charts">Charts 1,2,3</div>
 		</div>
 	</div>
 	
-	<script>
-	  $(function () {
-		$('.tabs a:last').tab('show')
-	  })
-	</script>
+	<!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script type="text/javascript" src="../../lib/jquery-1.7.1/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="../../lib/jquery-ui-1.8.18/js/jquery-ui-1.8.18.custom.min.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	
+	<script type="text/javascript" src="../../lib/bootstrap-2.0.2/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../../lib/bootstrap-2.0.2/js/bootstrap-tab.js"></script>
+	
+	<script type="text/javascript" src="js/constants.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
