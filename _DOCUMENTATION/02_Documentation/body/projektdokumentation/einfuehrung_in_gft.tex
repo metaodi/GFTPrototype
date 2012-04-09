@@ -133,12 +133,22 @@ Das Google Maps API hat momentan folgende Einschränkungen bezüglich den Ebenen
 \subsection{Heatmaps}
 Ein weiteres mächtiges Feature ist zudem die Möglichkeit die Daten der Tabelle direkt als Heatmap darzustellen. Dabei werden die Daten automatisch nach der Häufigkeit der Vorkommnisse an einem Ort anders eingefärbt. Der verwendete Farbverlauf geht dabei von Grün (für wenig Daten) bis Rot (für viele Daten). 
 
-\includegraphics{images/gmap_fusiontableslayer_heatmap.png}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{images/gmap_fusiontableslayer_heatmap.png}
+	\caption{Daten als Heatmap mit FusionTablesLayer}
+	\label{fusiontableslayer-heatmap}
+\end{figure}
 
 \subsection{Vorteile}
 Der grösste Vorteil der Fusion Table-Ebenen findet man aber eher darin, dass die Geocodierung der Standort-Daten direkt aus der Tabelle gelesen wird und nicht manuell abgefragt werden muss. Dadurch kann die Ebene komplett auf den Servern von Google aufbereitet werden. Der Client muss die erhaltenen Daten lediglich noch darstellen. Der Vorteil davon wird durch das folgende Diagramm schnell ersichtlich.
 
-\includegraphics[scale=0.5]{images/gmap_fusiontableslayer_vs_markers.png}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[scale=0.5]{images/gmap_fusiontableslayer_vs_markers.png}
+	\caption{FusionTablesLayer verglichen mit Markers}
+	\label{fusiontableslayer-compare_markers}
+\end{figure}
 
 Die Zeit für das Rendering der Karte bleibt demnach bei der Verwendung von Fusion Table-Ebenen konstant und somit unabhängig von der Anzahl Markierungen, welche gesetzt werden müssen. Der Rechenaufwand, der für das Erstellen der Javascript Marker-Objekte verwendet werden müsste, wird direkt von den Google Servern übernommen und das Resultat als Bild zum Client gesendet. Daraus resultiert die konstante Zeit, welche für die Anfrage zum Server und für das Senden der Antwort zum Client verwendet wird.
 
