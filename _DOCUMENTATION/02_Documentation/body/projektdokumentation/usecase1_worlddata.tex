@@ -9,21 +9,36 @@ Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt we
 \subsection{Vorgehen}
 Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer auf der Karte dargestellt werden kann.
 
-\subsubsection{ERD}
-\includegraphics[scale=0.8]{images/usecase1-worlddata-erd.png}
-
 \subsection{Datenquellen}
-Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank.org/}) verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche.
+Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank.org/}) verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als XML- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als CSV-Dateien gespeichert haben. Diese konnten wir als neue Google Fusion Tables importieren.
 
 Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite (\url{http://www.gelib.com/world-borders.htm}) bezogen. 
 
 \section{Anforderungsspezifikation}
+\paragraph{Systemanforderungen:}
+\begin{itemize}
+\item Unterstützte Plattformen: Entspricht der Liste der unterstützen Plattformen von von jQuery Mobile (\url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms})
+\end{itemize}
 
 \section{Analyse}
 
 \section{Design}
+\subsection{ERD}
+\includegraphics[scale=0.8]{images/usecase1-worlddata-erd.png}
 
 \section{Implementation}
+\subsection{Abhängigkeiten}
+\begin{tabular}{|l|l|}
+\hline 
+Library & Version \\ 
+\hline 
+jQuery Mobile & 1.1.0 RC2 \\ 
+\hline 
+jQuery & 1.7.1 \\ 
+\hline 
+Google Maps API & V3 \\ 
+\hline 
+\end{tabular} 
 
 \section{Test}
 
@@ -105,3 +120,50 @@ Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Daz
 \includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer4.png}
 
 \subsection{Konfiguration der Applikation}
+Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden muss diese folgendermassen konfiguriert werden.
+
+\subsubsection{/js/Config.js}
+\begin{tabular}{|l|l|p{8cm}|}
+\hline 
+Parameter & Datentyp & Beschreibung \\ 
+\hline 
+\$.fusiontable.id & int & Öffnetliche ID der zu verwendenden Fusion Table \\ 
+\hline 
+\$.fusiontable.field & string & Spaltenname welcher die Landesgrenzen speichert
+
+\textit{(ACHTUNG: Gross-/Kleinschreibung relevant)} \\ 
+\hline 
+\$.fusiontable.typeField & string & Spaltenname aus welchem die Themen gelesen werden sollen
+
+\textit{(ACHTUNG: Gross-/Kleinschreibung relevant)} \\ 
+\hline 
+\$.fusiontable.types & - & Konfiguration der verschiedenen Themen. Für jedes Thema muss ein neuer Block nach folgendem Schema erstellt werden:
+
+\lstset{language=JavaScript}
+\begin{lstlisting}
+'<TYPE>': {
+	name: '<TYPE.name>',
+	styleBoundaries: {
+		low: <TYPE.styleBoundaries.low>,
+		medium: <TYPE.styleBoundaries.medium>,
+		high: <TYPE.styleBoundaries.high>
+	}
+}
+\end{lstlisting} \\ 
+\hline 
+- TYPE & string & ID des Themas \\ 
+\hline 
+- TYPE.name & string & Bezeichnung des Themas \\ 
+\hline 
+- TYPE.styleBoundaries.low & int & Obere Grenze für tiefe Werte \\ 
+\hline 
+- TYPE.styleBoundaries.medium & int & Obere Grenze für mittlere Werte \\ 
+\hline 
+- TYPE.styleBoundaries.high & int & Obere Grenze für hohe Werte \\ 
+\hline 
+\end{tabular}
+
+\subsection{Starten der Applikation}
+Beim Starten der Applikation sollten nun alle Themen der angegebenen Fusion Table in das Auswahlfeld \emph{Ebene auswählen...} geladen werden.
+
+\includegraphics{images/usecase1-worlddata/worlddata-application_start.png}

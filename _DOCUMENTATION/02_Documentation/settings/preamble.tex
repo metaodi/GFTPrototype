@@ -55,6 +55,7 @@
 % Syntaxhighlighter
 \usepackage{listings}
 \usepackage{color}
+\usepackage{xcolor}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -85,6 +86,34 @@
   morekeywords={*,...}               % if you want to add more keywords to the set
 }
 
+% Javascript Syntaxhighliting
+\lstdefinelanguage{JavaScript} {
+	morekeywords={
+		break,const,continue,delete,do,while,export,for,in,function,
+		if,else,import,in,instanceOf,label,let,new,return,switch,this,
+		throw,try,catch,typeof,var,void,with,yield
+	},
+	sensitive=false,
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+	morestring=[d]'
+}
+\lstset{
+	frame=tb,
+	framesep=5pt,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	keywordstyle=\ttfamily\bfseries\color{blue},
+	identifierstyle=\ttfamily,
+	stringstyle=\ttfamily\color{mauve},
+	commentstyle=\color{dkgreen},
+	rulecolor=\color{gray},
+	xleftmargin=5pt,
+	xrightmargin=5pt,
+	aboveskip=\bigskipamount,
+	belowskip=\bigskipamount
+}
 
 %% define toc formatting
 %\usepackage[titles]{tocloft}
