@@ -1,3 +1,39 @@
+function hex2rgb(hex, opacity) {
+	var rgb = hex.replace('#', '').match(/(.{2})/g);
+	var i = 3;
+	
+	while (i--) {
+		rgb[i] = parseInt(rgb[i], 16);
+	}
+	if (typeof opacity == 'undefined') {
+		return 'rgb(' + rgb.join(', ') + ')';
+	}
+
+	return 'rgba(' + rgb.join(', ') + ', ' + opacity + ')';
+}
+
+function formatNumber(number, thousandSeparator) {
+	var sRegExp = new RegExp('(-?[0-9]+)([0-9]{3})');
+	number = number.toString();
+	
+	if(!thousandSeparator) {
+		thousandSeparator = '\'';
+	}
+	
+	while(sRegExp.test(number)) {
+		number = number.replace(sRegExp, '$1' + thousandSeparator + '$2');
+	}
+	return number;
+}
+
+function round(zahl, n_stelle){
+   n_stelle = (n_stelle == "" || n_stelle == 0 ? 1 : Math.pow(10, n_stelle));
+   
+   zahl = Math.round(zahl * n_stelle) / n_stelle;
+   
+   return zahl;
+}
+
 $('#mapPage').live('pageinit', function(event) {
 	var controller = new CountriesController();
 	
