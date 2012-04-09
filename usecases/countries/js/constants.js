@@ -8,11 +8,11 @@ $(document).ready(function() {
 		'<div class="gmap-info-window" style="font-family:sans-serif">' +
 		'	<h1 class="country">###COUNTRY###</h1>' +
 		'	<dl class="info">' +
-		'		<dt>Jahr:</dt>' +
+		'		<dt>Year:</dt>' +
 		'		<dd>###YEAR###</dd>' +
 		'		<dt>###LAYERTITLE###:</dt>' +
 		'		<dd>###LAYERVALUE###</dd>' +
-		'		<dt>Differenz zum Vorjahr:</dt>' +
+		'		<dt>Difference to previous year:</dt>' +
 		'		<dd>###DIFFERENCEPREVIOUSYEAR###</dd>' +
 		'	</dl>' +
 		'</div>';
