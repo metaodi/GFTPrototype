@@ -23,13 +23,21 @@ Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Eart
 \section{Analyse}
 
 \section{Design}
-\subsection{ERD}
 
+\subsection{ERD}
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-erd.png}
 	\caption{WorldData ERD}
 	\label{worlddata-erd}
+\end{figure}
+
+\subsection{Klassendiagramm}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[scale=0.7]{images/usecase1-worlddata/worlddata-classdiagram.png}
+	\caption{WorldData Klassendiagramm}
+	\label{worlddata-classdiagram}
 \end{figure}
 
 \section{Implementation}
@@ -44,7 +52,36 @@ jQuery & 1.7.1 \\
 \hline 
 Google Maps API & V3 \\ 
 \hline 
+Cubiq - Add to home screen & 2.0 \\ 
+\hline 
 \end{tabular} 
+
+\section{Implementation}
+\subsection{Quellcode-Struktur}
+\begin{tabular}{|l|l|}
+\hline 
+Datei & Beschreibung \\ 
+\hline 
+images/ & Bilder der Applikation \\ 
+\hline 
+js/ & JavaScripts der Applikation \\ 
+\hline 
+js/Config.js & Konfiguration der Applikation \\ 
+\hline 
+js/Controller.js & Kontroller der Applikation \\ 
+\hline 
+js/Helper.js & Helper-Funktionen welche von der Applikation verwendet werden \\ 
+\hline 
+js/View.js & Steuert die Anzeige der Applikation \\ 
+\hline 
+lib/ & Von der Applikation verwendete Libraries \\ 
+\hline 
+styles/ & CSS-Styles der Applikation \\ 
+\hline
+index.html & Hauptseite der Applikation \\ 
+\hline
+\end{tabular} 
+
 
 \section{Test}
 
