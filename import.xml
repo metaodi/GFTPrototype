@@ -15,7 +15,7 @@
 	<target name="import_to_gft">
 		<echo message="Import given file to Google Fusion Tables for ${email}"/>
 		
-		<exec executable="ogr2ogr">
+		<exec executable="/usr/local/bin/ogr2ogr">
 			<arg line="-f GFT" />
 			<arg line='"GFT:email=${email} password=${password}"'/>
 			<arg value="${upload.dir}/${upload.filename}" />
