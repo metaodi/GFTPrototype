@@ -1,4 +1,4 @@
-module("WorldData - Helper");
+module("WorldData-Helper");
 
 test("Functions available", function() {
 	strictEqual(typeof(hex2rgb),'function','hex2rgb should be defined as function');

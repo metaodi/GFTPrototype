@@ -1,4 +1,4 @@
-module("WorldData - Config");
+module("WorldData-Config");
 
 test("Config initialized", 1, function() {
 	ok($.fusiontable !== null, "$.fusiontable should be initialized");

@@ -129,15 +129,17 @@ function WorldDataController() {
 	}
 	
 	function getDifferencePercentage(currentValue, otherValue) {
+		if (otherValue === 0) {
+			throw new Error("Value to compare may not be zero.");
+		}
+		
 		var differenceInPercent = (currentValue * 100 / otherValue) - 100;
 		differenceInPercent = round(differenceInPercent, 2);
 
-		if(differenceInPercent >= 0) {
-			differenceInPercent = '+' + differenceInPercent + '%';
-		} else {
-			differenceInPercent = differenceInPercent + '%';
+		if(differenceInPercent > 0) {
+			differenceInPercent = '+' + differenceInPercent;
 		}
-		return differenceInPercent;
+		return differenceInPercent + '%';
 	}
 	
 	// only used by unit test, because the private methods are not visible otherwise
