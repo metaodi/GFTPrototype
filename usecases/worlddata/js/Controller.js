@@ -1,5 +1,5 @@
-function CountriesController() {
-	if(this === global) { return new CountriesController(); }
+function WorldDataController() {
+	if(this === global) { return new WorldDataController(); }
 	
 	this.map = null;
 	this.layer = null;

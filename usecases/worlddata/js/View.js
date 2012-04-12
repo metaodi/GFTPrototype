@@ -1,5 +1,5 @@
 $('#mapPage').live('pageinit', function(event) {
-	var controller = new CountriesController();
+	var controller = new WorldDataController();
 	
 	addIosHeader();
 	setInitialUiValues();
