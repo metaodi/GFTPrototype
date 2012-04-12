@@ -129,16 +129,20 @@ function WorldDataController() {
 	}
 	
 	function getDifferencePercentage(currentValue, otherValue) {
-		var differencePreviousYear = (currentValue * 100 / otherValue) - 100;
-		differencePreviousYear = round(differencePreviousYear, 2);
+		var differenceInPercent = (currentValue * 100 / otherValue) - 100;
+		differenceInPercent = round(differenceInPercent, 2);
 
-		if(differencePreviousYear >= 0) {
-			differencePreviousYear = '+' + differencePreviousYear + '%';
+		if(differenceInPercent >= 0) {
+			differenceInPercent = '+' + differenceInPercent + '%';
 		} else {
-			differencePreviousYear = differencePreviousYear + '%';
+			differenceInPercent = differenceInPercent + '%';
 		}
-		return differencePreviousYear;
+		return differenceInPercent;
 	}
+	
+	// only used by unit test, because the private methods are not visible otherwise
+	this.__getImageSource = getImageSource;
+	this.__getDifferencePercentage = getDifferencePercentage;
 	
 	this.getLayer = function() {
 		return this.layer;
