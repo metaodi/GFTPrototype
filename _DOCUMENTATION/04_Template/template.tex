@@ -1,0 +1,61 @@
+% !TEX TS-program = xelatexmk
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper,twoside,10.5pt]{report}
+\usepackage{a4wide}
+
+\usepackage{styles/thesis_style}
+\usepackage{styles/functions}
+
+\usepackage[latin1]{inputenc} 
+%\usepackage{polyglossia}
+%\usepackage{fontspec}
+%\setromanfont[BoldFont={Gentium Basic Bold},ItalicFont={Gentium Italic}]{Gentium}
+
+\title{title of your document}
+\author{Michel Ott}
+\date{\today}
+
+\begin{document}
+%\listoftodos
+
+%\maketitle
+%\include{./titlepage}
+
+\include{abstract}
+
+\pagenumbering{roman} 
+%\setcounter{page}{1}
+
+%\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+\setcounter{tocdepth}{3}
+
+%% restart numbering for chapters
+\pagenumbering{arabic}
+%\setcounter{page}{1}
+
+\include{chapters/introduction}
+
+%% bibliography
+\bibliography{references/bibliography}
+
+%% appendix
+\appendix
+
+\include{appendix/source_code}
+
+\chapter{Lists}
+\begingroup
+	\let\cleardoublepage\relax
+	\let\clearpage\relax
+	
+	\listoffigures
+	\listoftables
+	\lstlistoflistings
+	
+	\setlength{\nomlabelwidth}{.2\hsize}
+	\printnomenclature
+\endgroup
+
+\end{document}
