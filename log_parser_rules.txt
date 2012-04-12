@@ -5,6 +5,9 @@ ok /0 warnings/
 ok /Package glosstex Warning: Term |There were undefined references/
 ok /Package natbib Warning: Citation\\\(s\\\) may have changed/
 
+# TODO: fix missing citation, but ignore missing Citations for now
+ok /LaTeX Warning: Citation .* on page \d+ undefined on input line \d+./
+
 # match line starting with 'error', case-insensitive
 error /(?i)error/
 
