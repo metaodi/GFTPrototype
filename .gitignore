@@ -18,10 +18,12 @@
 *.ilg
 *.ind
 *.lof
+*.lol
 *.lot
 *.maf
 *.mtc
 *.mtc1
+*.nlo
 *.out
 *.syg
 *.synctex.gz
