@@ -26,7 +26,7 @@
 	<target name="clean">
 		<echo message="Clean previously deployed files"/>
 		<delete includeemptydirs="true">
-			<fileset dir="${webapp.dir}" includes="**/*"/>
+			<fileset dir="${webapp.dir}" includes="**/*" followsymlinks="false" />
 		</delete>
 		<delete dir="test-results"/>
 	</target>

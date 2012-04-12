@@ -101,3 +101,19 @@ function round(zahl, n_stelle){
    
    return zahl;
 }
+
+function loadPageInDiv(pageName,targetDivId,callback) {
+	//retrive path and remove filename
+	var pathArray = window.location.pathname.split('/');
+	pathArray.pop();
+	var pathname = pathArray.join('/');
+
+	$.get(pathname+"/"+pageName+".html",function(data){
+		$("#"+targetDivId).html(data);
+		if(typeof callback == 'function') { 
+			callback();
+		} else if(pageName == 'map') {
+			loadMap();
+		}
+	});
+}

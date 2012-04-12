@@ -1,0 +1,24 @@
+<project name="gftprototype-build" basedir="." default="import_to_gft">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+	
+	<property name="upload.dir"			value="upload" />
+	<property name="upload.filename"	value="file.gis" />
+	
+	<tstamp>
+		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
+	</tstamp>
+	
+	<target name="import_to_gft">
+		<echo message="Import given file to Google Fusion Tables for ${email}"/>
+		
+		<exec executable="/usr/local/bin/ogr2ogr">
+			<arg line="-f GFT" />
+			<arg line='"GFT:email=${email} password=${password}"'/>
+			<arg value="${upload.dir}/${upload.filename}" />
+		</exec>
+	</target>
+</project>
