@@ -3,7 +3,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    name: 'FusionTrack',
+    name: 'FixMyStreet',
 	
     models: [
 		
@@ -22,6 +22,6 @@ Ext.application({
     ],
 
     launch: function() {
-        Ext.create('FusionTrack.view.Viewport', {fullscreen: true});
+        Ext.create('FixMyStreet.view.Viewport', {fullscreen: true});
     }
 });
