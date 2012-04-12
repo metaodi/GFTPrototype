@@ -52,8 +52,7 @@ Ext.define('MyApp.view.Viewport', {
                     },
                     {
                         xtype: 'panel',
-                        scrollable: true
-,
+                        scrollable: 'true\n',
                         title: 'Ebenen',
                         iconCls: 'locate',
                         items: [

@@ -7,17 +7,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "associations": 0.5096002796199173,
-        "fields": 0.9847217490896583,
-        "proxy": 0.38915871758945286,
-        "validations": 0.5915217634756118,
-        "designer|userClassName": "FusionTableModel",
-        "functionsRefGroup": 0.24762181006371975
+        "designer|userClassName": "FusionTableModel"
     },
     "customConfigs": [],
     "designerId": "0ee5eb5a-2c93-4e75-ba08-3eda9a4a3ee4",
     "$viewOrder": 0,
-    "expanded": false,
+    "expanded": true,
     "cn": [
         {
             "id": "ExtBox1-ext-gen3070",
@@ -28,11 +23,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "convert": 0.667891571065411,
                 "name": "id",
                 "type": "int",
-                "designer|userClassName": "MyField",
-                "functionsRefGroup": 0.13484656158834696
+                "designer|userClassName": "MyField"
             },
             "customConfigs": [],
             "expanded": true
@@ -46,11 +39,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "convert": 0.03512036241590977,
                 "name": "name",
                 "type": "string",
-                "designer|userClassName": "MyField4",
-                "functionsRefGroup": 0.6428176774643362
+                "designer|userClassName": "MyField4"
             },
             "customConfigs": [],
             "expanded": true
@@ -64,11 +55,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "convert": 0.9807694505434483,
                 "name": "locationField",
                 "type": "string",
-                "designer|userClassName": "MyField1",
-                "functionsRefGroup": 0.6619424025993794
+                "designer|userClassName": "MyField1"
             },
             "customConfigs": [],
             "expanded": true
@@ -82,10 +71,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "convert": 0.08741156104952097,
                 "name": "condition",
-                "designer|userClassName": "MyField2",
-                "functionsRefGroup": 0.9831027386244386
+                "designer|userClassName": "MyField2"
             },
             "customConfigs": [],
             "expanded": true
@@ -99,10 +86,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "convert": 0.48323479969985783,
                 "name": "styles",
-                "designer|userClassName": "MyField3",
-                "functionsRefGroup": 0.10444719949737191
+                "designer|userClassName": "MyField3"
             },
             "customConfigs": [],
             "expanded": true

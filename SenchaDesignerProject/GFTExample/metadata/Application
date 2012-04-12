@@ -7,23 +7,36 @@
     },
     "codeClass": null,
     "userConfig": {
-        "actionsRefGroup": 0.8043864800129086,
         "models": [
             "FusionTableModel"
         ],
-        "refsRefGroup": 0.4142154345754534,
-        "stores": [],
-        "views": [],
-        "beforeFiltersRefGroup": 0.5787911266088486,
-        "designer|launch": "",
-        "routesRefGroup": 0.7901378648821265,
-        "eventsRefGroup": 0.40011843224056065,
         "name": "MyApp",
-        "viewport": 0.4866933156736195,
-        "functionsRefGroup": 0.744948621140793
+        "controllers": [
+            "Map"
+        ]
     },
     "customConfigs": [],
     "designerId": "application",
     "$viewOrder": 0,
-    "expanded": true
+    "iconCls": "icon-application",
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen2357",
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "launch",
+                "implHandler": "",
+                "designer|userClassName": "launch"
+            },
+            "customConfigs": [],
+            "iconCls": "icon-basic-function",
+            "expanded": true
+        }
+    ]
 }
