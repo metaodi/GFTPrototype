@@ -15,7 +15,6 @@
 
 Ext.define('MyApp.controller.Map', {
     extend: 'Ext.app.Controller',
-
     config: {
         stores: [
             'FusionTablesStore'
@@ -23,6 +22,7 @@ Ext.define('MyApp.controller.Map', {
         views: [
             'Viewport'
         ],
+
         refs: {
             gftmap: '#gftmap',
             populationValue: '#populationValue',
@@ -41,10 +41,6 @@ Ext.define('MyApp.controller.Map', {
                 change: 'onTogglefieldChange'
             }
         }
-    },
-
-    init: function() {
-        this.layers = [];
     },
 
     onSliderfieldChange: function(slider, thumb, newValue, oldValue, options) {
@@ -121,6 +117,10 @@ Ext.define('MyApp.controller.Map', {
         });
 
         this.layers[tableData.data.id] = layer;
+    },
+
+    init: function(application) {
+        this.layers = [];
     }
 
 });

@@ -7,21 +7,13 @@
     },
     "codeClass": null,
     "userConfig": {
-        "actionsRefGroup": 0.8181045509409159,
-        "refsRefGroup": 0.9490916728973389,
         "stores": [
             "FusionTablesStore"
         ],
         "views": [
             "Viewport"
         ],
-        "designer|init": "this.layers = [];",
-        "beforeFiltersRefGroup": 0.9861178987193853,
-        "designer|launch": 0.5975935710594058,
-        "routesRefGroup": 0.8648436891380697,
-        "eventsRefGroup": 0.2334298596251756,
-        "designer|userClassName": "Map",
-        "functionsRefGroup": 0.2701039547100663
+        "designer|userClassName": "Map"
     },
     "customConfigs": [],
     "designerId": "7797a4ee-fc49-4209-a0f1-e825c455883b",
@@ -171,6 +163,26 @@
                 "designer|userClassName": "onTogglefieldChange"
             },
             "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen2364",
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "init",
+                "designer|params": [
+                    "application"
+                ],
+                "implHandler": "this.layers = [];",
+                "designer|userClassName": "init"
+            },
+            "customConfigs": [],
+            "iconCls": "icon-basic-function",
             "expanded": true
         }
     ]

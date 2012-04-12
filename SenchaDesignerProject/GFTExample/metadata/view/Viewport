@@ -8,11 +8,9 @@
     "codeClass": null,
     "userConfig": {
         "designer|initialView": true,
-        "eventsRefGroup": 0.3140008442569524,
         "layout": "card",
         "scrollable": null,
-        "designer|userClassName": "Viewport",
-        "functionsRefGroup": 0.9642922910861671
+        "designer|userClassName": "Viewport"
     },
     "customConfigs": [],
     "designerId": "7dfc0ae5-8cad-43ef-912a-54c5ce42c1f1",
@@ -29,10 +27,8 @@
             "codeClass": null,
             "userConfig": {
                 "docked": "top",
-                "eventsRefGroup": 0.4288539041299373,
                 "title": "GFTPrototype",
-                "designer|userClassName": "MyTitleBar",
-                "functionsRefGroup": 0.36757207475602627
+                "designer|userClassName": "MyTitleBar"
             },
             "customConfigs": [],
             "expanded": true
@@ -46,11 +42,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "eventsRefGroup": 0.5691733658313751,
                 "layout": null,
-                "tabBarRefGroup": 0.25855152192525566,
-                "designer|userClassName": "MyTabPanel1",
-                "functionsRefGroup": 0.10842128586955369
+                "designer|userClassName": "MyTabPanel1"
             },
             "customConfigs": [],
             "expanded": true,
@@ -65,13 +58,12 @@
                     "codeClass": null,
                     "userConfig": {
                         "docked": "bottom",
-                        "eventsRefGroup": 0.8212253211531788,
                         "designer|userClassName": "MyTabBar",
-                        "functionsRefGroup": 0.9677178664132953,
                         "container|align": null,
                         "container|pack": null
                     },
                     "customConfigs": [],
+                    "iconCls": "icon-tab-bar",
                     "expanded": true
                 },
                 {
@@ -83,10 +75,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "eventsRefGroup": 0.7211101879365742,
                         "layout": "fit",
                         "designer|userClassName": "MyPanel2",
-                        "functionsRefGroup": 0.6869631516747177,
                         "title": "Karte",
                         "badgeText": null,
                         "iconCls": "maps"
@@ -106,11 +96,9 @@
                                 "height": null,
                                 "id": "gftmap",
                                 "itemId": null,
-                                "eventsRefGroup": 0.5137573252432048,
                                 "mapOptions": "{ zoom: 5 }",
                                 "useCurrentLocation": true,
-                                "designer|userClassName": "MyMap",
-                                "functionsRefGroup": 0.8104709920007735
+                                "designer|userClassName": "MyMap"
                             },
                             "customConfigs": [],
                             "expanded": true
@@ -126,10 +114,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "eventsRefGroup": 0.04781113564968109,
                         "scrollable": "true\n",
                         "designer|userClassName": "MyPanel3",
-                        "functionsRefGroup": 0.4192648087628186,
                         "title": "Ebenen",
                         "iconCls": "locate"
                     },
@@ -145,10 +131,8 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "eventsRefGroup": 0.4264564279001206,
                                 "title": "Ebenen",
-                                "designer|userClassName": "MyFieldSet",
-                                "functionsRefGroup": 0.16286474792286754
+                                "designer|userClassName": "MyFieldSet"
                             },
                             "customConfigs": [],
                             "expanded": true,
@@ -164,12 +148,10 @@
                                     "userConfig": {
                                         "id": "schweizerStaedteCheckbox",
                                         "itemId": null,
-                                        "eventsRefGroup": 0.5813864844385535,
                                         "label": "Schweizer Städte",
                                         "name": 2741123,
                                         "value": null,
-                                        "designer|userClassName": "MyCheckbox",
-                                        "functionsRefGroup": 0.40330364694818854
+                                        "designer|userClassName": "MyCheckbox"
                                     },
                                     "customConfigs": [],
                                     "expanded": true
@@ -184,11 +166,9 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "id": "schweizerStaedteToggle",
-                                        "eventsRefGroup": 0.9697668079752475,
                                         "label": "Schweizer Städte",
                                         "name": 2741123,
-                                        "designer|userClassName": "MyToggleField",
-                                        "functionsRefGroup": 0.6692633288912475
+                                        "designer|userClassName": "MyToggleField"
                                     },
                                     "customConfigs": [],
                                     "expanded": true
@@ -204,15 +184,12 @@
                                     "userConfig": {
                                         "disabled": true,
                                         "id": "schweizerStaedteEinwohner",
-                                        "eventsRefGroup": 0.5425168233923614,
                                         "label": "Einwohner",
                                         "name": "Einwohner",
-                                        "value": null,
                                         "increment": 1000,
                                         "maxValue": 600000,
                                         "minValue": null,
-                                        "designer|userClassName": "MySliderField",
-                                        "functionsRefGroup": 0.6260473378933966
+                                        "designer|userClassName": "MySliderField"
                                     },
                                     "customConfigs": [],
                                     "expanded": true
@@ -228,11 +205,9 @@
                                     "userConfig": {
                                         "disabled": true,
                                         "id": "populationValue",
-                                        "eventsRefGroup": 0.5078942901454866,
                                         "label": "Einwohner",
                                         "readOnly": true,
-                                        "designer|userClassName": "MyNumberField",
-                                        "functionsRefGroup": 0.7376495704520494
+                                        "designer|userClassName": "MyNumberField"
                                     },
                                     "customConfigs": [],
                                     "expanded": true
@@ -248,11 +223,9 @@
                                     "userConfig": {
                                         "id": "coinCheckbox",
                                         "itemId": null,
-                                        "eventsRefGroup": 0.7173528175335377,
                                         "label": "Coin",
                                         "name": 3107027,
-                                        "designer|userClassName": "MyCheckbox1",
-                                        "functionsRefGroup": 0.26670605782419443
+                                        "designer|userClassName": "MyCheckbox1"
                                     },
                                     "customConfigs": [],
                                     "expanded": true
@@ -267,11 +240,9 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "id": "coinToggle",
-                                        "eventsRefGroup": 0.9473609277047217,
                                         "label": "Coin",
                                         "name": 3107027,
-                                        "designer|userClassName": "MyToggleField1",
-                                        "functionsRefGroup": 0.2922847317531705
+                                        "designer|userClassName": "MyToggleField1"
                                     },
                                     "customConfigs": [],
                                     "expanded": true
