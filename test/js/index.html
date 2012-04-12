@@ -10,15 +10,21 @@
 	<link rel="stylesheet" href="../lib/qunit/qunit.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="../lib/qunit/qunit.js"></script>
 	
-	<!-- JS under test -->
+	<!-- lib: JS under test -->
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="../../lib/gftlib-js/GftLib.js"></script>
 	<script type="text/javascript" src="../../lib/gftlib-js/SqlBuilder.js"></script>
 	
-	<!-- Load tests -->
-	<script type="text/javascript" src="TestFusionTablesLayer.js"></script>
-	<script type="text/javascript" src="TestGftLib.js"></script>
-	<script type="text/javascript" src="TestSqlBuilder.js"></script>
+	<!-- lib: tests -->
+	<script type="text/javascript" src="lib/TestFusionTablesLayer.js"></script>
+	<script type="text/javascript" src="lib/TestGftLib.js"></script>
+	<script type="text/javascript" src="lib/TestSqlBuilder.js"></script>
+	
+	<!-- worlddata JS under test -->
+	<script type="text/javascript" src="../../usecases/worlddata/js/Helper.js"></script>
+	
+	<!-- worlddata: tests -->
+	<script type="text/javascript" src="worlddata/TestHelper.js"></script>
 </head>
 <body>
 	<h1	 id="qunit-header">GFT Prototype - JavaScript Unit-Tests</h1>
