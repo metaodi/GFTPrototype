@@ -1,0 +1,150 @@
+%\usepackage[pdftex]{graphicx}
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+%\graphicspath{{./images/}}
+
+\usepackage{indentfirst}
+
+%% change the equation number appearance
+%% load up the AMS math package
+\usepackage{amsmath}
+
+%% enumerate package to change enumeration style
+\usepackage{enumitem}
+
+%% caption package
+\usepackage[format=hang,justification=raggedright]{caption}
+
+%% todos
+\usepackage{todonotes}
+
+%% long tables
+\usepackage{longtable}
+
+%% needed for table and H attribute
+\usepackage{float}
+
+%% to add listings / source code
+\usepackage{listings}
+\lstdefinestyle{numbers} {
+	numbers=left,
+	stepnumber=1,
+	numberstyle=\tiny
+}
+\lstdefinestyle{nonumbers}{
+	numbers=none
+}
+%\lstloadlanguages{C++}
+\lstset{
+	captionpos=b,
+	morekeywords={geometry,multipointtm,bytea,serial,in,text,bytes,int32,bool,Datum,POINT,float8,TYPE,int4,pg_largeobject,LINESTRING,POLYGON,MULTIPOINT,MULTISTRING,MULTIPOLYGON,GEOMETRYCOLLECTION},
+	basicstyle=\scriptsize\ttfamily,
+	keywordstyle=\bfseries\ttfamily\color{blue},
+	stringstyle=\color{magenta}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	breaklines=true,
+	frame=single,
+	xleftmargin=1cm,
+	xrightmargin=1cm,
+	tabsize=3
+%	escapeinside={\%*}{*)},
+}
+
+\lstdefinestyle{SQLStyle}{
+	language = SQL,
+	morekeywords={geometry,multipointtm,bytea,serial,in,text,bytes,int32,bool,Datum,Point,float8,TYPE,int4},
+}
+\lstset{style=SQLStyle}
+
+\lstdefinestyle{CStyle}{
+	language = C,
+	morekeywords={geometry,multipointtm,bytea,serial,in,text,bytes,int32,bool,Datum,Point,float8,TYPE,int4},
+}
+\lstset{style=SQLStyle}
+
+
+%% load up the fancy box making package
+%\usepackage{fancybox}
+
+%% make the equation numbers have little ovals around them
+%\def\tagform@#1{\maketag@@@{\cornersize{0.8}\ovalbox{\ignorespaces\sffamily{#1}\unskip\@@italiccorr}}}
+
+%% Load up PS insertion package
+\usepackage{psboxit}
+\PScommands
+
+%% Links and References
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=false,
+pdfborder={0 0 0}
+}
+
+%% Load up fancy headers and footers package
+\usepackage{fancyhdr}
+
+%% now reset the headers and footers
+\fancyhead{}
+%% make the odd pages have the section name on the top right
+\fancyhead[RO]{\rightmark}
+%% make the even pages have the chapter name on the top left
+\fancyhead[LE]{\leftmark}
+\fancyhead[LO]{\thepage}
+\fancyhead[RE]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot{}
+\renewcommand{\footrulewidth}{0pt}
+%% bring the style into effect
+\pagestyle{fancy}
+
+%% now redefine the plain style pages (chapter pages, contents pages)
+%% to have the same page number stuff on the bottom
+\fancypagestyle{plain}{
+	\fancyhf{} % clear all header and footer fields
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyfoot[CO,CE]{\thepage}
+}
+
+%% this next section (till \makeatother) makes sure that blank pages
+%% are actually completely blank, cause they're not usually
+%\makeatletter
+%\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+%	\hbox{}
+%	\vspace*{\fill}
+%	\thispagestyle{empty}
+%	\newpage
+%	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%\makeatother
+\makeatletter
+\renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+	\thispagestyle{fancy}%
+	\global\@topnum\z@
+	\@afterindentfalse
+	\secdef\@chapter\@schapter}
+\makeatother
+
+
+%% now change the chapter style
+%% load up the quotchap package
+\usepackage[avantgarde]{quotchap}
+
+%% make the quotation appear next to the chapter number
+\renewcommand\chapterheadstartvskip{\vspace*{-5\baselineskip}}
+
+%% now change the section heading to have a line beneath it
+%% load up the fancy title-style package
+%\RequirePackage[calcwidth]{titlesec}
+%\titleformat{\section}[hang]{\sffamily\bfseries}
+%{\Large\thesection}{12pt}{\Large}[{\titlerule[0.5pt]}]
+
+
+%% Abbreviations
+%% -- makeindex $basename.nlo -s nomencl.ist -o $basename.nls
+\usepackage{nomencl}
+\makenomenclature
+
+%%Bibliography
+%\usepackage{natbib}
+%\bibliographystyle{apalike}
+%%\usepackage[style=authortitle-icomp,natbib=true,sortcites=true,block=space]{biblatex}
+\usepackage[nosectionbib]{apacite}
+\bibliographystyle{apacite}

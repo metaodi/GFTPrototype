@@ -1,0 +1,41 @@
+\makeatletter
+
+%list of figures
+\renewcommand\listoffigures{%
+	\section{\listfigurename}%
+	\@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}%
+	\@starttoc{lof}%
+}
+
+%list of tables
+\renewcommand\listoftables{%
+	\section{\listtablename}%
+	\@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}%
+	\@starttoc{lot}%
+}
+
+%list of listings
+\renewcommand\lstlistoflistings{%
+	\section{\lstlistlistingname}%
+	\@mkboth{\MakeUppercase\lstlistlistingname}{\MakeUppercase\lstlistlistingname}%
+	\@starttoc{lol}%
+}
+
+%nomenclature
+\renewcommand\thenomenclature{%
+	\section{\nomname}
+	\if@intoc\addcontentsline{toc}{section}{\nomname}\fi%
+	
+	\nompreamble
+	
+	\list{}{%
+		\labelwidth\nom@tempdim
+		\leftmargin\labelwidth
+		\advance\leftmargin\labelsep
+		\itemsep\nomitemsep
+		\let\makelabel\nomlabel
+	}
+}
+
+\makeatother
+

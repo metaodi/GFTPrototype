@@ -1,0 +1,48 @@
+
+% !TEX spellcheck = de_CH
+% !TEX encoding = UTF-8 Unicode
+% !TEX root = ./template.tex
+
+\begin{titlepage}
+
+
+\begin{flushleft}
+
+% Upper part of the page
+\noindent\begin{minipage}[t]{0.49\textwidth}
+	\begin{flushleft}
+		\vspace{0pt} %needed else aligned to bottom
+		\includegraphics[width=0.8\textwidth]{./images/logo_hsr}
+	\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{flushright}
+		\vspace{0pt} %needed else aligned to bottom
+		%\includegraphics[width=0.8\textwidth]{./images/logo_ifs}
+	\end{flushright}
+\end{minipage}
+\\[4cm]
+
+% Title
+%\rule{\linewidth}{0.5mm} \\[0.4cm]
+{ \huge \bfseries \@title}\\[2cm]
+%\rule{\linewidth}{0.5mm} \\[1.5cm]
+
+Seminar Database Systems\\[0.5cm]
+Master of Science in Engineering\\
+Major Software and Systems\\
+HSR Hochschule für Technik Rapperswil\\
+\url{www.hsr.ch/mse}\\[1cm]
+
+% Author and advisor
+Supervisor: Prof.~Stefan Keller\\[0.3cm]
+Author: \@author
+
+% Bottom of the page
+\vfill
+Date: {\@date}
+
+\end{flushleft}
+
+\end{titlepage}
