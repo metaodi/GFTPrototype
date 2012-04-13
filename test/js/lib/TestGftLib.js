@@ -31,10 +31,12 @@ test("Constants", function() {
 	deepEqual(this.gft.accessToken, null);
 });
 
-asyncTest("getUrlTail: with JSON / with token", 2, function() {
+asyncTest("getUrlTail: with JSON / with token", 3, function() {
 	var gft = this.gft;
 	var testCb = function(authresult) {
-		var token = authresult.access_token;
+		equal(authresult,true,'Authentication should be successful!');
+		
+		var token = gft.accessToken;
 		equal(gft.getUrlTail(),'&access_token='+token+'&callback=?&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
 		equal(gft.getUrlTail(true),gft.getUrlTail());
 		start();
@@ -48,10 +50,12 @@ test("getUrlTail: with JSON / without token", function() {
 	equal(this.gft.getUrlTail(true),this.gft.getUrlTail());
 });
 
-asyncTest("getUrlTail: without JSON / with token", 1, function() {
+asyncTest("getUrlTail: without JSON / with token", 2, function() {
 	var gft = this.gft;
 	var testCb = function(authresult) {
-		var token = authresult.access_token;
+		equal(authresult,true,'Authentication should be successful!');
+		
+		var token = gft.accessToken;
 		equal(gft.getUrlTail(false),'&access_token='+token+'&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
 		start();
 	}
@@ -205,6 +209,7 @@ asyncTest("ExecInsert", 5, function() {
 			gft.execInsert(testCb, {table:insertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
 		} else {
 			ok(false, "Authentication failed!");
+			start();
 		}
 	}
 	this.gft.auth(authCb);
