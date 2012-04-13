@@ -37,7 +37,7 @@ test("getDifferencePercentage() - floats", function() {
 
 test("getDifferencePercentage() - negative", function() {
 	equal(this.controller.__getDifferencePercentage(-1,1), '-200%');
-	equal(this.controller.__getDifferencePercentage(1,-1), '+5%');
-	equal(this.controller.__getDifferencePercentage(-1,-2), '+100%');
+	equal(this.controller.__getDifferencePercentage(1,-1), '-200%');
+	equal(this.controller.__getDifferencePercentage(-1,-2), '-50%');
 	equal(this.controller.__getDifferencePercentage(0.125,0.126), '-0.79%');
 });
