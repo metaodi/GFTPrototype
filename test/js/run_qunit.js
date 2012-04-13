@@ -46,6 +46,14 @@ function ISODateString(d) {
     + pad(d.getUTCSeconds())+'Z'
 }
 
+function unescapeHtml(str) {
+	str = str.replace(/</g,"&lt;")
+	str = str.replace(/>/g,"&gt;");
+	str = str.replace(/&/g,"&amp;");
+	str = str.replace(/"/g,"&quot;");
+    return str;
+}
+
 var generateJUnitXML = function(result) {
 	console.log('<?xml version="1.0"?>');
 	console.log('<!--\n ' + result.testresult + ' \n-->');
@@ -74,8 +82,9 @@ var generateJUnitXML = function(result) {
 			var failure = resultMatch[3];
 			console.log('<testcase name="'+ testName +'" classname="'+ moduleName +'">');
 			if (failure > 0) {
+				var failureText = resultLine.replace(resultRE,'');
 				console.log('<failure message="'+ moduleName +'" type="'+ moduleName +'">');
-				console.log(resultLine.replace(resultRE,''));
+				console.log('HTML' + unescapeHtml(failureText));
 				console.log('</failure>');
 			}
 			console.log('</testcase>');
