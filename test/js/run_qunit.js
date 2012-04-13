@@ -31,7 +31,7 @@ function waitFor(testFx, onReady, onError, timeOutMillis) {
                     clearInterval(interval); //< Stop this interval
                 }
             }
-        }, 100); //< repeat check every 250ms
+        }, 100); //< repeat check every 100ms
 };
 
 function ISODateString(d) {
