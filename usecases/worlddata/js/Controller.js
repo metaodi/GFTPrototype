@@ -130,10 +130,10 @@ function WorldDataController() {
 	
 	function getDifferencePercentage(currentValue, otherValue) {
 		if (otherValue === 0) {
-			throw new Error("Value to compare may not be zero.");
+			return '-';
 		}
-		
-		var differenceInPercent = (currentValue * 100 / otherValue) - 100;
+		var difference = currentValue - otherValue;
+		var differenceInPercent = (difference * 100 / Math.abs(otherValue));
 		differenceInPercent = round(differenceInPercent, 2);
 
 		if(differenceInPercent > 0) {

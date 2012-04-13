@@ -19,13 +19,14 @@ test("getDifferencePercentage() - integers", function() {
 	equal(this.controller.__getDifferencePercentage(2,1), '+100%');
 	equal(this.controller.__getDifferencePercentage(1,2), '-50%');
 	equal(this.controller.__getDifferencePercentage(0,1), '-100%');
-	try {
-		equal(this.controller.__getDifferencePercentage(1,0), '-100%');
-		ok(false, 'Should not reach this line, because 0 is not an allowed value');
-	} catch(e) {
-		equal(e.message,'Value to compare may not be zero.');
-	}
-	
+});
+
+test("getDifferencePercentage() - diff to zero", function() {
+	equal(this.controller.__getDifferencePercentage(0,0), '-');
+	equal(this.controller.__getDifferencePercentage(1,0), '-');
+	equal(this.controller.__getDifferencePercentage(-6,0), '-');
+	equal(this.controller.__getDifferencePercentage(0.5,0), '-');
+	equal(this.controller.__getDifferencePercentage(-1.34,0), '-');
 });
 
 test("getDifferencePercentage() - floats", function() {
@@ -37,7 +38,8 @@ test("getDifferencePercentage() - floats", function() {
 
 test("getDifferencePercentage() - negative", function() {
 	equal(this.controller.__getDifferencePercentage(-1,1), '-200%');
-	equal(this.controller.__getDifferencePercentage(1,-1), '-200%');
-	equal(this.controller.__getDifferencePercentage(-1,-2), '-50%');
-	equal(this.controller.__getDifferencePercentage(0.125,0.126), '-0.79%');
+	equal(this.controller.__getDifferencePercentage(1,-1), '+200%');
+	equal(this.controller.__getDifferencePercentage(-1,-2), '+50%');
+	equal(this.controller.__getDifferencePercentage(-1.5,0.5), '-400%');
+	equal(this.controller.__getDifferencePercentage(2.25,-0.5), '+550%');
 });
