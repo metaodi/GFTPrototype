@@ -1,0 +1,155 @@
+$mainFontSize: 16px;
+$websiteWidth: 700px;
+
+$colorYellowDark: #fff047;
+$colorYellowLight: #fff7a1;
+$colorOrangeDark: #fd9b32;
+$colorOrangeLight: #ffdda3;
+$colorGreenDark: #7fda43;
+$colorGreenLight: #c8ffa3;
+$colorBlueDark: #438ada;
+$colorBlueLight: #b1d2f7;
+
+$colorRedDark: #c40000;
+
+$colorGreyDark: #6f6f6f;
+$colorGreyLight: #cccccc;
+
+body {
+	font-family: Arial;
+	font-size: $mainFontSize;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: $colorRedDark;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus {
+	text-decoration: underline;
+}
+
+h1.page-header {
+	font-size: 2.5em;
+	color: $colorOrangeDark;
+	margin: 1em auto auto auto;
+	width: $websiteWidth;
+}	
+
+h2 {
+	color: #fff;
+	margin-bottom: 0.2em;
+	padding: 0.1em 0.4em;
+	background-color: $colorGreyDark;
+}
+h3 {
+	font-size: 1.1em;
+	margin: 1em 0 0.3em 0;
+	padding: 0 0.4em;
+	border-bottom: solid 1px $colorGreyDark;
+	color: $colorGreyDark;
+}
+
+#box {
+	margin: auto auto 1em auto;
+	padding: 0 0 1em 0;
+	border: solid 1px $colorGreyDark;
+	width: $websiteWidth;
+}
+
+ul {
+	margin: 0.2em 0;
+}
+
+.part-body {
+	padding: 0 0.5em;
+}
+
+// Examples
+#examples {
+	overflow: hidden;
+	
+	li {
+		margin-top: 0.4em;
+		line-height: 1.4em;
+		
+		.title {
+			//float: left;
+		}
+
+		// Tags
+		ul.tags {
+			font-size: 0.7em;
+			//float: left;
+			list-style: none;
+			padding: 0;
+
+			li {
+				margin-right: 1em;
+				display: inline;
+				border-radius: 1em;
+				padding: 0.2em 0.7em;
+				
+				&.sqlapi {
+					border: solid 1px $colorBlueDark;
+					background-color: $colorBlueLight;
+				}
+				&.gmap {
+					border: solid 1px $colorOrangeDark;
+					background-color: $colorOrangeLight;
+				}
+				&.fusiontableslayer {
+					border: solid 1px $colorGreenDark;
+					background-color: $colorGreenLight;
+				}
+				&.oauth {
+					border: solid 1px $colorYellowDark;
+					background-color: $colorYellowLight;
+				}
+				&.gchart {
+					border: solid 1px $colorYellowDark;
+					background-color: $colorYellowLight;
+				}
+				&.st2 {
+					border: solid 1px $colorYellowDark;
+					background-color: $colorYellowLight;
+				}
+			}
+		}
+	}
+}
+
+dl.description {
+	overflow: hidden;
+	
+	dt {
+		clear: both;
+		float: left;
+		width: 10em;
+		margin-top: 0.3em;
+		font-weight: bold;
+	}
+	dd {
+		margin-left: 11em;
+		margin-top: 0.3em;
+	}
+}
+
+a.app-start {
+	margin-left: 11em;
+	border-radius: 1em;
+	padding: 0.2em 0.7em;
+	border: solid 1px #277013;
+	background-color: #38a01c;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.app-start:hover,
+a.app-start:active,
+a.app-start:focus {
+	border: solid 1px #1a4b0d;
+	background-color: #277013;
+}
