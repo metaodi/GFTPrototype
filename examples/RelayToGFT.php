@@ -1,9 +1,13 @@
 <?php
 require_once(dirname(__FILE__) . '/../classes/PostRelay.class.php');
 
-$url = "http://www.google.com/fusiontables/api/query";
+$url = "https://www.googleapis.com/fusiontables/v1/query";
 
-$relay = new PostRelay($url);
+if(count($_GET) > 0) {
+	$relay = new PostRelay($url,$_GET);
+} else {
+	$relay = new PostRelay($url);
+}
 echo $relay->relay();
 
 ?>
