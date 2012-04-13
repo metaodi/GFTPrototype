@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
 	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
 	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
 	<script type="text/javascript">
@@ -26,7 +27,6 @@
 				listElem.innerHTML = decodeURIComponent(m[1]) + ': ' + decodeURIComponent(m[2]);
 				responseList.appendChild(listElem);
 			}
-			var accessToken = params['access_token'];
 			
 			// show fusion tables
 			var gftResponseList = document.getElementById('gftresponse');
@@ -40,13 +40,14 @@
 				}
 			}
 			
-			var printer2 = function(data) {
-				console.log(data);
-				var objs = gft.convertToObject(data);
-				console.log(objs);
+			var callback = function(result) {
+				if (result) {
+					gft.execSql(printer, 'SHOW TABLES');
+				} else {
+					throw new Error("Auth failed!");
+				}
 			}
-			
-			gft.execSql(printer, 'SHOW TABLES', accessToken);
+			gft.auth(callback);
 		}
 		
 		
