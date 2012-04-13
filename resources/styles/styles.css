@@ -1,35 +1,20 @@
-body {
-  font-family: Arial;
-  font-size: 16px;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: #c40000;
-  text-decoration: none;
-}
-
-a:hover, a:active, a:focus {
-  text-decoration: underline;
-}
-
 h1.page-header {
   font-size: 2.5em;
   color: #fd9b32;
-  margin: 1em auto auto auto;
+  margin: 1em auto 0.1em auto;
   width: 700px;
+  padding: 0;
+  border: 0;
 }
 
 h2 {
   color: #fff;
-  margin-bottom: 0.2em;
+  margin: 1em 0 0.2em 0;
   padding: 0.1em 0.4em;
   background-color: #6f6f6f;
 }
 
 h3 {
-  font-size: 1.1em;
   margin: 1em 0 0.3em 0;
   padding: 0 0.4em;
   border-bottom: solid 1px #6f6f6f;
@@ -37,61 +22,23 @@ h3 {
 }
 
 #box {
-  margin: auto auto 1em auto;
+  margin: auto auto 2.5em auto;
   padding: 0 0 1em 0;
   border: solid 1px #6f6f6f;
   width: 700px;
-}
-
-ul {
-  margin: 0.2em 0;
 }
 
 .part-body {
   padding: 0 0.5em;
 }
 
-#examples {
-  overflow: hidden;
+ul#examples li {
+  margin: 0.5em 0;
+  font-size: 1.2em;
 }
-#examples li {
-  margin-top: 0.4em;
-  line-height: 1.4em;
-}
-#examples li ul.tags {
-  font-size: 0.7em;
-  list-style: none;
-  padding: 0;
-}
-#examples li ul.tags li {
+
+.label {
   margin-right: 1em;
-  display: inline;
-  border-radius: 1em;
-  padding: 0.2em 0.7em;
-}
-#examples li ul.tags li.sqlapi {
-  border: solid 1px #438ada;
-  background-color: #b1d2f7;
-}
-#examples li ul.tags li.gmap {
-  border: solid 1px #fd9b32;
-  background-color: #ffdda3;
-}
-#examples li ul.tags li.fusiontableslayer {
-  border: solid 1px #7fda43;
-  background-color: #c8ffa3;
-}
-#examples li ul.tags li.oauth {
-  border: solid 1px #fff047;
-  background-color: #fff7a1;
-}
-#examples li ul.tags li.gchart {
-  border: solid 1px #fff047;
-  background-color: #fff7a1;
-}
-#examples li ul.tags li.st2 {
-  border: solid 1px #fff047;
-  background-color: #fff7a1;
 }
 
 dl.description {
@@ -111,18 +58,4 @@ dl.description dd {
 
 a.app-start {
   margin-left: 11em;
-  border-radius: 1em;
-  padding: 0.2em 0.7em;
-  border: solid 1px #277013;
-  background-color: #38a01c;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-a.app-start:hover,
-a.app-start:active,
-a.app-start:focus {
-  border: solid 1px #1a4b0d;
-  background-color: #277013;
 }
