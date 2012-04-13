@@ -6,6 +6,8 @@ $colorOrangeLight: #ffdda3;
 $colorGreyDark: #6f6f6f;
 $colorGreyLight: #cccccc;
 
+$list-title-width: 12em;
+
 h1.page-header {
 	font-size: 2.5em;
 	color: $colorOrangeDark;
@@ -54,16 +56,16 @@ dl.description {
 	dt {
 		clear: both;
 		float: left;
-		width: 10em;
-		margin-top: 0.3em;
+		width: $list-title-width;
+		margin-top: 0.5em;
 		font-weight: bold;
 	}
 	dd {
-		margin-left: 11em;
-		margin-top: 0.3em;
+		margin-left: $list-title-width + 1em;
+		margin-top: 0.5em;
 	}
 }
 
 a.app-start {
-	margin-left: 11em;
+	margin-left: $list-title-width + 1em;
 }

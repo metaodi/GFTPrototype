@@ -103,6 +103,7 @@ $labelColorMapping = Array(
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>GFTPrototype</title>
+	<link rel="icon" href="./resources/images/gftprototype-favicon.png" type="image/png" />
 
 	<!-- twitter bootstrap -->
 	<link href="./lib/bootstrap-2.0.2/css/bootstrap.css" rel="stylesheet">
@@ -128,6 +129,12 @@ $labelColorMapping = Array(
 					echo $content;
 				}
 			?>
+			</ul>
+		</div>
+		<h3>Diverses</h3>
+		<div class="part-body">
+			<ul id="examples">
+				<li><a href="http://jenkins.rdmr.ch:8080/job/Import%20GIS%20files%20to%20GFT/">Geodaten Converter</a> (nur mit Login ausführbar)</li>
 			</ul>
 		</div>
 		
@@ -160,6 +167,30 @@ $labelColorMapping = Array(
 				<dd>Diese Applikation läuft auf allen WebKit-Browsern (Desktop: Chrome, Opera, Safari / Mobile: iOS, Android, Blackberry)</dd>
 			</dl>
 			<p><a href="./usecases/worlddata" class="app-start btn btn-primary">Applikation jetzt starten</a></p>
+		</div>
+		
+		<h2>Über das Projekt</h2>
+		<div class="part-body">
+			<dl class="description">
+				<dt>Projekt:</dt>
+				<dd>Studienarbeit FS2012</dd>
+				<dt>Schule:</dt>
+				<dd><a href="http://www.hsr.ch/" target="_blank">HSR Hochschule für Technik Rapperswil</a></dd>
+				<dt>Autoren:</dt>
+				<dd>Stefan Oderbolz</dd>
+				<dd>Jürg Hunziker</dd>
+				<dt>Betreuer:</dt>
+				<dd>Stefan Keller</dd>
+				<dt>Auftraggeber:</dt>
+				<dd>Marco Lehmann, <a href="http://www.geoinfo.ch/" target="_blank">GEOINFO AG Herisau</a></dd>
+				<dt>Repository:</dt>
+				<dd><a href="https://github.com/odi86/GFTPrototype" target="_blank">https://github.com/odi86/GFTPrototype</a></dd>
+				<dt>Projektmanagement:</dt>
+				<dd><a href="http://redmine.rdmr.ch/redmine/projects/gftprototype" target="_blank">http://redmine.rdmr.ch/redmine/projects/gftprototype</a></dd>
+				<dt>Continuous Integration:</dt>
+				<dd><a href="http://jenkins.rdmr.ch:8080/job/GFTPrototype/" target="_blank">http://jenkins.rdmr.ch:8080/job/GFTPrototype/</a></dd>
+				
+			</dl>
 		</div>
 	</div>
 </body>
