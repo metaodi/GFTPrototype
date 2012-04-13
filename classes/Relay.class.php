@@ -1,26 +1,39 @@
 <?php
 require_once("RemoteException.class.php");
 
-abstract class Relay {
+abstract class Relay 
+{
 	protected $curlHandler;
 	protected $url;
 	protected $data = null;
 
-	public function __construct($url,$data) {
+	public function __construct($url,$data=null) 
+	{
+		if ($data === null) 
+			$data = $this->getDefaultData();
+		
 		$this->url  = $url;
 		$this->data = $data;
 	}
 	
-	protected function getData() {
-		if (is_array($this->data) === true) {
+	protected function getDataQuery() 
+	{
+		if (is_array($this->data) === true) 
+		{
 			return http_build_query($this->data, '', '&');
 		}
 		return $this->data == null ? "" : $this->data;
 	}
 	
-	public function getUrl() {
-		$data = $this->getData();
-		return ($data != "") ? $this->url."?".$data : $this->url;
+	public function getUrl() 
+	{
+		$dataQuery = $this->getDataQuery();
+		return ($dataQuery != "") ? $this->url."?".$dataQuery : $this->url;
+	}
+	
+	public function getData()
+	{
+		return $this->data;
 	}
 
 	public function relay()
@@ -34,7 +47,8 @@ abstract class Relay {
 		
 		$remote_answer = curl_exec($this->curlHandler);
 
-		if(curl_errno($this->curlHandler) != 0) {
+		if(curl_errno($this->curlHandler) != 0) 
+		{
 			$msgErrorNo = "cURL Errornumber: ".curl_errno($this->curlHandler);
 			$msgError = "cURL Error: ".curl_error($this->curlHandler);
 			throw new RemoteException($url,$msgErrorNo." ".$msgError);
@@ -43,6 +57,7 @@ abstract class Relay {
 	}
 	
 	abstract protected function beforeCall();
+	abstract protected function getDefaultData();
 }
 
 ?>

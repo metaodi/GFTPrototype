@@ -25,9 +25,22 @@ class TestGetRelay extends GFTPrototypeUnitTestCase
 		);
 	}
 	
-    function testConstruct() {
-		$relay = new GetRelay("", "");
+    function testConstructWithData() {
+		$relay = new GetRelay("", $this->dataString);
         $this->assertIsA($relay, "GetRelay");
+		$this->assertEqual($relay->getData(),$this->dataString);
+    }
+	
+	function testConstructWithDataArray() {
+		$relay = new GetRelay("", $this->dataArray);
+        $this->assertIsA($relay, "GetRelay");
+		$this->assertEqual($relay->getData(),$this->dataArray);
+    }
+	
+	function testConstructWithoutData() {
+		$relay = new GetRelay("");
+        $this->assertIsA($relay, "GetRelay");
+		$this->assertIdentical($relay->getData(), $_GET);
     }
 	
 	function testGetUrlWithoutData() {
