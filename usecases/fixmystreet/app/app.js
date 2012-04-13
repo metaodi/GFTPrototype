@@ -14,14 +14,16 @@ Ext.application({
     ],
 
     views: [
-        
+		"MainContainer",
+        "ReportContainer"
     ],
 
     controllers: [
-		
+		"Map"
     ],
 
+	// launch function is called as soon as app is ready
     launch: function() {
-        Ext.create('FixMyStreet.view.Viewport', {fullscreen: true});
+        Ext.create('FixMyStreet.view.MainContainer');
     }
 });
