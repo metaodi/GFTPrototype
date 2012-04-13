@@ -34,14 +34,14 @@ $examplesArr = Array(
 				'sqlapi' => 'GFT SQL API'
 			)
 		),
-		'gmap-fusiontablelayer' => Array(
+		'gmap-fusiontableslayer' => Array(
 			'title' => 'FusionTablesLayer',
 			'tags' => Array(
 				'gmap' => 'Google Maps API',
 				'fusiontableslayer' => 'Google Maps FusionTablesLayer'
 			)
 		),
-		'gmap-dynamic-fusiontablelayers' => Array(
+		'gmap-dynamic-fusiontableslayer' => Array(
 			'title' => 'Dynamic FusionTablesLayer',
 			'tags' => Array(
 				'gmap' => 'Google Maps API',
