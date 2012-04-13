@@ -23,7 +23,6 @@ test("getDifferencePercentage() - integers", function() {
 		equal(this.controller.__getDifferencePercentage(1,0), '-100%');
 		ok(false, 'Should not reach this line, because 0 is not an allowed value');
 	} catch(e) {
-		console.log(e);
 		equal(e.message,'Value to compare may not be zero.');
 	}
 	
