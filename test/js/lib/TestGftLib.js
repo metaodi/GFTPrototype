@@ -7,6 +7,16 @@ module("GftLib", {
 	teardown: function(){}
 });
 
+function getDateString() {
+	var d = new Date();
+	return ('0' + d.getDate()).slice(-2) + '-'
+			+ ('0' + (d.getMonth()+1)).slice(-2) + '-'
+			+ d.getFullYear() + ' '
+			+ ('0' + (d.getHours())).slice(-2) + ':'
+			+ ('0' + (d.getMinutes())).slice(-2) + ':'
+			+ ('0' + (d.getSeconds())).slice(-2);
+}
+
 test("Construtor", function() {
 	ok(this.gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
 });
@@ -167,7 +177,7 @@ asyncTest("ExecSelect: Order by", 3, function() {
 asyncTest("ExecSelect: Group by", 4, function() {
 	var testCb = function(data,status) {
 		equal(data.rows.length,1);
-		ok("uncomment the following line when bug 1086 is fixed");
+		ok(true,"uncomment the following line when bug 1086 is fixed");
 		//equal(data.rows[0][0],2); -> 
 		equal(data.rows[0][1],3);
 		equal(status, "success", "Status 'success' expected");
@@ -192,7 +202,7 @@ asyncTest("ExecInsert", 5, function() {
 	
 	var authCb = function(result) {
 		if (result) {
-			gft.execInsert(testCb, {table:insertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','2012-04-04'"});
+			gft.execInsert(testCb, {table:insertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
 		} else {
 			ok(false, "Authentication failed!");
 		}
