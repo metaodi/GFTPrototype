@@ -7,9 +7,9 @@ $colorGreyDark: #6f6f6f;
 $colorGreyLight: #cccccc;
 
 $list-title-width: 12em;
+$padding-from-border: 1em;
 
 h1.page-header {
-	font-size: 2.5em;
 	color: $colorOrangeDark;
 	margin: 1em auto 0.1em auto;
 	width: $websiteWidth;
@@ -20,34 +20,46 @@ h1.page-header {
 h2 {
 	color: #fff;
 	margin: 1em 0 0.2em 0;
-	padding: 0.1em 0.4em;
+	padding: 0.1em 0.5em;
 	background-color: $colorGreyDark;
+}
+h2.first {
+	margin-top: 0;
 }
 h3 {
 	margin: 1em 0 0.3em 0;
-	padding: 0 0.4em;
+	padding: 0 0.8em;
 	border-bottom: solid 1px $colorGreyDark;
 	color: $colorGreyDark;
 }
 
 #box {
+	box-shadow: 0px 0px 10px 1px #aaa;
 	margin: auto auto 2.5em auto;
 	padding: 0 0 1em 0;
-	border: solid 1px $colorGreyDark;
 	width: $websiteWidth;
 }
 
 .part-body {
-	padding: 0 0.5em;
+	padding: 0 $padding-from-border;
 }
 
-ul#examples li {
-	margin: 0.7em 0;
-	font-size: 1.2em;
+ul#examples {
+	list-style: none;
+	margin: 0;
+	
+	li {
+		font-size: 1.2em;
+		padding: 0.3em $padding-from-border;
+	}
+	li.odd {
+		background-color: #eee;
+	}
 }
 
 .label {
 	margin-right: 1em;
+	line-height: 2em;
 }
 
 dl.description {
