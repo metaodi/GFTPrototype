@@ -1,5 +1,4 @@
 h1.page-header {
-  font-size: 2.5em;
   color: #fd9b32;
   margin: 1em auto 0.1em auto;
   width: 700px;
@@ -10,35 +9,47 @@ h1.page-header {
 h2 {
   color: #fff;
   margin: 1em 0 0.2em 0;
-  padding: 0.1em 0.4em;
+  padding: 0.1em 0.5em;
   background-color: #6f6f6f;
+}
+
+h2.first {
+  margin-top: 0;
 }
 
 h3 {
   margin: 1em 0 0.3em 0;
-  padding: 0 0.4em;
+  padding: 0 0.8em;
   border-bottom: solid 1px #6f6f6f;
   color: #6f6f6f;
 }
 
 #box {
+  box-shadow: 0px 0px 10px 1px #aaa;
   margin: auto auto 2.5em auto;
   padding: 0 0 1em 0;
-  border: solid 1px #6f6f6f;
   width: 700px;
 }
 
 .part-body {
-  padding: 0 0.5em;
+  padding: 0 1em;
 }
 
+ul#examples {
+  list-style: none;
+  margin: 0;
+}
 ul#examples li {
-  margin: 0.7em 0;
   font-size: 1.2em;
+  padding: 0.3em 1em;
+}
+ul#examples li.odd {
+  background-color: #eee;
 }
 
 .label {
   margin-right: 1em;
+  line-height: 2em;
 }
 
 dl.description {

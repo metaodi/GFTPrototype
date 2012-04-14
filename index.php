@@ -114,29 +114,31 @@ $labelColorMapping = Array(
 	<h1 class="page-header">GFTPrototype</h1>
 	<div id="box">
 		
-		<h2>Examples</h2>
+		<h2 class="first">Examples</h2>
 		<h3>JavaScript</h3>
-		<div class="part-body">
-			<ul id="examples">
-			<?php
-				foreach($examplesArr['js'] as $exampleJsKey => $examplesJsValue) {
+		<ul id="examples">
+		<?php
+			$counter = 0;
+			foreach($examplesArr['js'] as $exampleJsKey => $examplesJsValue) {
+				if($counter % 2) {
 					$content = '<li>';
-					$content .= '<div class="title"><a href="./examples/js/'. $exampleJsKey.'">'.$examplesJsValue['title'].'</a></div>';
-					foreach($examplesJsValue['tags'] as $examplesJsTagValue) {
-						$content .= '<span class="label label-'.$labelColorMapping[$examplesJsTagValue].'">'.$labelTitleMapping[$examplesJsTagValue].'</span>';
-					}
-					$content .= '</li>';
-					echo $content;
+				} else {
+					$content = '<li class="odd">';
 				}
-			?>
-			</ul>
-		</div>
+				$content .= '<div class="title"><a href="./examples/js/'. $exampleJsKey.'">'.$examplesJsValue['title'].'</a></div>';
+				foreach($examplesJsValue['tags'] as $examplesJsTagValue) {
+					$content .= '<span class="label label-'.$labelColorMapping[$examplesJsTagValue].'">'.$labelTitleMapping[$examplesJsTagValue].'</span>';
+				}
+				$content .= '</li>';
+				echo $content;
+				++$counter;
+			}
+		?>
+		</ul>
 		<h3>Diverses</h3>
-		<div class="part-body">
-			<ul id="examples">
-				<li><a href="http://jenkins.rdmr.ch:8080/job/Import%20GIS%20files%20to%20GFT/">Geodaten Converter</a> (nur mit Login ausführbar)</li>
-			</ul>
-		</div>
+		<ul id="examples">
+			<li class="odd"><a href="http://jenkins.rdmr.ch:8080/job/Import%20GIS%20files%20to%20GFT/">Geodaten Converter</a> (nur mit Login ausführbar)</li>
+		</ul>
 		
 		<h2>UseCases</h2>
 		<h3>WorldData</h3>
