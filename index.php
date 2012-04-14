@@ -168,7 +168,7 @@ $labelColorMapping = Array(
 				<dt>Voraussetzungen:</dt>
 				<dd>Diese Applikation läuft auf allen WebKit-Browsern (Desktop: Chrome, Opera, Safari / Mobile: iOS, Android, Blackberry)</dd>
 			</dl>
-			<p><a href="./usecases/worlddata" class="app-start btn btn-primary">Applikation jetzt starten</a></p>
+			<p><a href="./usecases/fixmystreet" class="app-start btn btn-primary">Applikation jetzt starten</a></p>
 		</div>
 		
 		<h2>Über das Projekt</h2>
