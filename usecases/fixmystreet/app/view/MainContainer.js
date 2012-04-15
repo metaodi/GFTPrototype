@@ -2,32 +2,23 @@ Ext.define('FixMyStreet.view.MainContainer', {
 	extend: 'Ext.Container',
 	
 	config: {
-		layout: {
-			type: 'card'
-		},
+		layout: 'card',
 		fullscreen: true,
 		
 		items: [
-				{
-					xtype: 'titlebar',
-					docked: 'top',
-					title: 'FixMyStreet'
+			{
+				xtype: 'titlebar',
+				docked: 'top',
+				title: 'FixMyStreet'
+			},
+			{
+				xtype: 'tabpanel',
+				tabBar: {
+					docked: 'bottom'
 				},
-				{
-					xtype: 'tabpanel',
-					tabBar: {
-						docked: 'bottom'
-					},
-					items: [
+				items: [
 					{
-						xtype: 'panel',
-						title: 'Melden',
-						iconCls: 'locate',
-						items: [
-							{
-								xtype: 'reportcontainer'
-							}
-						]
+						xtype: 'reportcontainer'
 					},
 					{
 						xtype: 'panel',
