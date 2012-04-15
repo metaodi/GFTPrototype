@@ -4,6 +4,9 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'FixMyStreet',
+	icon: './resources/images/fixmystreet-icon.png',
+	phoneStartupScreen: './resources/images/fixmystreet-startup_phone.png',
+	statusBarStyle: 'black',
 	
     models: [
 		

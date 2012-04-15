@@ -114,7 +114,7 @@ Ext.define("FixMyStreet.controller.Map", {
 		this.geocoder = new google.maps.Geocoder();
 		
 		// @TODO remove debug code
-		this.disableGeocoding = false;
+		this.disableGeocoding = true;
     },
 	
 	getGeocoder: function() {
