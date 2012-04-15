@@ -1,4 +1,4 @@
-<project name="gftprototype-build" basedir="." default="finish_build">
+<project name="gftprototype-build" basedir="." default="build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
@@ -23,6 +23,10 @@
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
 	</tstamp>
 	
+	<target name="build" depends="clean,test,documentation,generate_css,deploy,test-js">
+		<echo message="BUILD FINISHED!"/>
+	</target>
+	
 	<target name="clean">
 		<echo message="Clean previously deployed files"/>
 		<delete includeemptydirs="true">
@@ -41,7 +45,7 @@
 		</foreach>
 	</target>
 	
-	<target name="docu_revision" depends="test">
+	<target name="docu_revision">
 		<echo message="Generate documentation revision history"/>
 		<chmod file="${basedir}/directory_revision.sh" perm="ugo+rx"/>
 		<exec executable="bash" outputproperty="docu.revisions">
@@ -74,18 +78,29 @@
 		</antcall>
 	</target>
 	
-	<target name="generate_css" depends="documentation">
+	<target name="generate_css">
 		<echo message="Compile sass files to css"/>
-		<apply executable="sass" dest="${css.dir}" verbose="true" force="true" failonerror="true">
+		<foreach target="compile_sass" param="dir">
+			<path>
+				<dirset dir="${basedir}">
+					<include name="**/styles"/>
+				</dirset>
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="compile_sass">
+		<echo message="Compile sass files in ${dir}"/>
+		<apply executable="sass" dest="${dir}" verbose="true" force="true" failonerror="true">
 			<arg value="--unix-newlines" />
 			<srcfile />
 			<targetfile />
-			<fileset dir="${css.dir}" includes="**/*.scss" />
+			<fileset dir="${dir}" includes="**/*.scss" />
 			<mapper type="glob" from="*.scss" to="*.css"/>
 		</apply>
 	</target>
 	
-	<target name="deploy" depends="generate_css">
+	<target name="deploy">
 		<echo message="Deploying application"/>
 		<copy todir="${webapp.dir}" overwrite="true">
 			<fileset dir="."/>
@@ -117,9 +132,5 @@
 			pdftex="{pdftex}"  
 			workingDir="${docu.path}"  
 			/>  
-	</target>
-	
-	<target name="finish_build" depends="test-js">
-		<echo message="BUILD FINISHED!"/>
 	</target>
 </project>
