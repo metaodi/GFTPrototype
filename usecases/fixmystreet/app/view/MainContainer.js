@@ -8,12 +8,6 @@ Ext.define('FixMyStreet.view.MainContainer', {
 		
 		items: [
 			{
-				xtype: 'titlebar',
-				id: 'titlebar',
-				docked: 'top',
-				title: 'FixMyStreet'
-			},
-			{
 				xtype: 'tabpanel',
 				tabBar: {
 					docked: 'bottom',

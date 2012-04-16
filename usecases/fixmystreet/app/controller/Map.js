@@ -4,15 +4,20 @@ Ext.define("FixMyStreet.controller.Map", {
     config: {
         refs: {
             gftmap: '#gftmap',
-			addressTextField: 'textfield[name=address]'
+			addressTextField: 'textfield[name=address]',
+			typeSelectField: 'selectfield[name=type]',
+			reportButton: '#reportbutton'
         },
         control: {
             gftmap: {
-                maprender: "onMaprender"
+                maprender: 'onMaprender'
             },
             'selectfield[name=type]': {
-                change: "onTypeChange"
-            }
+                change: 'onTypeChange'
+            },
+			'#reportbutton': {
+				tap: 'onReportButtonTap'
+			}
         }
     },
 	
@@ -73,6 +78,11 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	
 	onTypeChange: function(field, newValue, oldValue, eOpts) {
+		if(newValue.getData().value == 'undefined') {
+			this.getReportButton().setDisabled(true);
+		} else {
+			this.getReportButton().setDisabled(false);
+		}
 		var markerIcon = new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/' + newValue.getData().value + '.png',
 			new google.maps.Size(32.0, 37.0),
@@ -100,6 +110,18 @@ Ext.define("FixMyStreet.controller.Map", {
 	
 	updateCurrentAddress: function(address) {
 		this.getAddressTextField().setValue(address);
+	},
+	
+	onReportButtonTap: function(button, e, eOpts) {
+		Ext.Msg.confirm('Defekt melden', 'Defekt ' + this.getTypeSelectField().getValue() + ' wirklich melden?<br />Adresse: ' + this.getAddressTextField().getValue(), this.handleReportButtonConfirmResponse);
+	},
+	
+	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
+		if(buttonId == 'yes') {
+			console.log('sende defekt');
+		} else {
+			console.log('abbruch');
+		}
 	},
 	
     // Base Class functions.

@@ -8,10 +8,17 @@ Ext.define('FixMyStreet.view.ReportContainer', {
 		layout: 'vbox',
 		items: [
 			{
+				xtype: 'titlebar',
+				cls: 'titlebar',
+				docked: 'top',
+				title: 'Defekt melden'
+			},
+			{
 				xtype: 'selectfield',
 				name: 'type',
-				label: 'Defekt melden...',
+				label: 'Defekttyp',
 				options: [
+					{text: 'Typ waehlen...',  value: 'undefined'},
 					{text: 'Strassenlampe',  value: 'light'},
 					{text: 'Schlagloch', value: 'bump'},
 					{text: 'Littering',  value: 'littering'},
@@ -38,8 +45,10 @@ Ext.define('FixMyStreet.view.ReportContainer', {
 			},
 			{
 				xtype: 'button',
+				id: 'reportbutton',
 				text: 'Jetzt melden',
-				ui: 'action'
+				ui: 'action',
+				disabled: true
 			}
 		]
 	}

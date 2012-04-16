@@ -1,5 +1,16 @@
+// enable Ext autoloader
 Ext.Loader.setConfig({
     enabled: true
+});
+
+// override MessageBox configuration
+var ExtMessageBox = Ext.MessageBox;
+Ext.apply(ExtMessageBox, {
+	YES: {text : 'Ja', itemId : 'yes', ui : 'action' },
+	NO: {text : 'Nein', itemId : 'no'}
+});
+Ext.apply(ExtMessageBox, {
+    YESNO: [ExtMessageBox.YES, ExtMessageBox.NO]
 });
 
 Ext.application({
