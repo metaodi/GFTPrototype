@@ -33,3 +33,6 @@
 /_DOCUMENTATION/02_Documentation/GFTPrototype.pdf
 /_DOCUMENTATION/04_Template/template.pdf
 styles.css
+/lib/sencha-touch-2.0.1-rc/command/vendor/nodejs/node_modules/.bin/
+/lib/sencha-touch-2.0.1-rc/command/vendor/nodejs/node_modules/jasmine-node/node_modules/.bin/
+/lib/sencha-touch-2.0.1-rc/docs/resources/touch-sass/.sass-cache/
