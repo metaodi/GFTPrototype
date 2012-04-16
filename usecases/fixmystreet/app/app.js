@@ -20,20 +20,20 @@ Ext.application({
 	statusBarStyle: 'black',
 	
     models: [
-		
+		'ProblemType'
     ],
 
     stores: [
-        
+		'ProblemTypes'
     ],
 
     views: [
-		"MainContainer",
-        "ReportContainer"
+		'MainContainer',
+        'ReportContainer'
     ],
 
     controllers: [
-		"Map"
+		'Map'
     ],
 
 	// launch function is called as soon as app is ready

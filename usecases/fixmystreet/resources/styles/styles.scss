@@ -2,6 +2,15 @@
 	font-size: 0.8em;
 }
 
-#reportbutton {
-	margin: 0.5em 1em;
+#reportButton {
+	margin: 0.5em;
+}
+#addressTextField {
+	font-size: 0.8em;
+	
+	&.x-item-disabled .x-form-label span,
+	&.x-item-disabled input {
+		color: #000;
+		-webkit-text-fill-color: #000;
+	}
 }

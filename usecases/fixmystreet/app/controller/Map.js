@@ -3,26 +3,26 @@ Ext.define("FixMyStreet.controller.Map", {
 	
     config: {
         refs: {
-            gftmap: '#gftmap',
+            reportMap: '#reportMap',
 			addressTextField: 'textfield[name=address]',
-			typeSelectField: 'selectfield[name=type]',
-			reportButton: '#reportbutton'
+			problemTypeSelectField: 'selectfield[name=problemType]',
+			reportButton: '#reportButton'
         },
         control: {
-            gftmap: {
-                maprender: 'onMaprender'
+            reportMap: {
+                maprender: 'onReportMapRender'
             },
-            'selectfield[name=type]': {
-                change: 'onTypeChange'
+            'selectfield[name=problemType]': {
+                change: 'onProblemTypeChange'
             },
-			'#reportbutton': {
+			'#reportButton': {
 				tap: 'onReportButtonTap'
 			}
         }
     },
 	
-    onMaprender: function(comp, map) {
-		var latlng = new google.maps.LatLng(this.getGftmap().getGeo().getLatitude(), this.getGftmap().getGeo().getLongitude());
+    onReportMapRender: function(comp, map) {
+		var latlng = new google.maps.LatLng(this.getReportMap().getGeo().getLatitude(), this.getReportMap().getGeo().getLongitude());
 		
 		this.geocodePosition(latlng);
 		this.addMarkerOwnPosition(latlng);
@@ -36,12 +36,7 @@ Ext.define("FixMyStreet.controller.Map", {
 			null,
 			new google.maps.Point(16.0, 37.0)
 		);
-		var markerIcon = new google.maps.MarkerImage(
-			'./resources/images/gmap-markers/undefined.png',
-			new google.maps.Size(32.0, 37.0),
-			null,
-			new google.maps.Point(16.0, 37.0)
-		);
+		var markerIcon = this.getMarkerIcon('undefined');
 		var marker = new google.maps.Marker({
 			position: latlng,
 			draggable: true,
@@ -57,7 +52,7 @@ Ext.define("FixMyStreet.controller.Map", {
 			scope.geocodePosition(latlng);
 		});
 		
-		marker.setMap(this.getGftmap().getMap());
+		marker.setMap(this.getReportMap().getMap());
 		this.setMarker(marker);
     },
 	
@@ -69,7 +64,7 @@ Ext.define("FixMyStreet.controller.Map", {
 			new google.maps.Point(10.0, 10.0)
 		);
 		var markerOwnPosition = new google.maps.Marker({
-			map: this.getGftmap().getMap(),
+			map: this.getReportMap().getMap(),
 			position: latlng,
 			icon: markerOwnPositionIcon,
 			clickable: false
@@ -77,20 +72,26 @@ Ext.define("FixMyStreet.controller.Map", {
 		this.setMarkerOwnPosition(markerOwnPosition);
 	},
 	
-	onTypeChange: function(field, newValue, oldValue, eOpts) {
-		if(newValue.getData().value == 'undefined') {
-			this.getReportButton().setDisabled(true);
-		} else {
+	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
+		// @TODO ugly implementation to remove first item of problem type store (undefined)
+		var store = Ext.getStore('ProblemTypes');
+		if(field.getValue() != 'undefined' && store.getAt(0).getData().value == 'undefined') {
 			this.getReportButton().setDisabled(false);
+			store.removeAt(0);
 		}
-		var markerIcon = new google.maps.MarkerImage(
-			'./resources/images/gmap-markers/' + newValue.getData().value + '.png',
+		
+		// change marker icon
+		var markerIcon = this.getMarkerIcon(field.getValue());
+		this.getMarker().setIcon(markerIcon);
+	},
+	
+	getMarkerIcon: function(iconname) {
+		return new google.maps.MarkerImage(
+			'./resources/images/gmap-markers/' + iconname + '.png',
 			new google.maps.Size(32.0, 37.0),
 			null,
 			new google.maps.Point(16.0, 37.0)
 		);
-		
-		this.getMarker().setIcon(markerIcon);
 	},
 	
 	geocodePosition: function(latlng) {
@@ -113,7 +114,7 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	
 	onReportButtonTap: function(button, e, eOpts) {
-		Ext.Msg.confirm('Defekt melden', 'Defekt ' + this.getTypeSelectField().getValue() + ' wirklich melden?<br />Adresse: ' + this.getAddressTextField().getValue(), this.handleReportButtonConfirmResponse);
+		Ext.Msg.confirm('Defekt melden', 'Defekt ' + this.getProblemTypeSelectField().getValue() + ' wirklich melden?<br />Adresse: ' + this.getAddressTextField().getValue(), this.handleReportButtonConfirmResponse);
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
