@@ -21,6 +21,31 @@ test("Construtor", function() {
 	ok(this.gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
 });
 
+test("Public Methods", function() {
+	deepEqual(typeof this.gft.execSelect, 'function', 'Public function should exist');
+	deepEqual(typeof this.gft.getTableDescription, 'function', 'Public function should exist');
+	deepEqual(typeof this.gft.execInsert, 'function', 'Public function should exist');
+});
+
+test("Private Methods", function() {
+	deepEqual(this.gft.execSql,undefined, 'Private function should not be accessible');
+	deepEqual(this.gft.getUrlTail,undefined, 'Private function should not be accessible');	
+	deepEqual(this.gft.convertToObject,undefined, 'Private function should not be accessible');
+	deepEqual(this.gft.doGet,undefined, 'Private function should not be accessible');
+	deepEqual(this.gft.doPost,undefined, 'Private function should not be accessible');
+	deepEqual(this.gft.doGetJSONP,undefined, 'Private function should not be accessible');
+	deepEqual(this.gft.doGetJSONP,undefined, 'Private function should not be accessible');
+	
+	//check for unit test alias
+	deepEqual(typeof this.gft.__execSql,'function', 'Unit test alias should exist');
+	deepEqual(typeof this.gft.__getUrlTail,'function', 'Unit test alias should exist');	
+	deepEqual(typeof this.gft.__convertToObject,'function', 'Unit test alias should exist');
+	deepEqual(typeof this.gft.__doGet,'function', 'Unit test alias should exist');
+	deepEqual(typeof this.gft.__doPost,'function', 'Unit test alias should exist');
+	deepEqual(typeof this.gft.__doGetJSONP,'function', 'Unit test alias should exist');
+	deepEqual(typeof this.gft.__doGetJSONP,'function', 'Unit test alias should exist');
+});
+
 test("Constants", function() {
 	deepEqual(this.gft.GFT_URL,'https://www.googleapis.com/fusiontables/v1/query?');
 	deepEqual(this.gft.INSERT_GFT_URL,'http://'+window.location.hostname+'/gft/examples/RelayToGFT.php');
@@ -37,8 +62,8 @@ asyncTest("getUrlTail: with JSON / with token", 3, function() {
 		equal(authresult,true,'Authentication should be successful!');
 		
 		var token = gft.accessToken;
-		equal(gft.getUrlTail(),'&access_token='+token+'&callback=?&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
-		equal(gft.getUrlTail(true),gft.getUrlTail());
+		equal(gft.__getUrlTail(),'&access_token='+token+'&callback=?&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
+		equal(gft.__getUrlTail(true),gft.__getUrlTail());
 		start();
 	}
 	this.gft.auth(testCb);
@@ -46,8 +71,8 @@ asyncTest("getUrlTail: with JSON / with token", 3, function() {
 });
 
 test("getUrlTail: with JSON / without token", function() {
-	equal(this.gft.getUrlTail(),'&callback=?&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
-	equal(this.gft.getUrlTail(true),this.gft.getUrlTail());
+	equal(this.gft.__getUrlTail(),'&callback=?&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
+	equal(this.gft.__getUrlTail(true),this.gft.__getUrlTail());
 });
 
 asyncTest("getUrlTail: without JSON / with token", 2, function() {
@@ -56,7 +81,7 @@ asyncTest("getUrlTail: without JSON / with token", 2, function() {
 		equal(authresult,true,'Authentication should be successful!');
 		
 		var token = gft.accessToken;
-		equal(gft.getUrlTail(false),'&access_token='+token+'&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
+		equal(gft.__getUrlTail(false),'&access_token='+token+'&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
 		start();
 	}
 	
@@ -64,7 +89,7 @@ asyncTest("getUrlTail: without JSON / with token", 2, function() {
 });
 
 test("getUrlTail: without JSON and token", function() {
-	equal(this.gft.getUrlTail(false),'&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
+	equal(this.gft.__getUrlTail(false),'&key=AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
 });
 
 asyncTest("doGet", 1, function() {
@@ -72,7 +97,7 @@ asyncTest("doGet", 1, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.doGet('index.html', '', testCb);
+	this.gft.__doGet('index.html', '', testCb);
 });
 
 asyncTest("doPost", 1, function() {
@@ -80,7 +105,7 @@ asyncTest("doPost", 1, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();  
 	}
-	this.gft.doPost('index.html', '', testCb);//
+	this.gft.__doPost('index.html', '', testCb);//
 });
 
 asyncTest("doGetJSONP", 1, function() {
@@ -88,7 +113,7 @@ asyncTest("doGetJSONP", 1, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.doGetJSONP('http://api.twitter.com/trends/1.json', '', testCb);
+	this.gft.__doGetJSONP('http://api.twitter.com/trends/1.json', '', testCb);
 });
 
 asyncTest("doPostJSONP", 1, function() {
@@ -96,7 +121,7 @@ asyncTest("doPostJSONP", 1, function() {
 		equal(status, "success", "Status 'success' expected");
 		start();
 	}
-	this.gft.doPostJSONP('http://api.twitter.com/trends/1.json', '', testCb);
+	this.gft.__doPostJSONP('http://api.twitter.com/trends/1.json', '', testCb);
 });
 
 asyncTest("Exec SQL", 7, function() {
@@ -110,33 +135,33 @@ asyncTest("Exec SQL", 7, function() {
 		equal(status, 'success', "Status 'success' expected");
 		start();
 	}
-	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
+	this.gft.__execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
 asyncTest("ConvertToObject for single object", 4, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
-		var gftObjs = gft.convertToObject(data);
+		var gftObjs = gft.__convertToObject(data);
 		equal(gftObjs[0].text, 'Some record');
 		equal(gftObjs[0].number, 3);
 		equal(gftObjs[0].location, 'Zurich');
 		equal(gftObjs[0].date, '03.03.2012');
 		start();
 	}
-	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
+	this.gft.__execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
 asyncTest("ConvertToObject for multiple objects", 4, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
-		var gftObjs = gft.convertToObject(data);
+		var gftObjs = gft.__convertToObject(data);
 		equal(gftObjs[0].text, 'Some record');
 		equal(gftObjs[1].text, 'Another record');
 		equal(gftObjs[2].text, 'And another record');
 		equal(gftObjs[3].text, 'Yet another record');
 		start();
 	}
-	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 4');
+	this.gft.__execSql(testCb, 'select * from ' + this.testGftTable + ' limit 4');
 });
 
 asyncTest("ExecSelect: Condition", 8, function() {
