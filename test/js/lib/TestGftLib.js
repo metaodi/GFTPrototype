@@ -22,24 +22,22 @@ test("Construtor", function() {
 });
 
 test("Public Methods", function() {
+	deepEqual(typeof this.gft.execSql, 'function', 'Public function should exist');
 	deepEqual(typeof this.gft.execSelect, 'function', 'Public function should exist');
-	deepEqual(typeof this.gft.getTableDescription, 'function', 'Public function should exist');
 	deepEqual(typeof this.gft.execInsert, 'function', 'Public function should exist');
+	deepEqual(typeof this.gft.getTableDescription, 'function', 'Public function should exist');
+	deepEqual(typeof this.gft.convertToObject, 'function', 'Public function should exist');
 });
 
 test("Private Methods", function() {
-	deepEqual(this.gft.execSql,undefined, 'Private function should not be accessible');
 	deepEqual(this.gft.getUrlTail,undefined, 'Private function should not be accessible');	
-	deepEqual(this.gft.convertToObject,undefined, 'Private function should not be accessible');
 	deepEqual(this.gft.doGet,undefined, 'Private function should not be accessible');
 	deepEqual(this.gft.doPost,undefined, 'Private function should not be accessible');
 	deepEqual(this.gft.doGetJSONP,undefined, 'Private function should not be accessible');
 	deepEqual(this.gft.doGetJSONP,undefined, 'Private function should not be accessible');
 	
 	//check for unit test alias
-	deepEqual(typeof this.gft.__execSql,'function', 'Unit test alias should exist');
 	deepEqual(typeof this.gft.__getUrlTail,'function', 'Unit test alias should exist');	
-	deepEqual(typeof this.gft.__convertToObject,'function', 'Unit test alias should exist');
 	deepEqual(typeof this.gft.__doGet,'function', 'Unit test alias should exist');
 	deepEqual(typeof this.gft.__doPost,'function', 'Unit test alias should exist');
 	deepEqual(typeof this.gft.__doGetJSONP,'function', 'Unit test alias should exist');
@@ -135,33 +133,33 @@ asyncTest("Exec SQL", 7, function() {
 		equal(status, 'success', "Status 'success' expected");
 		start();
 	}
-	this.gft.__execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
+	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
 asyncTest("ConvertToObject for single object", 4, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
-		var gftObjs = gft.__convertToObject(data);
+		var gftObjs = gft.convertToObject(data);
 		equal(gftObjs[0].text, 'Some record');
 		equal(gftObjs[0].number, 3);
 		equal(gftObjs[0].location, 'Zurich');
 		equal(gftObjs[0].date, '03.03.2012');
 		start();
 	}
-	this.gft.__execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
+	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
 asyncTest("ConvertToObject for multiple objects", 4, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
-		var gftObjs = gft.__convertToObject(data);
+		var gftObjs = gft.convertToObject(data);
 		equal(gftObjs[0].text, 'Some record');
 		equal(gftObjs[1].text, 'Another record');
 		equal(gftObjs[2].text, 'And another record');
 		equal(gftObjs[3].text, 'Yet another record');
 		start();
 	}
-	this.gft.__execSql(testCb, 'select * from ' + this.testGftTable + ' limit 4');
+	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 4');
 });
 
 asyncTest("ExecSelect: Condition", 8, function() {
