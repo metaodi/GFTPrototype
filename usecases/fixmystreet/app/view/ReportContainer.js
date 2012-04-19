@@ -25,7 +25,15 @@ Ext.define('FixMyStreet.view.ReportContainer', {
 			{
 				xtype: 'selectfield',
 				name: 'problemType',
-				store: 'ProblemTypes'
+				store: 'ProblemTypes',
+				defaultPhonePickerConfig: {
+					cancelButton: 'Abbrechen',
+					doneButton: 'Fertig'
+				},
+				defaultTabletPickerConfig: {
+					cancelButton: 'Abbrechen',
+					doneButton: 'Fertig'
+				}
 			},
 			{
 				xtype: 'mapnocentering',

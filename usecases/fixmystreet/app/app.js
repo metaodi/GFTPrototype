@@ -3,14 +3,26 @@ Ext.Loader.setConfig({
     enabled: true
 });
 
-// override MessageBox configuration
-var ExtMessageBox = Ext.MessageBox;
-Ext.apply(ExtMessageBox, {
-	YES: {text : 'Ja', itemId : 'yes', ui : 'action' },
-	NO: {text : 'Nein', itemId : 'no'}
-});
-Ext.apply(ExtMessageBox, {
-    YESNO: [ExtMessageBox.YES, ExtMessageBox.NO]
+// LOCALIZATION
+Ext.override(Ext.MessageBox, {
+	statics: {
+        YES   : {text: 'Ja',    itemId: 'yes', ui: 'action'},
+        NO    : {text: 'Nein',     itemId: 'no'},
+        CANCEL: {text: 'Abbrechen', itemId: 'cancel'},
+
+        OKCANCEL: [
+            {text: 'Abbrechen', itemId: 'cancel'},
+        ],
+        YESNOCANCEL: [
+            {text: 'Abbrechen', itemId: 'cancel'},
+            {text: 'Nein',     itemId: 'no'},
+            {text: 'Ja',    itemId: 'yes', ui: 'action'}
+        ],
+        YESNO: [
+            {text: 'Ja', itemId: 'yes', ui: 'action'},
+			{text: 'Nein',  itemId: 'no'}
+        ]
+    }
 });
 
 Ext.application({
