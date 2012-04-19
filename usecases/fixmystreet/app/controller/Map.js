@@ -1,39 +1,79 @@
 Ext.define("FixMyStreet.controller.Map", {
-    extend: "Ext.app.Controller",
+	extend: "Ext.app.Controller",
 	
-    config: {
-        refs: {
-            reportMap: '#reportMap',
+	config: {
+		refs: {
+			reportMap: '#reportMap',
 			addressTextField: 'textfield[name=address]',
 			problemTypeSelectField: 'selectfield[name=problemType]',
-			reportButton: '#reportButton'
-        },
-        control: {
-            reportMap: {
-                maprender: 'onReportMapMapRender'
-            },
-            problemTypeSelectField: {
-                change: 'onProblemTypeChange'
-            },
+			reportButton: '#reportButton',
+			currentLocationButton: '#currentLocationButton'
+		},
+		control: {
+			reportMap: {
+				maprender: 'onReportMapMapRender'
+			},
+			problemTypeSelectField: {
+				change: 'onProblemTypeChange'
+			},
 			reportButton: {
 				tap: 'onReportButtonTap'
+			},
+			currentLocationButton: {
+				tap: 'onCurrentLocationButtonTap'
 			}
-        }
-    },
+		}
+	},
 	
-    onReportMapMapRender: function(comp, map) {
+	onReportMapMapRender: function(mapComp, map, eOpts) {
 		var me = this;
+		var geo = mapComp.getGeo();
 		
-		var latlng = new google.maps.LatLng(me.getReportMap().getGeo().getLatitude(), me.getReportMap().getGeo().getLongitude());
+		// get current position
+		var latlng = new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
 		
-		me.getReportMap().setMapCenter(latlng);
+		// center map to current position
+		mapComp.setMapCenter(latlng);
 		
+		// geocode current position and update current address
 		me.geocodePosition(latlng);
-		me.addMarkerOwnPosition(latlng);
 		
-		me.getReportMap().getGeo().addListener('locationupdate', function() {
+		// add own position marker
+		me.addOwnPositionMarker(latlng, map);
+		geo.addListener('locationupdate', function() {
 			me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
 		});
+		
+		// add problem position marker
+		me.addProblemMarker(latlng, map);
+    },
+	
+	addOwnPositionMarker: function(latlng, map) {
+		var me = this;
+		
+		var ownPositionMarkerIcon = new google.maps.MarkerImage(
+			'./resources/images/gmap-markers/own_position.png',
+			new google.maps.Size(20.0, 20.0),
+			null,
+			new google.maps.Point(10.0, 10.0)
+		);
+		var ownPositionMarker = new google.maps.Marker({
+			map: map,
+			position: latlng,
+			icon: ownPositionMarkerIcon,
+			clickable: false
+		})
+		me.setOwnPositionMarker(ownPositionMarker);
+	},
+	setOwnPositionMarkerPosition: function(latlng) {
+		var ownPositionMarker = this.getOwnPositionMarker();
+		if(ownPositionMarker) {
+			ownPositionMarker.setPosition(latlng);
+		}
+	},
+	
+	addProblemMarker: function(latlng, map) {
+		var me = this;
 		
 		// custom marker image with shadow
 		// - image created with: http://mapicons.nicolasmollet.com/
@@ -44,41 +84,22 @@ Ext.define("FixMyStreet.controller.Map", {
 			null,
 			new google.maps.Point(16.0, 37.0)
 		);
-		var markerIcon = me.getMarkerIcon('undefined');
+		var markerIcon = me.getProblemMarkerIcon('undefined');
 		var marker = new google.maps.Marker({
-		position: latlng,
+			position: latlng,
 			draggable: true,
 			animation: google.maps.Animation.DROP,
 			icon: markerIcon,
 			shadow: markerShadow
 		});
-
+		
 		google.maps.event.addListener(marker, 'dragend', function() {
 			var latlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
 			me.geocodePosition(latlng);
 		});
 
-		marker.setMap(me.getReportMap().getMap());
-		me.setMarker(marker);
-    },
-	
-	addMarkerOwnPosition: function(latlng) {
-		var markerOwnPositionIcon = new google.maps.MarkerImage(
-			'./resources/images/gmap-markers/own_position.png',
-			new google.maps.Size(20.0, 20.0),
-			null,
-			new google.maps.Point(10.0, 10.0)
-		);
-		var markerOwnPosition = new google.maps.Marker({
-			map: this.getReportMap().getMap(),
-			position: latlng,
-			icon: markerOwnPositionIcon,
-			clickable: false
-		})
-		this.setMarkerOwnPosition(markerOwnPosition);
-	},
-	setOwnPositionMarkerPosition: function(latlng) {
-		this.getMarkerOwnPosition().setPosition(latlng);
+		marker.setMap(map);
+		me.setProblemMarker(marker);
 	},
 	
 	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
@@ -90,11 +111,11 @@ Ext.define("FixMyStreet.controller.Map", {
 		}
 		
 		// change marker icon
-		var markerIcon = this.getMarkerIcon(field.getValue());
-		this.getMarker().setIcon(markerIcon);
+		var markerIcon = this.getProblemMarkerIcon(field.getValue());
+		this.getProblemMarker().setIcon(markerIcon);
 	},
 	
-	getMarkerIcon: function(iconname) {
+	getProblemMarkerIcon: function(iconname) {
 		return new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/' + iconname + '.png',
 			new google.maps.Size(32.0, 37.0),
@@ -104,21 +125,22 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	
 	geocodePosition: function(latlng) {
-		var scope = this;
+		var me = this;
 		if(!this.disableGeocoding) {
 			this.getGeocoder().geocode({'latLng': latlng}, function(results, status) {
 				if(status == google.maps.GeocoderStatus.OK) {
 					if(results[0]) {
-						scope.updateCurrentAddress(results[0].formatted_address);
+						me.updateCurrentAddress(results[0].formatted_address);
 					}
 				}
 			});
 		} else {
-			scope.updateCurrentAddress(latlng);
+			me.updateCurrentAddress(latlng);
 		}
 	},
 	
 	updateCurrentAddress: function(address) {
+		this.setCurrentAddress(address);
 		this.getAddressTextField().setValue(address);
 	},
 	
@@ -134,6 +156,24 @@ Ext.define("FixMyStreet.controller.Map", {
 		}
 	},
 	
+	onCurrentLocationButtonTap: function(button, e, eOpts) {
+		this.setMapCenterToCurrentLocation();
+	},
+	
+	setMapCenterToCurrentLocation: function() {
+		var mapComp = this.getReportMap();
+		if(mapComp) {
+			// center map to current location
+			var geo = mapComp.getGeo();
+
+			// get current position
+			var latlng = new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
+
+			// center map to current position
+			mapComp.setMapCenter(latlng);
+		}
+	},
+	
     // Base Class functions.
     launch: function () {
         this.callParent(arguments);
@@ -141,30 +181,37 @@ Ext.define("FixMyStreet.controller.Map", {
     init: function () {
         this.callParent(arguments);
 		
-		this.marker = null;
-		this.markerOwnPosition = null;
+		this.problemMarker = null;
+		this.ownPositionMarker = null;
 		this.geocoder = new google.maps.Geocoder();
+		this.currentAddress = null;
 		
 		// @TODO remove debug code
 		this.disableGeocoding = true;
     },
 	
+	getProblemMarker: function() {
+		return this.problemMarker;
+	},
+	setProblemMarker: function(problemMarker) {
+		this.problemMarker = problemMarker;
+	},
+	getOwnPositionMarker: function() {
+		return this.ownPositionMarker;
+	},
+	setOwnPositionMarker: function(ownPositionMarker) {
+		this.ownPositionMarker = ownPositionMarker;
+	},
 	getGeocoder: function() {
 		return this.geocoder;
 	},
 	setGeocoder: function(geocoder) {
 		this.geocoder = geocoder;
 	},
-	getMarker: function() {
-		return this.marker;
+	getCurrentAddress: function() {
+		return this.currentAddress;
 	},
-	setMarker: function(marker) {
-		this.marker = marker;
-	},
-	getMarkerOwnPosition: function() {
-		return this.markerOwnPosition;
-	},
-	setMarkerOwnPosition: function(markerOwnPosition) {
-		this.markerOwnPosition = markerOwnPosition;
+	setCurrentAddress: function(currentAddress) {
+		this.currentAddress = currentAddress;
 	}
 });

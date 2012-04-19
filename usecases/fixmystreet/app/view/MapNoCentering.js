@@ -2,6 +2,7 @@ Ext.define('FixMyStreet.view.MapNoCentering', {
 	extend: 'Ext.Map',
 	alias: 'widget.mapnocentering',
 	
+	// don't center map on geo update
 	onGeoUpdate: function(geo) {
 		var me = this;
 		if (geo) {
