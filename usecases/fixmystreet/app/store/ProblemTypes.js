@@ -3,11 +3,11 @@ Ext.define('FixMyStreet.store.ProblemTypes', {
 	config: {
 		model: 'FixMyStreet.model.ProblemType',
 		data: [
-			{ text: 'Defekttyp waehlen...', value: 'undefined' },
+			{ text: 'Defekttyp wählen...', value: 'undefined' },
 			{ text: 'Strassenlampe', value: 'light' },
 			{ text: 'Schlagloch', value: 'bump' },
 			{ text: 'Littering', value: 'littering' },
-			{ text: 'Eisglaette', value: 'ice' }
+			{ text: 'Eisglätte', value: 'ice' }
 		]
 	}
 });

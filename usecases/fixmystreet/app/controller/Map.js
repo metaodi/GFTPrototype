@@ -104,10 +104,16 @@ Ext.define("FixMyStreet.controller.Map", {
 	
 	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
 		// @TODO ugly implementation to remove first item of problem type store (undefined)
-		var store = Ext.getStore('ProblemTypes');
+		/*var store = Ext.getStore('ProblemTypes');
 		if(field.getValue() != 'undefined' && store.getAt(0).getData().value == 'undefined') {
 			this.getReportButton().setDisabled(false);
 			store.removeAt(0);
+		}*/
+		
+		if(field.getValue() == 'undefined') {
+			this.getReportButton().setDisabled(true);
+		} else {
+			this.getReportButton().setDisabled(false);
 		}
 		
 		// change marker icon
@@ -145,14 +151,32 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	
 	onReportButtonTap: function(button, e, eOpts) {
-		Ext.Msg.confirm('Defekt melden', 'Defekt ' + this.getProblemTypeSelectField().getValue() + ' wirklich melden?<br />Adresse: ' + this.getAddressTextField().getValue(), this.handleReportButtonConfirmResponse);
+		var me = this;
+		Ext.Msg.confirm('Defekt melden', '<p>' + me.getProblemTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
 		if(buttonId == 'yes') {
 			console.log('sende defekt');
+			this.resetForm();
 		} else {
 			console.log('abbruch');
+		}
+	},
+	
+	resetForm: function() {
+		this.getReportButton().setDisabled(true);
+		this.getProblemTypeSelectField().setValue('undefined');
+		
+		var mapComp = this.getReportMap();
+		if(mapComp) {
+			// center map to current location
+			var geo = mapComp.getGeo();
+			// get current position
+			var latlng = new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
+			
+			this.getProblemMarker().setPosition(latlng);
+			this.geocodePosition(latlng);
 		}
 	},
 	
@@ -187,7 +211,7 @@ Ext.define("FixMyStreet.controller.Map", {
 		this.currentAddress = null;
 		
 		// @TODO remove debug code
-		this.disableGeocoding = true;
+		this.disableGeocoding = false;
     },
 	
 	getProblemMarker: function() {
