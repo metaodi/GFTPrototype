@@ -10,7 +10,7 @@ Ext.define("FixMyStreet.controller.Map", {
         },
         control: {
             reportMap: {
-                maprender: 'onReportMapMapRender',
+                maprender: 'onReportMapMapRender'
             },
             problemTypeSelectField: {
                 change: 'onProblemTypeChange'
@@ -30,6 +30,10 @@ Ext.define("FixMyStreet.controller.Map", {
 		
 		me.geocodePosition(latlng);
 		me.addMarkerOwnPosition(latlng);
+		
+		me.getReportMap().getGeo().addListener('locationupdate', function() {
+			me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
+		});
 		
 		// custom marker image with shadow
 		// - image created with: http://mapicons.nicolasmollet.com/
@@ -72,6 +76,9 @@ Ext.define("FixMyStreet.controller.Map", {
 			clickable: false
 		})
 		this.setMarkerOwnPosition(markerOwnPosition);
+	},
+	setOwnPositionMarkerPosition: function(latlng) {
+		this.getMarkerOwnPosition().setPosition(latlng);
 	},
 	
 	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
