@@ -19,6 +19,11 @@ Ext.application({
 	phoneStartupScreen: './resources/images/fixmystreet-startup_phone.png',
 	statusBarStyle: 'black',
 	
+	requires: [
+        'Ext.plugin.google.FusionTablesLayer',
+        'Ext.plugin.google.Tracker'
+	],
+	
     models: [
 		'ProblemType'
     ],
@@ -29,7 +34,8 @@ Ext.application({
 
     views: [
 		'MainContainer',
-        'ReportContainer'
+        'ReportContainer',
+		'MapNoCentering'
     ],
 
     controllers: [
@@ -38,6 +44,6 @@ Ext.application({
 
 	// launch function is called as soon as app is ready
     launch: function() {
-        Ext.create('FixMyStreet.view.MainContainer');
+		Ext.create('FixMyStreet.view.MainContainer');
     }
 });

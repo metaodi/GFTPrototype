@@ -11,7 +11,15 @@ Ext.define('FixMyStreet.view.ReportContainer', {
 				xtype: 'titlebar',
 				cls: 'titlebar',
 				docked: 'top',
-				title: 'Defekt melden'
+				title: 'Defekt melden',
+				
+				items: [
+					{
+						iconCls: 'currentlocation',
+						iconMask: 'true',
+						align: 'right'
+					}
+				]
 			},
 			{
 				xtype: 'selectfield',
@@ -19,7 +27,7 @@ Ext.define('FixMyStreet.view.ReportContainer', {
 				store: 'ProblemTypes'
 			},
 			{
-				xtype: 'map',
+				xtype: 'mapnocentering',
 				id: 'reportMap',
 				// fill the remaining space with the map
 				flex: 1,

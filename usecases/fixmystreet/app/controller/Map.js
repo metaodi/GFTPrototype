@@ -10,22 +10,26 @@ Ext.define("FixMyStreet.controller.Map", {
         },
         control: {
             reportMap: {
-                maprender: 'onReportMapRender'
+                maprender: 'onReportMapMapRender',
             },
-            'selectfield[name=problemType]': {
+            problemTypeSelectField: {
                 change: 'onProblemTypeChange'
             },
-			'#reportButton': {
+			reportButton: {
 				tap: 'onReportButtonTap'
 			}
         }
     },
 	
-    onReportMapRender: function(comp, map) {
-		var latlng = new google.maps.LatLng(this.getReportMap().getGeo().getLatitude(), this.getReportMap().getGeo().getLongitude());
+    onReportMapMapRender: function(comp, map) {
+		var me = this;
 		
-		this.geocodePosition(latlng);
-		this.addMarkerOwnPosition(latlng);
+		var latlng = new google.maps.LatLng(me.getReportMap().getGeo().getLatitude(), me.getReportMap().getGeo().getLongitude());
+		
+		me.getReportMap().setMapCenter(latlng);
+		
+		me.geocodePosition(latlng);
+		me.addMarkerOwnPosition(latlng);
 		
 		// custom marker image with shadow
 		// - image created with: http://mapicons.nicolasmollet.com/
@@ -36,24 +40,22 @@ Ext.define("FixMyStreet.controller.Map", {
 			null,
 			new google.maps.Point(16.0, 37.0)
 		);
-		var markerIcon = this.getMarkerIcon('undefined');
+		var markerIcon = me.getMarkerIcon('undefined');
 		var marker = new google.maps.Marker({
-			position: latlng,
+		position: latlng,
 			draggable: true,
 			animation: google.maps.Animation.DROP,
 			icon: markerIcon,
 			shadow: markerShadow
 		});
-		
-		var scope = this;
-		
+
 		google.maps.event.addListener(marker, 'dragend', function() {
 			var latlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
-			scope.geocodePosition(latlng);
+			me.geocodePosition(latlng);
 		});
-		
-		marker.setMap(this.getReportMap().getMap());
-		this.setMarker(marker);
+
+		marker.setMap(me.getReportMap().getMap());
+		me.setMarker(marker);
     },
 	
 	addMarkerOwnPosition: function(latlng) {
