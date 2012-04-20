@@ -30,7 +30,7 @@ Ext.define("FixMyStreet.controller.Map", {
 		var geo = mapComp.getGeo();
 		
 		// get current position
-		var latlng = new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
+		var latlng = this.getCurrentLocationLatLng();
 		
 		// center map to current position
 		mapComp.setMapCenter(latlng);
@@ -103,13 +103,6 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	
 	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
-		// @TODO ugly implementation to remove first item of problem type store (undefined)
-		/*var store = Ext.getStore('ProblemTypes');
-		if(field.getValue() != 'undefined' && store.getAt(0).getData().value == 'undefined') {
-			this.getReportButton().setDisabled(false);
-			store.removeAt(0);
-		}*/
-		
 		if(field.getValue() == 'undefined') {
 			this.getReportButton().setDisabled(true);
 		} else {
@@ -168,34 +161,22 @@ Ext.define("FixMyStreet.controller.Map", {
 		this.getReportButton().setDisabled(true);
 		this.getProblemTypeSelectField().setValue('undefined');
 		
-		var mapComp = this.getReportMap();
-		if(mapComp) {
-			// center map to current location
-			var geo = mapComp.getGeo();
-			// get current position
-			var latlng = new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
-			
-			this.getProblemMarker().setPosition(latlng);
-			this.geocodePosition(latlng);
-		}
+		// get current position
+		var latlng = this.getCurrentLocationLatLng();
+		
+		this.getReportMap().setMapCenter(latlng);
+		this.getProblemMarker().setPosition(latlng);
+		this.geocodePosition(latlng);
 	},
 	
 	onCurrentLocationButtonTap: function(button, e, eOpts) {
-		this.setMapCenterToCurrentLocation();
+		this.getReportMap().setMapCenter(this.getCurrentLocationLatLng());
 	},
 	
-	setMapCenterToCurrentLocation: function() {
-		var mapComp = this.getReportMap();
-		if(mapComp) {
-			// center map to current location
-			var geo = mapComp.getGeo();
-
-			// get current position
-			var latlng = new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
-
-			// center map to current position
-			mapComp.setMapCenter(latlng);
-		}
+	getCurrentLocationLatLng: function() {
+		var geo = this.getReportMap().getGeo();
+		// get current position
+		return new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
 	},
 	
     // Base Class functions.
