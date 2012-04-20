@@ -77,7 +77,7 @@ var generateJUnitXML = function(result) {
 		var resultRE = /^([ \w-]*: )?(.+) \((\d+), (\d+), (\d+)\)Rerun/;
 		var resultMatch = resultLine.match(resultRE);
 		if (resultMatch) {
-			var moduleName = resultMatch[1] ? resultMatch[1].slice(0,-1) : '';
+			var moduleName = resultMatch[1] ? resultMatch[1].slice(0,-": ".length) : '';
 			var testName = resultMatch[2];
 			var failure = resultMatch[3];
 			console.log('<testcase name="'+ testName +'" classname="'+ moduleName +'">');
