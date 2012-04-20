@@ -8,7 +8,7 @@ if (isset($_GET['type'])) {
 
 $file = "index.html";
 if (isset($_GET['file'])) {
-	$type = $_GET['file'];
+	$file = $_GET['file'];
 }
 
 if (!in_array($type,$allowed_types) || !in_array($file,$allowed_files)) {
