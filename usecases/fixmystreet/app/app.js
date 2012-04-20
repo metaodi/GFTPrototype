@@ -37,21 +37,25 @@ Ext.application({
 	],
 	
     models: [
+		'Problem',
 		'ProblemType'
     ],
 
     stores: [
-		'ProblemTypes'
+		'ProblemTypes',
+		'Problems'
     ],
 
     views: [
 		'MainContainer',
-        'ReportContainer',
-		'MapNoCentering'
+		'MapNoCentering',
+        'report.ReportContainer',
+		'list.ListContainer'
     ],
 
     controllers: [
-		'Map'
+		'List',
+		'Report'
     ],
 
 	// launch function is called as soon as app is ready

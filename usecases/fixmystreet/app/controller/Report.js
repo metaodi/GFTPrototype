@@ -1,4 +1,4 @@
-Ext.define("FixMyStreet.controller.Map", {
+Ext.define("FixMyStreet.controller.Report", {
 	extend: "Ext.app.Controller",
 	
 	config: {
@@ -145,19 +145,21 @@ Ext.define("FixMyStreet.controller.Map", {
 	
 	onReportButtonTap: function(button, e, eOpts) {
 		var me = this;
+		var timestamp = new Timestamp();
+		this.setTimestamp(timestamp);
 		Ext.Msg.confirm('Defekt melden', '<p>' + me.getProblemTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
 		if(buttonId == 'yes') {
-			console.log('sende defekt');
-			this.resetForm();
+			console.log('sende defekt / Zeit: ' + this.getTimestamp().getDate());
+			this.resetData();
 		} else {
 			console.log('abbruch');
 		}
 	},
 	
-	resetForm: function() {
+	resetData: function() {
 		this.getReportButton().setDisabled(true);
 		this.getProblemTypeSelectField().setValue('undefined');
 		
@@ -167,6 +169,7 @@ Ext.define("FixMyStreet.controller.Map", {
 		this.getReportMap().setMapCenter(latlng);
 		this.getProblemMarker().setPosition(latlng);
 		this.geocodePosition(latlng);
+		this.setTimestamp(null);
 	},
 	
 	onCurrentLocationButtonTap: function(button, e, eOpts) {
@@ -190,9 +193,10 @@ Ext.define("FixMyStreet.controller.Map", {
 		this.ownPositionMarker = null;
 		this.geocoder = new google.maps.Geocoder();
 		this.currentAddress = null;
+		this.timestamp = null;
 		
 		// @TODO remove debug code
-		this.disableGeocoding = false;
+		this.disableGeocoding = true;
     },
 	
 	getProblemMarker: function() {
@@ -218,5 +222,11 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	setCurrentAddress: function(currentAddress) {
 		this.currentAddress = currentAddress;
+	},
+	getTimestamp: function() {
+		return this.timestamp;
+	},
+	setTimestamp: function(timestamp) {
+		this.timestamp = timestamp;
 	}
 });

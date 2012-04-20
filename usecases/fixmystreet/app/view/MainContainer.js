@@ -20,11 +20,7 @@ Ext.define('FixMyStreet.view.MainContainer', {
 						xtype: 'reportcontainer'
 					},
 					{
-						xtype: 'panel',
-						scrollable: true,
-						title: 'Karte',
-						iconCls: 'maps',
-						items: []
+						xtype: 'listcontainer'
 					}
 				]
 			}

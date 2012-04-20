@@ -1,10 +1,10 @@
-Ext.define('FixMyStreet.view.ReportContainer', {
+Ext.define('FixMyStreet.view.report.ReportContainer', {
 	extend: 'Ext.Container',
 	alias: 'widget.reportcontainer',
 
 	config: {
 		title: 'Melden',
-		iconCls: 'locate',
+		iconCls: 'compose',
 		layout: 'vbox',
 		items: [
 			{
@@ -15,7 +15,7 @@ Ext.define('FixMyStreet.view.ReportContainer', {
 				
 				items: [
 					{
-						iconCls: 'currentlocation',
+						iconCls: 'locate',
 						iconMask: 'true',
 						align: 'right',
 						id: 'currentLocationButton'
