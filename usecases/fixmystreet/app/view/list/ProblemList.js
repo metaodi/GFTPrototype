@@ -13,9 +13,6 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 			'<tpl for="type">',
 				'<p>Problem: {text}</p>',
 			'</tpl>',
-			'<tpl for="status">',
-				'<p>Status: {value}</p>',
-			'</tpl>',
 			{
 				// XTemplate configuration:
 				disableFormats: true,

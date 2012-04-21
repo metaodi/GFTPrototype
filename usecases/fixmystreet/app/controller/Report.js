@@ -53,15 +53,20 @@ Ext.define("FixMyStreet.controller.Report", {
 		
 		var ownPositionMarkerIcon = new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/own_position.png',
-			new google.maps.Size(20.0, 20.0),
+			// image size
+			new google.maps.Size(40.0, 40.0),
 			null,
-			new google.maps.Point(10.0, 10.0)
+			// center of image
+			new google.maps.Point(10.0, 10.0),
+			// scale down image to half of the size to support retina displays
+			new google.maps.Size(20.0, 20.0)
 		);
 		var ownPositionMarker = new google.maps.Marker({
 			map: map,
 			position: latlng,
+			clickable: false,
 			icon: ownPositionMarkerIcon,
-			clickable: false
+			optimized: false
 		})
 		me.setOwnPositionMarker(ownPositionMarker);
 	},
@@ -90,7 +95,8 @@ Ext.define("FixMyStreet.controller.Report", {
 			draggable: true,
 			animation: google.maps.Animation.DROP,
 			icon: markerIcon,
-			shadow: markerShadow
+			shadow: markerShadow,
+			optimized: false
 		});
 		
 		google.maps.event.addListener(marker, 'dragend', function() {
