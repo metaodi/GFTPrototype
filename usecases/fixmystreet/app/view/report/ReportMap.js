@@ -1,6 +1,16 @@
-Ext.define('FixMyStreet.view.MapNoCentering', {
+Ext.define('FixMyStreet.view.report.ReportMap', {
 	extend: 'Ext.Map',
-	alias: 'widget.mapnocentering',
+	alias: 'widget.reportmap',
+	
+	config: {
+		id: 'reportMap',
+		mapOptions: {
+			zoom: 17,
+			streetViewControl: false,
+			navigationControl: false
+		},
+		useCurrentLocation: true
+	},
 	
 	// don't center map on geo update
 	onGeoUpdate: function(geo) {

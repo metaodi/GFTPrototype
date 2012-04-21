@@ -13,7 +13,6 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	onProblemListInitialize: function(listComp, eOpts) {
-		console.log('init');
 		this.getProblemList().setStore(this.getProblemStore());
 	},
 	
@@ -25,7 +24,6 @@ Ext.define("FixMyStreet.controller.List", {
         this.callParent(arguments);
 		
 		this.problemStore = Ext.getStore('Problems');
-		this.problemStore.load();
     },
 	
 	getProblemStore: function() {

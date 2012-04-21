@@ -38,19 +38,22 @@ Ext.application({
 	
     models: [
 		'Problem',
-		'ProblemType'
+		'ProblemType',
+		'Status'
     ],
 
     stores: [
 		'ProblemTypes',
-		'Problems'
+		'Problems',
+		'Statuses'
     ],
 
     views: [
 		'MainContainer',
-		'MapNoCentering',
+		'report.ReportMap',
         'report.ReportContainer',
-		'list.ListContainer'
+		'list.ListContainer',
+		'list.ProblemList'
     ],
 
     controllers: [

@@ -14,11 +14,7 @@ Ext.define('FixMyStreet.view.list.ListContainer', {
 				title: 'Meine Defekte'
 			},
 			{
-				xtype: 'list',
-				id: 'problemList',
-				grouped: true,
-				itemTpl: '<div class="contact">{timestamp} {address}</div>'
-				//store: store,
+				xtype: 'problemlist'
 			}
 		]
 	}

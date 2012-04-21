@@ -36,16 +36,9 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 				}
 			},
 			{
-				xtype: 'mapnocentering',
-				id: 'reportMap',
+				xtype: 'reportmap',
 				// fill the remaining space with the map
-				flex: 1,
-				mapOptions: {
-					zoom: 17,
-					streetViewControl: false,
-					navigationControl: false
-				},
-				useCurrentLocation: true
+				flex: 1
 			},
 			{
 				xtype: 'textfield',

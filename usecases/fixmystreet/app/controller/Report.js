@@ -151,15 +151,33 @@ Ext.define("FixMyStreet.controller.Report", {
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
+		var me = this;
 		if(buttonId == 'yes') {
-			console.log('sende defekt / Zeit: ' + this.getTimestamp().getDate());
-			this.resetData();
-		} else {
-			console.log('abbruch');
+			// creating problem instance
+			var status = Ext.getStore('Statuses').getById('new');
+			var type = Ext.getStore('ProblemTypes').getById(me.getProblemTypeSelectField().getValue());
+			var problem = new FixMyStreet.model.Problem();
+			problem.setData(
+				{
+					id: 123,
+					timestamp: me.getTimestamp().getTimestamp(),
+					address: me.getCurrentAddress(),
+					latitude: me.getReportMap().getGeo().getLatitude(),
+					longitude: me.getReportMap().getGeo().getLongitude(),
+					// @TODO why do I have to add getData() instead of record
+					type: type.getData(),
+					status: status.getData()
+				}
+			);
+			// adding problem to store
+			me.getProblemStore().add(problem);
+			
+			// resetting view data
+			me.resetView();
 		}
 	},
 	
-	resetData: function() {
+	resetView: function() {
 		this.getReportButton().setDisabled(true);
 		this.getProblemTypeSelectField().setValue('undefined');
 		
@@ -189,6 +207,7 @@ Ext.define("FixMyStreet.controller.Report", {
     init: function () {
         this.callParent(arguments);
 		
+		this.problemStore = Ext.getStore('Problems');
 		this.problemMarker = null;
 		this.ownPositionMarker = null;
 		this.geocoder = new google.maps.Geocoder();
@@ -196,9 +215,15 @@ Ext.define("FixMyStreet.controller.Report", {
 		this.timestamp = null;
 		
 		// @TODO remove debug code
-		this.disableGeocoding = true;
+		this.disableGeocoding = false;
     },
 	
+	getProblemStore: function() {
+		return this.problemStore;
+	},
+	setProblemStore: function(problemStore) {
+		this.problemStore = problemStore;
+	},
 	getProblemMarker: function() {
 		return this.problemMarker;
 	},

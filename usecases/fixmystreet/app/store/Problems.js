@@ -4,13 +4,20 @@ Ext.define('FixMyStreet.store.Problems', {
 		model: 'FixMyStreet.model.Problem',
 		autoLoad: true,
 		
+		// group problems by status and sort groups by sorting field of status
 		grouper: {
 			groupFn: function(record) {
-				return record.get('status');
+				return record.getData().status.value;
 			},
-			sortProperty: 'timestamp'
+			sortProperty: 'sorting'
+		},
+		// sort problems by timestamp (descending)
+		sorters: {
+			property: 'timestamp',
+			direction: 'DESC'
 		},
 		
+		// @TODO remove dummy data
 		data: [
 			{
 				id: 1,
@@ -18,8 +25,14 @@ Ext.define('FixMyStreet.store.Problems', {
 				address: 'Schulstrasse 2, Rapperswil',
 				latitude: '47.2',
 				longitude: '8.81',
-				status: 'In Arbeit',
-				type: 'ice'
+				status: {
+					key: 'new',
+					value: 'Neu'
+				},
+				type: {
+					text: 'Littering',
+					value: 'littering'
+				}
 			},
 			{
 				id: 2,
@@ -27,8 +40,29 @@ Ext.define('FixMyStreet.store.Problems', {
 				address: 'Bärenweg 5, Bern',
 				latitude: '47.8',
 				longitude: '8.11',
-				status: 'In Arbeit',
-				type: 'ice'
+				status: {
+					key: 'working',
+					value: 'In Arbeit'
+				},
+				type: {
+					text: 'Eisglätte',
+					value: 'ice'
+				}
+			},
+			{
+				id: 3,
+				timestamp: 1234930000,
+				address: 'Rosenstrasse 5, Russikon',
+				latitude: '47.3',
+				longitude: '7.11',
+				status: {
+					key: 'done',
+					value: 'Erledigt'
+				},
+				type: {
+					text: 'Strassenlampe',
+					value: 'light'
+				}
 			}
 		]
 	}
