@@ -56,7 +56,7 @@ Ext.define("FixMyStreet.controller.Report", {
 			// image size
 			new google.maps.Size(40.0, 40.0),
 			null,
-			// center of image
+			// image anchor to map
 			new google.maps.Point(10.0, 10.0),
 			// scale down image to half of the size to support retina displays
 			new google.maps.Size(20.0, 20.0)
@@ -85,9 +85,13 @@ Ext.define("FixMyStreet.controller.Report", {
 		// - shadow created with: http://www.cycloloco.com/shadowmaker/shadowmaker.htm
 		var markerShadow = new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/shadow.png',
-			new google.maps.Size(51.0, 37.0),
+			// image size
+			new google.maps.Size(98.0, 64.0),
 			null,
-			new google.maps.Point(16.0, 37.0)
+			// image anchor to map
+			new google.maps.Point(16.0, 32.0),
+			// scale down image to half of the size to support retina displays
+			new google.maps.Size(49.0, 32.0)
 		);
 		var markerIcon = me.getProblemMarkerIcon('undefined');
 		var marker = new google.maps.Marker({
@@ -123,9 +127,13 @@ Ext.define("FixMyStreet.controller.Report", {
 	getProblemMarkerIcon: function(iconname) {
 		return new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/' + iconname + '.png',
-			new google.maps.Size(32.0, 37.0),
+			// image size
+			new google.maps.Size(64.0, 64.0),
 			null,
-			new google.maps.Point(16.0, 37.0)
+			// image anchor to map
+			new google.maps.Point(16.0, 32.0),
+			// scale down image to half of the size to support retina displays
+			new google.maps.Size(32.0, 32.0)
 		);
 	},
 	
