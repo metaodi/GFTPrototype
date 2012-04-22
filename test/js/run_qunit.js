@@ -84,7 +84,7 @@ var generateJUnitXML = function(result) {
 			if (failure > 0) {
 				var failureText = resultLine.replace(resultRE,'');
 				console.log('<failure message="'+ moduleName +'" type="'+ moduleName +'">');
-				console.log('HTML' + unescapeHtml(failureText));
+				console.log(unescapeHtml(failureText));
 				console.log('</failure>');
 			}
 			console.log('</testcase>');

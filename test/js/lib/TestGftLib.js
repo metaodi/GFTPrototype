@@ -64,6 +64,11 @@ asyncTest("readRequest", 7, function() {
 
 asyncTest("writeRequest", 5, function() {
 	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "writeRequest failed with status: " + status);
+			start();
+			return;
+		}
 		equal(data.rows.length,1);
 		equal(data.columns.length,1);
 		equal(data.columns[0],"rowid");
@@ -182,11 +187,17 @@ asyncTest("ExecInsert", 5, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "writeRequest failed with status: " + status);
+			start();
+			return;
+		}
+		
 		equal(data.columns.length,1);
 		equal(data.columns[0],'rowid');
 		equal(data.rows.length,1);
 		ok($.isNumeric(data.rows[0][0]));
-		
+
 		var status = JSON.parse(status);
 		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
