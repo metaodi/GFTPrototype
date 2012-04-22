@@ -1,9 +1,9 @@
-Ext.define('FixMyStreet.view.report.ReportMap', {
+Ext.define('FixMyStreet.view.map.ProblemMap', {
 	extend: 'FixMyStreet.view.MapNoCenter',
-	alias: 'widget.reportmap',
+	alias: 'widget.problemmap',
 	
 	config: {
-		id: 'reportMap',
+		id: 'problemMap',
 		mapOptions: {
 			zoom: 17,
 			streetViewControl: false,

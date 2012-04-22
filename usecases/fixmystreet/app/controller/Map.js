@@ -1,0 +1,151 @@
+Ext.define("FixMyStreet.controller.Map", {
+	extend: "Ext.app.Controller",
+	
+	onMapRender: function(mapComp, map, eOpts) {
+		var me = this;
+		var geo = mapComp.getGeo();
+		
+		// get current position
+		var latlng = this.getCurrentLocationLatLng(geo);
+		
+		// center map to current position
+		mapComp.setMapCenter(latlng);
+		
+		// add own position marker to map
+		me.addOwnPositionMarker(latlng, map);
+		geo.addListener('locationupdate', function() {
+			me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
+		});
+    },
+	
+	addOwnPositionMarker: function(latlng, map) {
+		var me = this;
+		
+		var ownPositionMarkerIcon = new google.maps.MarkerImage(
+			'./resources/images/gmap-markers/own_position.png',
+			// image size (after scaling)
+			new google.maps.Size(20.0, 20.0),
+			null,
+			// image anchor to map in image (after scaling)
+			new google.maps.Point(10.0, 10.0),
+			// scale down image to half of the size to support retina displays
+			new google.maps.Size(20.0, 20.0)
+		);
+		var ownPositionMarker = new google.maps.Marker({
+			map: map,
+			position: latlng,
+			clickable: false,
+			icon: ownPositionMarkerIcon,
+			optimized: false
+		})
+		me.setOwnPositionMarker(ownPositionMarker);
+	},
+	setOwnPositionMarkerPosition: function(latlng) {
+		var ownPositionMarker = this.getOwnPositionMarker();
+		if(ownPositionMarker) {
+			ownPositionMarker.setPosition(latlng);
+		}
+	},
+	
+	addProblemMarker: function(latlng, map) {
+		var me = this;
+		
+		// custom marker image with shadow
+		// - image created with: http://mapicons.nicolasmollet.com/
+		// - shadow created with: http://www.cycloloco.com/shadowmaker/shadowmaker.htm
+		var markerShadow = new google.maps.MarkerImage(
+			'./resources/images/gmap-markers/shadow.png',
+			// image size (after scaling)
+			new google.maps.Size(49.0, 32.0),
+			null,
+			// image anchor to map in image (after scaling)
+			new google.maps.Point(16.0, 32.0),
+			// scale down image to half of the size to support retina displays
+			new google.maps.Size(49.0, 32.0)
+		);
+		var marker = new google.maps.Marker({
+			position: latlng,
+			draggable: true,
+			animation: google.maps.Animation.DROP,
+			icon: me.getProblemMarkerImages()['undefined'],
+			shadow: markerShadow,
+			optimized: false
+		});
+		
+		google.maps.event.addListener(marker, 'dragend', function() {
+			var latlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+			me.geocodePosition(latlng);
+		});
+
+		marker.setMap(map);
+		me.setProblemMarker(marker);
+	},
+	
+	onCurrentLocationButtonTap: function(button, e, eOpts) {
+		var me = this;
+		var map = me.getReportMap();
+		
+		var latlng = me.getCurrentLocationLatLng(map.getGeo());
+		map.setMapCenter(latlng);
+		me.getProblemMarker().setPosition(latlng);
+		me.geocodePosition(latlng);
+	},
+	
+	getCurrentLocationLatLng: function(geo) {
+		return new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
+	},
+	
+	// -------------------------------------------------------
+    // Base Class functions
+	// -------------------------------------------------------
+    launch: function () {
+        this.callParent(arguments);
+    },
+    init: function () {
+		var me = this;
+        me.callParent(arguments);
+		
+		me.problemStore = Ext.getStore('Problems');
+		
+		// prepare problem marker images
+		me.problemMarkerImages = [];
+		var currentProblemType = 0;
+		Ext.getStore('ProblemTypes').each(function(record) {
+			var problemTypeSpriteOffset = currentProblemType * 32.0;
+			me.problemMarkerImages[record.getId()] =
+				new google.maps.MarkerImage(
+					'./resources/images/gmap-markers/sprite.png',
+					// size of marker in sprite (after scaling)
+					new google.maps.Size(32.0, 32.0),
+					// origin of marker in sprite (from top left)
+					new google.maps.Point(problemTypeSpriteOffset, 0.0),
+					// image anchor to map in sprite (after scaling)
+					new google.maps.Point(16.0, 32.0),
+					// scale down image to half of the size to support retina displays
+					new google.maps.Size(160.0, 32.0)
+				);
+			++currentProblemType;
+		});
+		
+		me.ownPositionMarker = null;
+    },
+	
+	getProblemStore: function() {
+		return this.problemStore;
+	},
+	setProblemStore: function(problemStore) {
+		this.problemStore = problemStore;
+	},
+	getOwnPositionMarker: function() {
+		return this.ownPositionMarker;
+	},
+	setOwnPositionMarker: function(ownPositionMarker) {
+		this.ownPositionMarker = ownPositionMarker;
+	},
+	getProblemMarkerImages: function() {
+		return this.problemMarkerImages;
+	},
+	setProblemMarkerImages: function(problemMarkerImages) {
+		this.problemMarkerImages = problemMarkerImages;
+	}
+});

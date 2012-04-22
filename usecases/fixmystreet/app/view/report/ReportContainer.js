@@ -18,7 +18,7 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 						iconCls: 'locate',
 						iconMask: 'true',
 						align: 'right',
-						id: 'currentLocationButton'
+						id: 'reportCurrentLocationButton'
 					}
 				]
 			},

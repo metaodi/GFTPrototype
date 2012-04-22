@@ -67,7 +67,7 @@ Ext.define('FixMyStreet.store.Problems', {
 			{
 				id: 4,
 				timestamp: 1239945000,
-				address: 'Limmatstrasse 2, Zürich',
+				address: 'Limmatstrasse 2, Zürich, 12354 Ich bin in der Schweiz',
 				latitude: '44.3',
 				longitude: '7.11',
 				status: {

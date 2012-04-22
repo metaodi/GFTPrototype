@@ -32,8 +32,7 @@ Ext.application({
 	statusBarStyle: 'black',
 	
 	requires: [
-        'Ext.plugin.google.FusionTablesLayer',
-        'Ext.plugin.google.Tracker'
+        'Ext.plugin.google.FusionTablesLayer'
 	],
 	
     models: [
@@ -50,15 +49,12 @@ Ext.application({
 
     views: [
 		'MainContainer',
-		'report.ReportMap',
-        'report.ReportContainer',
-		'list.ListContainer',
-		'list.ProblemList'
+		'MapNoCenter'
     ],
 
     controllers: [
 		'List',
-		'Report'
+		'ReportMap'
     ],
 
 	// launch function is called as soon as app is ready

@@ -2,6 +2,10 @@ Ext.define("FixMyStreet.controller.List", {
 	extend: "Ext.app.Controller",
 	
 	config: {
+		views: [
+			'list.ListContainer',
+			'list.ProblemList'
+		],
 		refs: {
 			problemList: '#problemList'
 		},
