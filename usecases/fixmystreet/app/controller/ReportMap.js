@@ -172,6 +172,16 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		this.setTimestamp(null);
 	},
 	
+	onCurrentLocationButtonTap: function(button, e, eOpts) {
+		var me = this;
+		var map = me.getReportMap();
+		
+		var latlng = me.getCurrentLocationLatLng(map.getGeo());
+		map.setMapCenter(latlng);
+		me.getProblemMarker().setPosition(latlng);
+		me.geocodePosition(latlng);
+	},
+	
 	// -------------------------------------------------------
     // Base Class functions
 	// -------------------------------------------------------

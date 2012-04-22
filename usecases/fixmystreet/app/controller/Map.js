@@ -81,16 +81,6 @@ Ext.define("FixMyStreet.controller.Map", {
 		me.setProblemMarker(marker);
 	},
 	
-	onCurrentLocationButtonTap: function(button, e, eOpts) {
-		var me = this;
-		var map = me.getReportMap();
-		
-		var latlng = me.getCurrentLocationLatLng(map.getGeo());
-		map.setMapCenter(latlng);
-		me.getProblemMarker().setPosition(latlng);
-		me.geocodePosition(latlng);
-	},
-	
 	getCurrentLocationLatLng: function(geo) {
 		return new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
 	},

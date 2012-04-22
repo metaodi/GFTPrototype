@@ -5,7 +5,7 @@ Ext.define('FixMyStreet.view.map.ProblemMap', {
 	config: {
 		id: 'problemMap',
 		mapOptions: {
-			zoom: 17,
+			zoom: 9,
 			streetViewControl: false,
 			navigationControl: false
 		},

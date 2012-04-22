@@ -11,7 +11,16 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 				xtype: 'titlebar',
 				cls: 'titlebar',
 				docked: 'top',
-				title: 'Defekte anzeigen'
+				title: 'Defekte anzeigen',
+				
+				items: [
+					{
+						iconCls: 'locate',
+						iconMask: 'true',
+						align: 'right',
+						id: 'problemCurrentLocationButton'
+					}
+				]
 			},
 			{
 				xtype: 'problemmap'

@@ -54,7 +54,8 @@ Ext.application({
 
     controllers: [
 		'List',
-		'ReportMap'
+		'ReportMap',
+		'ProblemMap'
     ],
 
 	// launch function is called as soon as app is ready

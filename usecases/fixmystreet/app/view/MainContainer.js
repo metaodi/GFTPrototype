@@ -21,6 +21,9 @@ Ext.define('FixMyStreet.view.MainContainer', {
 					},
 					{
 						xtype: 'listcontainer'
+					},
+					{
+						xtype: 'mapcontainer'
 					}
 				]
 			}
