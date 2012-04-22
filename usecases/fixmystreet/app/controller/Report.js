@@ -220,87 +220,39 @@ Ext.define("FixMyStreet.controller.Report", {
         this.callParent(arguments);
     },
     init: function () {
-        this.callParent(arguments);
+		var me = this;
+        me.callParent(arguments);
 		
-		this.problemStore = Ext.getStore('Problems');
-		this.problemMarker = null;
+		me.problemStore = Ext.getStore('Problems');
+		me.problemMarker = null;
 		
-		// @TODO loop trought problem types store to generate marker images
 		// prepare problem marker images
-		this.problemMarkerImages = {
-			'undefined':
+		me.problemMarkerImages = [];
+		var currentProblemType = 0;
+		Ext.getStore('ProblemTypes').each(function(record) {
+			var problemTypeSpriteOffset = currentProblemType * 32.0;
+			me.problemMarkerImages[record.getId()] =
 				new google.maps.MarkerImage(
 					'./resources/images/gmap-markers/sprite.png',
 					// size of marker in sprite (after scaling)
 					new google.maps.Size(32.0, 32.0),
 					// origin of marker in sprite (from top left)
-					new google.maps.Point(0.0, 0.0),
+					new google.maps.Point(problemTypeSpriteOffset, 0.0),
 					// image anchor to map in sprite (after scaling)
 					new google.maps.Point(16.0, 32.0),
 					// scale down image to half of the size to support retina displays
 					new google.maps.Size(160.0, 32.0)
-				)
-			,
-			'bump':
-				new google.maps.MarkerImage(
-					'./resources/images/gmap-markers/sprite.png',
-					// size of marker in sprite (after scaling)
-					new google.maps.Size(32.0, 32.0),
-					// origin of marker in sprite (from top left)
-					new google.maps.Point(32.0, 0.0),
-					// image anchor to map in sprite (after scaling)
-					new google.maps.Point(16.0, 32.0),
-					// scale down image to half of the size to support retina displays
-					new google.maps.Size(160.0, 32.0)
-				)
-			,
-			'ice':
-				new google.maps.MarkerImage(
-					'./resources/images/gmap-markers/sprite.png',
-					// size of marker in sprite (after scaling)
-					new google.maps.Size(32.0, 32.0),
-					// origin of marker in sprite (from top left)
-					new google.maps.Point(64.0, 0.0),
-					// image anchor to map in sprite (after scaling)
-					new google.maps.Point(16.0, 32.0),
-					// scale down image to half of the size to support retina displays
-					new google.maps.Size(160.0, 32.0)
-				)
-			,
-			'light':
-				new google.maps.MarkerImage(
-					'./resources/images/gmap-markers/sprite.png',
-					// size of marker in sprite (after scaling)
-					new google.maps.Size(32.0, 32.0),
-					// origin of marker in sprite (from top left)
-					new google.maps.Point(96.0, 0.0),
-					// image anchor to map in sprite (after scaling)
-					new google.maps.Point(16.0, 32.0),
-					// scale down image to half of the size to support retina displays
-					new google.maps.Size(160.0, 32.0)
-				)
-			,
-			'littering':
-				new google.maps.MarkerImage(
-					'./resources/images/gmap-markers/sprite.png',
-					// size of marker in sprite (after scaling)
-					new google.maps.Size(32.0, 32.0),
-					// origin of marker in sprite (from top left)
-					new google.maps.Point(128.0, 0.0),
-					// image anchor to map in sprite (after scaling)
-					new google.maps.Point(16.0, 32.0),
-					// scale down image to half of the size to support retina displays
-					new google.maps.Size(160.0, 32.0)
-				)
-		};
+				);
+			++currentProblemType;
+		});
 		
-		this.ownPositionMarker = null;
-		this.geocoder = new google.maps.Geocoder();
-		this.currentAddress = null;
-		this.timestamp = null;
+		me.ownPositionMarker = null;
+		me.geocoder = new google.maps.Geocoder();
+		me.currentAddress = null;
+		me.timestamp = null;
 		
 		// @TODO remove debug code
-		this.disableGeocoding = false;
+		me.disableGeocoding = false;
     },
 	
 	getProblemStore: function() {
