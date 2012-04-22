@@ -53,10 +53,10 @@ Ext.define("FixMyStreet.controller.Report", {
 		
 		var ownPositionMarkerIcon = new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/own_position.png',
-			// image size
-			new google.maps.Size(40.0, 40.0),
+			// image size (after scaling)
+			new google.maps.Size(20.0, 20.0),
 			null,
-			// image anchor to map
+			// image anchor to map in image (after scaling)
 			new google.maps.Point(10.0, 10.0),
 			// scale down image to half of the size to support retina displays
 			new google.maps.Size(20.0, 20.0)
@@ -85,20 +85,19 @@ Ext.define("FixMyStreet.controller.Report", {
 		// - shadow created with: http://www.cycloloco.com/shadowmaker/shadowmaker.htm
 		var markerShadow = new google.maps.MarkerImage(
 			'./resources/images/gmap-markers/shadow.png',
-			// image size
-			new google.maps.Size(98.0, 64.0),
+			// image size (after scaling)
+			new google.maps.Size(49.0, 32.0),
 			null,
-			// image anchor to map
+			// image anchor to map in image (after scaling)
 			new google.maps.Point(16.0, 32.0),
 			// scale down image to half of the size to support retina displays
 			new google.maps.Size(49.0, 32.0)
 		);
-		var markerIcon = me.getProblemMarkerIcon('undefined');
 		var marker = new google.maps.Marker({
 			position: latlng,
 			draggable: true,
 			animation: google.maps.Animation.DROP,
-			icon: markerIcon,
+			icon: me.getProblemMarkerImages()['undefined'],
 			shadow: markerShadow,
 			optimized: false
 		});
@@ -113,28 +112,18 @@ Ext.define("FixMyStreet.controller.Report", {
 	},
 	
 	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
+		var me = this;
+		
 		if(field.getValue() == 'undefined') {
-			this.getReportButton().setDisabled(true);
+			me.getReportButton().setDisabled(true);
 		} else {
-			this.getReportButton().setDisabled(false);
+			me.getReportButton().setDisabled(false);
 		}
 		
 		// change marker icon
-		var markerIcon = this.getProblemMarkerIcon(field.getValue());
-		this.getProblemMarker().setIcon(markerIcon);
-	},
-	
-	getProblemMarkerIcon: function(iconname) {
-		return new google.maps.MarkerImage(
-			'./resources/images/gmap-markers/' + iconname + '.png',
-			// image size
-			new google.maps.Size(64.0, 64.0),
-			null,
-			// image anchor to map
-			new google.maps.Point(16.0, 32.0),
-			// scale down image to half of the size to support retina displays
-			new google.maps.Size(32.0, 32.0)
-		);
+		
+		var markerIcon = me.getProblemMarkerImages()[field.getValue()];
+		me.getProblemMarker().setIcon(markerIcon);
 	},
 	
 	geocodePosition: function(latlng) {
@@ -161,33 +150,45 @@ Ext.define("FixMyStreet.controller.Report", {
 		var me = this;
 		var timestamp = new Timestamp();
 		this.setTimestamp(timestamp);
-		Ext.Msg.confirm('Defekt melden', '<p>' + me.getProblemTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);
+		Ext.Msg.confirm('Defekt melden', '<p>' + me.getProblemTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);		
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
 		var me = this;
 		if(buttonId == 'yes') {
-			// creating problem instance
-			var status = Ext.getStore('Statuses').getById('new');
-			var type = Ext.getStore('ProblemTypes').getById(me.getProblemTypeSelectField().getValue());
-			var problem = new FixMyStreet.model.Problem();
-			problem.setData(
-				{
-					id: 123,
-					timestamp: me.getTimestamp().getTimestamp(),
-					address: me.getCurrentAddress(),
-					latitude: me.getReportMap().getGeo().getLatitude(),
-					longitude: me.getReportMap().getGeo().getLongitude(),
-					// @TODO why do I have to add getData() instead of record
-					type: type.getData(),
-					status: status.getData()
+			try {
+				// creating problem instance
+				var status = Ext.getStore('Statuses').getById('new');
+				var type = Ext.getStore('ProblemTypes').getById(me.getProblemTypeSelectField().getValue());
+				// @TODO use correct id
+				var id = Math.floor(Math.random()*101);
+
+				// if id doens't exists in store
+				if(!me.getProblemStore().getById(id)) {
+					var problem = new FixMyStreet.model.Problem();
+					problem.setData(
+						{
+							id: id,
+							timestamp: me.getTimestamp().getTimestamp(),
+							address: me.getCurrentAddress(),
+							latitude: me.getReportMap().getGeo().getLatitude(),
+							longitude: me.getReportMap().getGeo().getLongitude(),
+							// @TODO why do I have to add getData() instead of record
+							type: type.getData(),
+							status: status.getData()
+						}
+					);
+
+					// adding problem to store
+					me.getProblemStore().add(problem);
+				} else {
+					throw new Error("Problem id already in store");
 				}
-			);
-			// adding problem to store
-			me.getProblemStore().add(problem);
-			
-			// resetting view data
-			me.resetView();
+				// resetting view data
+				me.resetView();
+			} catch(err) {
+				console.log(err);
+			}
 		}
 	},
 	
@@ -223,6 +224,76 @@ Ext.define("FixMyStreet.controller.Report", {
 		
 		this.problemStore = Ext.getStore('Problems');
 		this.problemMarker = null;
+		
+		// @TODO loop trought problem types store to generate marker images
+		// prepare problem marker images
+		this.problemMarkerImages = {
+			'undefined':
+				new google.maps.MarkerImage(
+					'./resources/images/gmap-markers/sprite.png',
+					// size of marker in sprite (after scaling)
+					new google.maps.Size(32.0, 32.0),
+					// origin of marker in sprite (from top left)
+					new google.maps.Point(0.0, 0.0),
+					// image anchor to map in sprite (after scaling)
+					new google.maps.Point(16.0, 32.0),
+					// scale down image to half of the size to support retina displays
+					new google.maps.Size(160.0, 32.0)
+				)
+			,
+			'bump':
+				new google.maps.MarkerImage(
+					'./resources/images/gmap-markers/sprite.png',
+					// size of marker in sprite (after scaling)
+					new google.maps.Size(32.0, 32.0),
+					// origin of marker in sprite (from top left)
+					new google.maps.Point(32.0, 0.0),
+					// image anchor to map in sprite (after scaling)
+					new google.maps.Point(16.0, 32.0),
+					// scale down image to half of the size to support retina displays
+					new google.maps.Size(160.0, 32.0)
+				)
+			,
+			'ice':
+				new google.maps.MarkerImage(
+					'./resources/images/gmap-markers/sprite.png',
+					// size of marker in sprite (after scaling)
+					new google.maps.Size(32.0, 32.0),
+					// origin of marker in sprite (from top left)
+					new google.maps.Point(64.0, 0.0),
+					// image anchor to map in sprite (after scaling)
+					new google.maps.Point(16.0, 32.0),
+					// scale down image to half of the size to support retina displays
+					new google.maps.Size(160.0, 32.0)
+				)
+			,
+			'light':
+				new google.maps.MarkerImage(
+					'./resources/images/gmap-markers/sprite.png',
+					// size of marker in sprite (after scaling)
+					new google.maps.Size(32.0, 32.0),
+					// origin of marker in sprite (from top left)
+					new google.maps.Point(96.0, 0.0),
+					// image anchor to map in sprite (after scaling)
+					new google.maps.Point(16.0, 32.0),
+					// scale down image to half of the size to support retina displays
+					new google.maps.Size(160.0, 32.0)
+				)
+			,
+			'littering':
+				new google.maps.MarkerImage(
+					'./resources/images/gmap-markers/sprite.png',
+					// size of marker in sprite (after scaling)
+					new google.maps.Size(32.0, 32.0),
+					// origin of marker in sprite (from top left)
+					new google.maps.Point(128.0, 0.0),
+					// image anchor to map in sprite (after scaling)
+					new google.maps.Point(16.0, 32.0),
+					// scale down image to half of the size to support retina displays
+					new google.maps.Size(160.0, 32.0)
+				)
+		};
+		
 		this.ownPositionMarker = null;
 		this.geocoder = new google.maps.Geocoder();
 		this.currentAddress = null;
@@ -267,5 +338,11 @@ Ext.define("FixMyStreet.controller.Report", {
 	},
 	setTimestamp: function(timestamp) {
 		this.timestamp = timestamp;
+	},
+	getProblemMarkerImages: function() {
+		return this.problemMarkerImages;
+	},
+	setProblemMarkerImages: function(problemMarkerImages) {
+		this.problemMarkerImages = problemMarkerImages;
 	}
 });
