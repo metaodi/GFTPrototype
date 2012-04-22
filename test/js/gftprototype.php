@@ -16,7 +16,7 @@ if (!in_array($type,$allowed_types) || !in_array($file,$allowed_files)) {
 } else {
 	$url = "http://gft.rdmr.ch/test/js/" . $file;
 	/* Display 99 is configured on the server using Xvfb */
-	$value = shell_exec("DISPLAY=:99 phantomjs run_qunit.js ".$url." ".$type);
+	$value = shell_exec("DISPLAY=:99 /usr/local/bin/phantomjs --web-security=no run_qunit.js ".$url." ".$type);
 	echo $value;
 }
 
