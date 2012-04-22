@@ -1,4 +1,4 @@
-<project name="gftprototype-build" basedir="." default="import_to_gft">
+<project name="gftprototype-build" basedir="." default="import">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
@@ -12,12 +12,38 @@
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
 	</tstamp>
 	
+	<target name="download_source" if="url">
+		<echo message="Download source file from ${url}"/>
+		<get src="${url}" dest="${upload.dir}/${upload.filename}"/>
+	</target>
+	
+	<target name="import">
+		<if>
+			<equals arg1="${format}" arg2="GFT" />
+			<then>
+				<antcall target="import_to_gft" />
+			 </then>
+			<else>
+				<antcall target="convert_to_format" />
+			</else>
+		</if>
+	</target>
+	
 	<target name="import_to_gft">
 		<echo message="Import given file to Google Fusion Tables for ${email}"/>
 		
 		<exec executable="/usr/local/bin/ogr2ogr">
 			<arg line="-f GFT" />
 			<arg line='"GFT:email=${email} password=${password}"'/>
+			<arg value="${upload.dir}/${upload.filename}" />
+		</exec>
+	</target>
+	
+	<target name="convert_to_format">
+		<echo message="Import given file to Google Fusion Tables for ${email}"/>
+		
+		<exec executable="/usr/local/bin/ogr2ogr">
+			<arg line="-f '${format}'" />
 			<arg value="${upload.dir}/${upload.filename}" />
 		</exec>
 	</target>
