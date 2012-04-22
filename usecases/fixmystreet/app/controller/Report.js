@@ -38,13 +38,13 @@ Ext.define("FixMyStreet.controller.Report", {
 		// geocode current position and update current address
 		me.geocodePosition(latlng);
 		
-		// add own position marker
+		// add own position marker to map
 		me.addOwnPositionMarker(latlng, map);
 		geo.addListener('locationupdate', function() {
 			me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
 		});
 		
-		// add problem position marker
+		// add problem marker to map
 		me.addProblemMarker(latlng, map);
     },
 	
@@ -121,7 +121,6 @@ Ext.define("FixMyStreet.controller.Report", {
 		}
 		
 		// change marker icon
-		
 		var markerIcon = me.getProblemMarkerImages()[field.getValue()];
 		me.getProblemMarker().setIcon(markerIcon);
 	},
@@ -215,7 +214,9 @@ Ext.define("FixMyStreet.controller.Report", {
 		return new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
 	},
 	
-    // Base Class functions.
+	// -------------------------------------------------------
+    // Base Class functions
+	// -------------------------------------------------------
     launch: function () {
         this.callParent(arguments);
     },

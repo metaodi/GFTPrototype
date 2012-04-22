@@ -31,7 +31,7 @@ Ext.define('FixMyStreet.store.Problems', {
 				},
 				type: {
 					text: 'Littering',
-					value: 'littering'
+					value: 'trash'
 				}
 			},
 			{
@@ -62,6 +62,21 @@ Ext.define('FixMyStreet.store.Problems', {
 				type: {
 					text: 'Strassenlampe',
 					value: 'light'
+				}
+			},
+			{
+				id: 4,
+				timestamp: 1239945000,
+				address: 'Limmatstrasse 2, Zürich',
+				latitude: '44.3',
+				longitude: '7.11',
+				status: {
+					key: 'done',
+					value: 'Erledigt'
+				},
+				type: {
+					text: 'Schlagloch',
+					value: 'hump'
 				}
 			}
 		]

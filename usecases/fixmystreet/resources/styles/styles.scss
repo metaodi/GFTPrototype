@@ -1,3 +1,9 @@
+// colors
+$dark-grey: #606060;
+$light-grey: #ebebeb;
+$dark-blue: #8ebadb;
+$light-blue: #E3F1FA;
+
 .titlebar {
 	font-size: 0.9em;
 }
@@ -20,4 +26,36 @@
 	/* image compiled to base64 from '/usecases/fixmystreet/_DESIGN/current_location-white.png'
 	 * compiler: http://www.base64-image.de/step-2.php */
 	-webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpCMjlCQThBQzkxMTZFMTExQjE1MjgzODJCOTM4QUYxRiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3NTQyOTFCNzg5RUYxMUUxODA5M0Q1QjI1Q0EyRDUwQiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3NTQyOTFCNjg5RUYxMUUxODA5M0Q1QjI1Q0EyRDUwQiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1LjEgV2luZG93cyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkwMTRDNTUwRUE4OUUxMTE4OUYyRUY4OTVBNEU0QUVGIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkIyOUJBOEFDOTExNkUxMTFCMTUyODM4MkI5MzhBRjFGIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+pOU66gAAAX9JREFUeNpi/P//P8NgAUwDbD8nECcD8QQQh2WAHCEHxDlQhwgBsT9YFBRNdMROQLzuPyq4CsTMIHl6hAw/EEdBQ0ILi/xEIP5L65DRAuJpQPz5P27wHIg5YXpoETKB0FBwIkLtFCD+DudRKRSEgLgUiB/+Jx6AQkwU2RxKQ8YAGgpR0GxKClgAxK9RRMgIBVDKDwfiw//JB3+AWAXdbFJCRhSI06AhIUFhiK4B4jvogsQ4xgzqgHAgZqNSIp+ITRCXY9igludAHUNNcBCIjxPjGAmoA9Kg0UIL0IdLAuYYG6gjQoCYmYal8TUg3krIMUegmFLwn4i08ncwNCFeAPHiwdKeQS36sQBGKrf0cBn2BYjlgfjdYAiZBYQcQi/H/MWXnentGFDRf3+wOKaPWIW0dgyo6D81WBzTR4piWjoGVPRvGiyOmUiqBloVei+ghdyvwRAyU0h1CK1Chqiin14hs4Ach9DCMX9Jzc60dAzRRT89HNNHiWbGwTRyBRBgALnpEJ8wjaz8AAAAAElFTkSuQmCC');
+}
+
+#problemList {
+	.x-list-item {
+		background-color: #fff;
+		
+		.problem-item {
+			overflow: hidden;
+
+			.image {
+				float: left;
+				margin-top: 0.2em;
+				img {
+					width: 30px;
+				}
+			}
+
+			.info {
+				float: left;
+				margin-left: 0.8em;
+
+				.date {
+					font-size: 0.7em;
+					color: $dark-grey;
+				}
+				.address {
+					margin-top: 0.2em;
+					font-size: 0.9em;
+				}
+			}
+		}
+	}
 }
