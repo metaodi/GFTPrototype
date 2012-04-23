@@ -110,7 +110,7 @@
 	
 	<target name="deploy">
 		<echo message="Deploying application"/>
-		<copy todir="${webapp.dir}" overwrite="true">
+		<copy todir="${webapp.dir}" overwrite="${force_overwrite}">
 			<fileset dir="."/>
 		</copy>
 	</target>
