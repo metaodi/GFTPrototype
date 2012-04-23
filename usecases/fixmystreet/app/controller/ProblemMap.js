@@ -54,6 +54,19 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				optimized: false
 			});
 			
+			marker.content =
+				'<div class="infowindow-content">' +
+					'<div class="trail-info">' +
+						'<h1>' + data.address + '</h1>' +
+					'</div>' +
+				'</div>';
+			
+			google.maps.event.addListener(marker, 'click', function() {
+				// this attribute references to the current marker
+				me.getInfoWindow().setContent(this.content);
+				me.getInfoWindow().open(map, this);
+			});
+			
 			// add marker to problem markers array
 			me.getProblemMarkers().push(marker);
 		});
@@ -100,6 +113,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
         me.callParent(arguments);
 		
 		me.problemMarkers = [];
+		
+		// create infowindow with maxWidth depending on trailsMap panelsize (all markers will use this infowindow)
+		me.infoWindow = new google.maps.InfoWindow({
+			// @TODO get width of parent map
+			//maxWidth: this.getProblemMap().getSize().width - 50
+		});
     },
 	
 	getProblemMarkers: function() {
@@ -107,5 +126,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	setProblemMarkers: function(problemMarkers) {
 		this.problemMarkers = problemMarkers;
+	},
+	getInfoWindow: function() {
+		return this.infoWindow;
+	},
+	setInfoWindow: function(infoWindow) {
+		this.infoWindow = infoWindow;
 	}
 });
