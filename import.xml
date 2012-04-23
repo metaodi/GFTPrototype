@@ -17,7 +17,7 @@
 		<get src="${url}" dest="${upload.dir}/${upload.filename}"/>
 	</target>
 	
-	<target name="import">
+	<target name="import" depends="download_source">
 		<if>
 			<equals arg1="${format}" arg2="GFT" />
 			<then>
