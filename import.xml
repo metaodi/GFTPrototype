@@ -12,9 +12,14 @@
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
 	</tstamp>
 	
-	<target name="download_source" if="url">
-		<echo message="Download source file from ${url}"/>
-		<get src="${url}" dest="${upload.dir}/${upload.filename}"/>
+	<target name="download_source">
+		<if>
+			<not><equals arg1="${url}" arg2="" /></not>
+			<then>
+				<echo message="Download source file from ${url}"/>
+				<get src="${url}" dest="${upload.dir}/${upload.filename}"/>
+			</then>
+		</if>
 	</target>
 	
 	<target name="import" depends="download_source">
