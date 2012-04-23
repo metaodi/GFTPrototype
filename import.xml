@@ -17,7 +17,7 @@
 		<get src="${url}" dest="${upload.dir}/${upload.filename}"/>
 	</target>
 	
-	<target name="import">
+	<target name="import" depends="download_source">
 		<if>
 			<equals arg1="${format}" arg2="GFT" />
 			<then>
@@ -43,7 +43,8 @@
 		<echo message="Import given file to Google Fusion Tables for ${email}"/>
 		
 		<exec executable="/usr/local/bin/ogr2ogr">
-			<arg line="-f '${format}'" />
+			<arg value="-f" />
+			<arg value="${format}" />
 			<arg value="${upload.dir}/${upload.filename}" />
 		</exec>
 	</target>

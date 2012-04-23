@@ -23,19 +23,12 @@
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
 	</tstamp>
 	
-	<target name="build" depends="clean,test,documentation,generate_css,deploy,test-js">
+	<target name="build" depends="test,documentation,generate_css,deploy,test-js">
 		<echo message="BUILD FINISHED!"/>
 	</target>
 	
-	<target name="clean">
-		<echo message="Clean previously deployed files"/>
-		<delete includeemptydirs="true">
-			<fileset dir="${webapp.dir}" includes="**/*" followsymlinks="false" />
-		</delete>
+	<target name="test">
 		<delete dir="test-results"/>
-	</target>
-	
-	<target name="test" depends="clean">
 		<echo message="Running tests"/>
 		<mkdir dir="${result.dir}"/>
 		<foreach target="exec_test_php" param="filename">
@@ -45,37 +38,35 @@
 		</foreach>
 	</target>
 	
-	<target name="docu_revision">
-		<echo message="Generate documentation revision history"/>
-		<chmod file="${basedir}/directory_revision.sh" perm="ugo+rx"/>
-		<exec executable="bash" outputproperty="docu.revisions">
-			<arg value="-c" />
-			<arg line='"${basedir}/directory_revision.sh ${docu.path}"'/>
-		</exec>
-		
-		<replace value="${docu.revisions}" token="% revisions from git" file="${docu.path}/${docu.revisionfile}" summary="true" />
-	</target>
-	
-	<target name="documentation" depends="docu_revision">
-		<echo message="Generate documentation in 2 latex runs"/>
-		<echo message="First latex run:"/>
-		<antcall target="exec_latex">
-			<param name="clean"   value="off"/>
-			<param name="verbose" value="off"/>
-			<param name="pdftex"  value="off"/>
-		</antcall>
-		
-		<echo message="Generate glossary:"/>
-		<exec executable="makeglossaries" dir="${docu.path}" logError="true">
-			<arg value="${docu.glossary}"/>
-		</exec>
-		
-		<echo message="2nd latex run (re-use generated files from first run):"/>
-		<antcall target="exec_latex">
-			<param name="clean"   value="on"/>
-			<param name="verbose" value="on"/>
-			<param name="pdftex"  value="on"/>
-		</antcall>
+	<target name="documentation">
+		<if>
+			<equals arg1="${include_documentation}" arg2="false" />
+			<then>
+				<echo message="Omit documentation for this build." />
+			</then>
+			<else>
+				<antcall target="docu_revision" />
+				<echo message="Generate documentation in 2 latex runs"/>
+				<echo message="First latex run:"/>
+				<antcall target="exec_latex">
+					<param name="clean"   value="off"/>
+					<param name="verbose" value="off"/>
+					<param name="pdftex"  value="off"/>
+				</antcall>
+
+				<echo message="Generate glossary:"/>
+				<exec executable="makeglossaries" dir="${docu.path}" logError="true">
+					<arg value="${docu.glossary}"/>
+				</exec>
+
+				<echo message="2nd latex run (re-use generated files from first run):"/>
+				<antcall target="exec_latex">
+					<param name="clean"   value="on"/>
+					<param name="verbose" value="on"/>
+					<param name="pdftex"  value="on"/>
+				</antcall>
+			</else> 
+		</if>
 	</target>
 	
 	<target name="generate_css">
@@ -89,20 +80,9 @@
 		</foreach>
 	</target>
 	
-	<target name="compile_sass">
-		<echo message="Compile sass files in ${dir}"/>
-		<apply executable="sass" dest="${dir}" verbose="true" force="true" failonerror="true">
-			<arg value="--unix-newlines" />
-			<srcfile />
-			<targetfile />
-			<fileset dir="${dir}" includes="**/*.scss" />
-			<mapper type="glob" from="*.scss" to="*.css"/>
-		</apply>
-	</target>
-	
-	<target name="deploy">
+	<target name="deploy" depends="clean">
 		<echo message="Deploying application"/>
-		<copy todir="${webapp.dir}" overwrite="true">
+		<copy todir="${webapp.dir}" overwrite="${force_overwrite}">
 			<fileset dir="."/>
 		</copy>
 	</target>
@@ -132,5 +112,42 @@
 			pdftex="{pdftex}"  
 			workingDir="${docu.path}"  
 			/>  
+	</target>
+	
+	<target name="docu_revision">
+		<echo message="Generate documentation revision history"/>
+		<chmod file="${basedir}/directory_revision.sh" perm="ugo+rx"/>
+		<exec executable="bash" outputproperty="docu.revisions">
+			<arg value="-c" />
+			<arg line='"${basedir}/directory_revision.sh ${docu.path}"'/>
+		</exec>
+		
+		<replace value="${docu.revisions}" token="% revisions from git" file="${docu.path}/${docu.revisionfile}" summary="true" />
+	</target>
+	
+	<target name="compile_sass">
+		<echo message="Compile sass files in ${dir}"/>
+		<apply executable="sass" dest="${dir}" verbose="true" force="true" failonerror="true">
+			<arg value="--unix-newlines" />
+			<srcfile />
+			<targetfile />
+			<fileset dir="${dir}" includes="**/*.scss" />
+			<mapper type="glob" from="*.scss" to="*.css"/>
+		</apply>
+	</target>
+	
+	<target name="clean">
+		<if>
+			<equals arg1="${force_overwrite}" arg2="true" />
+			<then>
+				<echo message="Clean previously deployed files"/>
+				<delete includeemptydirs="true">
+					<fileset dir="${webapp.dir}" includes="**/*" followsymlinks="false" />
+				</delete>
+			</then>
+			<else>
+				<echo message="Omit clean for this build. Use force_overwrite=true to clean deployed files." />
+			</else>
+		</if>
 	</target>
 </project>
