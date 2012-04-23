@@ -9,9 +9,16 @@
 	<property name="upload.filename"	value="file.gis" />
 	<property name="convert.filename"	value="converted_file.gis" />
 	
-	<tstamp>
-		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
-	</tstamp>
+	<!-- extract EPSG:xxxx code from choice -->
+	<propertyregex property="source_coord_code"
+              input="${source_coord_system}"
+              regexp="(.*) \(.*\)"
+              select="\1" />
+	<propertyregex property="target_coord_code"
+              input="${target_coord_system}"
+              regexp="(.*) \(.*\)"
+              select="\1" />
+	
 	
 	<target name="download_source">
 		<if>
@@ -40,6 +47,10 @@
 		<echo message="Import given file to Google Fusion Tables for ${email}"/>
 		
 		<exec executable="/usr/local/bin/ogr2ogr" failonerror="true">
+			<arg value="-s_srs" />
+			<arg value="${source_coord_code}" />
+			<arg value="-t_srs" />
+			<arg value="${target_coord_code}" />
 			<arg line="-f GFT" />
 			<arg line='"GFT:email=${email} password=${password}"'/>
 			<arg value="${upload.dir}/${upload.filename}" />
@@ -51,9 +62,13 @@
 		<delete quiet="true" file="${upload.dir}/${convert.filename}" />
 		<delete quiet="true" dir="${upload.dir}/${convert.filename}" />
 		
-		<echo message="Convert given file to ${format}"/>
+		<echo message="Convert given file to ${format} (${coordinate_system})"/>
 		<exec executable="/usr/local/bin/ogr2ogr" failonerror="true">
 			<arg value="-skipfailures" />
+			<arg value="-s_srs" />
+			<arg value="${source_coord_code}" />
+			<arg value="-t_srs" />
+			<arg value="${target_coord_code}" />
 			<arg value="-f" />
 			<arg value="${format}" />
 			<arg value="${upload.dir}/${convert.filename}" />
