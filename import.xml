@@ -43,7 +43,8 @@
 		<echo message="Import given file to Google Fusion Tables for ${email}"/>
 		
 		<exec executable="/usr/local/bin/ogr2ogr">
-			<arg line="-f &quot;${format}&quot;" />
+			<arg value="-f" />
+			<arg value="${format}" />
 			<arg value="${upload.dir}/${upload.filename}" />
 		</exec>
 	</target>
