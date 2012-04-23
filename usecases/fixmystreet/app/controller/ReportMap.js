@@ -126,8 +126,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 							id: id,
 							timestamp: me.getTimestamp().getTimestamp(),
 							address: me.getCurrentAddress(),
-							latitude: me.getReportMap().getGeo().getLatitude(),
-							longitude: me.getReportMap().getGeo().getLongitude(),
+							latitude: me.getProblemMarker().getPosition().lat(),
+							longitude: me.getProblemMarker().getPosition().lng(),
 							// @TODO why do I have to add getData() instead of record
 							type: type.getData(),
 							status: status.getData()

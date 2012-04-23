@@ -3,6 +3,7 @@ Ext.define("FixMyStreet.controller.Map", {
 	
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
+		me.setMapRendered(true);
 		var geo = mapComp.getGeo();
 		
 		// get current position
@@ -65,6 +66,7 @@ Ext.define("FixMyStreet.controller.Map", {
         me.callParent(arguments);
 		
 		me.problemStore = Ext.getStore('Problems');
+		me.mapRendered = false;
 		
 		// prepare problem marker images
 		me.problemMarkerImages = [];
@@ -108,6 +110,12 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	setProblemStore: function(problemStore) {
 		this.problemStore = problemStore;
+	},
+	getMapRendered: function() {
+		return this.mapRendered;
+	},
+	setMapRendered: function(mapRendered) {
+		this.mapRendered = mapRendered;
 	},
 	getOwnPositionMarker: function() {
 		return this.ownPositionMarker;

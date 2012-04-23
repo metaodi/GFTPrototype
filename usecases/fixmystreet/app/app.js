@@ -44,18 +44,18 @@ Ext.application({
 		'ProblemType',
 		'Status'
     ],
-
+	
     stores: [
 		'ProblemTypes',
 		'Problems',
 		'Statuses'
     ],
-
+	
     views: [
 		'MainContainer',
 		'MapNoCenter'
     ],
-
+	
     controllers: [
 		'List',
 		'ReportMap',

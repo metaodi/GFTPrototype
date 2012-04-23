@@ -9,6 +9,7 @@ Ext.define('FixMyStreet.view.MainContainer', {
 		items: [
 			{
 				xtype: 'tabpanel',
+				id: 'mainTabPanel',
 				tabBar: {
 					docked: 'bottom',
 					layout: {
