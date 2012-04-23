@@ -80,7 +80,7 @@
 		</foreach>
 	</target>
 	
-	<target name="deploy" depends="clean">
+	<target name="deploy" depends="clean,patch">
 		<echo message="Deploying application"/>
 		<copy todir="${webapp.dir}" overwrite="${force_overwrite}">
 			<fileset dir="."/>
@@ -149,5 +149,10 @@
 				<echo message="Omit clean for this build. Use force_overwrite=true to clean deployed files." />
 			</else>
 		</if>
+	</target>
+	
+	<target name="patch"> 
+		<replace token="-debug" value=""  file="usecases/worlddata/index.html" summary="true" />
+		<replace token="-debug" value=""  file="usecases/fixmystreet/index.html" summary="true" />
 	</target>
 </project>
