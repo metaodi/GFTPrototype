@@ -34,7 +34,7 @@
 		</delete>
 	</target>
 	
-	<target name="test" depends="clean">
+	<target name="test">
 		<delete dir="test-results"/>
 		<echo message="Running tests"/>
 		<mkdir dir="${result.dir}"/>
