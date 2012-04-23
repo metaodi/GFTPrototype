@@ -56,8 +56,8 @@
 			<arg value="${upload.dir}/${convert.filename}" />
 			<arg value="${upload.dir}/${upload.filename}" />
 		</exec>
-		<echo message="#############################################################################################################################################"/>
-		<echo message="# Download-File: http://http://jenkins.rdmr.ch:8080/job/Convert%20GIS%20files%20to%20various%20formats/ws/${upload.dir}/${convert.filename} #"/>
-		<echo message="#############################################################################################################################################"/>
+		<echo message="#################################################################################################"/>
+		<echo message="# Download-File: http://jenkins.rdmr.ch:8080/job/Convert-GIS-files/ws/${upload.dir}/${convert.filename} #"/>
+		<echo message="#################################################################################################"/>
 	</target>
 </project>
