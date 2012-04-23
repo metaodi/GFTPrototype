@@ -26,6 +26,8 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 				xtype: 'selectfield',
 				name: 'problemType',
 				store: 'ProblemTypes',
+				// always use Ext.picker.Picker
+				usePicker: true,
 				defaultPhonePickerConfig: {
 					cancelButton: 'Abbrechen',
 					doneButton: 'Fertig'
