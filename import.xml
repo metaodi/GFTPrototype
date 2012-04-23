@@ -47,8 +47,11 @@
 	</target>
 	
 	<target name="convert_to_format">
+		<echo message="Delete previous files (if any)"/>
+		<delete quiet="true" file="${upload.dir}/${convert.filename}" />
+		<delete quiet="true" dir="${upload.dir}/${convert.filename}" />
+		
 		<echo message="Convert given file to ${format}"/>
-		<delete file="${upload.dir}/${convert.filename}" />
 		<exec executable="/usr/local/bin/ogr2ogr" failonerror="true">
 			<arg value="-skipfailures" />
 			<arg value="-f" />
