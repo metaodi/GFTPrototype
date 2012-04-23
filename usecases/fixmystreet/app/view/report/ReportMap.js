@@ -6,8 +6,11 @@ Ext.define('FixMyStreet.view.report.ReportMap', {
 		id: 'reportMap',
 		mapOptions: {
 			zoom: 17,
-			streetViewControl: false,
-			navigationControl: false
+			disableDefaultUI: true,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
 		},
 		useCurrentLocation: true
 	}

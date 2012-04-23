@@ -5,9 +5,12 @@ Ext.define('FixMyStreet.view.map.ProblemMap', {
 	config: {
 		id: 'problemMap',
 		mapOptions: {
-			zoom: 9,
-			streetViewControl: false,
-			navigationControl: false
+			zoom: 13,
+			disableDefaultUI: true,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
 		},
 		useCurrentLocation: true
 	}
