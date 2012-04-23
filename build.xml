@@ -23,7 +23,7 @@
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
 	</tstamp>
 	
-	<target name="build" depends="clean,test,documentation,generate_css,deploy,test-js">
+	<target name="build" depends="test,documentation,generate_css,deploy,test-js">
 		<echo message="BUILD FINISHED!"/>
 	</target>
 	
@@ -32,10 +32,10 @@
 		<delete includeemptydirs="true">
 			<fileset dir="${webapp.dir}" includes="**/*" followsymlinks="false" />
 		</delete>
-		<delete dir="test-results"/>
 	</target>
 	
 	<target name="test" depends="clean">
+		<delete dir="test-results"/>
 		<echo message="Running tests"/>
 		<mkdir dir="${result.dir}"/>
 		<foreach target="exec_test_php" param="filename">
