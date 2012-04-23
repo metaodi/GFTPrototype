@@ -30,6 +30,10 @@ Ext.application({
 	icon: './resources/images/fixmystreet-icon.png',
 	phoneStartupScreen: './resources/images/fixmystreet-startup_phone.png',
 	statusBarStyle: 'black',
+	viewport: {
+		// hide navigation bar of browser
+		autoMaximize: true
+	},
 	
 	requires: [
         'Ext.plugin.google.FusionTablesLayer'

@@ -24,7 +24,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var me = this;
         me.callParent(arguments);
 		
-		// add problem marker to map
+		// add problem markers to map
 		me.addProblemMarkers(map);
     },
 	

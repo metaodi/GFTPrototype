@@ -153,7 +153,9 @@ $labelColorMapping = Array(
 				<dt>Voraussetzungen:</dt>
 				<dd>Diese Applikation läuft auf allen gängigen Browsern. Eine vollständige Liste mit den unterstützten Browsern findet man hier: <a href="http://jquerymobile.com/gbs/" target="_blank">jQuery Mobile Supported Platforms</a></dd>
 			</dl>
-			<p><a href="./usecases/worlddata" class="app-start btn btn-primary">Applikation jetzt starten</a></p>
+			<p class="app-start">
+				<a href="./usecases/worlddata" class="btn btn-primary">Applikation jetzt starten</a>
+			</p>
 		</div>
 		
 		<h3>FixMyStreet</h3>
@@ -168,7 +170,10 @@ $labelColorMapping = Array(
 				<dt>Voraussetzungen:</dt>
 				<dd>Diese Applikation läuft auf allen WebKit-Browsern (Desktop: Chrome, Opera, Safari / Mobile: iOS, Android, Blackberry)</dd>
 			</dl>
-			<p><a href="./usecases/fixmystreet" class="app-start btn btn-primary">Applikation jetzt starten</a></p>
+			<p class="app-start">
+				<a href="./usecases/fixmystreet" class="btn btn-primary">Applikation jetzt starten</a>
+				<a href="./usecases/fixmystreet/index_iphone.html" class="btn btn-info">iPhone Preview jetzt starten</a>
+			</p>
 		</div>
 		
 		<h2>Über das Projekt</h2>
