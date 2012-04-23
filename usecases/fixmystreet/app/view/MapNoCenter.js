@@ -2,6 +2,19 @@ Ext.define('FixMyStreet.view.MapNoCenter', {
 	extend: 'Ext.Map',
 	alias: 'widget.mapnocenter',
 	
+	config: {
+		mapOptions: {
+			// set default center to zurich
+			center: new google.maps.LatLng('47.36865', '8.539183'),
+			zoom: 13,
+			disableDefaultUI: true,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
+		}
+	},
+	
 	// don't center map on geo update
 	onGeoUpdate: function(geo) {
 		var me = this;

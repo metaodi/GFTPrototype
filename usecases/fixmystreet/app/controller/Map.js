@@ -4,19 +4,22 @@ Ext.define("FixMyStreet.controller.Map", {
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
 		me.setMapRendered(true);
-		var geo = mapComp.getGeo();
 		
-		// get current position
-		var latlng = this.getCurrentLocationLatLng(geo);
+		var geo = FixMyStreet.geo;
+		mapComp.setGeo(geo);
+		
+		var latlng = this.getCurrentLocationLatLng(mapComp);
+		
+		if(geo.isAvailable()) {
+			// add own position marker to map
+			me.addOwnPositionMarker(latlng, map);
+			geo.addListener('locationupdate', function() {
+				me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
+			});
+		}
 		
 		// center map to current position
 		mapComp.setMapCenter(latlng);
-		
-		// add own position marker to map
-		me.addOwnPositionMarker(latlng, map);
-		geo.addListener('locationupdate', function() {
-			me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
-		});
     },
 	
 	addOwnPositionMarker: function(latlng, map) {
@@ -51,8 +54,13 @@ Ext.define("FixMyStreet.controller.Map", {
 		}
 	},
 	
-	getCurrentLocationLatLng: function(geo) {
-		return new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
+	getCurrentLocationLatLng: function(mapComp) {
+		var geo = mapComp.getGeo();
+		if(geo && geo.isAvailable()) {
+			return new google.maps.LatLng(geo.getLatitude(), geo.getLongitude());
+		} else {
+			return mapComp.getMap().getCenter();
+		}
 	},
 	
 	// -------------------------------------------------------

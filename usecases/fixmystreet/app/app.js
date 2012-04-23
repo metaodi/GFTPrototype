@@ -36,7 +36,7 @@ Ext.application({
 	},
 	
 	requires: [
-        'Ext.plugin.google.FusionTablesLayer'
+		'FixMyStreet.util.Geolocation'
 	],
 	
     models: [
@@ -64,6 +64,11 @@ Ext.application({
 
 	// launch function is called as soon as app is ready
     launch: function() {
-		Ext.create('FixMyStreet.view.MainContainer');
+		// get current geolocation
+		FixMyStreet.geo = new FixMyStreet.util.Geolocation();
+		FixMyStreet.geo.updateLocation(function() {
+			Ext.create('FixMyStreet.view.MainContainer');
+			FixMyStreet.geo.setAutoUpdate(true);
+		});
     }
 });

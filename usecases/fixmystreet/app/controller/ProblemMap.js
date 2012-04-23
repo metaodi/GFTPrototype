@@ -3,7 +3,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	
 	config: {
 		views: [
-			'map.ProblemMap',
 			'map.MapContainer'
 		],
 		refs: {
@@ -31,6 +30,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
         me.callParent(arguments);
+		
+		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
+			// if geolocation isn't available
+			me.getProblemCurrentLocationButton().setDisabled(true);
+		}
 		
 		// add problem markers to map
 		me.addProblemMarkers(map);
@@ -71,7 +75,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var me = this;
 		var map = me.getProblemMap();
 		
-		var latlng = me.getCurrentLocationLatLng(map.getGeo());
+		var latlng = me.getCurrentLocationLatLng(map);
 		map.setMapCenter(latlng);
 	},
 	

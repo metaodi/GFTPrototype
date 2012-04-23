@@ -3,7 +3,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	config: {
 		views: [
-			'report.ReportMap',
 			'report.ReportContainer'
 		],
 		refs: {
@@ -33,10 +32,13 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
         me.callParent(arguments);
 		
-		var geo = mapComp.getGeo();
+		var latlng = this.getCurrentLocationLatLng(mapComp);
 		
-		// get current position
-		var latlng = me.getCurrentLocationLatLng(geo);
+		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
+			// if geolocation isn't available
+			map.setZoom(13);
+			me.getReportCurrentLocationButton().setDisabled(true);
+		}
 		
 		// geocode current position and update current address
 		me.geocodePosition(latlng);
@@ -60,8 +62,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		});
 		
 		google.maps.event.addListener(marker, 'dragend', function() {
-			var latlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
-			me.geocodePosition(latlng);
+			me.geocodePosition(marker.getPosition());
 		});
 		
 		me.setProblemMarker(marker);
@@ -152,7 +153,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		this.getProblemTypeSelectField().setValue('undefined');
 		
 		// get current position
-		var latlng = this.getCurrentLocationLatLng(this.getReportMap().getGeo());
+		var latlng = this.getCurrentLocationLatLng(this.getReportMap());
 		
 		this.getReportMap().setMapCenter(latlng);
 		this.getProblemMarker().setPosition(latlng);
@@ -162,10 +163,10 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	onCurrentLocationButtonTap: function(button, e, eOpts) {
 		var me = this;
-		var map = me.getReportMap();
+		var mapComp = me.getReportMap();
 		
-		var latlng = me.getCurrentLocationLatLng(map.getGeo());
-		map.setMapCenter(latlng);
+		var latlng = me.getCurrentLocationLatLng(mapComp);
+		mapComp.setMapCenter(latlng);
 		me.getProblemMarker().setPosition(latlng);
 		me.geocodePosition(latlng);
 	},

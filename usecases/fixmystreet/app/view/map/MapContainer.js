@@ -24,7 +24,8 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 				]
 			},
 			{
-				xtype: 'problemmap'
+				xtype: 'mapnocenter',
+				id: 'problemMap'
 			}
 		]
 	}
