@@ -57,25 +57,33 @@
 	</target>
 	
 	<target name="documentation" depends="docu_revision">
-		<echo message="Generate documentation in 2 latex runs"/>
-		<echo message="First latex run:"/>
-		<antcall target="exec_latex">
-			<param name="clean"   value="off"/>
-			<param name="verbose" value="off"/>
-			<param name="pdftex"  value="off"/>
-		</antcall>
-		
-		<echo message="Generate glossary:"/>
-		<exec executable="makeglossaries" dir="${docu.path}" logError="true">
-			<arg value="${docu.glossary}"/>
-		</exec>
-		
-		<echo message="2nd latex run (re-use generated files from first run):"/>
-		<antcall target="exec_latex">
-			<param name="clean"   value="on"/>
-			<param name="verbose" value="on"/>
-			<param name="pdftex"  value="on"/>
-		</antcall>
+		<if>
+			<equals arg1="${include_documentation}" arg2="false" />
+			<then>
+				<echo message="Omit documentation for this build." />
+			</then>
+			<else>
+				<echo message="Generate documentation in 2 latex runs"/>
+				<echo message="First latex run:"/>
+				<antcall target="exec_latex">
+					<param name="clean"   value="off"/>
+					<param name="verbose" value="off"/>
+					<param name="pdftex"  value="off"/>
+				</antcall>
+
+				<echo message="Generate glossary:"/>
+				<exec executable="makeglossaries" dir="${docu.path}" logError="true">
+					<arg value="${docu.glossary}"/>
+				</exec>
+
+				<echo message="2nd latex run (re-use generated files from first run):"/>
+				<antcall target="exec_latex">
+					<param name="clean"   value="on"/>
+					<param name="verbose" value="on"/>
+					<param name="pdftex"  value="on"/>
+				</antcall>
+			</else> 
+		</if>
 	</target>
 	
 	<target name="generate_css">
