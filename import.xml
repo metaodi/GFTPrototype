@@ -7,6 +7,7 @@
 	
 	<property name="upload.dir"			value="upload" />
 	<property name="upload.filename"	value="file.gis" />
+	<property name="convert.filename"	value="converted_file.gis" />
 	
 	<tstamp>
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
@@ -16,6 +17,7 @@
 		<if>
 			<not><equals arg1="${url}" arg2="" /></not>
 			<then>
+				<mkdir dir="${upload.dir}"/>
 				<echo message="Download source file from ${url}"/>
 				<get src="${url}" dest="${upload.dir}/${upload.filename}"/>
 			</then>
@@ -37,7 +39,7 @@
 	<target name="import_to_gft">
 		<echo message="Import given file to Google Fusion Tables for ${email}"/>
 		
-		<exec executable="/usr/local/bin/ogr2ogr">
+		<exec executable="/usr/local/bin/ogr2ogr" failonerror="true">
 			<arg line="-f GFT" />
 			<arg line='"GFT:email=${email} password=${password}"'/>
 			<arg value="${upload.dir}/${upload.filename}" />
@@ -45,12 +47,17 @@
 	</target>
 	
 	<target name="convert_to_format">
-		<echo message="Import given file to Google Fusion Tables for ${email}"/>
-		
-		<exec executable="/usr/local/bin/ogr2ogr">
+		<echo message="Convert given file to ${format}"/>
+		<delete file="${upload.dir}/${convert.filename}" />
+		<exec executable="/usr/local/bin/ogr2ogr" failonerror="true">
+			<arg value="-skipfailures" />
 			<arg value="-f" />
 			<arg value="${format}" />
+			<arg value="${upload.dir}/${convert.filename}" />
 			<arg value="${upload.dir}/${upload.filename}" />
 		</exec>
+		<echo message="#############################################################################################################################################"/>
+		<echo message="# Download-File: http://http://jenkins.rdmr.ch:8080/job/Convert%20GIS%20files%20to%20various%20formats/ws/${upload.dir}/${convert.filename} #"/>
+		<echo message="#############################################################################################################################################"/>
 	</target>
 </project>
