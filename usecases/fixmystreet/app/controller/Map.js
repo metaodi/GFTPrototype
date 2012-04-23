@@ -35,9 +35,12 @@ Ext.define("FixMyStreet.controller.Map", {
 			map: map,
 			position: latlng,
 			clickable: false,
+			// marker should be behind every other marker
+			zIndex: 0,
 			icon: ownPositionMarkerIcon,
+			// do not optimize marker image to recieve retina display support
 			optimized: false
-		})
+		});
 		me.setOwnPositionMarker(ownPositionMarker);
 	},
 	setOwnPositionMarkerPosition: function(latlng) {
@@ -45,40 +48,6 @@ Ext.define("FixMyStreet.controller.Map", {
 		if(ownPositionMarker) {
 			ownPositionMarker.setPosition(latlng);
 		}
-	},
-	
-	addProblemMarker: function(latlng, map) {
-		var me = this;
-		
-		// custom marker image with shadow
-		// - image created with: http://mapicons.nicolasmollet.com/
-		// - shadow created with: http://www.cycloloco.com/shadowmaker/shadowmaker.htm
-		var markerShadow = new google.maps.MarkerImage(
-			'./resources/images/gmap-markers/shadow.png',
-			// image size (after scaling)
-			new google.maps.Size(49.0, 32.0),
-			null,
-			// image anchor to map in image (after scaling)
-			new google.maps.Point(16.0, 32.0),
-			// scale down image to half of the size to support retina displays
-			new google.maps.Size(49.0, 32.0)
-		);
-		var marker = new google.maps.Marker({
-			position: latlng,
-			draggable: true,
-			animation: google.maps.Animation.DROP,
-			icon: me.getProblemMarkerImages()['undefined'],
-			shadow: markerShadow,
-			optimized: false
-		});
-		
-		google.maps.event.addListener(marker, 'dragend', function() {
-			var latlng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
-			me.geocodePosition(latlng);
-		});
-
-		marker.setMap(map);
-		me.setProblemMarker(marker);
 	},
 	
 	getCurrentLocationLatLng: function(geo) {
@@ -100,6 +69,7 @@ Ext.define("FixMyStreet.controller.Map", {
 		// prepare problem marker images
 		me.problemMarkerImages = [];
 		var currentProblemType = 0;
+		// marker images created with: http://mapicons.nicolasmollet.com/
 		Ext.getStore('ProblemTypes').each(function(record) {
 			var problemTypeSpriteOffset = currentProblemType * 32.0;
 			me.problemMarkerImages[record.getId()] =
@@ -118,6 +88,19 @@ Ext.define("FixMyStreet.controller.Map", {
 		});
 		
 		me.ownPositionMarker = null;
+		
+		// prepare marker shadow
+		// marker shadow created with: http://www.cycloloco.com/shadowmaker/shadowmaker.htm
+		me.markerShadow = new google.maps.MarkerImage(
+			'./resources/images/gmap-markers/shadow.png',
+			// image size (after scaling)
+			new google.maps.Size(49.0, 32.0),
+			null,
+			// image anchor to map in image (after scaling)
+			new google.maps.Point(16.0, 32.0),
+			// scale down image to half of the size to support retina displays
+			new google.maps.Size(49.0, 32.0)
+		);
     },
 	
 	getProblemStore: function() {
@@ -137,5 +120,11 @@ Ext.define("FixMyStreet.controller.Map", {
 	},
 	setProblemMarkerImages: function(problemMarkerImages) {
 		this.problemMarkerImages = problemMarkerImages;
+	},
+	getMarkerShadow: function() {
+		return this.markerShadow;
+	},
+	setMarkerShadow: function(markerShadow) {
+		this.markerShadow = markerShadow;
 	}
 });

@@ -48,26 +48,14 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	addProblemMarker: function(latlng, map) {
 		var me = this;
 		
-		// custom marker image with shadow
-		// - image created with: http://mapicons.nicolasmollet.com/
-		// - shadow created with: http://www.cycloloco.com/shadowmaker/shadowmaker.htm
-		var markerShadow = new google.maps.MarkerImage(
-			'./resources/images/gmap-markers/shadow.png',
-			// image size (after scaling)
-			new google.maps.Size(49.0, 32.0),
-			null,
-			// image anchor to map in image (after scaling)
-			new google.maps.Point(16.0, 32.0),
-			// scale down image to half of the size to support retina displays
-			new google.maps.Size(49.0, 32.0)
-		);
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
 			draggable: true,
 			animation: google.maps.Animation.DROP,
 			icon: me.getProblemMarkerImages()['undefined'],
-			shadow: markerShadow,
+			shadow: me.getMarkerShadow(),
+			// do not optimize marker image to recieve retina display support
 			optimized: false
 		});
 		
