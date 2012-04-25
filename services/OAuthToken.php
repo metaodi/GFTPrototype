@@ -26,7 +26,7 @@ const SERVICE_ACCOUNT_NAME = '63601791805-gd5vj9a4pu177krdm9fu5rfhulkcl2bl@devel
 
 // Make sure you keep your key.p12 file in a secure location, and isn't
 // readable by others.
-const KEY_FILE = '/home/odi/hsr/2cb665b201d20418fd491a37292a7d3cd8b57450-privatekey.p12';
+const KEY_FILE = '/home/ec2-user/secret/2cb665b201d20418fd491a37292a7d3cd8b57450-privatekey.p12';
 
 $client = new apiClient();
 $client->setApplicationName("Google Prediction Sample");
