@@ -1,53 +1,69 @@
 <?php
-include_once "../lib/oauth-php/library/OAuthStore.php";
-include_once "../lib/oauth-php/library/OAuthRequester.php";
+/*
+ * Copyright 2012 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-define("GOOGLE_OAUTH_HOST", "https://www.google.com");
-define("GOOGLE_REQUEST_TOKEN_URL", GOOGLE_OAUTH_HOST . "/accounts/OAuthGetRequestToken");
-define("GOOGLE_AUTHORIZE_URL", GOOGLE_OAUTH_HOST . "/accounts/OAuthAuthorizeToken");
-define("GOOGLE_ACCESS_TOKEN_URL", GOOGLE_OAUTH_HOST . "/accounts/OAuthGetAccessToken");
+require_once '../lib/google-api-php-client/src/apiClient.php';
+require_once '../lib/google-api-php-client/src/contrib/apiPredictionService.php';
 
+// Set your client id, service account name, and the path to your private key.
+// For more information about obtaining these keys, visit:
+// https://developers.google.com/console/help/#service_accounts
+const CLIENT_ID = '63601791805-gd5vj9a4pu177krdm9fu5rfhulkcl2bl.apps.googleusercontent.com';
+const SERVICE_ACCOUNT_NAME = '63601791805-gd5vj9a4pu177krdm9fu5rfhulkcl2bl@developer.gserviceaccount.com';
 
-define("FT_CLIENT_ID", '63601791805.apps.googleusercontent.com');
-define("FT_CLIENT_SECRET", 'zXecWaIcjX66lksIEAzAam23');
-define("FT_API_KEY",  'AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
-define("FT_SCOPE",  'https://www.googleapis.com/auth/fusiontables');
+// Make sure you keep your key.p12 file in a secure location, and isn't
+// readable by others.
+const KEY_FILE = '/home/odi/hsr/2cb665b201d20418fd491a37292a7d3cd8b57450-privatekey.p12';
 
-$options = array('consumer_key' => FT_CLIENT_ID, 'consumer_secret' => FT_CLIENT_SECRET);
-OAuthStore::instance("2Leg", $options);
+$client = new apiClient();
+$client->setApplicationName("Google Prediction Sample");
 
-$method = "GET";
-$params = array(
-	"scope" => FT_SCOPE
+// Set your cached access token. Remember to replace $_SESSION with a
+// real database or memcached.
+session_start();
+if (isset($_SESSION['token'])) {
+ $client->setAccessToken($_SESSION['token']);
+}
+
+// Load the key in PKCS 12 format (you need to download this from the
+// Google API Console when the service account was created.
+$key = file_get_contents(KEY_FILE);
+$client->setAssertionCredentials(new apiAssertionCredentials(
+  SERVICE_ACCOUNT_NAME,
+  array('https://www.googleapis.com/auth/prediction'),
+  $key)
 );
 
-try
-{
-	// Obtain a request object for the request we want to make
-	$request = new OAuthRequester(GOOGLE_REQUEST_TOKEN_URL, $method, $params);
+$client->setClientId(CLIENT_ID);
+$service = new apiPredictionService($client);
 
-	// Sign the request, perform a curl request and return the results, 
-	// throws OAuthException2 exception on an error
-	// $result is an array of the form: array ('code'=>int, 'headers'=>array(), 'body'=>string)
-	$result = $request->doRequest();
-	$response = $result['body'];
-	
-	 parse_str($response, $parsed_response);
-	 
-	 /*
-	 $accessTokenReq = new OAuthRequester(GOOGLE_ACCESS_TOKEN_URL, $method, $params);
-	 $result = $accessTokenReq->doRequest();
-	 $tokenResp = $result['body'];
-	 
-	 parse_str($tokenResp, $parsedTokenResp);
-	  */
-	
-	//OAuthRequester::requestAccessToken(GOOGLE_CONSUMER_KEY, $oauthToken, 0, 'POST', $_GET);
-	
-	echo json_encode($parsed_response);
+
+// Prediction logic:
+$id = 'sample.languageid';
+$predictionData = new InputInput();
+$predictionData->setCsvInstance(array('Je suis fatigue'));
+
+$input = new Input();
+$input->setInput($predictionData);
+
+$result = $service->hostedmodels->predict($id, $input);
+echo $client->getAccessToken();
+
+// We're not done yet. Remember to update the cached access token.
+// Remember to replace $_SESSION with a real database or memcached.
+if ($client->getAccessToken()) {
+  $_SESSION['token'] = $client->getAccessToken();
 }
-catch(OAuthException2 $e)
-{
-	echo json_encode($e);
-}
-?>
