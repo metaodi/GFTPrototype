@@ -36,7 +36,9 @@ Ext.application({
 	},
 	
 	requires: [
-		'FixMyStreet.util.Geolocation'
+		'FixMyStreet.util.Geolocation',
+		'Ext.plugin.uxtouch.ListOptions',
+		'Ext.plugin.uxtouch.FixListOptions'
 	],
 	
     models: [

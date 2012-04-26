@@ -28,6 +28,10 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 					return ts.getDate();
 				}
 			}
-		)
+		)/*,
+		
+		plugins: [
+			'fixlistoptions'
+		]*/
 	}
 });

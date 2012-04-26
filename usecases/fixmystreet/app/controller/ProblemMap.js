@@ -44,32 +44,43 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var me = this;
 		
 		this.getProblemStore().each(function(record) {
-			var data = record.getData();
-			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(data.latitude, data.longitude),
-				map: map,
-				icon: me.getProblemMarkerImages()[data.type.value],
-				shadow: me.getMarkerShadow(),
-				// do not optimize marker image to recieve retina display support
-				optimized: false
-			});
-			
-			marker.content =
-				'<div class="infowindow-content">' +
-					'<div class="trail-info">' +
-						'<h1>' + data.address + '</h1>' +
-					'</div>' +
-				'</div>';
-			
-			google.maps.event.addListener(marker, 'click', function() {
-				// this attribute references to the current marker
-				me.getInfoWindow().setContent(this.content);
-				me.getInfoWindow().open(map, this);
-			});
-			
-			// add marker to problem markers array
-			me.getProblemMarkers().push(marker);
+			me.addProblemMarker(map, record);
 		});
+	},
+	
+	addProblemMarker: function(map, record) {
+		var me = this;
+		
+		var data = record.getData();
+		var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(data.latitude, data.longitude),
+			map: map,
+			icon: me.getProblemMarkerImages()[data.type.value],
+			shadow: me.getMarkerShadow(),
+			// do not optimize marker image to recieve retina display support
+			optimized: false
+		});
+		
+		marker.content =
+			'<div class="infowindow-content">' +
+				'<div class="trail-info">' +
+					'<p class="date">' + new Timestamp(data.timestamp).getDate() + '</p>' +
+					'<div class="image"><img src="./resources/images/problem-types/' + data.type.value + '.png" /></div>' +
+					'<div class="info">' +
+						'<h1>' + data.type.text + '</h1>' +
+						'<p class="address">' + data.address + '</p>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
+		
+		marker.listener = google.maps.event.addListener(marker, 'click', function() {
+			// this attribute references to the current marker
+			me.getInfoWindow().setContent(this.content);
+			me.getInfoWindow().open(map, this);
+		});
+		
+		// add marker to problem markers array
+		me.getProblemMarkers().push(marker);
 	},
 	
 	/**
@@ -78,7 +89,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
      */
 	removeProblemMarkers: function() {
 		var markers = this.getProblemMarkers();
+		
 		for(var i = 0; i < markers.length; i++) {
+			if(markers[i].listener) {
+				google.maps.event.removeListener(markers[i].listener);
+			}
 			markers[i].setMap(null);
 		}
 		markers = [];
