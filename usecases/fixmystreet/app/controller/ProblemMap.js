@@ -35,40 +35,38 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			// if geolocation isn't available
 			me.getProblemCurrentLocationButton().setDisabled(true);
 		}
-		
-		// add problem markers to map
-		me.addProblemMarkers(map);
     },
 	
-	addProblemMarkers: function(map) {
-		var me = this;
+	addProblemMarkers: function(data, scope) {
+		var dataObjs = FixMyStreet.gftLib.convertToObject(data);
 		
-		this.getProblemStore().each(function(record) {
-			me.addProblemMarker(map, record);
-		});
+		for(var problem in dataObjs) {
+			scope.addProblemMarker(scope.getProblemMap().getMap(), dataObjs[problem]);
+		}
 	},
 	
-	addProblemMarker: function(map, record) {
+	addProblemMarker: function(map, problem) {
 		var me = this;
 		
-		var data = record.getData();
 		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(data.latitude, data.longitude),
+			position: new google.maps.LatLng(problem.latitude, problem.longitude),
 			map: map,
-			icon: me.getProblemMarkerImages()[data.type.value],
+			icon: me.getProblemMarkerImages()[problem.type],
 			shadow: me.getMarkerShadow(),
 			// do not optimize marker image to recieve retina display support
 			optimized: false
 		});
 		
+		var typeText = me.getTypeStore().getById(problem.type).getData().text;
+		
 		marker.content =
 			'<div class="infowindow-content">' +
 				'<div class="trail-info">' +
-					'<p class="date">' + new Timestamp(data.timestamp).getDate() + '</p>' +
-					'<div class="image"><img src="./resources/images/problem-types/' + data.type.value + '.png" /></div>' +
+					'<p class="date">' + new Timestamp(parseInt(problem.timestamp)).getDate() + '</p>' +
+					'<div class="image"><img src="./resources/images/problem-types/' + problem.type + '.png" /></div>' +
 					'<div class="info">' +
-						'<h1>' + data.type.text + '</h1>' +
-						'<p class="address">' + data.address + '</p>' +
+						'<h1>' + typeText + '</h1>' +
+						'<p class="address">' + problem.address + '</p>' +
 					'</div>' +
 				'</div>' +
 			'</div>';
@@ -113,7 +111,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		// if map is already rendered
 		if(me.getMapRendered()) {
 			me.removeProblemMarkers();
-			me.addProblemMarkers(me.getProblemMap().getMap());
+			
+			// add problem markers to map
+			FixMyStreet.gftLib.execSelect(function(data) { me.addProblemMarkers(data, me) }, {
+				table: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
+				fields: 'ROWID, userId, externalId, timestamp, latitude, longitude, address, type, status'
+			});
 		}
     },
 	
@@ -125,8 +128,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
     },
     init: function () {
 		var me = this;
+		
         me.callParent(arguments);
 		
+		me.typeStore = Ext.getStore('ProblemTypes');
 		me.problemMarkers = [];
 		
 		// create infowindow with maxWidth depending on trailsMap panelsize (all markers will use this infowindow)
@@ -136,6 +141,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		});
     },
 	
+	getTypeStore: function() {
+		return this.typeStore;
+	},
+	setTypeStore: function(typeStore) {
+		this.typeStore = typeStore;
+	},
 	getProblemMarkers: function() {
 		return this.problemMarkers;
 	},

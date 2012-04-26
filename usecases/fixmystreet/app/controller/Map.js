@@ -8,6 +8,13 @@ Ext.define("FixMyStreet.controller.Map", {
 		var geo = FixMyStreet.geo;
 		mapComp.setGeo(geo);
 		
+		// disable zoom control if browser is running on iOS (use pinching gesture instead)
+		if(Ext.os.is.iOS) {
+			map.setOptions({
+				zoomControl: false
+			});
+		}
+		
 		var latlng = this.getCurrentLocationLatLng(mapComp);
 		
 		if(geo.isAvailable()) {
@@ -73,7 +80,6 @@ Ext.define("FixMyStreet.controller.Map", {
 		var me = this;
         me.callParent(arguments);
 		
-		me.problemStore = Ext.getStore('Problems');
 		me.mapRendered = false;
 		
 		// prepare problem marker images
@@ -113,12 +119,6 @@ Ext.define("FixMyStreet.controller.Map", {
 		);
     },
 	
-	getProblemStore: function() {
-		return this.problemStore;
-	},
-	setProblemStore: function(problemStore) {
-		this.problemStore = problemStore;
-	},
 	getMapRendered: function() {
 		return this.mapRendered;
 	},

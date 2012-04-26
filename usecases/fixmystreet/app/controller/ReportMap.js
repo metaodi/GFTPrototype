@@ -181,6 +181,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
         me.callParent(arguments);
 		
+		me.problemStore = Ext.getStore('Problems');
 		me.problemMarker = null;
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;
@@ -190,6 +191,12 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.disableGeocoding = false;
     },
 	
+	getProblemStore: function() {
+		return this.problemStore;
+	},
+	setProblemStore: function(problemStore) {
+		this.problemStore = problemStore;
+	},
 	getProblemMarker: function() {
 		return this.problemMarker;
 	},

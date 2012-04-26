@@ -36,6 +36,7 @@ Ext.application({
 	},
 	
 	requires: [
+		'FixMyStreet.util.Config',
 		'FixMyStreet.util.Geolocation',
 		'Ext.plugin.uxtouch.ListOptions',
 		'Ext.plugin.uxtouch.FixListOptions'
@@ -68,6 +69,7 @@ Ext.application({
     launch: function() {
 		// get current geolocation
 		FixMyStreet.geo = new FixMyStreet.util.Geolocation();
+		FixMyStreet.gftLib = new GftLib();
 		FixMyStreet.geo.updateLocation(function() {
 			Ext.create('FixMyStreet.view.MainContainer');
 			FixMyStreet.geo.setAutoUpdate(true);
