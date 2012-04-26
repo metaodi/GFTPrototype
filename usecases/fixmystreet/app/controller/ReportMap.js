@@ -8,7 +8,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		refs: {
 			reportMap: '#reportMap',
 			addressTextField: 'textfield[name=address]',
-			problemTypeSelectField: 'selectfield[name=problemType]',
+			problemTypeSelectField: '#problemTypeSelectField',
 			reportButton: '#reportButton',
 			reportCurrentLocationButton: '#reportCurrentLocationButton'
 		},

@@ -3,7 +3,7 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 	alias: 'widget.mapcontainer',
 	
 	config: {
-		title: 'Karte',
+		title: 'Übersicht',
 		id: 'mapContainer',
 		iconCls: 'maps',
 		layout: 'fit',

@@ -26,6 +26,7 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 			{
 				xtype: 'selectfield',
 				name: 'problemType',
+				id: 'problemTypeSelectField',
 				store: 'ProblemTypes',
 				// always use Ext.picker.Picker
 				usePicker: true,
@@ -50,8 +51,6 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 			{
 				xtype: 'textfield',
 				id: 'addressTextField',
-				label: 'Adresse',
-				labelWidth: '5em',
 				name: 'address',
 				disabled: true
 			},

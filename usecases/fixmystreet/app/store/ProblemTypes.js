@@ -5,7 +5,7 @@ Ext.define('FixMyStreet.store.ProblemTypes', {
 		autoLoad: true,
 		
 		data: [
-			{ text: 'Defekttyp wählen...', value: 'undefined' },
+			{ text: 'Defekt wählen...', value: 'undefined' },
 			{ text: 'Schlagloch', value: 'hump' },
 			{ text: 'Eisglätte', value: 'ice' },
 			{ text: 'Strassenlampe', value: 'light' },
