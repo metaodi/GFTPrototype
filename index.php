@@ -148,7 +148,7 @@ $fusiontableToUrlMapping = Array(
 	<link rel="icon" href="./resources/images/gftprototype-favicon.png" type="image/png" />
 
 	<!-- twitter bootstrap -->
-	<link href="./lib/bootstrap-2.0.2/css/bootstrap.css" rel="stylesheet">
+	<link href="./lib/bootstrap-2.0.3/css/bootstrap.css" rel="stylesheet">
 	
 	<link rel="stylesheet" href="./resources/styles/styles.css" type="text/css">
 </head>
