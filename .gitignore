@@ -38,3 +38,6 @@ styles.css
 /lib/sencha-touch-2.0.1-rc/docs/resources/touch-sass/.sass-cache/
 /usecases/fixmystreet/resources/styles/sass/.sass-cache/
 /usecases/fixmystreet/resources/styles/.sass-cache/
+/lib/sencha-touch-2.0.1/command/vendor/nodejs/node_modules/.bin/
+/lib/sencha-touch-2.0.1/command/vendor/nodejs/node_modules/jasmine-node/node_modules/.bin/
+/lib/sencha-touch-2.0.1/docs/resources/touch-sass/.sass-cache/

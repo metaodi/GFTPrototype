@@ -7,24 +7,36 @@ $examplesArr = Array(
 			'title' => 'Select data',
 			'tags' => Array(
 				'sqlapi'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		),
 		'spatialquery-condition' => Array(
 			'title' => 'Select data with a spatial condition',
 			'tags' => Array(
 				'sqlapi'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		),
 		'spatialquery-order' => Array(
 			'title' => 'Select data with a spatial condition in order clause',
 			'tags' => Array(
 				'sqlapi'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		),
 		'gmap-rawdata' => Array(
 			'title' => 'Show raw data',
 			'tags' => Array(
 				'gmap'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		),
 		'gmap-geocoding' => Array(
@@ -32,6 +44,9 @@ $examplesArr = Array(
 			'tags' => Array(
 				'gmap',
 				'sqlapi'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		),
 		'gmap-fusiontableslayer' => Array(
@@ -39,6 +54,10 @@ $examplesArr = Array(
 			'tags' => Array(
 				'gmap',
 				'fusiontableslayer'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte',
+				'Coin'
 			)
 		),
 		'gmap-dynamic-fusiontableslayer' => Array(
@@ -46,6 +65,10 @@ $examplesArr = Array(
 			'tags' => Array(
 				'gmap',
 				'fusiontableslayer'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte',
+				'Coin'
 			)
 		),
 		'gmap-spatialquery' => Array(
@@ -53,18 +76,28 @@ $examplesArr = Array(
 			'tags' => Array(
 				'gmap',
 				'fusiontableslayer'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		),
 		'gchart-fusiontable' => Array(
 			'title' => 'Google Chart Tool with Fusion Table data',
 			'tags' => Array(
 				'gchart'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte',
+				'Chart Test Table'
 			)
 		),
 		'oauth-login' => Array(
 			'title' => 'Inserting data to Fusion Table with OAuth',
 			'tags' => Array(
 				'oauth'
+			),
+			'fusiontables' => Array(
+				'Private'
 			)
 		),
 		'senchatouch-fusiontableslayer' => Array(
@@ -73,6 +106,9 @@ $examplesArr = Array(
 				'gmap',
 				'fusiontableslayer',
 				'st2'
+			),
+			'fusiontables' => Array(
+				'Schweizer Städte'
 			)
 		)
 	)
@@ -95,6 +131,12 @@ $labelColorMapping = Array(
 	'gchart' => 'default',
 	'st2' => 'default',
 	'jqm' => 'default',
+);
+
+$fusiontableToUrlMapping = Array(
+	'Schweizer Städte' => 'https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw',
+	'Chart Test Table' => 'https://www.google.com/fusiontables/DataSource?docid=1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg',
+	'Coin' => 'https://www.google.com/fusiontables/DataSource?docid=1UflpL9f3WGrNdSPK4UAUHVAFdycZWu0_qnEPfAA'
 );
 ?>
 
@@ -125,7 +167,23 @@ $labelColorMapping = Array(
 				} else {
 					$content = '<li class="odd">';
 				}
-				$content .= '<div class="title"><a href="./examples/js/'. $exampleJsKey.'">'.$examplesJsValue['title'].'</a></div>';
+				$content .= '<div class="title">';
+				$content .= '<a href="./examples/js/'. $exampleJsKey.'">'.$examplesJsValue['title'].'</a>';
+				$content .= '<span class="fusiontables">(Fusion Tables: ';
+				$fusiontableCounter = 0;
+				foreach($examplesJsValue['fusiontables'] as $fusiontableName) {
+					++$fusiontableCounter;
+					if($fusiontableName == 'Private') {
+						$content .= 'Private Tabelle';
+					} else {
+						$content .= '<a href="'.$fusiontableToUrlMapping[$fusiontableName].'" target="_blank">'.$fusiontableName.'</a>';
+					}
+					if($fusiontableCounter < count($examplesJsValue['fusiontables'])) {
+						$content .= ', ';
+					}
+				}
+				$content .= ')';
+				$content .= '</div>';
 				foreach($examplesJsValue['tags'] as $examplesJsTagValue) {
 					$content .= '<span class="label label-'.$labelColorMapping[$examplesJsTagValue].'">'.$labelTitleMapping[$examplesJsTagValue].'</span>';
 				}
@@ -148,13 +206,21 @@ $labelColorMapping = Array(
 				<dd>WorldData zeigt grosse Datenmengen aus einer FusionTable via FusionTablesLayer der Google Maps API an.</dd>
 				<dt>Techonologie:</dt>
 				<dd>JavaScript (jQuery Mobile verwendet), HTML</dd>
+				<dt>Fusion Tables:</dt>
+				<dd>
+					<ul class="fusiontables">
+						<li><a href="https://www.google.com/fusiontables/DataSource?docid=1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0" target="_blank">World Borders</a></li>
+						<li><a href="https://www.google.com/fusiontables/DataSource?docid=1yjvHyay7uwBXprkAKZ4iBG4tZk87aWKCxiuBISs" target="_blank">World Data</a></li>
+						<li><a href="https://www.google.com/fusiontables/DataSource?docid=1Ex_gdGfRST85LTD9JxCwhohXFtRKo0_ap9G6cEI" target="_blank">Merge der beiden Tabellen</a> (Join über Landesnamen)</li>
+					</ul>
+				</dd>
 				<dt>Labels:</dt>
 				<dd><span class="label label-normal">jQuery Mobile</span><span class="label label-info">Google Maps FusionTablesLayer</span><span class="label label-important">Google Maps API</span></dd>
 				<dt>Voraussetzungen:</dt>
 				<dd>Diese Applikation läuft auf allen gängigen Browsern. Eine vollständige Liste mit den unterstützten Browsern findet man hier: <a href="http://jquerymobile.com/gbs/" target="_blank">jQuery Mobile Supported Platforms</a></dd>
 			</dl>
 			<p class="app-start">
-				<a href="./usecases/worlddata" class="btn btn-primary">Applikation jetzt starten</a>
+				<a href="./usecases/worlddata" class="btn btn-primary">Applikation starten</a>
 			</p>
 		</div>
 		
@@ -165,14 +231,20 @@ $labelColorMapping = Array(
 				<dd>Mit FixMyStreet können Bürger Defekte (Strassenlampen, Schlaglöcher, etc.) per Handy an ihre Gemeinde melden.</dd>
 				<dt>Techonologie:</dt>
 				<dd>JavaScript (Sencha Touch 2.0 verwendet)</dd>
+				<dt>Fusion Tables:</dt>
+				<dd>
+					<ul class="fusiontables">
+						<li><a href="https://www.google.com/fusiontables/DataSource?docid=1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ" target="_blank">Gemeldete Probleme</a></li>
+					</ul>
+				</dd>
 				<dt>Labels:</dt>
 				<dd><span class="label label-normal">Sencha Touch 2.0</span><span class="label label-info">Google Maps FusionTablesLayer</span><span class="label label-important">Google Maps API</span></dd>
 				<dt>Voraussetzungen:</dt>
 				<dd>Diese Applikation läuft auf allen WebKit-Browsern (Desktop: Chrome, Opera, Safari / Mobile: iOS, Android, Blackberry)</dd>
 			</dl>
 			<p class="app-start">
-				<a href="./usecases/fixmystreet" class="btn btn-primary">Applikation jetzt starten</a>
-				<a href="./usecases/fixmystreet/index_iphone.html" class="btn btn-info">iPhone Preview jetzt starten</a>
+				<a href="./usecases/fixmystreet" class="btn btn-primary">App starten</a>
+				<a href="./usecases/fixmystreet/index_iphone.html" class="btn btn-info">App starten (iPhone Preview Mode)</a>
 			</p>
 		</div>
 		

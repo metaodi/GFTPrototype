@@ -51,6 +51,11 @@ ul#examples {
 	li {
 		font-size: 1.2em;
 		padding: 0.3em $padding-from-border;
+		
+		span.fusiontables {
+			font-size: 0.8em;
+			margin-left: 0.8em;
+		}
 	}
 	li.odd {
 		background-color: #eee;
