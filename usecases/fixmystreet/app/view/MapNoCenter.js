@@ -8,6 +8,9 @@ Ext.define('FixMyStreet.view.MapNoCenter', {
 			center: new google.maps.LatLng('47.36865', '8.539183'),
 			zoom: 13,
 			disableDefaultUI: true,
+			// enable map type control
+			mapTypeControl: true,
+			// enable zoom control
 			zoomControl: true,
 			zoomControlOptions: {
 				style: google.maps.ZoomControlStyle.SMALL

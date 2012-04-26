@@ -22,11 +22,13 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			}
 		}
 	},
+	
 	onTabPanelActiveItemChange: function(tapPanelComp, value, oldValue, eOpts) {
 		if(value.getId() == 'mapContainer') {
 			this.refreshView();
 		}
 	},
+	
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
         me.callParent(arguments);
@@ -37,11 +39,26 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
     },
 	
-	addProblemMarkers: function(data, scope) {
+	refreshView: function () {
+		var me = this;
+		
+		// if map is already rendered
+		if(me.getMapRendered()) {
+			me.removeProblemMarkers();
+			
+			// add problem markers to map
+			FixMyStreet.gftLib.execSelect(me.addProblemMarkers, {
+				table: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
+				fields: 'ROWID, userId, externalId, timestamp, latitude, longitude, address, type, status'
+			}, me);
+		}
+    },
+	
+	addProblemMarkers: function(data) {
 		var dataObjs = FixMyStreet.gftLib.convertToObject(data);
 		
 		for(var problem in dataObjs) {
-			scope.addProblemMarker(scope.getProblemMap().getMap(), dataObjs[problem]);
+			this.addProblemMarker(this.getProblemMap().getMap(), dataObjs[problem]);
 		}
 	},
 	
@@ -104,21 +121,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var latlng = me.getCurrentLocationLatLng(map);
 		map.setMapCenter(latlng);
 	},
-	
-	refreshView: function () {
-		var me = this;
-		
-		// if map is already rendered
-		if(me.getMapRendered()) {
-			me.removeProblemMarkers();
-			
-			// add problem markers to map
-			FixMyStreet.gftLib.execSelect(function(data) { me.addProblemMarkers(data, me) }, {
-				table: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
-				fields: 'ROWID, userId, externalId, timestamp, latitude, longitude, address, type, status'
-			});
-		}
-    },
 	
 	// -------------------------------------------------------
     // Base Class functions
