@@ -48,6 +48,11 @@ test("Constants", function() {
 
 asyncTest("readRequest", 7, function() {
 	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "readRequest failed with status: " + status);
+			start();
+			return;
+		}
 		equal(data.columns[0],"Text");
 		equal(data.columns[1],"Number");
 		equal(data.columns[2],"Location");
@@ -55,8 +60,8 @@ asyncTest("readRequest", 7, function() {
 		equal(data.rows[0][0],"Some record");
 		equal(data.rows[0][2],"Zurich");
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.__readRequest(testCb,'select * from ' + this.testGftTable + ' limit 1');
@@ -90,8 +95,8 @@ asyncTest("Exec SQL", 7, function() {
 		equal(data.rows[0][0],"Some record");
 		equal(data.rows[0][2],"Zurich");
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
@@ -133,8 +138,8 @@ asyncTest("ExecSelect: Condition", 8, function() {
 		equal(data.rows[0][0],"Some record");
 		equal(data.rows[0][2],"Zurich");
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.execSelect(testCb, {table:this.testGftTable, condition:"Text = 'Some record'"});
@@ -148,8 +153,8 @@ asyncTest("ExecSelect: Projection", 6, function() {
 		equal(data.columns[0],"mytext");
 		equal(data.rows[0][0],"Some record");
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"Text as mytext",  limit:1});
@@ -160,8 +165,8 @@ asyncTest("ExecSelect: Order by", 3, function() {
 		equal(data.rows[0][0],"Yet another record");
 		equal(data.rows[1][0],"Some record");
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"Text", orderby:"Text desc", limit:2});
@@ -176,8 +181,8 @@ asyncTest("ExecSelect: Group by", 4, function() {
 		//equal(data.rows[0][0],2); -> 
 		equal(data.rows[0][1],3);
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"count(),Number", condition:"Number = 3", groupby:"Number"});
@@ -198,8 +203,8 @@ asyncTest("ExecInsert", 5, function() {
 		equal(data.rows.length,1);
 		ok($.isNumeric(data.rows[0][0]));
 
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	
