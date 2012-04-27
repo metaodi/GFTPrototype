@@ -74,8 +74,8 @@ asyncTest("writeRequest", 5, function() {
 		equal(data.columns[0],"rowid");
 		ok($.isNumeric(data.rows[0][0]));
 		
-		var status = JSON.parse(status);
-		equal(status.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
 	this.gft.__writeRequest(testCb,'insert into  ' + this.testGftInsertTable + ' (Text) values (\'Test\')');
