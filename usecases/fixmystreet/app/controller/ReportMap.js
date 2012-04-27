@@ -114,36 +114,18 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		if(buttonId == 'yes') {
 			try {
 				// creating problem instance
-				var status = Ext.getStore('Status').getById('new');
-				var type = Ext.getStore('Types').getById(me.getTypeSelectField().getValue());
+				var status = 'new';
+				var type = me.getTypeSelectField().getValue();
 				
 				if(status && type) {
-					/*var problem = new FixMyStreet.model.Problem();
-					problem.setData(
-						{
-							rowid: rowid,
-							timestamp: me.getTimestamp().getTimestamp(),
-							address: me.getCurrentAddress(),
-							latitude: me.getProblemMarker().getPosition().lat(),
-							longitude: me.getProblemMarker().getPosition().lng(),
-							// @TODO why do I have to add getData() instead of record
-							type: type.getData(),
-							status: status.getData()
-						}
-					);
-
-					// adding problem to store
-					me.getProblemStore().add(problem);
-					*/
-				   
 					var newProblem = Ext.create('FixMyStreet.model.Problem', {
 						timestamp: me.getTimestamp().getTimestamp(),
 						address: me.getCurrentAddress(),
 						latitude: me.getProblemMarker().getPosition().lat(),
 						longitude: me.getProblemMarker().getPosition().lng(),
 						// @TODO why do I have to add getData() instead of record
-						type: type.getData(),
-						status: status.getData()
+						type: type,
+						status: status
 					});
 
 					console.log(newProblem);

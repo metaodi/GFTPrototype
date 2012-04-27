@@ -12,9 +12,7 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 		
 		itemTpl: new Ext.XTemplate(
 			'<div class="problem-item">',
-				'<tpl for="type">',
-					'<div class="image"><img src="./resources/images/problem-types/{value}.png" /></div>',
-				'</tpl>',
+				'<div class="image"><img src="./resources/images/problem-types/{type}.png" /></div>',
 				'<div class="info">',
 					'<p class="date">{[this.getDate(values.timestamp)]}</p>',
 					'<p class="address">{address}</p>',

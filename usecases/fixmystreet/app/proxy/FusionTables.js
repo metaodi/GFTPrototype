@@ -59,9 +59,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		var records = [];
 		
 		for(var problem in objs) {
-			var problemData = objs[problem];
-			problemData.type = Ext.getStore('Types').getById(problemData.type).getData();
-			problemData.status = Ext.getStore('Status').getById(problemData.status).getData();
 			var record = Ext.create(me.getModel(), objs[problem]);
 			records.push(record);
 		}

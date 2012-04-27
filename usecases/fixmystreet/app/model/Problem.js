@@ -10,13 +10,9 @@ Ext.define('FixMyStreet.model.Problem', {
 			{ name: 'address', type: 'string' },
             { name: 'latitude', type: 'string' },
             { name: 'longitude', type: 'string' },
-			{ name: 'type', type: 'array' },
-			{ name: 'status', type: 'array' }
+			{ name: 'type', type: 'string' },
+			{ name: 'status', type: 'string' }
         ],
-	    hasOne: [
-			{ model: 'Type', name: 'type' },
-			{ model: 'Status', name: 'status' }
-		],
 		
 		proxy: {
 			type: 'fusiontables',

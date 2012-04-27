@@ -10,9 +10,9 @@ Ext.define('FixMyStreet.store.Problems', {
 		grouper: {
 			groupFn: function(record) {
 				var statusStore = Ext.getStore('Status');
-				return record.getData().status.value;
-			},
-			sortProperty: 'sorting'
+				return statusStore.getById(record.getData().status).getData().value;
+			}
+			// @TODO use sorting property
 		},
 		// sort problems by timestamp (descending)
 		sorters: {
