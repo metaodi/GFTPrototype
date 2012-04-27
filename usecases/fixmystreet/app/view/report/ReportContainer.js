@@ -45,7 +45,7 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 				flex: 1,
 				id: 'reportMap',
 				mapOptions: {
-					zoom: 17
+					zoom: FixMyStreet.util.Config.getMap().reportZoom
 				}
 			},
 			{

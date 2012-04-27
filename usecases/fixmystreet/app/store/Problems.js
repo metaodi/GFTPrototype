@@ -1,5 +1,6 @@
 Ext.define('FixMyStreet.store.Problems', {
     extend: 'Ext.data.Store',
+	
 	config: {
 		model: 'FixMyStreet.model.Problem',
 		autoLoad: true,
@@ -17,6 +18,13 @@ Ext.define('FixMyStreet.store.Problems', {
 			property: 'timestamp',
 			direction: 'DESC'
 		},
+		
+		/*proxy: {
+			type: 'direct',
+			directFn: function() {
+				console.log('callback');
+			}
+		},*/
 		
 		// @TODO remove dummy data
 		data: [

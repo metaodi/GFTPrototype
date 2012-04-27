@@ -55,7 +55,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			if(me.getMapRendered()) {
 				me.recieveData();
 			}
-			setTimeout(function() { me.refreshData(); }, 100000);
+			setTimeout(function() { me.refreshData(); }, FixMyStreet.util.Config.getPollingFrequency());
 		}
 	},
 	
@@ -94,7 +94,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				position: new google.maps.LatLng(problem.latitude, problem.longitude),
 				map: map,
 				animation: google.maps.Animation.DROP,
-				icon: me.getProblemMarkerImages()[problem.type],
+				icon: me.getProblemMarkerImagesById(problem.type),
 				shadow: me.getMarkerShadow(),
 				// do not optimize marker image to recieve retina display support
 				optimized: false

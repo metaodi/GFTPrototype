@@ -5,8 +5,8 @@ Ext.define('FixMyStreet.view.MapNoCenter', {
 	config: {
 		mapOptions: {
 			// set default center to zurich
-			center: new google.maps.LatLng('47.36865', '8.539183'),
-			zoom: 13,
+			center: new google.maps.LatLng(FixMyStreet.util.Config.getMap().lat, FixMyStreet.util.Config.getMap().lng),
+			zoom: FixMyStreet.util.Config.getMap().defaultZoom,
 			disableDefaultUI: true,
 			// enable map type control
 			mapTypeControl: true,

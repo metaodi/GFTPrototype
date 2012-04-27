@@ -36,7 +36,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		
 		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
 			// if geolocation isn't available
-			map.setZoom(13);
+			map.setZoom(FixMyStreet.util.Config.getMap().defaultZoom);
 			me.getReportCurrentLocationButton().setDisabled(true);
 		}
 		
@@ -55,7 +55,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			map: map,
 			draggable: true,
 			animation: google.maps.Animation.DROP,
-			icon: me.getProblemMarkerImages()['undefined'],
+			icon: me.getProblemMarkerImagesById('undefined'),
 			shadow: me.getMarkerShadow(),
 			// do not optimize marker image to recieve retina display support
 			optimized: false
@@ -78,7 +78,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		}
 		
 		// change marker icon
-		var markerIcon = me.getProblemMarkerImages()[field.getValue()];
+		var markerIcon = me.getProblemMarkerImagesById(field.getValue());
 		me.getProblemMarker().setIcon(markerIcon);
 	},
 	

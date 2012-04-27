@@ -131,8 +131,8 @@ Ext.define("FixMyStreet.controller.Map", {
 	setOwnPositionMarker: function(ownPositionMarker) {
 		this.ownPositionMarker = ownPositionMarker;
 	},
-	getProblemMarkerImages: function() {
-		return this.problemMarkerImages;
+	getProblemMarkerImagesById: function(problemId) {
+		return this.problemMarkerImages[problemId];
 	},
 	setProblemMarkerImages: function(problemMarkerImages) {
 		this.problemMarkerImages = problemMarkerImages;
