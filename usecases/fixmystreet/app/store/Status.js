@@ -1,4 +1,4 @@
-Ext.define('FixMyStreet.store.Statuses', {
+Ext.define('FixMyStreet.store.Status', {
     extend: 'Ext.data.Store',
 	config: {
 		model: 'FixMyStreet.model.Status',
@@ -6,7 +6,7 @@ Ext.define('FixMyStreet.store.Statuses', {
 		
 		data: [
 			{ key: 'new', value: 'Neu', sorting: 1 },
-			{ key: 'working', value: 'In Arbeit', sorting: 2 },
+			{ key: 'inprogress', value: 'In Arbeit', sorting: 2 },
 			{ key: 'done', value: 'Erledigt', sorting: 3 }
 		]
 	}

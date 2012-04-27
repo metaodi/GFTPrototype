@@ -8,16 +8,7 @@ Ext.define("FixMyStreet.controller.List", {
 		],
 		refs: {
 			problemList: '#problemList'
-		},
-		control: {
-			problemList: {
-				initialize: 'onProblemListInitialize'
-			}
 		}
-	},
-	
-	onProblemListInitialize: function(listComp, eOpts) {
-		this.getProblemList().setStore(this.getProblemStore());
 	},
 	
     // Base Class functions.
@@ -26,14 +17,5 @@ Ext.define("FixMyStreet.controller.List", {
     },
     init: function () {
         this.callParent(arguments);
-		
-		this.problemStore = Ext.getStore('Problems');
-    },
-	
-	getProblemStore: function() {
-		return this.problemStore;
-	},
-	setProblemStore: function(problemStore) {
-		this.problemStore = problemStore;
-	}
+    }
 });

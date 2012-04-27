@@ -64,7 +64,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
-			table: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
+			table: FixMyStreet.util.Config.getFusionTableId(),
 			fields: 'ROWID, userId, externalId, timestamp, latitude, longitude, address, type, status'
 		}, me);
 	},
@@ -152,7 +152,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
         me.callParent(arguments);
 		
-		me.typeStore = Ext.getStore('ProblemTypes');
+		me.typeStore = Ext.getStore('Types');
 		me.problemMarkers = {};
 		me.infoWindow = null;
 		

@@ -84,23 +84,23 @@ Ext.define("FixMyStreet.controller.Map", {
 		
 		// prepare problem marker images
 		me.problemMarkerImages = [];
-		var currentProblemType = 0;
+		var currentType = 0;
 		// marker images created with: http://mapicons.nicolasmollet.com/
-		Ext.getStore('ProblemTypes').each(function(record) {
-			var problemTypeSpriteOffset = currentProblemType * 32.0;
+		Ext.getStore('Types').each(function(record) {
+			var typeSpriteOffset = currentType * 32.0;
 			me.problemMarkerImages[record.getId()] =
 				new google.maps.MarkerImage(
 					'./resources/images/gmap-markers/sprite.png',
 					// size of marker in sprite (after scaling)
 					new google.maps.Size(32.0, 32.0),
 					// origin of marker in sprite (from top left)
-					new google.maps.Point(problemTypeSpriteOffset, 0.0),
+					new google.maps.Point(typeSpriteOffset, 0.0),
 					// image anchor to map in sprite (after scaling)
 					new google.maps.Point(16.0, 32.0),
 					// scale down image to half of the size to support retina displays
 					new google.maps.Size(160.0, 32.0)
 				);
-			++currentProblemType;
+			++currentType;
 		});
 		
 		me.ownPositionMarker = null;

@@ -1,7 +1,7 @@
-Ext.define('FixMyStreet.store.ProblemTypes', {
+Ext.define('FixMyStreet.store.Types', {
     extend: 'Ext.data.Store',
 	config: {
-		model: 'FixMyStreet.model.ProblemType',
+		model: 'FixMyStreet.model.Type',
 		autoLoad: true,
 		
 		data: [

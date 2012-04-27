@@ -4,6 +4,7 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 	
 	config: {
 		id: 'problemList',
+		store: 'Problems',
 		loadingText: 'Probleme werden geladen...',
 		emptyText: 'keine gemeldeten Probleme vorhanden',
 		disableSelection: true,

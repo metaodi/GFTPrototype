@@ -39,19 +39,20 @@ Ext.application({
 		'FixMyStreet.util.Config',
 		'FixMyStreet.util.Geolocation',
 		'Ext.plugin.uxtouch.ListOptions',
-		'Ext.plugin.uxtouch.FixListOptions'
+		'Ext.plugin.uxtouch.FixListOptions',
+		'FixMyStreet.proxy.FusionTables'
 	],
 	
     models: [
 		'Problem',
-		'ProblemType',
+		'Type',
 		'Status'
     ],
 	
     stores: [
-		'ProblemTypes',
+		'Types',
 		'Problems',
-		'Statuses'
+		'Status'
     ],
 	
     views: [
@@ -67,6 +68,10 @@ Ext.application({
 
 	// launch function is called as soon as app is ready
     launch: function() {
+		// load static data from stores
+		Ext.getStore('Status').load();
+		Ext.getStore('Types').load();
+		
 		// get current geolocation
 		FixMyStreet.geo = new FixMyStreet.util.Geolocation();
 		FixMyStreet.gftLib = new GftLib();

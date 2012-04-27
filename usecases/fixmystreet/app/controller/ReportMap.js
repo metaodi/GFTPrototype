@@ -8,7 +8,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		refs: {
 			reportMap: '#reportMap',
 			addressTextField: 'textfield[name=address]',
-			problemTypeSelectField: '#problemTypeSelectField',
+			typeSelectField: '#typeSelectField',
 			reportButton: '#reportButton',
 			reportCurrentLocationButton: '#reportCurrentLocationButton'
 		},
@@ -16,8 +16,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			reportMap: {
 				maprender: 'onMapRender'
 			},
-			problemTypeSelectField: {
-				change: 'onProblemTypeChange'
+			typeSelectField: {
+				change: 'onTypeChange'
 			},
 			reportButton: {
 				tap: 'onReportButtonTap'
@@ -68,7 +68,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.setProblemMarker(marker);
 	},
 	
-	onProblemTypeChange: function(field, newValue, oldValue, eOpts) {
+	onTypeChange: function(field, newValue, oldValue, eOpts) {
 		var me = this;
 		
 		if(field.getValue() == 'undefined') {
@@ -106,7 +106,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
 		var timestamp = new Timestamp();
 		this.setTimestamp(timestamp);
-		Ext.Msg.confirm('Defekt melden', '<p>' + me.getProblemTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);		
+		Ext.Msg.confirm('Defekt melden', '<p>' + me.getTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);		
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
@@ -114,17 +114,14 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		if(buttonId == 'yes') {
 			try {
 				// creating problem instance
-				var status = Ext.getStore('Statuses').getById('new');
-				var type = Ext.getStore('ProblemTypes').getById(me.getProblemTypeSelectField().getValue());
-				// @TODO use correct id
-				var id = Math.floor(Math.random()*101);
-
-				// if id doens't exists in store
-				if(!me.getProblemStore().getById(id)) {
-					var problem = new FixMyStreet.model.Problem();
+				var status = Ext.getStore('Status').getById('new');
+				var type = Ext.getStore('Types').getById(me.getTypeSelectField().getValue());
+				
+				if(status && type) {
+					/*var problem = new FixMyStreet.model.Problem();
 					problem.setData(
 						{
-							id: id,
+							rowid: rowid,
 							timestamp: me.getTimestamp().getTimestamp(),
 							address: me.getCurrentAddress(),
 							latitude: me.getProblemMarker().getPosition().lat(),
@@ -137,9 +134,23 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 
 					// adding problem to store
 					me.getProblemStore().add(problem);
-				} else {
-					throw new Error("Problem id already in store");
+					*/
+				   
+					var newProblem = Ext.create('FixMyStreet.model.Problem', {
+						timestamp: me.getTimestamp().getTimestamp(),
+						address: me.getCurrentAddress(),
+						latitude: me.getProblemMarker().getPosition().lat(),
+						longitude: me.getProblemMarker().getPosition().lng(),
+						// @TODO why do I have to add getData() instead of record
+						type: type.getData(),
+						status: status.getData()
+					});
+
+					console.log(newProblem);
+					// adding problem to store
+					newProblem.save();
 				}
+				
 				// resetting view data
 				me.resetView();
 			} catch(err) {
@@ -150,7 +161,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	resetView: function() {
 		this.getReportButton().setDisabled(true);
-		this.getProblemTypeSelectField().setValue('undefined');
+		this.getTypeSelectField().setValue('undefined');
 		
 		// get current position
 		var latlng = this.getCurrentLocationLatLng(this.getReportMap());

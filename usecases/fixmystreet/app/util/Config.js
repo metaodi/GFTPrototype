@@ -10,7 +10,9 @@ Ext.define('FixMyStreet.util.Config', {
 		},
 		
 		// poll for updates every 60 seconds
-		pollingFrequency: 60000
+		pollingFrequency: 60000,
+		
+		fusionTableId: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ'
 	},
 	
 	constructor: function(config) {
