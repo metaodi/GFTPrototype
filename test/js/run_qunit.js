@@ -139,7 +139,13 @@ page.onConsoleMessage = function(msg) {
     console.log(msg);
 };
 
+var firstCall;
 page.open(phantom.args[0], function(status){
+	//page.loads gets called multiple times when iframes are dynamically added, only allow 1st call to continue
+	if (firstCall !== undefined) {
+		return;
+	}
+	firstCall = false;
     if (status !== "success") {
         console.log("Unable to access network");
         phantom.exit();
