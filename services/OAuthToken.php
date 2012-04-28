@@ -2,6 +2,10 @@
 require_once '../lib/google-api-php-client/src/apiClient.php';
 require_once '../lib/google-api-php-client/src/contrib/apiUrlshortenerService.php';
 
+function generate_jsonp($jsonString,$functionName="callback") {
+	return $functionName."(".$jsonString.");";
+}
+
 /* Define all constants */
 const CLIENT_ID = '63601791805-gd5vj9a4pu177krdm9fu5rfhulkcl2bl.apps.googleusercontent.com';
 const FT_SCOPE = 'https://www.googleapis.com/auth/fusiontables';
@@ -29,7 +33,7 @@ $client->setAssertionCredentials(new apiAssertionCredentials(
 
 $service = new apiUrlshortenerService($client);
 $data = $service->url->listUrl();
-print $client->getAccessToken();
+print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
 
 //save to key for the session
 if ($client->getAccessToken()) {
