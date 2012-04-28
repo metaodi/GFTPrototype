@@ -33,7 +33,11 @@ $client->setAssertionCredentials(new apiAssertionCredentials(
 
 $service = new apiUrlshortenerService($client);
 $data = $service->url->listUrl();
-print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
+if (isset ($_GET['jsonp']) && $_GET['jsonp'] != "") {
+	print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
+} else {
+	print $client->getAccessToken();
+}
 
 //save to key for the session
 if ($client->getAccessToken()) {
