@@ -455,14 +455,18 @@ asyncTest("getTableDescription", 9, function() {
 	gft.getTableDescription(testCb, {table:this.testGftInsertTable});
 });
 
-/*
-asyncTest("createView", 5, function() {
+asyncTest("createView", 3, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
+		data = gft.convertToObject(data);
+		equal(data.length,1,'1 row expected');
+		
+		var resp = data[0];
+		notStrictEqual(resp.tableid,undefined,'Table-ID of new view should not be empty: ' + resp.tableid);
+		notStrictEqual(resp.tableid,null,'Table-ID of new view should not be empty: ' + resp.tableid);
 		start();
 	}
 	
-	gft.createView(testCb, {table:this.testGftInsertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
+	gft.createView(testCb, {viewName:'test_view', query:"select Text from " + this.testGftInsertTable + " where Number = 33"});
 });
-*/
