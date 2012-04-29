@@ -10,7 +10,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			addressTextField: 'textfield[name=address]',
 			typeSelectField: '#typeSelectField',
 			reportButton: '#reportButton',
-			reportCurrentLocationButton: '#reportCurrentLocationButton'
+			reportCurrentLocationButton: '#reportCurrentLocationButton',
+			problemList: '#problemList'
 		},
 		control: {
 			reportMap: {
@@ -117,20 +118,28 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 				var status = 'new';
 				var type = me.getTypeSelectField().getValue();
 				
+				// @TODO get correct userid
+				var userid = 1;
+				
 				if(status && type) {
 					var newProblem = Ext.create('FixMyStreet.model.Problem', {
+						userid: userid,
 						timestamp: me.getTimestamp().getTimestamp(),
 						address: me.getCurrentAddress(),
 						latitude: me.getProblemMarker().getPosition().lat(),
 						longitude: me.getProblemMarker().getPosition().lng(),
-						// @TODO why do I have to add getData() instead of record
 						type: type,
 						status: status
 					});
-
-					console.log(newProblem);
+					
 					// adding problem to store
-					newProblem.save();
+					newProblem.save({
+						success: function(problem) {
+							// @TODO problem isn't added to store after insert
+							Ext.getStore('Problems').sync();
+							me.getProblemList().refresh();
+						}
+					});
 				}
 				
 				// resetting view data

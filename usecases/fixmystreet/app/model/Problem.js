@@ -6,6 +6,7 @@ Ext.define('FixMyStreet.model.Problem', {
         fields: [
 			// type of id property has to be auto
 			{ name: 'rowid', type: 'auto' },
+			{ name: 'userid', type: 'int' },
 			{ name: 'timestamp', type: 'int' },
 			{ name: 'address', type: 'string' },
             { name: 'latitude', type: 'string' },
@@ -18,7 +19,7 @@ Ext.define('FixMyStreet.model.Problem', {
 			type: 'fusiontables',
 			settings: {
 				tableId: FixMyStreet.util.Config.getFusionTableId(),
-				fields: 'ROWID, userId, externalId, timestamp, latitude, longitude, address, type, status'
+				fields: 'ROWID, userid, timestamp, latitude, longitude, address, type, status'
 			}
 		}
     }

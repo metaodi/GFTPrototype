@@ -65,7 +65,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
 			table: FixMyStreet.util.Config.getFusionTableId(),
-			fields: 'ROWID, userId, externalId, timestamp, latitude, longitude, address, type, status'
+			fields: 'ROWID, userid, timestamp, latitude, longitude, address, type, status'
 		}, me);
 	},
 	
