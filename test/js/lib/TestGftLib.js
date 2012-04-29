@@ -41,18 +41,18 @@ test("Construtor", function() {
 	ok(this.gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
 });
 
+test("Public API", function() {
+	var publicApi = this.publicMethods.concat(this.constants);
+	for (var prop in this.gft) {
+		ok(publicApi.indexOf(prop) > -1, 'Public property ' + prop + ' is in API');
+	}
+});
+
 test("Public Methods", function() {
 	for (var i in this.publicMethods) {
 		var fn = this.publicMethods[i];
 		ok(this.gft.hasOwnProperty(fn), 'Public function ' + fn + ' should exist');
 		strictEqual(typeof this.gft[fn], 'function', 'Public function ' + fn + ' should be a function');
-	}
-});
-
-test("Public API", function() {
-	var publicApi = this.publicMethods.concat(this.constants);
-	for (var prop in this.gft) {
-		ok(publicApi.indexOf(prop) > -1, 'Public property ' + prop + ' is in API');
 	}
 });
 
