@@ -7,14 +7,18 @@ module("GftLib", {
 			'execInsert',
 			'getTableDescription',
 			'convertToObject',
+			'__sendRequest',
 			'__readRequest',
 			'__writeRequest',
+			'__auth',
 			'__getAccessToken',
 			'__scopedDataCallback'
 		];
 		this.privateMethods = [
+			'sendRequest',
 			'readRequest',
 			'writeRequest',
+			'auth',
 			'getAccessToken',
 			'scopedDataCallback',
 		];
@@ -72,6 +76,28 @@ test("Constants", function() {
     deepEqual(this.gft.apiKey, 'AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
     deepEqual(this.gft.scope, 'https://www.googleapis.com/auth/fusiontables');
 	deepEqual(this.gft.accessToken, null);
+});
+
+asyncTest("sendRequest", 6, function() {
+	var testCb = function(resp) {
+		console.log(resp);
+		ok(resp.hasOwnProperty('kind'), "Response should have 'kind' property");
+		ok(resp.hasOwnProperty('columns'), "Response should have 'columns' property");
+		ok(resp.hasOwnProperty('rows'), "Response should have 'rows' property");
+		
+		equal(resp.kind, 'fusiontables#sqlresponse', 'Response should be a sql response');
+		equal(resp.rows.length,1, 'There should be exactly one result row');
+		ok(resp.columns.length >= 1, 'There should be at least one column');
+		
+		start();
+	}
+	var params = {
+		path: this.gft.GFT_PATH,
+		params: { 
+			sql: "select * from " + this.testGftTable + " limit 1"
+		}
+	};
+	this.gft.__sendRequest(params,testCb);
 });
 
 asyncTest("readRequest", 7, function() {
