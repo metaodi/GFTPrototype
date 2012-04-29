@@ -1,6 +1,31 @@
 module("GftLib", {
     setup: function() {
 		this.gft = new GftLib();
+		this.publicMethods = [
+			'execSql',
+			'execSelect',
+			'execInsert',
+			'getTableDescription',
+			'convertToObject',
+			'__readRequest',
+			'__writeRequest',
+			'__getAccessToken',
+			'__scopedDataCallback'
+		];
+		this.privateMethods = [
+			'readRequest',
+			'writeRequest',
+			'getAccessToken',
+			'scopedDataCallback',
+		];
+		this.constants = [
+			'GFT_PATH',
+			'ACCESS_TOKEN_URL',
+			'clientId',
+			'apiKey',
+			'scope',
+			'accessToken'
+		];
 		this.testGftTable = '1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg';
 		this.testGftInsertTable = '1uMyelq7qaA9htJLYIcEdD9jyV3MYjB_PrMUiwmE';
 	},
@@ -12,24 +37,37 @@ test("Construtor", function() {
 });
 
 test("Public Methods", function() {
-	deepEqual(typeof this.gft.execSql, 'function', 'Public function should exist');
-	deepEqual(typeof this.gft.execSelect, 'function', 'Public function should exist');
-	deepEqual(typeof this.gft.execInsert, 'function', 'Public function should exist');
-	deepEqual(typeof this.gft.getTableDescription, 'function', 'Public function should exist');
-	deepEqual(typeof this.gft.convertToObject, 'function', 'Public function should exist');
+	for (var i in this.publicMethods) {
+		var fn = this.publicMethods[i];
+		ok(this.gft.hasOwnProperty(fn), 'Public function ' + fn + ' should exist');
+		deepEqual(typeof this.gft[fn], 'function', 'Public function ' + fn + ' should be a function');
+	}
+});
+
+test("Public API", function() {
+	var publicApi = this.publicMethods.concat(this.constants);
+	for (var prop in this.gft) {
+		ok(publicApi.indexOf(prop) > -1, 'Public property ' + prop + ' is in API');
+	}
 });
 
 test("Private Methods", function() {
-	deepEqual(this.gft.readRequest,undefined, 'Private function should not be accessible');	
-	deepEqual(this.gft.writeRequest,undefined, 'Private function should not be accessible');
-	
-	//check for unit test alias
-	deepEqual(typeof this.gft.__readRequest,'function', 'Unit test alias should exist');
-	deepEqual(typeof this.gft.__writeRequest,'function', 'Unit test alias should exist');
+	for (var i in this.privateMethods) {
+		var fn = this.privateMethods[i];
+		var ut_fn = '__' + fn;
+		ok(!this.gft.hasOwnProperty(fn), 'Private function ' + fn + ' should not be accessible');
+		deepEqual(typeof this.gft[ut_fn], 'function', 'Unit test alias ' + ut_fn + ' should exist');
+	}
 });
 
 test("Constants", function() {
+	for (var i in this.constants) {
+		var constant = this.constants[i];
+		ok(this.gft.hasOwnProperty(constant), 'Constant ' + constant + ' should exist');
+	}
+	
 	deepEqual(this.gft.GFT_PATH,'/fusiontables/v1/query');
+	deepEqual(this.gft.ACCESS_TOKEN_URL,'http://gft.rdmr.ch/services/OAuthToken.php?jsonp=?');
 	deepEqual(this.gft.clientId, '63601791805.apps.googleusercontent.com');
     deepEqual(this.gft.apiKey, 'AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
     deepEqual(this.gft.scope, 'https://www.googleapis.com/auth/fusiontables');
