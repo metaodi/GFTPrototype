@@ -13,7 +13,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		return this.gftLib;
 	},
 	
-	//inherit docs
     create: function(operation, callback, scope) {
         console.log("create");
         var me = this;
@@ -24,11 +23,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		// insert all given records
 		for(var i = 0; i < records.length; i++) {
-			var last = false;
-			if(i == records.length - 1) {
-				last = true;
-			}
-			me.insertRecord(records[i], operation, callback, scope, last);
+			me.insertRecord(records[i]);
 		}
 		
 		operation.setCompleted();
@@ -54,6 +49,24 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 			fields: fields
 		}, me);
     },
+	
+	destroy: function(operation, callback, scope) {
+		var me = this;
+		
+		var records = operation.getRecords();
+		
+		// delete all given records
+		for(var i = 0; i < records.length; i++) {
+			me.deleteRecord(records[i]);
+		}
+
+		operation.setCompleted();
+		operation.setSuccessful();
+
+		if (typeof callback == 'function') {
+			callback.call(scope || this, operation);
+		}
+	},
 	
 	parseData: function(data) {
 		var me = this;
@@ -82,13 +95,13 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		operation.setSuccessful();
 		operation.setCompleted();
 		
-		//finish with callback
+		// finish with callback
 		if(typeof callback == "function") {
 			callback.call(scope || me, operation);
 		}
     },
 	
-	insertRecord: function(record, operation, callback, scope, last) {
+	insertRecord: function(record) {
 		var me = this;
 		var data = record.getData();
 		var fields = [];
@@ -122,6 +135,17 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 			table: me.config.settings.tableId,
 			fields: fields,
 			values: values
+		}, me);
+	},
+	
+	deleteRecord: function(record) {
+		var me = this;
+		var data = record.getData();
+		
+		// delete record from fusion table
+		me.getGftLib().execDelete(Ext.emptyFn, {
+			table: me.config.settings.tableId,
+			condition: "rowid = '" + data.rowid + "'"
 		}, me);
 	}
 });
