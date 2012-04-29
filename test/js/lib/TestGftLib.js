@@ -431,17 +431,31 @@ asyncTest("execDelete", 4, function() {
 
 	gft.execInsert(deleteCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for DELETE',55,'','"+getDateString()+"'"});
 });
-/*
- asyncTest("getTableDescription", 5, function() {
+
+asyncTest("getTableDescription", 9, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
+		data = gft.convertToObject(data);
+		equal(data.length,4,'4 columns expected');
+		equal(data[0].name,'Text','1st column is Text');
+		equal(data[0].type,'string','Text is a string');
+		
+		equal(data[1].name,'Number','2nd column is Number');
+		equal(data[1].type,'number','Number is a number');
+		
+		equal(data[2].name,'Location','3rd column is Location');
+		equal(data[2].type,'location','Location column is of location type');
+		
+		equal(data[3].name,'Date','4th column is Date');
+		equal(data[3].type,'datetime','Date is of type datetime');
 		start();
 	}
 	
-	gft.getTableDescription(testCb, {table:this.testGftInsertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
+	gft.getTableDescription(testCb, {table:this.testGftInsertTable});
 });
 
+/*
 asyncTest("createView", 5, function() {
 	var gft = this.gft;
 	
