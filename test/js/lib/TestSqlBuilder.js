@@ -51,3 +51,18 @@ test("INSERT", function() {
 	var sql = new SqlBuilder;
 	equal(sql.insert({table:this.testGftTableId, fields:"Text, Number", values:"'Some record', 123"}), "INSERT INTO " + this.testGftTableId + " ( Text, Number ) VALUES ( 'Some record', 123 );");
 });
+
+test("DELETE", function() {
+	var sql = new SqlBuilder;
+	equal(sql.deleteRow({table:this.testGftTableId}), "DELETE FROM " + this.testGftTableId + ";");
+});
+
+test("DELETE (condition)", function() {
+	var sql = new SqlBuilder;
+	equal(sql.deleteRow({table:this.testGftTableId, condition:"Text = 'Some record'"}), "DELETE FROM " + this.testGftTableId + " WHERE Text = 'Some record';");
+});
+
+test("DELETE (condition with AND)", function() {
+	var sql = new SqlBuilder;
+	equal(sql.deleteRow({table:this.testGftTableId, condition:"AND Text = 'Some record'"}), "DELETE FROM " + this.testGftTableId + " WHERE Text = 'Some record';");
+});
