@@ -80,7 +80,6 @@ test("Constants", function() {
 
 asyncTest("sendRequest", 6, function() {
 	var testCb = function(resp) {
-		console.log(resp);
 		ok(resp.hasOwnProperty('kind'), "Response should have 'kind' property");
 		ok(resp.hasOwnProperty('columns'), "Response should have 'columns' property");
 		ok(resp.hasOwnProperty('rows'), "Response should have 'rows' property");
