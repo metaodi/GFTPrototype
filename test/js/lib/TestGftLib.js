@@ -5,6 +5,7 @@ module("GftLib", {
 			'execSql',
 			'execSelect',
 			'execInsert',
+			'execDelete',
 			'getTableDescription',
 			'convertToObject',
 			'__sendRequest',
