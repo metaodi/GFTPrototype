@@ -388,18 +388,51 @@ asyncTest("execUpdate", 4, function() {
 	gft.execInsert(updateCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for UPDATE',44,'','"+getDateString()+"'"});
 });
 
-/*
-asyncTest("execDelete", 5, function() {
+asyncTest("execDelete", 4, function() {
 	var gft = this.gft;
+	var tableId = this.testGftInsertTable;
+	var rowId = null;
 	
 	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "select for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		equal(data.rows,undefined,'Record should not exist after DELETE');
+		equal(data.columns.length,4,'Only columns shoudl exist');
 		start();
 	}
 	
-	gft.execDelete(testCb, {table:this.testGftInsertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
-});
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "delete for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		gft.execSelect(testCb, {table:tableId, condition:"rowid = '"+ rowId +"'"});
+	}
+	
+	var deleteCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execDelete(selectCb, {table:tableId, condition:"rowid = '" + rowId + "'"});
+	}
 
-asyncTest("getTableDescription", 5, function() {
+	gft.execInsert(deleteCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for DELETE',55,'','"+getDateString()+"'"});
+});
+/*
+ asyncTest("getTableDescription", 5, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
