@@ -40,14 +40,7 @@
 				}
 			}
 			
-			var callback = function(result) {
-				if (result) {
-					gft.execSql(printer, 'SHOW TABLES');
-				} else {
-					throw new Error("Auth failed!");
-				}
-			}
-			gft.auth(callback);
+			gft.execSql(printer, 'SHOW TABLES');
 		}
 		
 		

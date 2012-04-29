@@ -45,15 +45,8 @@
 				}
 			}
 			
-			var callback = function(result) {
-				if (result) {
-					gft.execInsert(insert_printer, options);
-					gft.execSql(printer, 'select Number from 1uMyelq7qaA9htJLYIcEdD9jyV3MYjB_PrMUiwmE');
-				} else {
-					throw new Error("Auth failed!");
-				}
-			}
-			gft.auth(callback);
+			gft.execInsert(insert_printer, options);
+			gft.execSql(printer, 'select Number from 1uMyelq7qaA9htJLYIcEdD9jyV3MYjB_PrMUiwmE');
 		}
 		
 		
