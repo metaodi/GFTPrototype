@@ -43,6 +43,7 @@ Ext.define("FixMyStreet.controller.List", {
 			this.showProblemOnMap(record);
 		} else if(buttonComp.getCls() == 'delete') {
 			record.erase();
+			// @TODO update store after deleting record
 		}
 		
 		actionSheet.hide();

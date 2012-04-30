@@ -18,9 +18,9 @@ Ext.define('FixMyStreet.model.Problem', {
 		proxy: {
 			type: 'fusiontables',
 			settings: {
-				tableId: FixMyStreet.util.Config.getFusionTableId(),
-				idfield: 'rowid',
-				fields: 'userid, timestamp, latitude, longitude, address, type, status'
+				tableId: FixMyStreet.util.Config.getFusionTable().tableId,
+				idfield: FixMyStreet.util.Config.getFusionTable().idField,
+				fields: FixMyStreet.util.Config.getFusionTable().fields
 			}
 		}
     }
