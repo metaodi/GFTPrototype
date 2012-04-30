@@ -19,7 +19,8 @@ Ext.define('FixMyStreet.model.Problem', {
 			type: 'fusiontables',
 			settings: {
 				tableId: FixMyStreet.util.Config.getFusionTableId(),
-				fields: 'ROWID, userid, timestamp, latitude, longitude, address, type, status'
+				idfield: 'rowid',
+				fields: 'userid, timestamp, latitude, longitude, address, type, status'
 			}
 		}
     }

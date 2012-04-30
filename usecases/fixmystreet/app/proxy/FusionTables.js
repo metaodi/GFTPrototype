@@ -14,7 +14,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 	},
 	
     create: function(operation, callback, scope) {
-        console.log("create");
         var me = this;
         
 		operation.setStarted();
@@ -37,7 +36,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 	read: function(operation, callback, scope) {
 		var me = this;
 
-		var fields = operation.query || me.config.settings.fields || '*';
+		var fields = operation.query || me.config.settings.idfield + ', ' + me.config.settings.fields || '*';
 		
 		var recieveData = function(data) {
 			me.applyDataToModel(data, operation, callback, scope);
@@ -109,8 +108,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		// extract fields and values from data
 		for(var field in data) {
-			// @TODO ugly way to ignore rowid
-			if(field == 'rowid') {
+			if(field == me.config.settings.idfield) {
 				continue;
 			}
 			fields.push(field);
@@ -125,8 +123,8 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		var onInsertComplete = function(data) {
 			if(data.rows) {
-				var rowid = data.rows[0][0];
-				record.data.rowid = rowid;
+				var idfield = data.rows[0][0];
+				record.data[me.config.settings.idfield] = idfield;
 			}
 		};
 		
@@ -145,7 +143,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		// delete record from fusion table
 		me.getGftLib().execDelete(Ext.emptyFn, {
 			table: me.config.settings.tableId,
-			condition: "rowid = '" + data.rowid + "'"
+			condition: me.config.settings.idfield + " = '" + data[me.config.settings.idfield] + "'"
 		}, me);
 	}
 });
