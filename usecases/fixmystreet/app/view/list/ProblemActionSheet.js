@@ -4,43 +4,40 @@ Ext.define('FixMyStreet.view.list.ProblemActionSheet', {
 	
 	config: {
 		problem: null,
-		cls: 'problemActionSheet',
-		
-		items: [
-			{
-				text: 'Auf Karte zeigen',
-				cls: 'showonmap',
-				handler: this.onShowOnMapButtonTap,
-				scope: this
-
-			},
-			{
-				text: 'Defekt löschen',
-				ui: 'decline',
-				cls: 'delete',
-				handler: this.onDeleteButtonTap,
-				scope: this
-			},
-			{
-				text: 'Abbrechen',
-				ui: 'action',
-				cls: 'cancel',
-				handler: this.onCancelButtonTap,
-				scope: this
-			}
-		]
+		cls: 'problemActionSheet'
+	},
+	
+	initialize: function() {
+		var showOnMapButton = new Ext.Button({
+			text: 'Auf Karte zeigen',
+			cls: 'showonmap',
+			handler: this.onShowOnMapButtonTap,
+			scope: this
+		});
+		var deleteButton = new Ext.Button({
+			text: 'Defekt löschen',
+			ui: 'decline',
+			cls: 'delete',
+			handler: this.onDeleteButtonTap,
+			scope: this
+		});
+		var cancelButton = new Ext.Button({
+			text: 'Abbrechen',
+			ui: 'action',
+			cls: 'cancel',
+			handler: this.onCancelButtonTap,
+			scope: this
+		});
+		this.add([showOnMapButton, deleteButton, cancelButton]);
 	},
 	
 	onShowOnMapButtonTap: function(buttonComp, e, eOpts) {
-		console.log('bla');
 		this.fireEvent('showonmaptap', buttonComp, this);
 	},
 	onDeleteButtonTap: function(buttonComp, e, eOpts) {
-		console.log('bla');
 		this.fireEvent('deletetap', buttonComp, this);
 	},
 	onCancelButtonTap: function(buttonComp, e, eOpts) {
-		console.log('bla');
 		this.fireEvent('canceltap', buttonComp, this);
 	}
 });

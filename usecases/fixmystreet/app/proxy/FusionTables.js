@@ -45,7 +45,8 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		// recieve data from fusion table
 		me.getGftLib().execSelect(recieveData, {
 			table: me.config.settings.tableId,
-			fields: fields
+			fields: fields,
+			condition: me.config.settings.condition
 		}, me);
     },
 	

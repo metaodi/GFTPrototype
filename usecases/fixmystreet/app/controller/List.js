@@ -9,7 +9,7 @@ Ext.define("FixMyStreet.controller.List", {
 		],
 		refs: {
 			problemList: '#problemList',
-			problemActionSheet: 'problemactionsheet button',
+			problemActionSheet: 'problemactionsheet',
 			problemMap: '#problemMap',
 			mainTabPanel: '#mainTabPanel'
 		},
@@ -19,7 +19,9 @@ Ext.define("FixMyStreet.controller.List", {
 				itemswipe: 'onProblemListItemSwipe'
 			},
 			problemActionSheet: {
-				tap: 'onProblemActionSheetButtonTap'
+				showonmaptap: 'onShowOnMapButtonTap',
+				deletetap: 'onDeleteButtonTap',
+				canceltap: 'onCancelButtonTap'
 			}
 		}
 	},
@@ -35,23 +37,25 @@ Ext.define("FixMyStreet.controller.List", {
 		actionSheet.show();
 	},
 	
-	onProblemActionSheetButtonTap: function(buttonComp, e, eOpts) {
+	onShowOnMapButtonTap: function(buttonComp, e, eOpts) {
 		var actionSheet = this.getActionSheet();
 		var record = actionSheet.getRecord();
-			
-		if(buttonComp.getCls() == 'showonmap') {
-			this.showProblemOnMap(record);
-		} else if(buttonComp.getCls() == 'delete') {
-			record.erase();
-			// @TODO update store after deleting record
-		}
-		
 		actionSheet.hide();
-	},
-	
-	showProblemOnMap: function(record) {
+		
+		// show problem on map
 		this.getProblemMap().setMapCenter(new google.maps.LatLng(record.getData().latitude, record.getData().longitude));
 		this.getMainTabPanel().setActiveItem(2);
+	},
+	onDeleteButtonTap: function(buttonComp, e, eOpts) {
+		var actionSheet = this.getActionSheet();
+		var record = actionSheet.getRecord();
+		
+		record.erase();
+		actionSheet.hide();
+	},
+	onCancelButtonTap: function(buttonComp, e, eOpts) {
+		var actionSheet = this.getActionSheet();
+		actionSheet.hide();
 	},
 	
     // Base Class functions.

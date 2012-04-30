@@ -87,7 +87,16 @@ $light-blue: #E3F1FA;
 					font-size: 0.9em;
 				}
 			}
+			
+			&.done {
+				color: $dark-grey;
+			}
 		}
+	}
+	
+	.x-list-emptytext {
+		text-align: center;
+		margin: 1em 0;
 	}
 }
 
@@ -113,6 +122,24 @@ $light-blue: #E3F1FA;
 		
 		h1 {
 			margin-bottom: 0.2em;
+			
+			.status {
+				color: #fff;
+				font-size: 0.6em;
+				margin-left: 0.7em;
+				background-color: #999;
+				padding: 0.1em 0.5em;
+				border-radius: 0.6em;
+				font-weight: bold;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+				
+				&.new {
+					background-color: #468847;
+				}
+				&.inprogress {
+					background-color: #3A87AD;
+				}
+			}
 		}
 		.address {
 			font-size: 0.8em;

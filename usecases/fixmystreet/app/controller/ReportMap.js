@@ -73,13 +73,10 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
 		
 		if(field.getValue() == 'undefined') {
-			me.getTypeSelectField().setCls('empty');
 			me.getReportButton().setUi('normal');
-			me.getReportButton().setDisabled(true);
 		} else {
 			me.getReportButton().setUi('confirm');
-			me.getTypeSelectField().setCls();
-			me.getReportButton().setDisabled(false);
+			this.getTypeSelectField().setCls();
 		}
 		
 		// change marker icon
@@ -105,9 +102,14 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	onReportButtonTap: function(button, e, eOpts) {
 		var me = this;
-		var timestamp = new Timestamp();
-		this.setTimestamp(timestamp);
-		Ext.Msg.confirm('Defekt melden', '<p>' + me.getTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);		
+		
+		if(me.getTypeSelectField().getValue() == 'undefined') {
+			this.getTypeSelectField().setCls('empty');
+		} else {
+			var timestamp = new Timestamp();
+			this.setTimestamp(timestamp);
+			Ext.Msg.confirm('Defekt melden', '<p>' + me.getTypeSelectField().getComponent().getValue() + ' wirklich melden?</p><p>Gewählte Adresse: ' + me.getAddressTextField().getValue() + '</p>', me.handleReportButtonConfirmResponse, me);
+		}
 	},
 	
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
@@ -118,12 +120,9 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 				var status = 'new';
 				var type = me.getTypeSelectField().getValue();
 				
-				// @TODO get correct userid
-				var userid = 1;
-				
 				if(status && type) {
 					var newProblem = Ext.create('FixMyStreet.model.Problem', {
-						userid: userid,
+						userid: FixMyStreet.util.Config.getUserId(),
 						timestamp: me.getTimestamp().getTimestamp(),
 						address: me.getCurrentAddress(),
 						latitude: me.getProblemMarker().getPosition().lat(),
@@ -152,8 +151,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	resetView: function() {
 		this.getReportButton().setUi('normal');
-		this.getTypeSelectField().setCls('empty');
-		this.getReportButton().setDisabled(true);
+		this.getTypeSelectField().setCls();
 		this.getTypeSelectField().setValue('undefined');
 		
 		// get current position

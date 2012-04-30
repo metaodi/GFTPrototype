@@ -5,14 +5,21 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 	config: {
 		id: 'problemList',
 		store: 'Problems',
-		loadingText: 'Probleme werden geladen...',
-		emptyText: 'keine gemeldeten Probleme vorhanden',
+		loadingText: 'Defekte werden geladen...',
+		emptyText: 'keine Defekte vorhanden',
 		disableSelection: true,
 		grouped: true,
 		
 		itemTpl: new Ext.XTemplate(
-			'<div class="problem-item">',
-				'<div class="image"><img src="./resources/images/problem-types/{type}.png" /></div>',
+			'<div class="problem-item {status}">',
+				'<div class="image">',
+					'<tpl switch="status">',
+						'<tpl case="done">',
+							'<img src="./resources/images/problem-types/{type}-grey.png" />',
+						'<tpl default>',
+							'<img src="./resources/images/problem-types/{type}.png" />',
+					'</tpl>',
+				'</div>',
 				'<div class="info">',
 					'<p class="date">{[this.getDate(values.timestamp)]}</p>',
 					'<p class="address">{address}</p>',
@@ -27,10 +34,6 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 					return ts.getDate();
 				}
 			}
-		)/*,
-		
-		plugins: [
-			'fixlistoptions'
-		]*/
+		)
 	}
 });

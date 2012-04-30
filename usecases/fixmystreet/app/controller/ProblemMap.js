@@ -65,7 +65,9 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
 			table: FixMyStreet.util.Config.getFusionTable().tableId,
-			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields
+			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields,
+			// don't show done problems
+			condition: "status NOT EQUAL TO 'done'"
 		}, me);
 	},
 	
@@ -101,6 +103,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			});
 
 			var typeText = me.getTypeStore().getById(problem.type).getData().text;
+			var statusValue = me.getStatusStore().getById(problem.status).getData().value;
 			
 			marker.content =
 				'<div class="infowindow-content">' +
@@ -108,7 +111,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 						'<p class="date">' + new Timestamp(parseInt(problem.timestamp)).getDate() + '</p>' +
 						'<div class="image"><img src="./resources/images/problem-types/' + problem.type + '.png" /></div>' +
 						'<div class="info">' +
-							'<h1>' + typeText + '</h1>' +
+							'<h1>' + typeText + '<span class="status ' + problem.status + '">' + statusValue + '</span></h1>' +
 							'<p class="address">' + problem.address + '</p>' +
 						'</div>' +
 					'</div>' +
@@ -153,6 +156,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
         me.callParent(arguments);
 		
 		me.typeStore = Ext.getStore('Types');
+		me.statusStore = Ext.getStore('Status');
 		me.problemMarkers = {};
 		me.infoWindow = null;
 		
@@ -164,6 +168,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	setTypeStore: function(typeStore) {
 		this.typeStore = typeStore;
+	},
+	getStatusStore: function() {
+		return this.statusStore;
+	},
+	setStatusStore: function(statusStore) {
+		this.statusStore = statusStore;
 	},
 	getProblemMarkers: function() {
 		return this.problemMarkers;

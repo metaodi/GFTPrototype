@@ -16,7 +16,9 @@ Ext.define('FixMyStreet.util.Config', {
 			tableId: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
 			idField: 'rowid',
 			fields: 'userid, timestamp, latitude, longitude, address, type, status'
-		} 
+		},
+		
+		userId: 1
 	},
 	
 	constructor: function(config) {

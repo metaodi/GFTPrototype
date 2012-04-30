@@ -20,7 +20,8 @@ Ext.define('FixMyStreet.model.Problem', {
 			settings: {
 				tableId: FixMyStreet.util.Config.getFusionTable().tableId,
 				idfield: FixMyStreet.util.Config.getFusionTable().idField,
-				fields: FixMyStreet.util.Config.getFusionTable().fields
+				fields: FixMyStreet.util.Config.getFusionTable().fields,
+				condition: 'userid = ' + FixMyStreet.util.Config.getUserId()
 			}
 		}
     }
