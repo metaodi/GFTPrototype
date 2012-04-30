@@ -5,7 +5,10 @@ module("GftLib", {
 			'execSql',
 			'execSelect',
 			'execInsert',
+			'execUpdate',
+			'execDelete',
 			'getTableDescription',
+			'createView',
 			'convertToObject',
 			'__sendRequest',
 			'__readRequest',
@@ -40,18 +43,18 @@ test("Construtor", function() {
 	ok(this.gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
 });
 
+test("Public API", function() {
+	var publicApi = this.publicMethods.concat(this.constants);
+	for (var prop in this.gft) {
+		ok(publicApi.indexOf(prop) > -1, 'Public property ' + prop + ' is in API');
+	}
+});
+
 test("Public Methods", function() {
 	for (var i in this.publicMethods) {
 		var fn = this.publicMethods[i];
 		ok(this.gft.hasOwnProperty(fn), 'Public function ' + fn + ' should exist');
 		strictEqual(typeof this.gft[fn], 'function', 'Public function ' + fn + ' should be a function');
-	}
-});
-
-test("Public API", function() {
-	var publicApi = this.publicMethods.concat(this.constants);
-	for (var prop in this.gft) {
-		ok(publicApi.indexOf(prop) > -1, 'Public property ' + prop + ' is in API');
 	}
 });
 
@@ -216,7 +219,7 @@ asyncTest("getAccessToken with accessToken", 6, function() {
 	gft.__getAccessToken(testCb);
 });
 
-asyncTest("Exec SQL", 7, function() {
+asyncTest("execSql", 7, function() {
 	var testCb = function(data,status) {
 		equal(data.columns[0],"Text");
 		equal(data.columns[1],"Number");
@@ -232,7 +235,7 @@ asyncTest("Exec SQL", 7, function() {
 	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
-asyncTest("ConvertToObject for single object", 4, function() {
+asyncTest("convertToObject for single object", 4, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
 		var gftObjs = gft.convertToObject(data);
@@ -245,7 +248,7 @@ asyncTest("ConvertToObject for single object", 4, function() {
 	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
-asyncTest("ConvertToObject for multiple objects", 4, function() {
+asyncTest("convertToObject for multiple objects", 4, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
 		var gftObjs = gft.convertToObject(data);
@@ -258,7 +261,7 @@ asyncTest("ConvertToObject for multiple objects", 4, function() {
 	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 4');
 });
 
-asyncTest("ExecSelect: Condition", 8, function() {
+asyncTest("execSelect: Condition", 8, function() {
 	var testCb = function(data,status) {
 		equal(data.rows.length,1);
 		equal(data.columns[0],"Text");
@@ -275,7 +278,7 @@ asyncTest("ExecSelect: Condition", 8, function() {
 	this.gft.execSelect(testCb, {table:this.testGftTable, condition:"Text = 'Some record'"});
 });
 
-asyncTest("ExecSelect: Projection", 6, function() {
+asyncTest("execSelect: Projection", 6, function() {
 	var testCb = function(data,status) {
 		equal(data.rows.length,1);
 		equal(data.rows[0].length,1);
@@ -290,7 +293,7 @@ asyncTest("ExecSelect: Projection", 6, function() {
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"Text as mytext",  limit:1});
 });
 
-asyncTest("ExecSelect: Order by", 3, function() {
+asyncTest("execSelect: Order by", 3, function() {
 	var testCb = function(data,status) {
 		equal(data.rows[0][0],"Yet another record");
 		equal(data.rows[1][0],"Some record");
@@ -302,7 +305,7 @@ asyncTest("ExecSelect: Order by", 3, function() {
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"Text", orderby:"Text desc", limit:2});
 });
 
-asyncTest("ExecSelect: Group by", 4, function() {
+asyncTest("execSelect: Group by", 4, function() {
 	var testCb = function(data,status) {
 		equal(data.rows.length,1);
 		equal(data.rows[0][0],2);
@@ -315,7 +318,7 @@ asyncTest("ExecSelect: Group by", 4, function() {
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"count(),Number", condition:"Number = 3", groupby:"Number"});
 });
 
-asyncTest("ExecInsert", 5, function() {
+asyncTest("execInsert", 5, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
@@ -336,4 +339,134 @@ asyncTest("ExecInsert", 5, function() {
 	}
 	
 	gft.execInsert(testCb, {table:this.testGftInsertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
+});
+
+asyncTest("execUpdate", 4, function() {
+	var gft = this.gft;
+	var tableId = this.testGftInsertTable;
+	var rowId = null;
+	var newValue = 'brand new value';
+	
+	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "select for execUpdate failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		data = gft.convertToObject(data)[0];
+		equal(data.text,newValue,'Value should be updated');
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execUpdate failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		gft.execSelect(testCb, {table:tableId, condition:"rowid = '"+ rowId +"'"});
+	}
+	
+	var updateCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execUpdate failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execUpdate(selectCb, {table:tableId, field:"Text", value: newValue, condition:"rowid = '" + rowId + "'"});
+	}
+	gft.execInsert(updateCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for UPDATE',44,'','"+getDateString()+"'"});
+});
+
+asyncTest("execDelete", 4, function() {
+	var gft = this.gft;
+	var tableId = this.testGftInsertTable;
+	var rowId = null;
+	
+	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "select for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		equal(data.rows,undefined,'Record should not exist after DELETE');
+		equal(data.columns.length,4,'Only columns shoudl exist');
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "delete for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		gft.execSelect(testCb, {table:tableId, condition:"rowid = '"+ rowId +"'"});
+	}
+	
+	var deleteCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execDelete(selectCb, {table:tableId, condition:"rowid = '" + rowId + "'"});
+	}
+
+	gft.execInsert(deleteCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for DELETE',55,'','"+getDateString()+"'"});
+});
+
+asyncTest("getTableDescription", 9, function() {
+	var gft = this.gft;
+	
+	var testCb = function(data,status) {
+		data = gft.convertToObject(data);
+		equal(data.length,4,'4 columns expected');
+		equal(data[0].name,'Text','1st column is Text');
+		equal(data[0].type,'string','Text is a string');
+		
+		equal(data[1].name,'Number','2nd column is Number');
+		equal(data[1].type,'number','Number is a number');
+		
+		equal(data[2].name,'Location','3rd column is Location');
+		equal(data[2].type,'location','Location column is of location type');
+		
+		equal(data[3].name,'Date','4th column is Date');
+		equal(data[3].type,'datetime','Date is of type datetime');
+		start();
+	}
+	
+	gft.getTableDescription(testCb, {table:this.testGftInsertTable});
+});
+
+asyncTest("createView", 3, function() {
+	var gft = this.gft;
+	
+	var testCb = function(data,status) {
+		data = gft.convertToObject(data);
+		equal(data.length,1,'1 row expected');
+		
+		var resp = data[0];
+		notStrictEqual(resp.tableid,undefined,'Table-ID of new view should not be empty: ' + resp.tableid);
+		notStrictEqual(resp.tableid,null,'Table-ID of new view should not be empty: ' + resp.tableid);
+		start();
+	}
+	
+	gft.createView(testCb, {viewName:'test_view', query:"select Text from " + this.testGftInsertTable + " where Number = 33"});
 });
