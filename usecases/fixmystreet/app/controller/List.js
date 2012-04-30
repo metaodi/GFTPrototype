@@ -11,7 +11,11 @@ Ext.define("FixMyStreet.controller.List", {
 			problemList: '#problemList',
 			problemActionSheet: 'problemactionsheet',
 			problemMap: '#problemMap',
-			mainTabPanel: '#mainTabPanel'
+			mainTabPanel: '#mainTabPanel',
+			actionSheetShowOnMapButton: '#actionSheetShowOnMapButton',
+			actionSheetDeleteButton: '#actionSheetDeleteButton',
+			actionSheetCancelButton: '#actionSheetCancelButton',
+			actionSheetTitlePanel: '#actionSheetTitlePanel'
 		},
 		control: {
 			problemList: {
@@ -31,31 +35,54 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	onProblemListItemSwipe: function(dataViewComp, index, target, record, e, eOpts) {
 		var actionSheet = this.getActionSheet();
-		actionSheet.setRecord(record);
+		this.prepareActionSheet(record);
 		
 		Ext.Viewport.add(actionSheet);
 		actionSheet.show();
 	},
 	
+	prepareActionSheet: function(problem) {
+		var actionSheet = this.getActionSheet();
+		actionSheet.setProblem(problem);
+		
+		var data = problem.getData();
+		
+		// set actionsheet title
+		var typeText = Ext.getStore('Types').getById(data.type).getData().text;
+		this.getActionSheetTitlePanel().setHtml(typeText + ': ' + data.address);
+		
+		// show or hied delete button
+		if(data.status != 'new') {
+			this.getActionSheetDeleteButton().hide();
+		} else {
+			this.getActionSheetDeleteButton().show();
+		}
+	},
+	
 	onShowOnMapButtonTap: function(buttonComp, e, eOpts) {
 		var actionSheet = this.getActionSheet();
-		var record = actionSheet.getRecord();
+		var problem = actionSheet.getProblem();
 		actionSheet.hide();
 		
-		// show problem on map
-		this.getProblemMap().setMapCenter(new google.maps.LatLng(record.getData().latitude, record.getData().longitude));
-		this.getMainTabPanel().setActiveItem(2);
+		this.showProblemOnMap(problem);
 	},
 	onDeleteButtonTap: function(buttonComp, e, eOpts) {
 		var actionSheet = this.getActionSheet();
-		var record = actionSheet.getRecord();
+		var problem = actionSheet.getProblem();
 		
-		record.erase();
+		Ext.getStore('Problems').remove(problem);
+		
 		actionSheet.hide();
 	},
 	onCancelButtonTap: function(buttonComp, e, eOpts) {
 		var actionSheet = this.getActionSheet();
 		actionSheet.hide();
+	},
+	
+	showProblemOnMap: function(problem) {
+		// show problem on map
+		this.getProblemMap().setMapCenter(new google.maps.LatLng(problem.getData().latitude, problem.getData().longitude));
+		this.getMainTabPanel().setActiveItem(2);
 	},
 	
     // Base Class functions.

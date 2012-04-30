@@ -8,13 +8,18 @@ Ext.define('FixMyStreet.view.list.ProblemActionSheet', {
 	},
 	
 	initialize: function() {
+		var problemTitlePanel = new Ext.Panel({
+			id: 'actionSheetTitlePanel'
+		});
 		var showOnMapButton = new Ext.Button({
+			id: 'actionSheetShowOnMapButton',
 			text: 'Auf Karte zeigen',
 			cls: 'showonmap',
 			handler: this.onShowOnMapButtonTap,
 			scope: this
 		});
 		var deleteButton = new Ext.Button({
+			id: 'actionSheetDeleteButton',
 			text: 'Defekt löschen',
 			ui: 'decline',
 			cls: 'delete',
@@ -22,13 +27,14 @@ Ext.define('FixMyStreet.view.list.ProblemActionSheet', {
 			scope: this
 		});
 		var cancelButton = new Ext.Button({
+			id: 'actionSheetCancelButton',
 			text: 'Abbrechen',
 			ui: 'action',
 			cls: 'cancel',
 			handler: this.onCancelButtonTap,
 			scope: this
 		});
-		this.add([showOnMapButton, deleteButton, cancelButton]);
+		this.add([problemTitlePanel, showOnMapButton, deleteButton, cancelButton]);
 	},
 	
 	onShowOnMapButtonTap: function(buttonComp, e, eOpts) {

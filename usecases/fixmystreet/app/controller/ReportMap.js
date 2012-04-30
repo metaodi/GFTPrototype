@@ -121,7 +121,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 				var type = me.getTypeSelectField().getValue();
 				
 				if(status && type) {
-					var newProblem = Ext.create('FixMyStreet.model.Problem', {
+					var problem = Ext.create('FixMyStreet.model.Problem', {
 						userid: FixMyStreet.util.Config.getUserId(),
 						timestamp: me.getTimestamp().getTimestamp(),
 						address: me.getCurrentAddress(),
@@ -131,14 +131,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 						status: status
 					});
 					
-					// adding problem to store
-					newProblem.save({
-						success: function(problem) {
-							// @TODO problem isn't added to store after insert
-							Ext.getStore('Problems').sync();
-							me.getProblemList().refresh();
-						}
-					});
+					// @TODO after adding problem list can't be opened
+					Ext.getStore('Problems').add(problem);
 				}
 				
 				// resetting view data

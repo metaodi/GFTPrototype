@@ -109,21 +109,15 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		// extract fields and values from data
 		for(var field in data) {
-			if(field == me.config.settings.idfield) {
-				continue;
-			}
-			fields.push(field);
-
-			// if value isn't a number
-			if(isNaN(data[field])) {
-				values.push("'" + data[field] + "'");
-			} else {
+			if(me.config.settings.fields.indexOf(field) > -1) {
+				fields.push(field);
 				values.push(data[field]);
 			}
 		}
 		
 		var onInsertComplete = function(data) {
 			if(data.rows) {
+				// use correct id from table for record id
 				var idfield = data.rows[0][0];
 				record.data[me.config.settings.idfield] = idfield;
 			}
