@@ -100,6 +100,28 @@ $light-blue: #E3F1FA;
 	}
 }
 
+#problemListSearchField .x-field-input .x-form-field {
+	margin-left: 1.4em;
+}
+
+#actionSheetTitlePanel {
+	color: #fff;
+	margin: 0.5em 0;
+}
+
+#filterPopupPanel {
+	.x-panel-inner {
+		padding: 0.4em;
+	}
+	.typeFilterFieldSet {
+		margin-bottom: 0.4em;
+		
+		.x-form-fieldset-title {
+			margin: 0 0 0.4em 0;
+		}
+	}
+}
+
 /* -------------------------------
  * MAP VIEW
  * ------------------------------- */
