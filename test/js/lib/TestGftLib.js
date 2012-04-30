@@ -8,7 +8,6 @@ module("GftLib", {
 			'execUpdate',
 			'execDelete',
 			'getTableDescription',
-			'createTable',
 			'createView',
 			'convertToObject',
 			'__sendRequest',
