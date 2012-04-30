@@ -30,6 +30,27 @@ $light-blue: #E3F1FA;
 	}
 }
 
+.typeSelectToolbar {
+	background: none;
+	padding: 0;
+	
+	#typeSelectField {
+		margin: 0 0.5em;
+		width: auto;
+
+		.x-component-outer::before {
+			-webkit-border-radius: 0.4em;
+			border-radius: 0.4em;
+		}
+		.x-component-outer {
+			-webkit-border-radius: 0.4em;
+			border-radius: 0.4em;
+		}
+		.x-form-field {
+			height: 1.6em;
+		}
+	}
+}
 /*
 #typeSelectField {
 	border-top: solid 4px $light-grey;

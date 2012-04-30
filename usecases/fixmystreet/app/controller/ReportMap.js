@@ -73,8 +73,10 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
 		
 		if(field.getValue() == 'undefined') {
+			me.getReportButton().setUi('normal');
 			me.getReportButton().setDisabled(true);
 		} else {
+			me.getReportButton().setUi('confirm');
 			me.getReportButton().setDisabled(false);
 		}
 		
@@ -85,17 +87,13 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	geocodePosition: function(latlng) {
 		var me = this;
-		if(!this.disableGeocoding) {
-			this.getGeocoder().geocode({'latLng': latlng}, function(results, status) {
-				if(status == google.maps.GeocoderStatus.OK) {
-					if(results[0]) {
-						me.updateCurrentAddress(results[0].formatted_address);
-					}
+		this.getGeocoder().geocode({'latLng': latlng}, function(results, status) {
+			if(status == google.maps.GeocoderStatus.OK) {
+				if(results[0]) {
+					me.updateCurrentAddress(results[0].formatted_address);
 				}
-			});
-		} else {
-			me.updateCurrentAddress(latlng);
-		}
+			}
+		});
 	},
 	
 	updateCurrentAddress: function(address) {
@@ -151,6 +149,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	},
 	
 	resetView: function() {
+		this.getReportButton().setUi('normal');
 		this.getReportButton().setDisabled(true);
 		this.getTypeSelectField().setValue('undefined');
 		
@@ -188,9 +187,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;
 		me.timestamp = null;
-		
-		// @TODO remove debug code
-		me.disableGeocoding = false;
     },
 	
 	getProblemStore: function() {

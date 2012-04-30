@@ -24,20 +24,29 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 				]
 			},
 			{
-				xtype: 'selectfield',
-				name: 'type',
-				id: 'typeSelectField',
-				store: 'Types',
-				// always use Ext.picker.Picker
-				usePicker: true,
-				defaultPhonePickerConfig: {
-					cancelButton: 'Abbrechen',
-					doneButton: 'Fertig'
-				},
-				defaultTabletPickerConfig: {
-					cancelButton: 'Abbrechen',
-					doneButton: 'Fertig'
-				}
+				xtype: 'toolbar',
+				cls: 'typeSelectToolbar',
+				
+				items: [
+					{
+						xtype: 'selectfield',
+						name: 'type',
+						id: 'typeSelectField',
+						store: 'Types',
+						flex: 1,
+						
+						// always use Ext.picker.Picker
+						usePicker: true,
+						defaultPhonePickerConfig: {
+							cancelButton: 'Abbrechen',
+							doneButton: 'Fertig'
+						},
+						defaultTabletPickerConfig: {
+							cancelButton: 'Abbrechen',
+							doneButton: 'Fertig'
+						}
+					}
+				]
 			},
 			{
 				xtype: 'mapnocenter',
@@ -58,7 +67,7 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 				xtype: 'button',
 				id: 'reportButton',
 				text: 'Jetzt melden',
-				ui: 'action',
+				ui: 'normal',
 				disabled: true
 			}
 		]
