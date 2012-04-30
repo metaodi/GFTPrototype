@@ -8,6 +8,7 @@ module("GftLib", {
 			'execUpdate',
 			'execDelete',
 			'getTableDescription',
+			'createTable',
 			'createView',
 			'convertToObject',
 			'__sendRequest',
@@ -293,6 +294,23 @@ asyncTest("execSelect: Projection", 6, function() {
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"Text as mytext",  limit:1});
 });
 
+asyncTest("execSelect: Projection (fields)", 8, function() {
+	var testCb = function(data,status) {
+		equal(data.rows.length,1, '1 result row expected');
+		equal(data.rows[0].length,2, '2 result columns in row expected');
+		equal(data.columns.length,2, '2 columns expected');
+		equal(data.columns[0],"mytext", '1st column is `mytext`');
+		equal(data.columns[1],"Number", '2nd column is `Number`');
+		equal(data.rows[0][0],"Some record", 'Value of mytext is `Some record`');
+		equal(data.rows[0][1],'3','Value of Number is 3');
+		
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		start();
+	}
+	this.gft.execSelect(testCb, {table:this.testGftTable, fields:['Text as mytext','Number'],  limit:1});
+});
+
 asyncTest("execSelect: Order by", 3, function() {
 	var testCb = function(data,status) {
 		equal(data.rows[0][0],"Yet another record");
@@ -318,7 +336,7 @@ asyncTest("execSelect: Group by", 4, function() {
 	this.gft.execSelect(testCb, {table:this.testGftTable, fields:"count(),Number", condition:"Number = 3", groupby:"Number"});
 });
 
-asyncTest("execInsert", 5, function() {
+asyncTest("execInsert (string)", 5, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
@@ -338,10 +356,33 @@ asyncTest("execInsert", 5, function() {
 		start();
 	}
 	
-	gft.execInsert(testCb, {table:this.testGftInsertTable, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test',33,'','"+getDateString()+"'"});
+	gft.execInsert(testCb, {table:this.testGftInsertTable, fields:"Text,Number,Location,Date", values:"Insert by Unit-Test,33,,"+getDateString()});
 });
 
-asyncTest("execUpdate", 4, function() {
+asyncTest("execInsert (fields)", 5, function() {
+	var gft = this.gft;
+	
+	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "writeRequest failed with status: " + status);
+			start();
+			return;
+		}
+		
+		equal(data.columns.length,1);
+		equal(data.columns[0],'rowid');
+		equal(data.rows.length,1);
+		ok($.isNumeric(data.rows[0][0]));
+
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		start();
+	}
+	
+	gft.execInsert(testCb, {table:this.testGftInsertTable, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test',33,'',getDateString()]});
+});
+
+asyncTest("execUpdate (string)", 4, function() {
 	var gft = this.gft;
 	var tableId = this.testGftInsertTable;
 	var rowId = null;
@@ -383,12 +424,59 @@ asyncTest("execUpdate", 4, function() {
 		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		
 		rowId = data.rows[0][0];
-		gft.execUpdate(selectCb, {table:tableId, field:"Text", value: newValue, condition:"rowid = '" + rowId + "'"});
+		gft.execUpdate(selectCb, {table:tableId, fields:["Text"], values: [newValue], condition:"rowid = '" + rowId + "'"});
 	}
-	gft.execInsert(updateCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for UPDATE',44,'','"+getDateString()+"'"});
+	gft.execInsert(updateCb, {table:tableId, fields:'Text,Number,Location,Date', values:"Insert by Unit-Test for UPDATE,44,'',"+getDateString()});
 });
 
-asyncTest("execDelete", 4, function() {
+asyncTest("execUpdate (fields)", 4, function() {
+	var gft = this.gft;
+	var tableId = this.testGftInsertTable;
+	var rowId = null;
+	var newValue = 'brand new value';
+	
+	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "select for execUpdate failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		data = gft.convertToObject(data)[0];
+		equal(data.text,newValue,'Value should be updated');
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execUpdate failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		gft.execSelect(testCb, {table:tableId, condition:"rowid = '"+ rowId +"'"});
+	}
+	
+	var updateCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execUpdate failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execUpdate(selectCb, {table:tableId, fields:["Text"], values: [newValue], condition:"rowid = '" + rowId + "'"});
+	}
+	gft.execInsert(updateCb, {table:tableId, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test for UPDATE',44,'',getDateString()]});
+});
+
+asyncTest("execDelete (string)", 4, function() {
 	var gft = this.gft;
 	var tableId = this.testGftInsertTable;
 	var rowId = null;
@@ -429,7 +517,51 @@ asyncTest("execDelete", 4, function() {
 		gft.execDelete(selectCb, {table:tableId, condition:"rowid = '" + rowId + "'"});
 	}
 
-	gft.execInsert(deleteCb, {table:tableId, fields:"Text,Number,Location,Date", values:"'Insert by Unit-Test for DELETE',55,'','"+getDateString()+"'"});
+	gft.execInsert(deleteCb, {table:tableId, fields:"Text,Number,Location,Date", values:"Insert by Unit-Test for DELETE,55,,"+getDateString()});
+});
+
+asyncTest("execDelete (fields)", 4, function() {
+	var gft = this.gft;
+	var tableId = this.testGftInsertTable;
+	var rowId = null;
+	
+	var testCb = function(data,status) {
+		if (data === null) {
+			ok(false, "select for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		equal(data.rows,undefined,'Record should not exist after DELETE');
+		equal(data.columns.length,4,'Only columns shoudl exist');
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "delete for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		gft.execSelect(testCb, {table:tableId, condition:"rowid = '"+ rowId +"'"});
+	}
+	
+	var deleteCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert for execDelete failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execDelete(selectCb, {table:tableId, condition:"rowid = '" + rowId + "'"});
+	}
+
+	gft.execInsert(deleteCb, {table:tableId, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test for DELETE',55,'',getDateString()]});
 });
 
 asyncTest("getTableDescription", 9, function() {

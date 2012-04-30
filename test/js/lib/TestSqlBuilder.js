@@ -10,11 +10,15 @@ module("SqlBuilder", {
 			'describeStmt',
 			'createViewStmt',
 			'__prepareOptions',
-			'__trimCondition'
+			'__checkFieldsAndValues',
+			'__getCondition',
+			'__isString'
 		];
 		this.privateMethods = [
 			'prepareOptions',
-			'trimCondition'
+			'checkFieldsAndValues',
+			'getCondition',
+			'isString'
 		];
 	},
 	teardown: function(){}
@@ -105,12 +109,16 @@ test("DELETE (condition with AND)", function() {
 test("UPDATE", function() {
 	var sql = this.sql;
 	raises(function() {
-		sql.updateStmt({table:this.testGftTableId, field:'Text', value:'New value'});
+		sql.updateStmt({table:this.testGftTableId, fields:'Text', values:'New value'});
 	}, "must throw error to pass");
 });
 
 test("UPDATE (condition)", function() {
-	equal(this.sql.updateStmt({table:this.testGftTableId, field:'Text', value:'New value', condition:"Text = 'Some record'"}), "UPDATE " + this.testGftTableId + " SET Text = 'New value' WHERE Text = 'Some record';");
+	equal(this.sql.updateStmt({table:this.testGftTableId, fields:'Text', values:'New value', condition:"Text = 'Some record'"}), "UPDATE " + this.testGftTableId + " SET Text = 'New value' WHERE Text = 'Some record';");
+});
+
+test("UPDATE (condition + multiple fields)", function() {
+	equal(this.sql.updateStmt({table:this.testGftTableId, fields:['Text', 'Number'], values:['New value', 3], condition:"Text = 'Some record'"}), "UPDATE " + this.testGftTableId + " SET Text = 'New value', Number = 3 WHERE Text = 'Some record';");
 });
 
 test("CREATE VIEW", function() {
@@ -154,26 +162,26 @@ test("prepareOptions missing required option", function() {
 	}, "Missing required options should throw an error");
 });
 
-test("trimCondition (empty string)", function() {
+test("getCondition (empty string)", function() {
 	var condition = ''
-	var newCond = this.sql.__trimCondition(condition);
+	var newCond = this.sql.__getCondition(condition);
 	strictEqual(newCond,condition,'When the condition is empty, return empty string');
 });
 
-test("trimCondition (correct string)", function() {
+test("getCondition (correct string)", function() {
 	var condition = "Text = 'value'";
-	var newCond = this.sql.__trimCondition(condition);
+	var newCond = this.sql.__getCondition(condition);
 	strictEqual(newCond,condition,'When the condition is correct, return as-is');
 });
 
-test("trimCondition (trim string)", function() {
+test("getCondition (trim string)", function() {
 	var condition = "    Text = 'value'    ";
-	var newCond = this.sql.__trimCondition(condition);
+	var newCond = this.sql.__getCondition(condition);
 	strictEqual(newCond,"Text = 'value'",'Trim whitespace from condition');
 });
 
-test("trimCondition (remove AND)", function() {
+test("getCondition (remove AND)", function() {
 	var condition = "  AND    Text = 'value'    ";
-	var newCond = this.sql.__trimCondition(condition);
+	var newCond = this.sql.__getCondition(condition);
 	strictEqual(newCond,"Text = 'value'",'Remove `AND` and trim whitespace from condition');
 });
