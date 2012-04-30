@@ -34,6 +34,7 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 						id: 'typeSelectField',
 						store: 'Types',
 						flex: 1,
+						cls: 'empty',
 						
 						// always use Ext.picker.Picker
 						usePicker: true,

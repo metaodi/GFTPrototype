@@ -7,7 +7,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		],
 		refs: {
 			reportMap: '#reportMap',
-			addressTextField: 'textfield[name=address]',
+			addressTextField: '#addressTextField',
 			typeSelectField: '#typeSelectField',
 			reportButton: '#reportButton',
 			reportCurrentLocationButton: '#reportCurrentLocationButton',
@@ -73,10 +73,12 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
 		
 		if(field.getValue() == 'undefined') {
+			me.getTypeSelectField().setCls('empty');
 			me.getReportButton().setUi('normal');
 			me.getReportButton().setDisabled(true);
 		} else {
 			me.getReportButton().setUi('confirm');
+			me.getTypeSelectField().setCls();
 			me.getReportButton().setDisabled(false);
 		}
 		
@@ -150,6 +152,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	resetView: function() {
 		this.getReportButton().setUi('normal');
+		this.getTypeSelectField().setCls('empty');
 		this.getReportButton().setDisabled(true);
 		this.getTypeSelectField().setValue('undefined');
 		
