@@ -6,6 +6,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			'map.MapContainer'
 		],
 		refs: {
+			mapContainer: '#mapContainer',
 			problemMap: '#problemMap',
 			problemCurrentLocationButton: '#problemCurrentLocationButton',
 			mainTabPanel: '#mainTabPanel',
@@ -47,13 +48,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
         me.callParent(arguments);
-		
-		// create infowindow with maxWidth depending on trailsMap panelsize
-		var infoWindow = new google.maps.InfoWindow({
-			// @TODO possible Sencha bug - getSize() always returns null for width and height
-			maxWidth: this.getProblemMap().getSize().width - 50
-		});
-		me.setInfoWindow(infoWindow);
 		
 		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
 			// if geolocation isn't available
@@ -132,7 +126,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 
 			marker.listener = google.maps.event.addListener(marker, 'click', function() {
 				// this attribute references to the current marker
-				me.getInfoWindow().setContent(this.content);
+				me.getInfoWindow().setOptions({
+					content: this.content,
+					maxWidth: me.getProblemMap().element.dom.clientWidth - 50
+				});
 				me.getInfoWindow().open(map, this);
 			});
 			
@@ -188,7 +185,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.typeStore = Ext.getStore('Types');
 		me.statusStore = Ext.getStore('Status');
 		me.problemMarkers = {};
-		me.infoWindow = null;
+		me.infoWindow = new google.maps.InfoWindow();
 		
 		me.pollingEnabled = false;
 		me.typeFilterCheckboxStates = {};
@@ -264,9 +261,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	getInfoWindow: function() {
 		return this.infoWindow;
-	},
-	setInfoWindow: function(infoWindow) {
-		this.infoWindow = infoWindow;
 	},
 	getPollingEnabled: function() {
 		return this.pollingEnabled;
