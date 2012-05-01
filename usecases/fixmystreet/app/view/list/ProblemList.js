@@ -8,7 +8,8 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 		loadingText: 'Defekte werden geladen...',
 		emptyText: 'keine Defekte vorhanden',
 		disableSelection: true,
-		grouped: true,
+		// @TODO grouping doesn't work after inserting new problem
+		//grouped: true,
 		
 		itemTpl: new Ext.XTemplate(
 			'<div class="problem-item {status}">',

@@ -76,6 +76,7 @@ Ext.define("FixMyStreet.controller.List", {
 		var problem = actionSheet.getProblem();
 		
 		this.getProblemStore().remove(problem);
+		this.getProblemStore().sync();
 		
 		actionSheet.hide();
 	},

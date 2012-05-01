@@ -120,6 +120,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 				// use correct id from table for record id
 				var idfield = data.rows[0][0];
 				record.data[me.config.settings.idfield] = idfield;
+				record.commit();
 			}
 		};
 		
