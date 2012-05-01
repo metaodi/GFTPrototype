@@ -3,7 +3,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	
 	config: {
 		views: [
-			'map.MapContainer'
+			'map.MapContainer',
+			'map.FilterPopupPanel'
 		],
 		refs: {
 			mapContainer: '#mapContainer',
@@ -128,6 +129,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				// this attribute references to the current marker
 				me.getInfoWindow().setOptions({
 					content: this.content,
+					// set infowindow size depending on current map size
 					maxWidth: me.getProblemMap().element.dom.clientWidth - 50
 				});
 				me.getInfoWindow().open(map, this);
@@ -191,13 +193,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.typeFilterCheckboxStates = {};
 		
 		// prepare filter popup panel
-		this.filterPopupPanel = Ext.create('Ext.Panel', {
-			id: 'filterPopupPanel',
-			top: 0,
-			left: 0,
-			modal: true,
-			hideOnMaskTap: true
-		});
+		this.filterPopupPanel = Ext.create('FixMyStreet.view.map.FilterPopupPanel');
 		var fieldset = Ext.create('Ext.form.FieldSet', {
 			title: 'Typ-Filter',
 			cls: 'typeFilterFieldSet'
