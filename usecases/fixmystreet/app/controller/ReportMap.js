@@ -3,7 +3,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	
 	config: {
 		views: [
-			'report.ReportContainer'
+			'report.ReportContainer',
+			'report.InfoPopupPanel'
 		],
 		refs: {
 			reportMap: '#reportMap',
@@ -11,7 +12,9 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			typeSelectField: '#typeSelectField',
 			reportButton: '#reportButton',
 			reportCurrentLocationButton: '#reportCurrentLocationButton',
-			problemList: '#problemList'
+			problemList: '#problemList',
+			infoPopupButton: '#infoPopupButton',
+			infoPopupCloseButton: '#infoPopupCloseButton'
 		},
 		control: {
 			reportMap: {
@@ -25,6 +28,12 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			},
 			reportCurrentLocationButton: {
 				tap: 'onCurrentLocationButtonTap'
+			},
+			infoPopupButton: {
+				tap: 'onInfoPopupButtonTap'
+			},
+			infoPopupCloseButton: {
+				tap: 'onInfoPopupCloseButtonTap'
 			}
 		}
 	},
@@ -167,6 +176,13 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.geocodePosition(latlng);
 	},
 	
+	onInfoPopupButtonTap: function(button, e, eOpts) {
+		this.getInfoPopupPanel().showBy(this.getInfoPopupButton());
+	},
+	onInfoPopupCloseButtonTap: function(button, e, eOpts) {
+		this.getInfoPopupPanel().hide();
+	},
+	
 	// -------------------------------------------------------
     // Base Class functions
 	// -------------------------------------------------------
@@ -182,6 +198,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;
 		me.timestamp = null;
+		me.infoPopupPanel = Ext.create('FixMyStreet.view.report.InfoPopupPanel');
     },
 	
 	getProblemStore: function() {
@@ -213,5 +230,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	},
 	setTimestamp: function(timestamp) {
 		this.timestamp = timestamp;
+	},
+	getInfoPopupPanel: function() {
+		return this.infoPopupPanel;
 	}
 });

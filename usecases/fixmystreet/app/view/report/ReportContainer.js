@@ -16,6 +16,12 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 				
 				items: [
 					{
+						iconCls: 'info',
+						iconMask: 'true',
+						align: 'left',
+						id: 'infoPopupButton'
+					},
+					{
 						iconCls: 'locate',
 						iconMask: 'true',
 						align: 'right',

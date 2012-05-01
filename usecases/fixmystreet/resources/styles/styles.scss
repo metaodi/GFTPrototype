@@ -59,6 +59,22 @@ $light-blue: #E3F1FA;
 	}
 }
 
+#infoPopupPanel {
+	font-size: 0.9em;
+	
+	.content {
+		padding: 0.5em;
+		
+		ol {
+			padding-left: 2em;
+		}
+		ol li {
+			list-style: inherit;
+			margin-bottom: 0.2em;
+		}
+	}
+}
+
 /* -------------------------------
  * LIST VIEW
  * ------------------------------- */
