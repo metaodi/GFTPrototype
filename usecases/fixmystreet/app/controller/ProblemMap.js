@@ -8,7 +8,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		refs: {
 			problemMap: '#problemMap',
 			problemCurrentLocationButton: '#problemCurrentLocationButton',
-			mainTabPanel: '#mainTabPanel'
+			mainTabPanel: '#mainTabPanel',
+			filterPopupButton: '#filterPopupButton',
+			filterPopupPanel: '#filterPopupPanel',
+			typeFilterApplyButton: '#typeFilterApplyButton'
 		},
 		control: {
 			problemMap: {
@@ -19,6 +22,15 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			},
 			mainTabPanel: {
 				activeitemchange: 'onTabPanelActiveItemChange'
+			},
+			filterPopupButton: {
+				tap: 'onFilterPopupButtonTap'
+			},
+			filterPopupPanel: {
+				hide: 'onFilterPopupPanelHide'
+			},
+			typeFilterApplyButton: {
+				tap: 'onTypeFilterApplyButtonTap'
 			}
 		}
 	},
@@ -105,6 +117,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			var typeText = me.getTypeStore().getById(problem.type).getData().text;
 			var statusValue = me.getStatusStore().getById(problem.status).getData().value;
 			
+			marker.type = problem.type;
 			marker.content =
 				'<div class="infowindow-content">' +
 					'<div class="trail-info">' +
@@ -144,6 +157,23 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		map.setMapCenter(latlng);
 	},
 	
+	onFilterPopupButtonTap: function(buttonComp, e, eOpts) {
+		this.getFilterPopupPanel().showBy(this.getFilterPopupButton());
+	},
+	onTypeFilterApplyButtonTap: function(buttonComp, e, eOpts) {
+		this.getFilterPopupPanel().hide();
+	},
+	onFilterPopupPanelHide: function(panelComp, eOpts) {
+		var problemMarkers = this.getProblemMarkers();
+		for(var markerId in problemMarkers) {
+			if(this.getTypeFilterCheckboxStateByTypeId(problemMarkers[markerId].type)) {
+				problemMarkers[markerId].setMap(this.getProblemMap().getMap());
+			} else {
+				problemMarkers[markerId].setMap(null);
+			}
+		}
+	},
+	
 	// -------------------------------------------------------
     // Base Class functions
 	// -------------------------------------------------------
@@ -161,19 +191,64 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.infoWindow = null;
 		
 		me.pollingEnabled = false;
+		me.typeFilterCheckboxStates = {};
+		
+		// prepare filter popup panel
+		this.filterPopupPanel = Ext.create('Ext.Panel', {
+			id: 'filterPopupPanel',
+			top: 0,
+			left: 0,
+			modal: true,
+			hideOnMaskTap: true
+		});
+		var fieldset = Ext.create('Ext.form.FieldSet', {
+			title: 'Typ-Filter',
+			cls: 'typeFilterFieldSet'
+		});
+		this.typeStore.each(function(type) {
+			var typeValue = type.getData().value;
+			if(typeValue != 'undefined') {
+				me.setTypeFilterCheckboxState(typeValue, true);
+				var checkbox = Ext.create('Ext.field.Checkbox', {
+					name: typeValue,
+					label: type.getData().text,
+					checked: true,
+					labelWidth: '70%',
+					listeners: {
+						check: function() {
+							me.setTypeFilterCheckboxState(typeValue, true);
+						},
+						uncheck: function() {
+							me.setTypeFilterCheckboxState(typeValue, false);
+						}
+					}
+				})
+				fieldset.add(checkbox);
+			}
+		});
+		var applyButton = Ext.create('Ext.Button', {
+			text: 'Filter anwenden',
+			ui: 'confirm',
+			id: 'typeFilterApplyButton'
+		})
+		
+		this.filterPopupPanel.add([fieldset, applyButton]);
     },
 	
+	setTypeFilterCheckboxState: function(typeid, state) {
+		this.typeFilterCheckboxStates[typeid] = state;
+	},
+	getTypeFilterCheckboxStates: function() {
+		return this.typeFilterCheckboxStates;
+	},
+	getTypeFilterCheckboxStateByTypeId: function(typeid) {
+		return this.typeFilterCheckboxStates[typeid];
+	},
 	getTypeStore: function() {
 		return this.typeStore;
 	},
-	setTypeStore: function(typeStore) {
-		this.typeStore = typeStore;
-	},
 	getStatusStore: function() {
 		return this.statusStore;
-	},
-	setStatusStore: function(statusStore) {
-		this.statusStore = statusStore;
 	},
 	getProblemMarkers: function() {
 		return this.problemMarkers;
@@ -198,5 +273,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	setPollingEnabled: function(pollingEnabled) {
 		this.pollingEnabled = pollingEnabled;
+	},
+	getFilterPopupPanel: function() {
+		return this.filterPopupPanel;
 	}
 });

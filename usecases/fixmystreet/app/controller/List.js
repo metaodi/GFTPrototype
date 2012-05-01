@@ -16,8 +16,7 @@ Ext.define("FixMyStreet.controller.List", {
 			actionSheetDeleteButton: '#actionSheetDeleteButton',
 			actionSheetCancelButton: '#actionSheetCancelButton',
 			actionSheetTitlePanel: '#actionSheetTitlePanel',
-			searchField: '#problemListSearchField',
-			filterPopupButton: '#filterPopupButton'
+			searchField: '#problemListSearchField'
 		},
 		control: {
 			problemList: {
@@ -32,9 +31,6 @@ Ext.define("FixMyStreet.controller.List", {
 			searchField: {
 				clearicontap: 'onSearchClearIconTap',
 				keyup: 'onSearchKeyUp'
-			},
-			filterPopupButton: {
-				tap: 'onFilterPopupButtonTap'
 			}
 		}
 	},
@@ -94,10 +90,6 @@ Ext.define("FixMyStreet.controller.List", {
 		this.getMainTabPanel().setActiveItem(2);
 	},
 	
-	onFilterPopupButtonTap: function(buttonComp, e, eOpts) {
-		this.getFilterPopupPanel().showBy(this.getFilterPopupButton());
-	},
-	
 	/**
      * Called when the search field has a keyup event.
      *
@@ -136,8 +128,8 @@ Ext.define("FixMyStreet.controller.List", {
                 //loop through each of the regular expressions
                 for (i = 0; i < regexps.length; i++) {
                     var search = regexps[i];
-					// match address
-                    var didMatch = record.get('address').match(search);
+					// match address and type
+                    var didMatch = record.get('address').match(search) || me.getTypeStore().getById(record.get('type')).getData().text.match(search);
 
                     //if it matched the first or last name, push it into the matches array
                     matched.push(didMatch);
@@ -173,36 +165,6 @@ Ext.define("FixMyStreet.controller.List", {
 		this.problemStore = Ext.getStore('Problems');
 		this.typeStore = Ext.getStore('Types');
 		this.actionSheet = Ext.create('FixMyStreet.view.list.ProblemActionSheet');
-		
-		// prepare filter popup panel
-		this.filterPopupPanel = Ext.create('Ext.Panel', {
-			id: 'filterPopupPanel',
-			top: 0,
-			left: 0
-		});
-		var fieldset = Ext.create('Ext.form.FieldSet', {
-			title: 'Typ-Filter',
-			cls: 'typeFilterFieldSet'
-		});
-		this.typeStore.each(function(type) {
-			if(type.getData().value != 'undefined') {
-				var checkbox = Ext.create('Ext.field.Checkbox', {
-					name: type.getData().value,
-					label: type.getData().text,
-					checked: true,
-					labelWidth: '70%'
-				})
-				fieldset.add(checkbox);
-			}
-		});
-		var applyButton = Ext.create('Ext.Button', {
-			text: 'Filter anwenden',
-			ui: 'confirm',
-			cls: 'typeFilterApplyButton'
-		})
-		
-		this.filterPopupPanel.add([fieldset, applyButton]);
-		this.filterPopupPanel.setModal(true);
     },
 	
 	getProblemStore: function() {
@@ -213,8 +175,5 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	getActionSheet: function() {
 		return this.actionSheet;
-	},
-	getFilterPopupPanel: function() {
-		return this.filterPopupPanel;
 	}
 });
