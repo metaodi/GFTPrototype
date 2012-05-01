@@ -9,8 +9,8 @@ Ext.define('FixMyStreet.util.Config', {
 			reportZoom: 17
 		},
 		
-		// poll for updates every 60 seconds
-		pollingFrequency: 60000,
+		// poll for updates every 30 seconds
+		pollingFrequency: 30000,
 		
 		fusionTable: {
 			tableId: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
@@ -18,7 +18,7 @@ Ext.define('FixMyStreet.util.Config', {
 			fields: 'userid, timestamp, latitude, longitude, address, type, status'
 		},
 		
-		userId: 1
+		userId: 0
 	},
 	
 	constructor: function(config) {

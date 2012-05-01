@@ -27,7 +27,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		operation.setCompleted();
 		operation.setSuccessful();
-
+		
 		if (typeof callback == 'function') {
 			callback.call(scope || this, operation);
 		}

@@ -52,13 +52,15 @@ Ext.application({
     models: [
 		'Problem',
 		'Type',
-		'Status'
+		'Status',
+		'UserId'
     ],
 	
     stores: [
 		'Types',
 		'Problems',
-		'Status'
+		'Status',
+		'UserId'
     ],
 	
     views: [
@@ -77,6 +79,24 @@ Ext.application({
 		// load static data from stores
 		Ext.getStore('Status').load();
 		Ext.getStore('Types').load();
+		
+		// user id
+		var userIdStore = Ext.getStore('UserId');
+		userIdStore.load(function(records, operation, success) {
+			if(records.length == 0) {
+				// generating userid
+				var userIdModel = Ext.create('FixMyStreet.model.UserId');
+				userIdStore.add(userIdModel);
+			}
+			var userId = userIdStore.first().getId();
+			FixMyStreet.util.Config.setUserId(userId);
+			
+			var problemStore = Ext.getStore('Problems');
+			// model is loaded before user id store
+			// -> update proxy condition with correct userid
+			problemStore.getProxy().config.settings.condition = "userid = '" + userId + "'";
+			problemStore.load();
+		}, this);
 		
 		// get current geolocation
 		FixMyStreet.geo = new FixMyStreet.util.Geolocation();

@@ -6,7 +6,7 @@ Ext.define('FixMyStreet.model.Problem', {
         fields: [
 			// type of id property has to be auto
 			{ name: 'rowid', type: 'auto' },
-			{ name: 'userid', type: 'int' },
+			{ name: 'userid', type: 'string' },
 			{ name: 'timestamp', type: 'int' },
 			{ name: 'address', type: 'string' },
             { name: 'latitude', type: 'string' },

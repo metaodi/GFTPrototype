@@ -140,8 +140,13 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 						status: status
 					});
 					
+					problem.save({
+						success: function(ed) {
+							Ext.getStore('Problems').add(ed);
+						}
+					});
 					// @TODO after adding problem list can't be opened
-					Ext.getStore('Problems').add(problem);
+					//Ext.getStore('Problems').add(problem);
 				}
 				
 				// resetting view data

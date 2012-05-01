@@ -2,7 +2,6 @@ Ext.define('FixMyStreet.store.Status', {
     extend: 'Ext.data.Store',
 	config: {
 		model: 'FixMyStreet.model.Status',
-		autoLoad: true,
 		
 		data: [
 			{ key: 'new', value: 'Neu', sorting: 1 },
