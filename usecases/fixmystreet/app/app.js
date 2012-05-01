@@ -28,7 +28,13 @@ Ext.override(Ext.MessageBox, {
 Ext.application({
     name: 'FixMyStreet',
 	icon: './resources/images/fixmystreet-icon.png',
-	phoneStartupScreen: './resources/images/fixmystreet-startup_phone.png',
+	startupImage: {
+		// Non-retina iPhone, iPod touch, and all Android devices
+		'320x460': 'resources/startup/fixmystreet-startup-320x460.jpg',
+		// Retina iPhone and iPod touch
+		'640x920': './resources/images/fixmystreet-startup-640x920.png'
+	},
+	
 	statusBarStyle: 'black',
 	viewport: {
 		// hide navigation bar of browser
