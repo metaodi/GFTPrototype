@@ -2,6 +2,7 @@ module("GftLib", {
     setup: function() {
 		this.gft = new GftLib();
 		this.publicMethods = [
+			'execQuery',
 			'execSql',
 			'execSelect',
 			'execInsert',
@@ -219,7 +220,7 @@ asyncTest("getAccessToken with accessToken", 6, function() {
 	gft.__getAccessToken(testCb);
 });
 
-asyncTest("execSql", 7, function() {
+asyncTest("execQuery", 7, function() {
 	var testCb = function(data,status) {
 		equal(data.columns[0],"Text");
 		equal(data.columns[1],"Number");
@@ -232,7 +233,7 @@ asyncTest("execSql", 7, function() {
 		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
 		start();
 	}
-	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
+	this.gft.execQuery(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
 asyncTest("convertToObject for single object", 4, function() {
@@ -245,7 +246,7 @@ asyncTest("convertToObject for single object", 4, function() {
 		equal(gftObjs[0].date, '03.03.2012');
 		start();
 	}
-	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 1');
+	this.gft.execQuery(testCb, 'select * from ' + this.testGftTable + ' limit 1');
 });
 
 asyncTest("convertToObject for multiple objects", 4, function() {
@@ -258,7 +259,7 @@ asyncTest("convertToObject for multiple objects", 4, function() {
 		equal(gftObjs[3].text, 'Yet another record');
 		start();
 	}
-	this.gft.execSql(testCb, 'select * from ' + this.testGftTable + ' limit 4');
+	this.gft.execQuery(testCb, 'select * from ' + this.testGftTable + ' limit 4');
 });
 
 asyncTest("execSelect: Condition", 8, function() {
@@ -587,6 +588,22 @@ asyncTest("getTableDescription", 9, function() {
 });
 
 asyncTest("createView", 3, function() {
+	var gft = this.gft;
+	
+	var testCb = function(data,status) {
+		data = gft.convertToObject(data);
+		equal(data.length,1,'1 row expected');
+		
+		var resp = data[0];
+		notStrictEqual(resp.tableid,undefined,'Table-ID of new view should not be empty: ' + resp.tableid);
+		notStrictEqual(resp.tableid,null,'Table-ID of new view should not be empty: ' + resp.tableid);
+		start();
+	}
+	
+	gft.createView(testCb, {viewName:'test_view', query:"select Text from " + this.testGftInsertTable + " where Number = 33"});
+});
+
+asyncTest("createView + INSERT", 3, function() {
 	var gft = this.gft;
 	
 	var testCb = function(data,status) {
