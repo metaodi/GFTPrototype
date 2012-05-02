@@ -179,5 +179,5 @@ page.open(phantom.args[0], function(status){
 			
         },
 		output.onError,
-		30000);
+		60000); /*max. 60s for all tests */
     }});
