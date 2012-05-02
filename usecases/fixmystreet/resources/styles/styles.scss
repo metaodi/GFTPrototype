@@ -173,6 +173,8 @@ $light-blue: #E3F1FA;
 }
 
 #filterPopupPanel {
+	min-width: 250px;
+	
 	.x-panel-inner {
 		padding: 0.4em;
 	}

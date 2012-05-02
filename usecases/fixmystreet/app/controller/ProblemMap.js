@@ -202,17 +202,14 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			var typeValue = type.getData().value;
 			if(typeValue != 'undefined') {
 				me.setTypeFilterCheckboxState(typeValue, true);
-				var checkbox = Ext.create('Ext.field.Checkbox', {
+				var checkbox = Ext.create('Ext.field.Toggle', {
 					name: typeValue,
 					label: type.getData().text,
-					checked: true,
-					labelWidth: '70%',
+					value: 1,
+					labelWidth: '57%',
 					listeners: {
-						check: function() {
-							me.setTypeFilterCheckboxState(typeValue, true);
-						},
-						uncheck: function() {
-							me.setTypeFilterCheckboxState(typeValue, false);
+						change: function(sliderField, slider, thumb, newValue, oldValue, eOpts) {
+							me.setTypeFilterCheckboxState(typeValue, newValue);
 						}
 					}
 				})
