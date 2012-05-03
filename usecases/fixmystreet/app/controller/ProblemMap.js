@@ -84,31 +84,35 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var currentRowIds = {};
 		for(var problem in dataObjs) {
 			currentRowIds[dataObjs[problem].rowid] = true;
-			this.addProblemMarkerToMap(this.getProblemMap().getMap(), dataObjs[problem]);
+			this.addProblemMarker(this.getProblemMap().getMap(), dataObjs[problem]);
 		}
 		
 		for(var markerId in this.getProblemMarkers()) {
 			if(!currentRowIds[markerId]) {
-				this.removeProblemMarkerFromMap(markerId);
+				this.removeProblemMarker(markerId);
 			}
 		}
 	},
 	
-	addProblemMarkerToMap: function(map, problem) {
+	addProblemMarker: function(map, problem) {
 		var me = this;
 		
 		// if marker for current problem isn't painted yet
 		if(!me.getProblemMarkerById(problem.rowid)) {
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng(problem.latitude, problem.longitude),
-				map: map,
 				animation: google.maps.Animation.DROP,
 				icon: me.getProblemMarkerImagesById(problem.type),
 				shadow: me.getMarkerShadow(),
 				// do not optimize marker image to recieve retina display support
 				optimized: false
 			});
-
+			
+			// show marker on map if type is activated
+			if(me.getTypeFilterToggleStateByTypeId(problem.type)) {
+				marker.setMap(map);
+			}
+			
 			var typeText = me.getTypeStore().getById(problem.type).getData().text;
 			var statusValue = me.getStatusStore().getById(problem.status).getData().value;
 			
@@ -136,16 +140,16 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			});
 			
 			// add marker to problem markers array
-			me.addProblemMarker(problem.rowid, marker);
+			me.addProblemMarkerToArray(problem.rowid, marker);
 		}
 	},
 	
-	removeProblemMarkerFromMap: function(rowid) {
+	removeProblemMarker: function(rowid) {
 		var marker = this.getProblemMarkerById(rowid);
 		google.maps.event.removeListener(marker.listener);
 		marker.setMap(null);
 		// delete marker in object
-		this.removeProblemMarkerById(rowid);
+		this.removeProblemMarkerFromArrayById(rowid);
 	},
 	
 	onCurrentLocationButtonTap: function(button, e, eOpts) {
@@ -165,7 +169,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	onFilterPopupPanelHide: function(panelComp, eOpts) {
 		var problemMarkers = this.getProblemMarkers();
 		for(var markerId in problemMarkers) {
-			if(this.getTypeFilterCheckboxStateByTypeId(problemMarkers[markerId].type)) {
+			if(this.getTypeFilterToggleStateByTypeId(problemMarkers[markerId].type)) {
 				problemMarkers[markerId].setMap(this.getProblemMap().getMap());
 			} else {
 				problemMarkers[markerId].setMap(null);
@@ -190,7 +194,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.infoWindow = new google.maps.InfoWindow();
 		
 		me.pollingEnabled = false;
-		me.typeFilterCheckboxStates = {};
+		me.typeFilterToggleStates = {};
 		
 		// prepare filter popup panel
 		this.filterPopupPanel = Ext.create('FixMyStreet.view.map.FilterPopupPanel');
@@ -201,19 +205,19 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		this.typeStore.each(function(type) {
 			var typeValue = type.getData().value;
 			if(typeValue != 'undefined') {
-				me.setTypeFilterCheckboxState(typeValue, true);
-				var checkbox = Ext.create('Ext.field.Toggle', {
+				me.setTypeFilterToggleState(typeValue, true);
+				var toggle = Ext.create('Ext.field.Toggle', {
 					name: typeValue,
 					label: type.getData().text,
 					value: 1,
 					labelWidth: '57%',
 					listeners: {
 						change: function(sliderField, slider, thumb, newValue, oldValue, eOpts) {
-							me.setTypeFilterCheckboxState(typeValue, newValue);
+							me.setTypeFilterToggleState(typeValue, newValue);
 						}
 					}
 				})
-				fieldset.add(checkbox);
+				fieldset.add(toggle);
 			}
 		});
 		var applyButton = Ext.create('Ext.Button', {
@@ -225,14 +229,14 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		this.filterPopupPanel.add([fieldset, applyButton]);
     },
 	
-	setTypeFilterCheckboxState: function(typeid, state) {
-		this.typeFilterCheckboxStates[typeid] = state;
+	setTypeFilterToggleState: function(typeid, state) {
+		this.typeFilterToggleStates[typeid] = state;
 	},
-	getTypeFilterCheckboxStates: function() {
-		return this.typeFilterCheckboxStates;
+	getTypeFilterToggleStates: function() {
+		return this.typeFilterToggleStates;
 	},
-	getTypeFilterCheckboxStateByTypeId: function(typeid) {
-		return this.typeFilterCheckboxStates[typeid];
+	getTypeFilterToggleStateByTypeId: function(typeid) {
+		return this.typeFilterToggleStates[typeid];
 	},
 	getTypeStore: function() {
 		return this.typeStore;
@@ -246,10 +250,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	getProblemMarkerById: function(id) {
 		return this.problemMarkers[id];
 	},
-	removeProblemMarkerById: function(id) {
+	removeProblemMarkerFromArrayById: function(id) {
 		delete this.problemMarkers[id];
 	},
-	addProblemMarker: function(id, marker) {
+	addProblemMarkerToArray: function(id, marker) {
 		this.problemMarkers[id] = marker;
 	},
 	getInfoWindow: function() {
