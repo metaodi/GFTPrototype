@@ -14,6 +14,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 	},
 	
     create: function(operation, callback, scope) {
+		console.log('[gftproxy] create');
         var me = this;
         
 		operation.setStarted();
@@ -34,11 +35,13 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
     },
 	
 	read: function(operation, callback, scope) {
+		console.log('[gftproxy] read');
 		var me = this;
 
 		var fields = operation.query || me.config.settings.idfield + ', ' + me.config.settings.fields || '*';
 		
 		var recieveData = function(data) {
+			console.log(data);
 			me.applyDataToModel(data, operation, callback, scope);
 		};
 		
@@ -51,6 +54,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
     },
 	
 	destroy: function(operation, callback, scope) {
+		console.log('[gftproxy] destroy');
 		var me = this;
 		
 		var records = operation.getRecords();

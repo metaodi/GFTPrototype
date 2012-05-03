@@ -62,6 +62,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			if(me.getMapRendered()) {
 				me.recieveData();
 			}
+			// wait for next polling call
 			setTimeout(function() { me.refreshData(); }, FixMyStreet.util.Config.getPollingFrequency());
 		}
 	},

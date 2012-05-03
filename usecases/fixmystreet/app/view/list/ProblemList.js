@@ -13,6 +13,7 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 		
 		itemTpl: new Ext.XTemplate(
 			'<div class="problem-item {status}">',
+				'{rowid}' +
 				'<div class="image">',
 					'<tpl switch="status">',
 						'<tpl case="done">',
@@ -35,6 +36,9 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 					return ts.getDate();
 				}
 			}
-		)
+		),
+		listeners: {
+			refresh: function() { console.log('[list] refreshing'); }
+		}
 	}
 });

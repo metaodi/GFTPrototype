@@ -4,7 +4,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	config: {
 		views: [
 			'report.ReportContainer',
-			'report.InfoPopupPanel'
+			'report.InfoPopupPanel',
+			'report.ProblemAddedPopupPanel'
 		],
 		refs: {
 			reportMap: '#reportMap',
@@ -141,7 +142,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 					});
 					
 					me.getProblemStore().add(problem);
-					me.getProblemStore().sync();
 				}
 				
 				// resetting view data
@@ -149,7 +149,13 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			} catch(err) {
 				console.log(err);
 			}
+			//me.showProblemAddedPopupPanel();
 		}
+	},
+	
+	showProblemAddedPopupPanel: function() {
+		Ext.Viewport.add(this.getProblemAddedPopupPanel());
+		this.getProblemAddedPopupPanel().show();
 	},
 	
 	resetView: function() {
@@ -194,11 +200,13 @@ Ext.define("FixMyStreet.controller.ReportMap", {
         me.callParent(arguments);
 		
 		me.problemStore = Ext.getStore('Problems');
+		me.problemStore.addListener('addrecords', function(store, data, eOpts) { console.log('manually refreshing list from controller'); me.getProblemList().refresh(); });
 		me.problemMarker = null;
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;
 		me.timestamp = null;
 		me.infoPopupPanel = Ext.create('FixMyStreet.view.report.InfoPopupPanel');
+		me.problemAddedPopupPanel = Ext.create('FixMyStreet.view.report.ProblemAddedPopupPanel');
     },
 	
 	getProblemStore: function() {
@@ -233,5 +241,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	},
 	getInfoPopupPanel: function() {
 		return this.infoPopupPanel;
+	},
+	getProblemAddedPopupPanel: function() {
+		return this.problemAddedPopupPanel;
 	}
 });

@@ -75,10 +75,9 @@ Ext.define("FixMyStreet.controller.List", {
 		var actionSheet = this.getActionSheet();
 		var problem = actionSheet.getProblem();
 		
-		this.getProblemStore().remove(problem);
-		this.getProblemStore().sync();
-		
 		actionSheet.hide();
+		
+		this.getProblemStore().remove(problem);
 	},
 	onCancelButtonTap: function(buttonComp, e, eOpts) {
 		var actionSheet = this.getActionSheet();
@@ -161,11 +160,12 @@ Ext.define("FixMyStreet.controller.List", {
         this.callParent(arguments);
     },
     init: function () {
-        this.callParent(arguments);
+		var me = this;
+        me.callParent(arguments);
 		
-		this.problemStore = Ext.getStore('Problems');
-		this.typeStore = Ext.getStore('Types');
-		this.actionSheet = Ext.create('FixMyStreet.view.list.ProblemActionSheet');
+		me.problemStore = Ext.getStore('Problems');
+		me.typeStore = Ext.getStore('Types');
+		me.actionSheet = Ext.create('FixMyStreet.view.list.ProblemActionSheet');
     },
 	
 	getProblemStore: function() {
