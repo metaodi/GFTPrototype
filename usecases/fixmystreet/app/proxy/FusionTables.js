@@ -4,7 +4,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
     alias: 'proxy.fusiontables',
 	
 	constructor: function(config) {
-        Ext.data.Proxy.superclass.constructor.call(this, config);
+		this.callParent(arguments);
         var me = this;
 		
 		me.gftLib = new GftLib();
@@ -18,27 +18,33 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
         var me = this;
         
 		operation.setStarted();
-		
         var records = operation.getRecords();
+		var callbackCount = records.length;
+		var callbackRecv = 0;
+		
+		var onInsertRecordFinished = function(success) {
+			console.log("[onInsertRecordFinished]");
+			callbackRecv++;
+			if (callbackRecv === callbackCount) {
+				operation.setSuccessful();
+				operation.setCompleted();
+				if (typeof callback == 'function') {
+					callback.call(scope || this, operation);
+				}
+			}
+		}
 		
 		// insert all given records
 		for(var i = 0; i < records.length; i++) {
-			me.insertRecord(records[i]);
-		}
-		
-		operation.setCompleted();
-		operation.setSuccessful();
-		
-		if (typeof callback == 'function') {
-			callback.call(scope || this, operation);
+			me.insertRecord(records[i], onInsertRecordFinished);
 		}
     },
 	
 	read: function(operation, callback, scope) {
 		console.log('[gftproxy] read');
 		var me = this;
-
-		var fields = operation.query || me.config.settings.idfield + ', ' + me.config.settings.fields || '*';
+		
+		var fields = operation.query || me.config.settings.idfield + ', ' + me.config.settings.fields.join(', ') || '*';
 		
 		var recieveData = function(data) {
 			console.log(data);
@@ -55,20 +61,27 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 	
 	destroy: function(operation, callback, scope) {
 		console.log('[gftproxy] destroy');
+		
 		var me = this;
 		
 		var records = operation.getRecords();
+		var callbackCount = records.length;
+		var callbackRecv = 0;
+		var onDestroyRecordFinished = function(success) {
+			console.log("[onDestroyRecordFinished]");
+			callbackRecv++;
+			if (callbackRecv === callbackCount) {
+				operation.setSuccessful();
+				operation.setCompleted();
+				if (typeof callback == 'function') {
+					callback.call(scope || this, operation);
+				}
+			}
+		}
 		
 		// delete all given records
 		for(var i = 0; i < records.length; i++) {
-			me.deleteRecord(records[i]);
-		}
-
-		operation.setCompleted();
-		operation.setSuccessful();
-
-		if (typeof callback == 'function') {
-			callback.call(scope || this, operation);
+			me.deleteRecord(records[i], onDestroyRecordFinished);
 		}
 	},
 	
@@ -79,6 +92,9 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		for(var problem in objs) {
 			var record = Ext.create(me.getModel(), objs[problem]);
+			record.commit();
+			console.log('[parseData] the new record');
+			console.log(record);
 			records.push(record);
 		}
 		
@@ -95,6 +111,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 			loaded: true
 		});
 		
+		operation.setRecords(parsedData);
 		operation.setResultSet(resultSet);
 		operation.setSuccessful();
 		operation.setCompleted();
@@ -105,11 +122,13 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		}
     },
 	
-	insertRecord: function(record) {
+	insertRecord: function(record, callback) {
 		var me = this;
 		var data = record.getData();
 		var fields = [];
 		var values = [];
+		
+		console.log('[insertRecord]');
 		
 		// extract fields and values from data
 		for(var field in data) {
@@ -120,12 +139,17 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		}
 		
 		var onInsertComplete = function(data) {
+			console.log('[onInsertComplete]');
+			console.log(data);
+			var success = false;
 			if(data.rows) {
+				success = true;
 				// use correct id from table for record id
 				var idfield = data.rows[0][0];
-				record.data[me.config.settings.idfield] = idfield;
+				record.data[record.getClientIdProperty()] = idfield;
 				record.commit();
 			}
+			callback(success);
 		};
 		
 		// insert record to fusion table
@@ -136,12 +160,24 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		}, me);
 	},
 	
-	deleteRecord: function(record) {
+	deleteRecord: function(record, callback) {
 		var me = this;
 		var data = record.getData();
 		
+		console.log('[deleteRecord]');
+		
+		var onDeleteComplete = function(data) {
+			console.log('[onDeleteComplete]');
+			console.log(data);
+			var success = true;
+			if (data.error) {
+				success = false;
+			}
+			callback(success);
+		};
+		
 		// delete record from fusion table
-		me.getGftLib().execDelete(Ext.emptyFn, {
+		me.getGftLib().execDelete(onDeleteComplete, {
 			table: me.config.settings.tableId,
 			condition: me.config.settings.idfield + " = '" + data[me.config.settings.idfield] + "'"
 		}, me);

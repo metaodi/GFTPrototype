@@ -1,11 +1,10 @@
 Ext.define('FixMyStreet.model.Problem', {
     extend: 'Ext.data.Model',
     config: {
-		idProperty: 'rowid',
+		clientIdProperty: 'rowid',
 		
         fields: [
-			// type of id property has to be auto
-			{ name: 'rowid', type: 'auto' },
+			{ name: 'rowid', type: 'int' },
 			{ name: 'userid', type: 'string' },
 			{ name: 'timestamp', type: 'int' },
 			{ name: 'address', type: 'string' },

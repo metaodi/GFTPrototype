@@ -140,7 +140,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 						type: type,
 						status: status
 					});
-					
+
 					me.getProblemStore().add(problem);
 				}
 				
@@ -200,7 +200,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
         me.callParent(arguments);
 		
 		me.problemStore = Ext.getStore('Problems');
-		me.problemStore.addListener('addrecords', function(store, data, eOpts) { console.log('manually refreshing list from controller'); me.getProblemList().refresh(); });
+		me.problemStore.addListener('write', function(store, data, eOpts) { console.log('manually refreshing list from controller'); me.getProblemList().refresh(); });
 		me.problemMarker = null;
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;

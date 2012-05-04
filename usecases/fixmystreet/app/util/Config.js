@@ -15,7 +15,7 @@ Ext.define('FixMyStreet.util.Config', {
 		fusionTable: {
 			tableId: '1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ',
 			idField: 'rowid',
-			fields: 'userid, timestamp, latitude, longitude, address, type, status'
+			fields: ['userid', 'timestamp', 'latitude', 'longitude', 'address', 'type', 'status']
 		},
 		
 		userId: 0
