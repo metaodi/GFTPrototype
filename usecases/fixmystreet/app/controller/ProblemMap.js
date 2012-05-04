@@ -62,8 +62,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			if(me.getMapRendered()) {
 				me.recieveData();
 			}
+			
 			// wait for next polling call
-			setTimeout(function() { me.refreshData(); }, FixMyStreet.util.Config.getPollingFrequency());
+			Ext.defer(function() {
+				me.refreshData();
+			}, FixMyStreet.util.Config.getPollingFrequency(), this);
 		}
 	},
 	
@@ -72,7 +75,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
-			table: FixMyStreet.util.Config.getFusionTable().tableId,
+			table: FixMyStreet.util.Config.getFusionTable().readTableId,
 			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields,
 			// don't show done problems
 			condition: "status NOT EQUAL TO 'done'"
@@ -135,7 +138,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				me.getInfoWindow().setOptions({
 					content: this.content,
 					// set infowindow size depending on current map size
-					maxWidth: me.getProblemMap().element.dom.clientWidth - 50
+					maxWidth: me.getProblemMap().element.getSize().width - 50
 				});
 				me.getInfoWindow().open(map, this);
 			});

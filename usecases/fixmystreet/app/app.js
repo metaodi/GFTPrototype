@@ -99,7 +99,7 @@ Ext.application({
 		}, this);
 		
 		// get current geolocation
-		FixMyStreet.geo = new FixMyStreet.util.Geolocation();
+		FixMyStreet.geo = Ext.create('FixMyStreet.util.Geolocation');
 		FixMyStreet.gftLib = new GftLib();
 		FixMyStreet.geo.updateLocation(function() {
 			Ext.create('FixMyStreet.view.MainContainer');

@@ -79,19 +79,23 @@ $light-blue: #E3F1FA;
    FAVORITE POPUP
    ------------------------------------ */
 #problemAddedPopupPanel {
+	width: 200px;
+	height: 150px;
 	background-color: rgba(0, 0, 0, 0.7);
 	-webkit-border-radius: 0.5em;
 	border-radius: 0.5em;
 	-webkit-box-shadow: none;
-}
-#problemAddedPopupPanel .x-panel-inner {
-	color: #fff;
-	text-align: center;
-	margin-top: 0.8em;
-	padding-top: 2.7em;
-	background: url(../images/fav_white.png) no-repeat 50% 0 transparent;
-	overflow: hidden;
-	font-weight: bold;
+	
+	.x-panel-inner {
+		color: #fff;
+		text-align: center;
+		margin-top: 0.8em;
+		padding-top: 5.2em;
+		background: url(../images/tick_white.png) no-repeat 50% 0 transparent;
+		background-size: 80px 80px;
+		overflow: hidden;
+		font-weight: bold;
+	}
 }
 
 /* -------------------------------

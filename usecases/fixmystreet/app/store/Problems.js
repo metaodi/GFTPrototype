@@ -22,7 +22,8 @@ Ext.define('FixMyStreet.store.Problems', {
 		proxy: {
 			type: 'fusiontables',
 			settings: {
-				tableId: FixMyStreet.util.Config.getFusionTable().tableId,
+				readTableId: FixMyStreet.util.Config.getFusionTable().readTableId,
+				writeTableId: FixMyStreet.util.Config.getFusionTable().writeTableId,
 				idfield: FixMyStreet.util.Config.getFusionTable().idField,
 				fields: FixMyStreet.util.Config.getFusionTable().fields,
 				condition: 'userid = ' + FixMyStreet.util.Config.getUserId()
