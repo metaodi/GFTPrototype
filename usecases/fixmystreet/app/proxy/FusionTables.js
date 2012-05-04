@@ -4,7 +4,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
     alias: 'proxy.fusiontables',
 	
 	constructor: function(config) {
-        Ext.data.Proxy.superclass.constructor.call(this, config);
+        this.callParent(arguments);
         var me = this;
 		
 		me.gftLib = new GftLib();
@@ -47,7 +47,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		// recieve data from fusion table
 		me.getGftLib().execSelect(recieveData, {
-			table: me.config.settings.tableId,
+			table: me.config.settings.readTableId,
 			fields: fields,
 			condition: me.config.settings.condition
 		}, me);
@@ -88,14 +88,15 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 	applyDataToModel: function(data, operation, callback, scope) {
 		var me = this;
 
-		var parsedData = me.parseData(data);
-		var resultSet = new Ext.data.ResultSet({
-			records: parsedData,
-			total: parsedData.length,
-			loaded: true
-		});
+		var records = me.parseData(data);
+		operation.setResultSet(Ext.create('Ext.data.ResultSet', {
+            records: records,
+            total  : records.length,
+            loaded : true,
+			success: true
+        }));
 		
-		operation.setResultSet(resultSet);
+		operation.setRecords(records);
 		operation.setSuccessful();
 		operation.setCompleted();
 		
@@ -130,7 +131,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		// insert record to fusion table
 		me.getGftLib().execInsert(onInsertComplete, {
-			table: me.config.settings.tableId,
+			table: me.config.settings.writeTableId,
 			fields: fields,
 			values: values
 		}, me);
@@ -142,7 +143,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		
 		// delete record from fusion table
 		me.getGftLib().execDelete(Ext.emptyFn, {
-			table: me.config.settings.tableId,
+			table: me.config.settings.writeTableId,
 			condition: me.config.settings.idfield + " = '" + data[me.config.settings.idfield] + "'"
 		}, me);
 	}

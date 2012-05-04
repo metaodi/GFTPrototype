@@ -142,6 +142,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 					});
 					
 					me.getProblemStore().add(problem);
+					me.showProblemAddedPopupPanel();
 				}
 				
 				// resetting view data
@@ -149,7 +150,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			} catch(err) {
 				console.log(err);
 			}
-			//me.showProblemAddedPopupPanel();
 		}
 	},
 	
