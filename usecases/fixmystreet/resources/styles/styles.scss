@@ -76,8 +76,8 @@ $light-blue: #E3F1FA;
 }
 
 /* ------------------------------------
-   FAVORITE POPUP
-   ------------------------------------ */
+ * FAVORITE POPUP
+ * ------------------------------------ */
 #problemAddedPopupPanel {
 	width: 200px;
 	height: 150px;
@@ -104,6 +104,15 @@ $light-blue: #E3F1FA;
 #problemList {
 	.x-list-item {
 		background-color: #fff;
+		
+		&.x-item-pressed .x-list-item-label {
+			background: #D8E3EE none;
+			border-top: 1px solid #aaaaaa;
+			box-shadow: inset 0 0 10px #abccee;
+			-webkit-box-shadow: inset 0 0 10px #abccee;
+			-moz-box-shadow: inset 0 0 10px #abccee;
+			box-shadow: inset 0 0 10px #abccee;
+		}
 		
 		.problem-item {
 			.image {

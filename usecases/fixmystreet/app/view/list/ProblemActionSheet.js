@@ -4,6 +4,7 @@ Ext.define('FixMyStreet.view.list.ProblemActionSheet', {
 	
 	config: {
 		problem: null,
+		listItem: null,
 		cls: 'problemActionSheet'
 	},
 	

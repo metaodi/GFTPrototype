@@ -40,15 +40,17 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	onProblemListItemSwipe: function(dataViewComp, index, target, record, e, eOpts) {
 		var actionSheet = this.getActionSheet();
-		this.prepareActionSheet(record);
+		this.prepareActionSheet(record, target);
+		target.addCls('x-item-pressed');
 		
 		Ext.Viewport.add(actionSheet);
 		actionSheet.show();
 	},
 	
-	prepareActionSheet: function(problem) {
+	prepareActionSheet: function(problem, item) {
 		var actionSheet = this.getActionSheet();
 		actionSheet.setProblem(problem);
+		actionSheet.setListItem(item);
 		
 		var data = problem.getData();
 		
@@ -63,11 +65,18 @@ Ext.define("FixMyStreet.controller.List", {
 			this.getActionSheetDeleteButton().show();
 		}
 	},
+	cleanupActionSheet: function() {
+		var actionSheet = this.getActionSheet();
+		actionSheet.getListItem().removeCls('x-item-pressed');
+		
+		actionSheet.hide();
+	},
 	
 	onShowOnMapButtonTap: function(buttonComp, e, eOpts) {
 		var actionSheet = this.getActionSheet();
 		var problem = actionSheet.getProblem();
-		actionSheet.hide();
+		
+		this.cleanupActionSheet();
 		
 		this.showProblemOnMap(problem);
 	},
@@ -75,13 +84,12 @@ Ext.define("FixMyStreet.controller.List", {
 		var actionSheet = this.getActionSheet();
 		var problem = actionSheet.getProblem();
 		
-		actionSheet.hide();
+		this.cleanupActionSheet();
 		
 		this.getProblemStore().remove(problem);
 	},
 	onCancelButtonTap: function(buttonComp, e, eOpts) {
-		var actionSheet = this.getActionSheet();
-		actionSheet.hide();
+		this.cleanupActionSheet();
 	},
 	
 	showProblemOnMap: function(problem) {
