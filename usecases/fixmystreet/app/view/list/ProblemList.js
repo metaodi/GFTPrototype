@@ -36,7 +36,7 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 			}
 		),
 		listeners: {
-			refresh: function() { console.log('[list] refreshing'); }
+			refresh: function() { Ext.Logger.log('[list] refreshing'); }
 		}
 	}
 });

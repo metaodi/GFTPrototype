@@ -76,6 +76,15 @@ Ext.application({
 
 	// launch function is called as soon as app is ready
     launch: function() {
+		//Enable Logger
+		Ext.Logger.setEnabled(true);
+		
+		Ext.applyIf(Ext, {
+			Logger: {
+				log: Ext.emptyFn
+			}
+		});
+		
 		// load static data from stores
 		Ext.getStore('Status').load();
 		Ext.getStore('Types').load();

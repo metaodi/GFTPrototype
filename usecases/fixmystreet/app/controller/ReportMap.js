@@ -148,7 +148,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 				// resetting view data
 				me.resetView();
 			} catch(err) {
-				console.log(err);
+				Ext.Logger.error(err);
 			}
 		}
 	},
@@ -200,7 +200,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
         me.callParent(arguments);
 		
 		me.problemStore = Ext.getStore('Problems');
-		me.problemStore.addListener('write', function(store, data, eOpts) { console.log('manually refreshing list from controller'); me.getProblemList().refresh(); });
+		me.problemStore.addListener('write', function(store, data, eOpts) { Ext.Logger.log('manually refreshing list from controller'); me.getProblemList().refresh(); });
 		me.problemMarker = null;
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;
