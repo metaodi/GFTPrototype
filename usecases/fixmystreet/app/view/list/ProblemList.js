@@ -48,6 +48,10 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 			]
 		},
 		
+		plugins: [
+			'problempullrefresh'
+		],
+		
 		listeners: {
 			refresh: function() { Ext.Logger.log('[list] refreshing'); }
 		}

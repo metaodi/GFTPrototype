@@ -46,7 +46,8 @@ Ext.application({
 		'FixMyStreet.util.Geolocation',
 		'Ext.plugin.uxtouch.ListOptions',
 		'Ext.plugin.uxtouch.FixListOptions',
-		'FixMyStreet.proxy.FusionTables'
+		'FixMyStreet.proxy.FusionTables',
+		'FixMyStreet.plugin.PullRefresh'
 	],
 	
     models: [

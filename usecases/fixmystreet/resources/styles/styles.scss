@@ -146,6 +146,24 @@ $light-blue: #E3F1FA;
 		text-align: center;
 		margin: 1em 0;
 	}
+	
+	/* pull to refresh plugin */
+	.x-list-pullrefresh {
+		margin-top: 0.6em;
+		color: #6c6c6c;
+	}
+	.x-list-pullrefresh-arrow {
+		-webkit-transition-property: -webkit-transform;
+		-webkit-transition-duration: 250ms;
+		background: transparent url('../images/arrow_black.png') center center no-repeat;
+		background-size: auto;
+	}
+	.x-list-pullrefresh-loading .x-list-pullrefresh-arrow {
+		display: none;
+	}
+	.x-list-pullrefresh-loading .x-loading-spinner {
+		display: block;
+	}
 }
 
 #problemListSearchField .x-field-input .x-form-field {
