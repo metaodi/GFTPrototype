@@ -102,7 +102,7 @@ var loadMap = function() {
 	}
 
 	function createLayer(tableId, year) {
-		console.log("creating layer for table " + tableId);
+		Ext.Logger.log("creating layer for table " + tableId);
 		setStyleConditions(tableId, year);
 		var layer = new google.maps.FusionTablesLayer({
 			query: {

@@ -14,7 +14,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 	},
 	
     create: function(operation, callback, scope) {
-		console.log('[gftproxy] create');
+		Ext.Logger.log('[gftproxy] create');
         var me = this;
         
 		operation.setStarted();
@@ -23,7 +23,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		var callbackRecv = 0;
 		
 		var onInsertRecordFinished = function(success) {
-			console.log("[onInsertRecordFinished]");
 			callbackRecv++;
 			if (callbackRecv === callbackCount) {
 				operation.setSuccessful();
@@ -41,13 +40,12 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
     },
 	
 	read: function(operation, callback, scope) {
-		console.log('[gftproxy] read');
+		Ext.Logger.log('[gftproxy] read');
 		var me = this;
 		
 		var fields = operation.query || me.config.settings.idfield + ', ' + me.config.settings.fields.join(', ') || '*';
 		
 		var recieveData = function(data) {
-			console.log(data);
 			me.applyDataToModel(data, operation, callback, scope);
 		};
 		
@@ -60,7 +58,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
     },
 	
 	destroy: function(operation, callback, scope) {
-		console.log('[gftproxy] destroy');
+		Ext.Logger.log('[gftproxy] destroy');
 		
 		var me = this;
 		
@@ -68,7 +66,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		var callbackCount = records.length;
 		var callbackRecv = 0;
 		var onDestroyRecordFinished = function(success) {
-			console.log("[onDestroyRecordFinished]");
 			callbackRecv++;
 			if (callbackRecv === callbackCount) {
 				operation.setSuccessful();
@@ -93,8 +90,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		for(var problem in objs) {
 			var record = Ext.create(me.getModel(), objs[problem]);
 			record.commit();
-			console.log('[parseData] the new record');
-			console.log(record);
 			records.push(record);
 		}
 		
@@ -128,8 +123,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		var fields = [];
 		var values = [];
 		
-		console.log('[insertRecord]');
-		
 		// extract fields and values from data
 		for(var field in data) {
 			if(me.config.settings.fields.indexOf(field) > -1) {
@@ -139,8 +132,6 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		}
 		
 		var onInsertComplete = function(data) {
-			console.log('[onInsertComplete]');
-			console.log(data);
 			var success = false;
 			if(data.rows) {
 				success = true;
@@ -164,11 +155,7 @@ Ext.define('FixMyStreet.proxy.FusionTables', {
 		var me = this;
 		var data = record.getData();
 		
-		console.log('[deleteRecord]');
-		
 		var onDeleteComplete = function(data) {
-			console.log('[onDeleteComplete]');
-			console.log(data);
 			var success = true;
 			if (data.error) {
 				success = false;
