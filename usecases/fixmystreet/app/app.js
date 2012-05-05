@@ -77,7 +77,8 @@ Ext.application({
 	// launch function is called as soon as app is ready
     launch: function() {
 		//Enable Logger
-		Ext.Logger.setEnabled(true);
+		// @TODO: Ext.Logger isn't available in non-debug library! -> Remove it in build job... or whatever ;-)
+		//Ext.Logger.setEnabled(true);
 		
 		Ext.applyIf(Ext, {
 			Logger: {
