@@ -149,15 +149,27 @@ $light-blue: #E3F1FA;
 	
 	/* pull to refresh plugin */
 	.x-list-pullrefresh {
-		margin-top: 0.6em;
+		height: 4em;
+		margin-top: 1em;
 		color: #6c6c6c;
+		
+		.x-list-pullrefresh-wrap {
+			margin-top: 0.6em;
+			
+			.x-list-pullrefresh-message {
+				font-size: 1.2em;
+			}
+		}
+		
+		.x-list-pullrefresh-arrow {
+			-webkit-transition-property: -webkit-transform;
+			-webkit-transition-duration: 250ms;
+			background: transparent url('../images/arrow_black.png') center center no-repeat;
+			background-size: auto;
+		}
 	}
-	.x-list-pullrefresh-arrow {
-		-webkit-transition-property: -webkit-transform;
-		-webkit-transition-duration: 250ms;
-		background: transparent url('../images/arrow_black.png') center center no-repeat;
-		background-size: auto;
-	}
+		
+	// loading
 	.x-list-pullrefresh-loading .x-list-pullrefresh-arrow {
 		display: none;
 	}
