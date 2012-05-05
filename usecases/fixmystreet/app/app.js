@@ -44,8 +44,6 @@ Ext.application({
 	requires: [
 		'FixMyStreet.util.Config',
 		'FixMyStreet.util.Geolocation',
-		'Ext.plugin.uxtouch.ListOptions',
-		'Ext.plugin.uxtouch.FixListOptions',
 		'FixMyStreet.proxy.FusionTables',
 		'FixMyStreet.plugin.PullRefresh'
 	],
