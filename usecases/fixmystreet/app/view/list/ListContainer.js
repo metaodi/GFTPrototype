@@ -15,17 +15,6 @@ Ext.define('FixMyStreet.view.list.ListContainer', {
 				title: 'Meine Defekte'
 			},
 			{
-				xtype: 'toolbar',
-				items: [
-					{
-						xtype: 'searchfield',
-						id: 'problemListSearchField',
-						placeHolder: 'Defekt suchen...',
-						flex: 1
-					}
-				]
-			},
-			{
 				xtype: 'problemlist',
 				flex: 1
 			}

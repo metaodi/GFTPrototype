@@ -35,6 +35,19 @@ Ext.define('FixMyStreet.view.list.ProblemList', {
 				}
 			}
 		),
+		
+		items: {
+			xtype: 'toolbar',
+			items: [
+				{
+					xtype: 'searchfield',
+					id: 'problemListSearchField',
+					placeHolder: 'Defekt suchen...',
+					flex: 1
+				}
+			]
+		},
+		
 		listeners: {
 			refresh: function() { console.log('[list] refreshing'); }
 		}
