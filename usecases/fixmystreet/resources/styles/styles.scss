@@ -75,9 +75,7 @@ $light-blue: #E3F1FA;
 	}
 }
 
-/* ------------------------------------
- * FAVORITE POPUP
- * ------------------------------------ */
+// problem added popup
 #problemAddedPopupPanel {
 	width: 200px;
 	height: 150px;
@@ -147,29 +145,33 @@ $light-blue: #E3F1FA;
 		margin: 1em 0;
 	}
 	
-	/* pull to refresh plugin */
+	// pull to refresh plugin
 	.x-list-pullrefresh {
 		height: 4em;
 		margin-top: 1em;
 		color: #6c6c6c;
 		
 		.x-list-pullrefresh-wrap {
-			margin-top: 0.6em;
+			margin-left: 0.3em;
 			
 			.x-list-pullrefresh-message {
 				font-size: 1.2em;
 			}
 		}
 		
+		.x-loading-spinner {
+			font-size: 1.9em;
+		}
+		
 		.x-list-pullrefresh-arrow {
 			-webkit-transition-property: -webkit-transform;
 			-webkit-transition-duration: 250ms;
 			background: transparent url('../images/arrow_black.png') center center no-repeat;
-			background-size: auto;
+			background-size: 17px 47px;
 		}
 	}
 		
-	// loading
+	// pull to refresh plugin - loading
 	.x-list-pullrefresh-loading .x-list-pullrefresh-arrow {
 		display: none;
 	}
