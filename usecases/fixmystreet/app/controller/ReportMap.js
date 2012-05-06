@@ -51,6 +51,11 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			me.getReportCurrentLocationButton().setDisabled(true);
 		}
 		
+		// add click listener to map
+		google.maps.event.addListener(map, 'click', function(event) {
+			me.setProblemMarkerPosition(event.latLng);
+		});
+		
 		// geocode current position and update current address
 		me.geocodePosition(latlng);
 		
@@ -187,6 +192,11 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	},
 	onInfoPopupCloseButtonTap: function(button, e, eOpts) {
 		this.getInfoPopupPanel().hide();
+	},
+	
+	setProblemMarkerPosition: function(position) {
+		this.getProblemMarker().setPosition(position);
+		this.geocodePosition(position);
 	},
 	
 	// -------------------------------------------------------

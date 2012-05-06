@@ -21,6 +21,7 @@ Ext.define("FixMyStreet.controller.List", {
 		control: {
 			problemList: {
 				itemtap: 'onProblemListItemTap',
+				itemtaphold: 'onProblemListItemTapHold',
 				itemswipe: 'onProblemListItemSwipe'
 			},
 			problemActionSheet: {
@@ -36,9 +37,18 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	onProblemListItemTap: function(dataViewComp, index, target, record, e, eOpts) {
-		this.showProblemOnMap(record);
+		if(this.getActionSheet().isHidden()) {
+			this.showProblemOnMap(record);
+		}
+	},
+	onProblemListItemTapHold: function(dataViewComp, index, target, record, e, eOpts) {
+		this.openActionSheet(record, target);
 	},
 	onProblemListItemSwipe: function(dataViewComp, index, target, record, e, eOpts) {
+		this.openActionSheet(record, target);
+	},
+	
+	openActionSheet: function(record, target) {
 		var actionSheet = this.getActionSheet();
 		this.prepareActionSheet(record, target);
 		target.addCls('x-item-pressed');
