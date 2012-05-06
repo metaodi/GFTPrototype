@@ -1,6 +1,11 @@
 // enable Ext autoloader
 Ext.Loader.setConfig({
-    enabled: true
+    enabled: true,
+	paths: {
+		'Ext': 'http://localhost/gft/usecases/fixmystreet/app',
+		'FixMyStreet': 'http://localhost/gft/usecases/fixmystreet/app'
+	}
+	
 });
 
 // LOCALIZATION
