@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - Service Account</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
+	<script type="text/javascript">
+		function init() {
+			var gft = new GftLib();
+			
+			var consolePrinter = function(data) {
+				console.log(data);
+			}
+			
+			var printer = function(data) {
+				var objs = gft.convertToObject(data);
+				var gftResponseList = document.getElementById('gftresponse');
+				
+				for (var i = 0; i < objs.length; i++) {
+					var listElem = document.createElement('li');
+					listElem.innerHTML = 'Tablename ' + objs[i].name + ' / Table ID: ' + objs[i].tableid;
+					gftResponseList.appendChild(listElem);
+				}
+			}
+			
+			
+			gft.execQuery(printer, 'SHOW TABLES');
+			gft.createView(consolePrinter, {
+				viewName: 'example_view',
+				query: "select * from 1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ where status = 'new'"
+			});
+		}
+		
+		
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example -  Service Account</h1>
+	<h2>Fusion Tables Query - Response</h2>
+	<ul id="gftresponse"></ul>
+</body>
+</html>
