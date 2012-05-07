@@ -87,8 +87,8 @@ Ext.application({
 				setEnabled: Ext.emptyFn
 			}
 		});
-		//un-comment to disable Logger
-		//Ext.Logger.setEnabled(false);
+		//comment following line to enable Logger
+		Ext.Logger.setEnabled(false);
 		
 		// load static data from stores
 		Ext.getStore('Status').load();
