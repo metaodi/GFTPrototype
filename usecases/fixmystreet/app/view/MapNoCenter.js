@@ -18,7 +18,10 @@ Ext.define('FixMyStreet.view.MapNoCenter', {
 		}
 	},
 	
-	// don't center map on geo update
+	/**
+	 * OVERRIDEN SENCHA TOUCH FUNCTION
+	 * CHANGE: don't center map on geo update event
+	 */
 	onGeoUpdate: function(geo) {
 		var me = this;
 		if (geo) {
