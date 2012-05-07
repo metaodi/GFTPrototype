@@ -43,7 +43,9 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	onTabPanelActiveItemChange: function(tapPanelComp, value, oldValue, eOpts) {
 		if(value.getId() == 'mapContainer') {
 			this.setPollingEnabled(true);
-			this.refreshData();
+			//Ext.defer(function() {
+				this.refreshData();
+			//}, 1000, this);
 		} else {
 			this.setPollingEnabled(false);
 		}
@@ -57,6 +59,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			// if geolocation isn't available
 			me.getProblemCurrentLocationButton().setDisabled(true);
 		}
+		
+		// load problems for new map bound
+		/*google.maps.event.addListener(map, 'bounds_changed', function() {
+			console.log('bounds changed');
+			me.recieveData()
+		});*/
     },
 	
 	refreshData: function() {
@@ -76,12 +84,20 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	recieveData: function() {
 		var me = this;
 		
+		/*
+		// create spatial condition to recieve only markers in displayed map
+		var mapBounds = me.getProblemMap().getMap().getBounds();
+		var lowerLeftCorner = 'LATLNG(' + mapBounds.getSouthWest().lat() + ',' + mapBounds.getSouthWest().lng() + ')';
+		var upperRightCorner = 'LATLNG(' + mapBounds.getNorthEast().lat() + ',' + mapBounds.getNorthEast().lng() + ')';
+		var spatialQuery = "ST_INTERSECTS(latitude, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))";
+		*/
+		
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
 			table: FixMyStreet.util.Config.getFusionTable().readTableId,
 			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields,
 			// don't show done problems
-			condition: "status NOT EQUAL TO 'done'"
+			conditions: ["status NOT EQUAL TO 'done'"]
 		}, me);
 	},
 	
