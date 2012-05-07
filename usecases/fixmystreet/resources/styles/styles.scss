@@ -165,8 +165,9 @@ $light-blue: #E3F1FA;
 		}
 		
 		.x-list-pullrefresh-arrow {
-			-webkit-transition-property: -webkit-transform;
-			-webkit-transition-duration: 250ms;
+			// Transition doesn't work well on phones
+			//-webkit-transition-property: -webkit-transform;
+			//-webkit-transition-duration: 250ms;
 			background: transparent url('../images/arrow_black.png') center center no-repeat;
 			background-size: 17px 47px;
 		}
