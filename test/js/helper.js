@@ -32,6 +32,9 @@ if(!Array.prototype.indexOf) {
     };
 }
 
+Ext.Loader.setPath('Ext', 'http://localhost/gft/usecases/fixmystreet/app');
+Ext.Loader.setPath('FixMyStreet', 'http://localhost/gft/usecases/fixmystreet/app');
+
 var params = getUrlParams();
 if (params.debug != undefined) {
 	console.log('######################################');
