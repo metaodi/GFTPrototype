@@ -63,7 +63,16 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		
 		// add click listener to map
 		google.maps.event.addListener(map, 'click', function(event) {
-			me.setProblemMarkerPosition(event.latLng);
+			me.setDoubleClickTimeout(Ext.defer(function() {
+				me.setProblemMarkerPosition(event.latLng)
+			}, 500, me));
+		});
+		google.maps.event.addListener(map, 'dblclick', function(event) {
+			// if click event was already triggered, cancel click action
+			if(me.getDoubleClickTimeout()) {
+				clearTimeout(me.getDoubleClickTimeout());
+				me.setDoubleClickTimeout(null);
+			}
 		});
 		
 		// geocode current position and update current address
@@ -227,6 +236,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.timestamp = null;
 		me.infoPopupPanel = Ext.create('FixMyStreet.view.report.InfoPopupPanel');
 		me.problemAddedPopupPanel = Ext.create('FixMyStreet.view.report.ProblemAddedPopupPanel');
+		me.doubleClickTimeout = null;
     },
 	
 	getProblemStore: function() {
@@ -264,5 +274,11 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	},
 	getProblemAddedPopupPanel: function() {
 		return this.problemAddedPopupPanel;
+	},
+	getDoubleClickTimeout: function() {
+		return this.doubleClickTimeout;
+	},
+	setDoubleClickTimeout: function(doubleClickTimeout) {
+		this.doubleClickTimeout = doubleClickTimeout;
 	}
 });
