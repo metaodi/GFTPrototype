@@ -12,17 +12,15 @@ Ext.define('FixMyStreet.view.report.InfoPopupPanel', {
 		items: [
 			{
 				xtype: 'titlebar',
-				title: 'Hilfe'
-				// @TODO remove if not used
-				/*items: [
+				title: 'Hilfe',
+				items: [
 					{
-						iconCls: 'delete',
+						html: 'X',
 						iconMask: 'true',
-						ui: 'plain',
 						align: 'right',
 						id: 'infoPopupCloseButton'
 					}
-				]*/
+				]
 			},
 			{
 				xtype: 'panel',

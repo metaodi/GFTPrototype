@@ -12,8 +12,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			problemCurrentLocationButton: '#problemCurrentLocationButton',
 			filterPopupButton: '#filterPopupButton',
 			filterPopupPanel: '#filterPopupPanel',
-			typeFilterApplyButton: '#typeFilterApplyButton',
-			mainTabPanel: '#mainTabPanel'
+			filterPopupCloseButton: '#filterPopupCloseButton',
+			filterPopupApplyButton: '#filterPopupApplyButton'
 		},
 		control: {
 			problemMap: {
@@ -31,8 +31,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			filterPopupPanel: {
 				hide: 'onFilterPopupPanelHide'
 			},
-			typeFilterApplyButton: {
-				tap: 'onTypeFilterApplyButtonTap'
+			filterPopupCloseButton: {
+				tap: 'onFilterPopupCloseButtonTap'
+			},
+			filterPopupApplyButton: {
+				tap: 'onFilterPopupApplyButtonTap'
 			}
 		}
 	},
@@ -167,7 +170,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	onFilterPopupButtonTap: function(buttonComp, e, eOpts) {
 		this.getFilterPopupPanel().showBy(this.getFilterPopupButton());
 	},
-	onTypeFilterApplyButtonTap: function(buttonComp, e, eOpts) {
+	onFilterPopupCloseButtonTap: function(buttonComp, e, eOpts) {
+		this.getFilterPopupPanel().hide();
+	},
+	onFilterPopupApplyButtonTap: function(buttonComp, e, eOpts) {
 		this.getFilterPopupPanel().hide();
 	},
 	onFilterPopupPanelHide: function(panelComp, eOpts) {
@@ -203,7 +209,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		// prepare filter popup panel
 		this.filterPopupPanel = Ext.create('FixMyStreet.view.map.FilterPopupPanel');
 		var fieldset = Ext.create('Ext.form.FieldSet', {
-			title: 'Typ-Filter',
 			cls: 'typeFilterFieldSet'
 		});
 		this.typeStore.each(function(type) {
@@ -214,7 +219,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 					name: typeValue,
 					label: type.getData().text,
 					value: 1,
-					labelWidth: '57%',
+					labelWidth: '60%',
 					listeners: {
 						change: function(sliderField, slider, thumb, newValue, oldValue, eOpts) {
 							me.setTypeFilterToggleState(typeValue, newValue);
@@ -227,7 +232,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var applyButton = Ext.create('Ext.Button', {
 			text: 'Filter anwenden',
 			ui: 'confirm',
-			id: 'typeFilterApplyButton'
+			id: 'filterPopupApplyButton'
 		})
 		
 		this.filterPopupPanel.add([fieldset, applyButton]);

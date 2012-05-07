@@ -7,6 +7,21 @@ Ext.define('FixMyStreet.view.map.FilterPopupPanel', {
 		top: 0,
 		left: 0,
 		modal: true,
-		hideOnMaskTap: true
+		hideOnMaskTap: true,
+		
+		items: [
+			{
+				xtype: 'titlebar',
+				title: 'Typ Filter',
+				items: [
+					{
+						html: 'X',
+						iconMask: 'true',
+						align: 'right',
+						id: 'filterPopupCloseButton'
+					}
+				]
+			}
+		]
 	}
 });

@@ -61,6 +61,7 @@ $light-blue: #E3F1FA;
 
 #infoPopupPanel {
 	font-size: 0.9em;
+	max-width: 90%;
 	
 	.content {
 		padding: 0.5em;
@@ -237,17 +238,36 @@ $light-blue: #E3F1FA;
 }
 
 #filterPopupPanel {
+	max-width: 90%;
 	min-width: 250px;
 	
 	.x-panel-inner {
-		padding: 0.4em;
-	}
-	.typeFilterFieldSet {
-		margin-bottom: 0.4em;
+		padding-bottom: 0.4em;
 		
-		.x-form-fieldset-title {
-			color: $dark-grey;
-			margin: 0.2em 0 0.4em 0;
+		.x-toolbar {
+			font-size: 0.9em;
+		}
+		
+		.typeFilterFieldSet {
+			margin-bottom: 0;
+			padding: 0.4em;
+
+			.x-form-fieldset-title {
+				color: $dark-grey;
+				margin: 0.2em 0 0.4em 0;
+			}
+		}
+
+		.x-toggle-field .x-component-outer {
+			padding: 0.4em;
+
+			.x-toggle {
+				font-size: 0.9em;
+			}
+		}
+
+		#filterPopupApplyButton {
+			margin: 0 0.4em;
 		}
 	}
 }
