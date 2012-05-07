@@ -21,5 +21,6 @@ test("PaintMap", function() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 	layer.setMap(map);
-	equal(canvas.getElementsByTagName("div").length,  1, "There should be a map on the canvas.")
+	
+	equal(canvas.childNodes.length, 1 , "There should be a map on the canvas.");
 });
