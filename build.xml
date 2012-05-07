@@ -155,6 +155,6 @@
 		<replace token="-debug" value=""  file="usecases/worlddata/index.html" summary="true" />
 		<replace token="-debug" value=""  file="usecases/fixmystreet/index.html" summary="true" />
 		
-		<replace token="http://localhost/gft" value="http://gft.rdmr.ch"  file="usecases/fixmystreet/app/app.js" summary="true" />
+		<replace token="http://localhost/gft" value="http://gft.rdmr.ch"  file="test/js/helper.js" summary="true" />
 	</target>
 </project>
