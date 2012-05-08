@@ -22,7 +22,9 @@ Ext.define("FixMyStreet.controller.List", {
 			problemList: {
 				itemtap: 'onProblemListItemTap',
 				itemtaphold: 'onProblemListItemTapHold',
-				itemswipe: 'onProblemListItemSwipe'
+				itemswipe: 'onProblemListItemSwipe',
+				itemtouchmove: 'onProblemListItemTouchMove',
+				itemtouchend: 'onProblemListItemTouchEnd'
 			},
 			problemActionSheet: {
 				showonmaptap: 'onShowOnMapButtonTap',
@@ -42,7 +44,21 @@ Ext.define("FixMyStreet.controller.List", {
 		}
 	},
 	onProblemListItemTapHold: function(dataViewComp, index, target, record, e, eOpts) {
+		// disabled scrolling when action sheet opens
+		dataViewComp.getScrollable().getScroller().setDisabled(true);
 		this.openActionSheet(record, target);
+	},
+	onProblemListItemTouchMove: function(dataViewComp, index, target, record, e, eOpts) {
+		if(!this.getActionSheet().isHidden()) {
+			// do not remove pressed class when action sheet is shown
+			target.addCls('x-item-pressed');
+		}
+	},
+	onProblemListItemTouchEnd: function(dataViewComp, index, target, record, e, eOpts) {
+		if(!this.getActionSheet().isHidden()) {
+			// do not remove pressed class when action sheet is shown
+			target.addCls('x-item-pressed');
+		}
 	},
 	onProblemListItemSwipe: function(dataViewComp, index, target, record, e, eOpts) {
 		this.openActionSheet(record, target);
@@ -78,6 +94,9 @@ Ext.define("FixMyStreet.controller.List", {
 	cleanupActionSheet: function() {
 		var actionSheet = this.getActionSheet();
 		actionSheet.getListItem().removeCls('x-item-pressed');
+		
+		// enable scrolling when action sheet closes (disabled in taphold event)
+		this.getProblemList().getScrollable().getScroller().setDisabled(false);
 		
 		actionSheet.hide();
 	},
