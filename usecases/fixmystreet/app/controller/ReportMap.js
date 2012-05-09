@@ -7,6 +7,9 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			'report.InfoPopupPanel',
 			'report.ProblemAddedPopupPanel'
 		],
+		routes: {
+            'report': 'showView'
+        },
 		refs: {
 			reportMap: '#reportMap',
 			addressTextField: '#addressTextField',
@@ -17,7 +20,12 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			infoPopupButton: '#infoPopupButton',
 			infoPopupCloseButton: '#infoPopupCloseButton',
 			typePicker: 'picker',
-			typePickerSlot: 'pickerslot'
+			typePickerSlot: 'pickerslot',
+			mainTabPanel: {
+				selector: '#mainTabPanel',
+				xtype: 'tabpanel',
+				autoCreate: true
+			}
 		},
 		control: {
 			reportMap: {
@@ -47,6 +55,10 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 				}
 			}
 		}
+	},
+	
+	showView: function() {
+		this.getMainTabPanel().setActiveItem(0);
 	},
 	
 	onMapRender: function(mapComp, map, eOpts) {

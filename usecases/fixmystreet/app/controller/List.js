@@ -7,16 +7,23 @@ Ext.define("FixMyStreet.controller.List", {
 			'list.ProblemList',
 			'list.ProblemActionSheet'
 		],
+		routes: {
+            'list': 'showView'
+        },
 		refs: {
 			problemList: '#problemList',
 			problemActionSheet: 'problemactionsheet',
 			problemMap: '#problemMap',
-			mainTabPanel: '#mainTabPanel',
 			actionSheetShowOnMapButton: '#actionSheetShowOnMapButton',
 			actionSheetDeleteButton: '#actionSheetDeleteButton',
 			actionSheetCancelButton: '#actionSheetCancelButton',
 			actionSheetTitlePanel: '#actionSheetTitlePanel',
-			searchField: '#problemListSearchField'
+			searchField: '#problemListSearchField',
+			mainTabPanel: {
+				selector: '#mainTabPanel',
+				xtype: 'tabpanel',
+				autoCreate: true
+			}
 		},
 		control: {
 			problemList: {
@@ -34,6 +41,10 @@ Ext.define("FixMyStreet.controller.List", {
 				keyup: 'onSearchKeyUp'
 			}
 		}
+	},
+	
+	showView: function() {
+		this.getMainTabPanel().setActiveItem(1);
 	},
 	
 	onProblemListItemTap: function(dataViewComp, index, target, record, e, eOpts) {
