@@ -68,6 +68,7 @@ Ext.application({
     ],
 	
     controllers: [
+		'Main',
 		'List',
 		'ReportMap',
 		'ProblemMap'
@@ -97,13 +98,15 @@ Ext.application({
 				var userIdModel = Ext.create('FixMyStreet.model.UserId');
 				userIdStore.add(userIdModel);
 			}
-			var userId = userIdStore.first().getId();
-			FixMyStreet.util.Config.setUserId(userId);
+			if (FixMyStreet.util.Config.getUserId() === 0) {
+				var userId = userIdStore.first().getId();
+				FixMyStreet.util.Config.setUserId(userId);
+			}
 			
 			var problemStore = Ext.getStore('Problems');
 			// model is loaded before user id store
 			// -> update proxy condition with correct userid
-			problemStore.getProxy().config.settings.condition = "userid = '" + userId + "'";
+			problemStore.getProxy().config.settings.condition = "userid = '" + FixMyStreet.util.Config.getUserId() + "'";
 			problemStore.load();
 		}, this);
 		
