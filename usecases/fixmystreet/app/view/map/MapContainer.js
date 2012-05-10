@@ -16,14 +16,34 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 				
 				items: [
 					{
+						id: 'filterPopupButton',
 						iconCls: 'settings',
-						iconMask: 'true',
+						iconMask: true,
+						align: 'left'
+					},
+					{
+						xtype: 'segmentedbutton',
+						id: 'layerSegementedButton',
+						allowDepress: false,
 						align: 'left',
-						id: 'filterPopupButton'
+						
+						items: [
+							{
+								id: 'markerLayerButton',
+								iconCls: 'marker',
+								iconMask: true,
+								pressed: true
+							},
+							{
+								id: 'heatmapLayerButton',
+								iconCls: 'hot',
+								iconMask: true
+							}
+						]
 					},
 					{
 						iconCls: 'locate',
-						iconMask: 'true',
+						iconMask: true,
 						align: 'right',
 						id: 'problemCurrentLocationButton'
 					}

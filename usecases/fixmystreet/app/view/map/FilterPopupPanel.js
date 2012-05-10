@@ -12,7 +12,7 @@ Ext.define('FixMyStreet.view.map.FilterPopupPanel', {
 		items: [
 			{
 				xtype: 'titlebar',
-				title: 'Typ Filter',
+				title: 'Filter',
 				items: [
 					{
 						html: 'X',

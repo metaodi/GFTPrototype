@@ -5,7 +5,7 @@ Ext.define('FixMyStreet.view.report.ReportContainer', {
 	config: {
 		title: 'Melden',
 		id: 'reportContainer',
-		iconCls: 'compose',
+		iconCls: 'cloudbolt',
 		layout: 'vbox',
 		items: [
 			{
