@@ -4,6 +4,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	config: {
 		views: [
 			'map.MapContainer',
+			'map.LayerSegmentedButton',
 			'map.FilterPopupPanel'
 		],
 		refs: {
@@ -28,9 +29,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			mainTabPanel: {
 				activeitemchange: 'onTabPanelActiveItemChange'
 			},
-			layerSegementedButton: {
-				toggle: 'onLayerSegementedButtonToggle'
-			},
 			filterPopupButton: {
 				tap: 'onFilterPopupButtonTap'
 			},
@@ -43,15 +41,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			filterPopupApplyButton: {
 				tap: 'onFilterPopupApplyButtonTap'
 			}
-		}
-	},
-	
-	onLayerSegementedButtonToggle: function(segmentedButton, button, isPressed, eOpts) {
-		if(button === this.getMarkerLayerButton()) {
-			this.showMarkerLayer();
-		}
-		if(button === this.getHeatmapLayerButton()) {
-			this.showHeatmapLayer();
 		}
 	},
 	
@@ -358,13 +347,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				fieldset.add(toggle);
 			}
 		});
-		var applyButton = Ext.create('Ext.Button', {
-			text: 'Filter anwenden',
-			ui: 'confirm',
-			id: 'filterPopupApplyButton'
-		})
 		
-		this.filterPopupPanel.add([fieldset, applyButton]);
+		this.filterPopupPanel.add([fieldset]);
     },
 	
 	setTypeFilterToggleState: function(typeid, state) {

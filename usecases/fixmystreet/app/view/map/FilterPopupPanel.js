@@ -12,7 +12,7 @@ Ext.define('FixMyStreet.view.map.FilterPopupPanel', {
 		items: [
 			{
 				xtype: 'titlebar',
-				title: 'Filter',
+				title: 'Einstellungen',
 				items: [
 					{
 						html: 'X',
@@ -21,6 +21,9 @@ Ext.define('FixMyStreet.view.map.FilterPopupPanel', {
 						id: 'filterPopupCloseButton'
 					}
 				]
+			},
+			{
+				xtype: 'layersegmentedbutton'
 			}
 		]
 	}
