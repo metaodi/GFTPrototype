@@ -48,7 +48,7 @@ test("FixMyStreet.view", function() {
 	notStrictEqual(FixMyStreet.view.list.ProblemActionSheet, undefined, "FixMyStreet.view.list.ProblemActionSheet should be defined");
 	notStrictEqual(FixMyStreet.view.list.ProblemList, undefined, "FixMyStreet.view.list.ProblemList should be defined");
 	
-	notStrictEqual(FixMyStreet.view.map.FilterPopupPanel, undefined, "FixMyStreet.view.map.FilterPopupPanel should be defined");
+	notStrictEqual(FixMyStreet.view.map.SettingsPopupPanel, undefined, "FixMyStreet.view.map.SettingsPopupPanel should be defined");
 	notStrictEqual(FixMyStreet.view.map.MapContainer, undefined, "FixMyStreet.view.map.MapContainer should be defined");
 	
 	notStrictEqual(FixMyStreet.view.report.InfoPopupPanel, undefined, "FixMyStreet.view.report.InfoPopupPanel should be defined");
