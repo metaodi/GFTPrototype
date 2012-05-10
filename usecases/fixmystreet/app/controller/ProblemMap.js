@@ -44,11 +44,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	onTabPanelActiveItemChange: function(tapPanelComp, value, oldValue, eOpts) {
 		if(value.getId() == 'mapContainer') {
 			this.setPollingEnabled(true);
-			//Ext.defer(function() {
-				this.refreshData();
-			//}, 1000, this);
+			this.setBoundsChangedListenerEnabled(true);
 		} else {
 			this.setPollingEnabled(false);
+			this.setBoundsChangedListenerEnabled(false);
 		}
 	},
 	
@@ -62,43 +61,70 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 		
 		// load problems for new map bound
-		/*google.maps.event.addListener(map, 'bounds_changed', function() {
-			console.log('bounds changed');
-			me.recieveData()
-		});*/
+		google.maps.event.addListener(map, 'bounds_changed', function() {
+			me.onMapBoundsChanged();
+		});
     },
+	
+	onMapBoundsChanged: function() {
+		var me = this;
+		
+		// check if a bounds changed event timeout is set
+		if(me.getBoundsChangedTimeout()) {
+			// bounds change while timeout is still active -> clear timeout and set new one
+			clearTimeout(me.getBoundsChangedTimeout());
+			me.setBoundsChangedTimeout(null);
+			me.setBoundsChangedListenerEnabled(true);
+		}
+		
+		if(me.getBoundsChangedListenerEnabled()) {
+			// defer marker loading to prevent too much requests to fusion table
+			var boundsChangedTimeout = Ext.defer(function() {
+				me.refreshData();
+			}, 1500, me);
+			me.setBoundsChangedTimeout(boundsChangedTimeout);
+			me.setBoundsChangedListenerEnabled(false);
+		}
+	},
 	
 	refreshData: function() {
 		var me = this;
+		
+		if(me.getNextPollTimeout()) {
+			clearTimeout(me.getNextPollTimeout());
+			me.setNextPollTimeout(null);
+		}
+		
 		if(me.getPollingEnabled()) {
 			if(me.getMapRendered()) {
 				me.recieveData();
 			}
 			
 			// wait for next polling call
-			Ext.defer(function() {
+			var nextPollTimeout = Ext.defer(function() {
 				me.refreshData();
 			}, FixMyStreet.util.Config.getPollingFrequency(), this);
+			
+			me.setNextPollTimeout(nextPollTimeout);
 		}
+		me.setBoundsChangedListenerEnabled(true);
 	},
 	
 	recieveData: function() {
 		var me = this;
 		
-		/*
 		// create spatial condition to recieve only markers in displayed map
 		var mapBounds = me.getProblemMap().getMap().getBounds();
 		var lowerLeftCorner = 'LATLNG(' + mapBounds.getSouthWest().lat() + ',' + mapBounds.getSouthWest().lng() + ')';
 		var upperRightCorner = 'LATLNG(' + mapBounds.getNorthEast().lat() + ',' + mapBounds.getNorthEast().lng() + ')';
 		var spatialQuery = "ST_INTERSECTS(latitude, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))";
-		*/
 		
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
 			table: FixMyStreet.util.Config.getFusionTable().readTableId,
 			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields,
 			// don't show done problems
-			conditions: ["status NOT EQUAL TO 'done'"]
+			conditions: [spatialQuery, "status NOT EQUAL TO 'done'"]
 		}, me);
 	},
 	
@@ -221,6 +247,9 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.infoWindow = new google.maps.InfoWindow();
 		
 		me.pollingEnabled = false;
+		me.nextPollTimeout = null;
+		me.boundsChangedListenerEnabled = false;
+		me.boundsChangedTimeout = null;
 		me.typeFilterToggleStates = {};
 		
 		// prepare filter popup panel
@@ -290,6 +319,24 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	setPollingEnabled: function(pollingEnabled) {
 		this.pollingEnabled = pollingEnabled;
+	},
+	getBoundsChangedTimeout: function() {
+		return this.boundsChangedTimeout;
+	},
+	setBoundsChangedTimeout: function(boundsChangedTimeout) {
+		this.boundsChangedTimeout = boundsChangedTimeout;
+	},
+	getNextPollTimeout: function() {
+		return this.nextPollTimeout;
+	},
+	setNextPollTimeout: function(nextPollTimeout) {
+		this.nextPollTimeout = nextPollTimeout;
+	},
+	getBoundsChangedListenerEnabled: function() {
+		return this.boundsChangedListenerEnabled;
+	},
+	setBoundsChangedListenerEnabled: function(boundsChangedListenerEnabled) {
+		this.boundsChangedListenerEnabled = boundsChangedListenerEnabled;
 	},
 	getFilterPopupPanel: function() {
 		return this.filterPopupPanel;
