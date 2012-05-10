@@ -244,15 +244,13 @@ $light-blue: #E3F1FA;
 	min-width: 250px;
 	
 	.x-panel-inner {
-		padding-bottom: 0.4em;
-		
 		.x-toolbar {
 			font-size: 0.9em;
 		}
 		
 		.typeFilterFieldSet {
-			margin-bottom: 0;
-			padding: 0.4em;
+			margin: 0.4em 0.4em 0 0.4em;
+			padding-bottom: 0.4em;
 
 			.x-form-fieldset-title {
 				color: $dark-grey;
@@ -268,8 +266,12 @@ $light-blue: #E3F1FA;
 			}
 		}
 
-		#filterPopupApplyButton {
-			margin: 0 0.4em;
+		#layerSegementedButton {
+			margin: 0.4em;
+			
+			.x-button-label {
+				font-size: 0.8em;
+			}
 		}
 	}
 }

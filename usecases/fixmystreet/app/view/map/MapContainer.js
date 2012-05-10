@@ -22,26 +22,6 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 						align: 'left'
 					},
 					{
-						xtype: 'segmentedbutton',
-						id: 'layerSegementedButton',
-						allowDepress: false,
-						align: 'left',
-						
-						items: [
-							{
-								id: 'markerLayerButton',
-								iconCls: 'marker',
-								iconMask: true,
-								pressed: true
-							},
-							{
-								id: 'heatmapLayerButton',
-								iconCls: 'hot',
-								iconMask: true
-							}
-						]
-					},
-					{
 						iconCls: 'locate',
 						iconMask: true,
 						align: 'right',
