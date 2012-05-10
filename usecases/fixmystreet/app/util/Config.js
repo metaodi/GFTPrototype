@@ -22,7 +22,7 @@ Ext.define('FixMyStreet.util.Config', {
 		},
 		
 		userId: 0,
-		enableLog: true
+		logEnabled: true
 	},
 	
 	constructor: function(config) {

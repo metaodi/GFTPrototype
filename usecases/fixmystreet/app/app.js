@@ -83,7 +83,7 @@ Ext.application({
 				setEnabled: Ext.emptyFn
 			}
 		});
-		Ext.Logger.setEnabled(FixMyStreet.util.Config.getEnableLog());
+		Ext.Logger.setEnabled(FixMyStreet.util.Config.getLogEnabled());
 		
 		// load static data from stores
 		Ext.getStore('Status').load();
