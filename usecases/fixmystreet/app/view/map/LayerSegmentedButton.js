@@ -4,7 +4,6 @@ Ext.define('FixMyStreet.view.map.LayerSegmentedButton', {
 	
 	config: {
 		id: 'layerSegementedButton',
-		allowDepress: false,
 		
 		items: [
 			{
