@@ -52,10 +52,18 @@ Ext.define("FixMyStreet.controller.Main", {
 	},
 	
 	onProblemMapRender: function() {
-		if (this.getInitLat() !== null && this.getInitLng() !== null) {
-			this.getProblemMap().setMapCenter(new google.maps.LatLng(this.getInitLat(), this.getInitLng()));
-			this.setInitLat(null);
-			this.setInitLng(null);
+		this.centerMap(this.getInitLat(),this.getInitLng());
+	},
+	
+	centerMap: function(lat,lng) {
+		if (this.getProblemMap !== undefined && this.getProblemMap() !== undefined) {
+			if (lat && lng) {
+				this.getProblemMap().setMapCenter(new google.maps.LatLng(this.getInitLat(), this.getInitLng()));
+				this.getProblemMap().getMap().setZoom(FixMyStreet.util.Config.getMap().reportZoom);
+				
+				this.setInitLat(null);
+				this.setInitLng(null);
+			}
 		}
 	},
 	
@@ -73,16 +81,9 @@ Ext.define("FixMyStreet.controller.Main", {
 	
 	showMap: function(lat,lng) {
 		var viewName = 'map';
-		lat = lat || null;
-		lng = lng || null;
 		this.saveInitView(viewName, lat, lng);
-		this.switchView('map');
-		
-		if (this.getProblemMap !== undefined && this.getProblemMap() !== undefined && lat !== null && lng !== null) {
-			this.getProblemMap().setMapCenter(new google.maps.LatLng(lat,lng));
-			this.setInitLat(null);
-			this.setInitLng(null);
-		}
+		this.switchView(viewName);
+		this.centerMap(lat,lng);
 	},
 	
 	saveInitView: function(viewName, lat, lng) {
