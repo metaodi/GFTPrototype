@@ -1,9 +1,9 @@
-Ext.define('FixMyStreet.view.map.FilterPopupPanel', {
+Ext.define('FixMyStreet.view.map.SettingsPopupPanel', {
 	extend: 'Ext.Panel',
-	alias: 'widget.filterpopuppanel',
+	alias: 'widget.settingspopuppanel',
 	
 	config: {
-		id: 'filterPopupPanel',
+		id: 'settingsPopupPanel',
 		top: 0,
 		left: 0,
 		modal: true,
@@ -18,12 +18,13 @@ Ext.define('FixMyStreet.view.map.FilterPopupPanel', {
 						html: 'X',
 						iconMask: 'true',
 						align: 'right',
-						id: 'filterPopupCloseButton'
+						id: 'settingsPopupCloseButton'
 					}
 				]
 			},
 			{
-				xtype: 'layersegmentedbutton'
+				xtype: 'layersegmentedbutton',
+				allowDepress: false
 			}
 		]
 	}

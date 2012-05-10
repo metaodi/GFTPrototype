@@ -5,17 +5,16 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		views: [
 			'map.MapContainer',
 			'map.LayerSegmentedButton',
-			'map.FilterPopupPanel'
+			'map.SettingsPopupPanel'
 		],
 		refs: {
 			mapContainer: '#mapContainer',
 			problemMap: '#problemMap',
 			problemCurrentLocationButton: '#problemCurrentLocationButton',
 			mainTabPanel: '#mainTabPanel',
-			filterPopupButton: '#filterPopupButton',
-			filterPopupPanel: '#filterPopupPanel',
-			filterPopupCloseButton: '#filterPopupCloseButton',
-			filterPopupApplyButton: '#filterPopupApplyButton',
+			settingsPopupButton: '#settingsPopupButton',
+			settingsPopupPanel: '#settingsPopupPanel',
+			settingsPopupCloseButton: '#settingsPopupCloseButton',
 			layerSegementedButton: '#layerSegementedButton',
 			markerLayerButton: '#markerLayerButton',
 			heatmapLayerButton: '#heatmapLayerButton'
@@ -30,17 +29,14 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			mainTabPanel: {
 				activeitemchange: 'onTabPanelActiveItemChange'
 			},
-			filterPopupButton: {
-				tap: 'onFilterPopupButtonTap'
+			settingsPopupButton: {
+				tap: 'onSettingsPopupButtonTap'
 			},
-			filterPopupPanel: {
-				hide: 'onFilterPopupPanelHide'
+			settingsPopupPanel: {
+				hide: 'onSettingsPopupPanelHide'
 			},
-			filterPopupCloseButton: {
-				tap: 'onFilterPopupCloseButtonTap'
-			},
-			filterPopupApplyButton: {
-				tap: 'onFilterPopupApplyButtonTap'
+			settingsPopupCloseButton: {
+				tap: 'onSettingsPopupCloseButtonTap'
 			}
 		}
 	},
@@ -49,8 +45,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		if(value === this.getMapContainer()) {
 			this.setPollingEnabled(true);
 			this.setBoundsChangedListenerEnabled(true);
+			this.onMapBoundsChanged();
 		} else {
+			clearTimeout(this.getBoundsChangedTimeout());
 			this.setBoundsChangedTimeout(null);
+			clearTimeout(this.getNextPollTimeout());
 			this.setNextPollTimeout(null);
 			this.setPollingEnabled(false);
 			this.setBoundsChangedListenerEnabled(false);
@@ -94,6 +93,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	
 	refreshData: function() {
+		console.log(new Date());
+		console.log('refresh data');
 		var me = this;
 		
 		if(me.getNextPollTimeout()) {
@@ -248,16 +249,13 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		map.setMapCenter(latlng);
 	},
 	
-	onFilterPopupButtonTap: function(buttonComp, e, eOpts) {
-		this.getFilterPopupPanel().showBy(this.getFilterPopupButton());
+	onSettingsPopupButtonTap: function(buttonComp, e, eOpts) {
+		this.getSettingsPopupPanel().showBy(this.getSettingsPopupButton());
 	},
-	onFilterPopupCloseButtonTap: function(buttonComp, e, eOpts) {
-		this.getFilterPopupPanel().hide();
+	onSettingsPopupCloseButtonTap: function(buttonComp, e, eOpts) {
+		this.getSettingsPopupPanel().hide();
 	},
-	onFilterPopupApplyButtonTap: function(buttonComp, e, eOpts) {
-		this.getFilterPopupPanel().hide();
-	},
-	onFilterPopupPanelHide: function(panelComp, eOpts) {
+	onSettingsPopupPanelHide: function(panelComp, eOpts) {
 		if(this.markerLayerButtonIsPressed()) {
 			this.showMarkerLayer();
 		}
@@ -326,7 +324,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.typeFilterToggleStates = {};
 		
 		// prepare filter popup panel
-		this.filterPopupPanel = Ext.create('FixMyStreet.view.map.FilterPopupPanel');
+		this.settingsPopupPanel = Ext.create('FixMyStreet.view.map.SettingsPopupPanel');
 		var fieldset = Ext.create('Ext.form.FieldSet', {
 			cls: 'typeFilterFieldSet'
 		});
@@ -349,7 +347,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			}
 		});
 		
-		this.filterPopupPanel.add([fieldset]);
+		this.settingsPopupPanel.add([fieldset]);
     },
 	
 	setTypeFilterToggleState: function(typeid, state) {
@@ -412,7 +410,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	setBoundsChangedListenerEnabled: function(boundsChangedListenerEnabled) {
 		this.boundsChangedListenerEnabled = boundsChangedListenerEnabled;
 	},
-	getFilterPopupPanel: function() {
-		return this.filterPopupPanel;
+	getSettingsPopupPanel: function() {
+		return this.settingsPopupPanel;
 	}
 });

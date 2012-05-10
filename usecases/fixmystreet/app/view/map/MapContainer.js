@@ -16,7 +16,7 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 				
 				items: [
 					{
-						id: 'filterPopupButton',
+						id: 'settingsPopupButton',
 						iconCls: 'settings',
 						iconMask: true,
 						align: 'left'
