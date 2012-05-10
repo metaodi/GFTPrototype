@@ -19,7 +19,8 @@ Ext.define('FixMyStreet.util.Config', {
 			fields: ['userid', 'timestamp', 'latitude', 'longitude', 'address', 'type', 'status']
 		},
 		
-		userId: 0
+		userId: 0,
+		enableLog: true
 	},
 	
 	constructor: function(config) {
