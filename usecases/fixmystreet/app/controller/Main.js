@@ -40,10 +40,10 @@ Ext.define("FixMyStreet.controller.Main", {
 	
 	onMainTabPanelInitialize: function(container, eOpts) {
 		var viewName = this.getInitView();
-		Ext.Logger.log('mainTabPanel initalized (viewName: ' + viewName+ ', lat: ' + this.getInitLat() + ', lng: ' + this.getInitLng() + ')');
+		Ext.Logger.log('mainTabPanel initalized (viewName: ' + viewName + ', lat: ' + this.getInitLat() + ', lng: ' + this.getInitLng() + ')');
 		if (viewName !== null) {
-			this.initView = null;
-			if (this.initLat !== null) {
+			this.setInitView(null);
+			if (this.getInitLat()) {
 				this.redirectTo(viewName + '/' + this.getInitLat() + '/' + this.getInitLng());
 			} else {
 				this.redirectTo(viewName);
