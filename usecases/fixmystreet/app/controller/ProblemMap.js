@@ -6,9 +6,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			'map.MapContainer',
 			'map.FilterPopupPanel'
 		],
-		routes: {
-            'map': 'showView'
-        },
 		refs: {
 			mapContainer: '#mapContainer',
 			problemMap: '#problemMap',
@@ -16,11 +13,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			filterPopupButton: '#filterPopupButton',
 			filterPopupPanel: '#filterPopupPanel',
 			typeFilterApplyButton: '#typeFilterApplyButton',
-			mainTabPanel: {
-				selector: '#mainTabPanel',
-				xtype: 'tabpanel',
-				autoCreate: true
-			}
+			mainTabPanel: '#mainTabPanel'
 		},
 		control: {
 			problemMap: {
@@ -42,11 +35,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				tap: 'onTypeFilterApplyButtonTap'
 			}
 		}
-	},
-	
-	showView: function() {
-		Ext.Logger.log('Switch to Map view');
-		this.getMainTabPanel().setActiveItem(2);
 	},
 	
 	onTabPanelActiveItemChange: function(tapPanelComp, value, oldValue, eOpts) {

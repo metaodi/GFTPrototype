@@ -7,9 +7,6 @@ Ext.define("FixMyStreet.controller.List", {
 			'list.ProblemList',
 			'list.ProblemActionSheet'
 		],
-		routes: {
-            'list': 'showView'
-        },
 		refs: {
 			problemList: '#problemList',
 			problemActionSheet: 'problemactionsheet',
@@ -19,11 +16,7 @@ Ext.define("FixMyStreet.controller.List", {
 			actionSheetCancelButton: '#actionSheetCancelButton',
 			actionSheetTitlePanel: '#actionSheetTitlePanel',
 			searchField: '#problemListSearchField',
-			mainTabPanel: {
-				selector: '#mainTabPanel',
-				xtype: 'tabpanel',
-				autoCreate: true
-			}
+			mainTabPanel: '#mainTabPanel'
 		},
 		control: {
 			problemList: {
@@ -41,10 +34,6 @@ Ext.define("FixMyStreet.controller.List", {
 				keyup: 'onSearchKeyUp'
 			}
 		}
-	},
-	
-	showView: function() {
-		this.getMainTabPanel().setActiveItem(1);
 	},
 	
 	onProblemListItemTap: function(dataViewComp, index, target, record, e, eOpts) {
@@ -114,9 +103,7 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	showProblemOnMap: function(problem) {
-		// show problem on map
-		this.getProblemMap().setMapCenter(new google.maps.LatLng(problem.getData().latitude, problem.getData().longitude));
-		this.getMainTabPanel().setActiveItem(2);
+		this.redirectTo('map/'+problem.getData().latitude+'/'+problem.getData().longitude);
 	},
 	
 	/**
