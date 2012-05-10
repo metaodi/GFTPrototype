@@ -13,7 +13,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			filterPopupButton: '#filterPopupButton',
 			filterPopupPanel: '#filterPopupPanel',
 			filterPopupCloseButton: '#filterPopupCloseButton',
-			filterPopupApplyButton: '#filterPopupApplyButton'
+			filterPopupApplyButton: '#filterPopupApplyButton',
+			layerSegementedButton: '#layerSegementedButton',
+			markerLayerButton: '#markerLayerButton',
+			heatmapLayerButton: '#heatmapLayerButton'
 		},
 		control: {
 			problemMap: {
@@ -24,6 +27,9 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			},
 			mainTabPanel: {
 				activeitemchange: 'onTabPanelActiveItemChange'
+			},
+			layerSegementedButton: {
+				toggle: 'onLayerSegementedButtonToggle'
 			},
 			filterPopupButton: {
 				tap: 'onFilterPopupButtonTap'
@@ -40,11 +46,22 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 	},
 	
+	onLayerSegementedButtonToggle: function(segmentedButton, button, isPressed, eOpts) {
+		if(button === this.getMarkerLayerButton()) {
+			this.showMarkerLayer();
+		}
+		if(button === this.getHeatmapLayerButton()) {
+			this.showHeatmapLayer();
+		}
+	},
+	
 	onTabPanelActiveItemChange: function(tapPanelComp, value, oldValue, eOpts) {
-		if(value.getId() == 'mapContainer') {
+		if(value === this.getMapContainer()) {
 			this.setPollingEnabled(true);
 			this.setBoundsChangedListenerEnabled(true);
 		} else {
+			this.setBoundsChangedTimeout(null);
+			this.setNextPollTimeout(null);
 			this.setPollingEnabled(false);
 			this.setBoundsChangedListenerEnabled(false);
 		}
@@ -96,7 +113,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
 		if(me.getPollingEnabled()) {
 			if(me.getMapRendered()) {
-				me.recieveData();
+				me.updateMarkers();
+				me.updateFusionTablesLayer();
 			}
 			
 			// wait for next polling call
@@ -109,7 +127,38 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.setBoundsChangedListenerEnabled(true);
 	},
 	
-	recieveData: function() {
+	updateFusionTablesLayer: function() {
+		var typeFilterToggleStates = this.getTypeFilterToggleStates();
+		var condition = FixMyStreet.util.Config.getFusionTable().typeField + ' IN (';
+		var activeTypesArr = [];
+		
+		for(var type in typeFilterToggleStates) {
+			if(typeFilterToggleStates[type]) {
+				activeTypesArr.push("'" + type + "'");
+			}
+		}
+		
+		// add empty string to active types array to recieve correct condition string
+		if(activeTypesArr.length < 1) {
+			activeTypesArr.push("''");
+		}
+		
+		condition += activeTypesArr.join(", ");
+		condition += ')';
+		
+		this.getFusionTablesLayer().setOptions({
+			query: {
+				select: FixMyStreet.util.Config.getFusionTable().locationField,
+				from: FixMyStreet.util.Config.getFusionTable().readTableId,
+				where: condition
+			},
+			heatmap: {
+				enabled: true
+			}
+		});
+	},
+	
+	updateMarkers: function() {
 		var me = this;
 		
 		// create spatial condition to recieve only markers in displayed map
@@ -157,8 +206,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				optimized: false
 			});
 			
-			// show marker on map if type is activated
-			if(me.getTypeFilterToggleStateByTypeId(problem.type)) {
+			// show marker only when marker layer is activated and when problem type is activated
+			if(me.markerLayerButtonIsPressed() && me.getTypeFilterToggleStateByTypeId(problem.type)) {
 				marker.setMap(map);
 			}
 			
@@ -219,14 +268,47 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		this.getFilterPopupPanel().hide();
 	},
 	onFilterPopupPanelHide: function(panelComp, eOpts) {
+		if(this.markerLayerButtonIsPressed()) {
+			this.showMarkerLayer();
+		}
+		if(this.heatmapLayerButtonIsPressed()) {
+			this.showHeatmapLayer();
+		}
+	},
+	
+	showMarkerLayer: function() {
+		// hide heatmap layer
+		this.getFusionTablesLayer().setMap(null);
+		
+		// show markers
 		var problemMarkers = this.getProblemMarkers();
 		for(var markerId in problemMarkers) {
+			// show marker only problem type is activated
 			if(this.getTypeFilterToggleStateByTypeId(problemMarkers[markerId].type)) {
 				problemMarkers[markerId].setMap(this.getProblemMap().getMap());
 			} else {
 				problemMarkers[markerId].setMap(null);
 			}
 		}
+	},
+	
+	showHeatmapLayer: function() {
+		// hide markers
+		var problemMarkers = this.getProblemMarkers();
+		for(var markerId in problemMarkers) {
+			problemMarkers[markerId].setMap(null);
+		}
+		
+		// show heatmap layer
+		this.updateFusionTablesLayer();
+		this.getFusionTablesLayer().setMap(this.getProblemMap().getMap());
+	},
+	
+	markerLayerButtonIsPressed: function() {
+		return this.getLayerSegementedButton().getPressedButtons()[0] == this.getMarkerLayerButton();
+	},
+	heatmapLayerButtonIsPressed: function() {
+		return this.getLayerSegementedButton().getPressedButtons()[0] == this.getHeatmapLayerButton();
 	},
 	
 	// -------------------------------------------------------
@@ -244,6 +326,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.statusStore = Ext.getStore('Status');
 		me.problemMarkers = {};
 		me.infoWindow = new google.maps.InfoWindow();
+		// create fusion tables layer for heatmap
+		me.fusionTablesLayer = new google.maps.FusionTablesLayer();
 		
 		me.pollingEnabled = false;
 		me.nextPollTimeout = null;
@@ -312,6 +396,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	getInfoWindow: function() {
 		return this.infoWindow;
+	},
+	getFusionTablesLayer: function() {
+		return this.fusionTablesLayer;
+	},
+	setFusionTablesLayer: function(fusionTablesLayer) {
+		this.fusionTablesLayer = fusionTablesLayer;
 	},
 	getPollingEnabled: function() {
 		return this.pollingEnabled;

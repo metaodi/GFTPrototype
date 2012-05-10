@@ -6,7 +6,7 @@ Ext.define('FixMyStreet.view.list.ListContainer', {
 		title: 'Liste',
 		url: 'list',
 		id: 'listContainer',
-		iconCls: 'bookmarks',
+		iconCls: 'list',
 		layout: 'vbox',
 		items: [
 			{

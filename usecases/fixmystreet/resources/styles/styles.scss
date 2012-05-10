@@ -273,3 +273,23 @@ $light-blue: #E3F1FA;
 		}
 	}
 }
+
+/* -------------------------------
+ * ICON CLASSES
+ * ------------------------------- */
+.x-tab .x-button-icon.list,
+.x-button .x-button-icon.x-icon-mask.list {
+	-webkit-mask-image: url('../images/pictos/list.png');
+}
+.x-tab .x-button-icon.hot,
+.x-button .x-button-icon.x-icon-mask.hot {
+	-webkit-mask-image: url('../images/pictos/hot.png');
+}
+.x-tab .x-button-icon.marker,
+.x-button .x-button-icon.x-icon-mask.marker {
+	-webkit-mask-image: url('../images/pictos/locate4.png');
+}
+.x-tab .x-button-icon.cloudbolt,
+.x-button .x-button-icon.x-icon-mask.cloudbolt {
+	-webkit-mask-image: url('../images/pictos/cloud_bolt.png');
+}
