@@ -4,6 +4,7 @@ Ext.define('FixMyStreet.view.map.MapContainer', {
 	
 	config: {
 		title: 'Übersicht',
+		url: 'map',
 		id: 'mapContainer',
 		iconCls: 'maps',
 		layout: 'fit',

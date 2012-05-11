@@ -26,7 +26,9 @@ Ext.define("FixMyStreet.controller.Map", {
 		}
 		
 		// center map to current position
-		mapComp.setMapCenter(latlng);
+		if (this.getApplication().getController('Main').getCenterToOwnPosition()) {
+			mapComp.setMapCenter(latlng);
+		}
     },
 	
 	addOwnPositionMarker: function(latlng, map) {

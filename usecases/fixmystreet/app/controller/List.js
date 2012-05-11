@@ -11,12 +11,12 @@ Ext.define("FixMyStreet.controller.List", {
 			problemList: '#problemList',
 			problemActionSheet: 'problemactionsheet',
 			problemMap: '#problemMap',
-			mainTabPanel: '#mainTabPanel',
 			actionSheetShowOnMapButton: '#actionSheetShowOnMapButton',
 			actionSheetDeleteButton: '#actionSheetDeleteButton',
 			actionSheetCancelButton: '#actionSheetCancelButton',
 			actionSheetTitlePanel: '#actionSheetTitlePanel',
-			searchField: '#problemListSearchField'
+			searchField: '#problemListSearchField',
+			mainTabPanel: '#mainTabPanel'
 		},
 		control: {
 			problemList: {
@@ -122,9 +122,7 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	showProblemOnMap: function(problem) {
-		// show problem on map
-		this.getProblemMap().setMapCenter(new google.maps.LatLng(problem.getData().latitude, problem.getData().longitude));
-		this.getMainTabPanel().setActiveItem(2);
+		this.redirectTo('map/'+problem.getData().latitude+'/'+problem.getData().longitude);
 	},
 	
 	/**

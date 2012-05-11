@@ -4,6 +4,7 @@ Ext.define('FixMyStreet.view.list.ListContainer', {
 	
 	config: {
 		title: 'Liste',
+		url: 'list',
 		id: 'listContainer',
 		iconCls: 'list',
 		layout: 'vbox',

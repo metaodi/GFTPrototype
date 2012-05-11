@@ -17,7 +17,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			infoPopupButton: '#infoPopupButton',
 			infoPopupCloseButton: '#infoPopupCloseButton',
 			typePicker: 'picker',
-			typePickerSlot: 'pickerslot'
+			typePickerSlot: 'pickerslot',
+			mainTabPanel: '#mainTabPanel'
 		},
 		control: {
 			reportMap: {

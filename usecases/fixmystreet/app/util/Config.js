@@ -21,7 +21,8 @@ Ext.define('FixMyStreet.util.Config', {
 			typeField: 'type'
 		},
 		
-		userId: 0
+		userId: 0,
+		logEnabled: true
 	},
 	
 	constructor: function(config) {
