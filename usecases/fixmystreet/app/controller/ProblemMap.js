@@ -93,8 +93,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	
 	refreshData: function() {
-		console.log(new Date());
-		console.log('refresh data');
+		Ext.Logger.log(new Date());
+		Ext.Logger.log('refresh data');
 		var me = this;
 		
 		if(me.getNextPollTimeout()) {
