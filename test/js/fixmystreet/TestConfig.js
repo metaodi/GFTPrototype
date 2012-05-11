@@ -7,7 +7,7 @@ test("Config initialized", function() {
 
 test("Config values", function() {
 	var config = FixMyStreet.util.Config;
-	equals(config.getPollingFrequency(), 10000, 'pollingFrequency should be set to 10s');
+	equals(config.getPollingFrequency(), 30000, 'pollingFrequency should be set to 30s');
 	notEqual(config.getUserId(), 0, 'UserId is a generated UUID, it should never be null');
 	ok(config.getUserId() !== null, 'UserId is a generated UUID, it should never be null');
 	equals(config.getLogEnabled(), false, 'Logging should be disabled');
