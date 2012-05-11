@@ -156,7 +156,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var mapBounds = me.getProblemMap().getMap().getBounds();
 		var lowerLeftCorner = 'LATLNG(' + mapBounds.getSouthWest().lat() + ',' + mapBounds.getSouthWest().lng() + ')';
 		var upperRightCorner = 'LATLNG(' + mapBounds.getNorthEast().lat() + ',' + mapBounds.getNorthEast().lng() + ')';
-		var spatialQuery = "ST_INTERSECTS(latitude, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))";
+		var spatialQuery = "ST_INTERSECTS(" + FixMyStreet.util.Config.getFusionTable().locationField + ", RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))";
 		
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
@@ -188,8 +188,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
 		// if marker for current problem isn't painted yet
 		if(!me.getProblemMarkerById(problem.rowid)) {
+			var locationArray = problem.location.split(',', 2);
+			
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(problem.latitude, problem.longitude),
+				position: new google.maps.LatLng(locationArray[0], locationArray[1]),
 				animation: google.maps.Animation.DROP,
 				icon: me.getProblemMarkerImagesById(problem.type),
 				shadow: me.getMarkerShadow(),

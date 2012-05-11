@@ -10,7 +10,6 @@ test("Config values", function() {
 	equals(config.getPollingFrequency(), 30000, 'pollingFrequency should be set to 30s');
 	notEqual(config.getUserId(), 0, 'UserId is a generated UUID, it should never be null');
 	ok(config.getUserId() !== null, 'UserId is a generated UUID, it should never be null');
-	equals(config.getLogEnabled(), false, 'Logging should be disabled');
 });
 
 test("GFT config values", function() {
@@ -19,7 +18,7 @@ test("GFT config values", function() {
 	equals(gftConfig.writeTableId, '1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac');
 	equals(gftConfig.readTableId, '1no3_lJ0CCazZVN6rlAY8vrtf9ejoz_xo0e7a9cY');
 	
-	var allFields = ['userid', 'timestamp', 'latitude', 'longitude', 'address', 'type', 'status'];
+	var allFields = ['userid', 'timestamp', 'location', 'address', 'type', 'status'];
 	ok($.isArray(gftConfig.fields), 'Fields must be an array');
 	deepEqual(gftConfig.fields,allFields,'Fields should match');
 	

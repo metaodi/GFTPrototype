@@ -122,7 +122,8 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	showProblemOnMap: function(problem) {
-		this.redirectTo('map/'+problem.getData().latitude+'/'+problem.getData().longitude);
+		var locationArray = problem.getData().location.split(',', 2);
+		this.redirectTo('map/' + locationArray[0] + '/' + locationArray[1]);
 	},
 	
 	/**

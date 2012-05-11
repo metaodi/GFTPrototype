@@ -160,8 +160,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 						userid: FixMyStreet.util.Config.getUserId(),
 						timestamp: me.getTimestamp().getTimestamp(),
 						address: me.getCurrentAddress(),
-						latitude: me.getProblemMarker().getPosition().lat(),
-						longitude: me.getProblemMarker().getPosition().lng(),
+						location: me.getProblemMarker().getPosition().lat() + ',' + me.getProblemMarker().getPosition().lng(),
 						type: type,
 						status: status
 					});
