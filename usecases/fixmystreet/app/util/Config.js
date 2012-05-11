@@ -13,8 +13,8 @@ Ext.define('FixMyStreet.util.Config', {
 		pollingFrequency: 30000,
 		
 		fusionTable: {
-			writeTableId: '1D0UaUJoYStOuQxNhO1IZoN9X8JCBHvpza0nbuZo',
-			readTableId: '1D0UaUJoYStOuQxNhO1IZoN9X8JCBHvpza0nbuZo',
+			writeTableId: '1E-hyhqyj9CCBj53F3Pb8jExUqoAqhZWWHFrxnNU',
+			readTableId: '1F7rJMZ0wD3MS7TXu98fqYsHG1sULL8dszHI_qzQ',
 			fields: ['userid', 'timestamp', 'location', 'address', 'type', 'status'],
 			idField: 'rowid',
 			locationField: 'location',
