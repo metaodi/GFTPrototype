@@ -39,7 +39,7 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	onProblemListItemTap: function(dataViewComp, index, target, record, e, eOpts) {
-		if(this.getActionSheet().isHidden()) {
+		if(!this.getActionSheet().isPainted()) {
 			this.showProblemOnMap(record);
 		}
 	},
@@ -49,13 +49,13 @@ Ext.define("FixMyStreet.controller.List", {
 		this.openActionSheet(record, target);
 	},
 	onProblemListItemTouchMove: function(dataViewComp, index, target, record, e, eOpts) {
-		if(!this.getActionSheet().isHidden()) {
+		if(this.getActionSheet().isPainted()) {
 			// do not remove pressed class when action sheet is shown
 			target.addCls('x-item-pressed');
 		}
 	},
 	onProblemListItemTouchEnd: function(dataViewComp, index, target, record, e, eOpts) {
-		if(!this.getActionSheet().isHidden()) {
+		if(this.getActionSheet().isPainted()) {
 			// do not remove pressed class when action sheet is shown
 			target.addCls('x-item-pressed');
 		}
