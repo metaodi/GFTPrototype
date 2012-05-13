@@ -18,6 +18,7 @@ Ext.define('FixMyStreet.util.Config', {
 			fields: ['userid', 'timestamp', 'location', 'address', 'type', 'status'],
 			idField: 'rowid',
 			locationField: 'location',
+			latlngSeparator: ' ',
 			typeField: 'type'
 		},
 		

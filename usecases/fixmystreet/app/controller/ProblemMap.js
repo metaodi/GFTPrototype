@@ -188,7 +188,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
 		// if marker for current problem isn't painted yet
 		if(!me.getProblemMarkerById(problem.rowid)) {
-			var locationArray = problem.location.split(',', 2);
+			var locationArray = problem.location.split(FixMyStreet.util.Config.getFusionTable().latlngSeparator, 2);
 			
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng(locationArray[0], locationArray[1]),

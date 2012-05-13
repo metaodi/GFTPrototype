@@ -13,7 +13,7 @@ Ext.define('FixMyStreet.view.MainContainer', {
 				tabBar: {
 					docked: 'bottom',
 					layout: {
-						pack: 'left'
+						pack: 'start'
 					}
 				},
 				items: [
