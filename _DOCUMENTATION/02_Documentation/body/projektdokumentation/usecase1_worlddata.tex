@@ -25,7 +25,7 @@ Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Eart
 \section{Design}
 
 \subsection{ERD}
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-erd.png}
 	\caption{WorldData ERD}
@@ -33,7 +33,7 @@ Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Eart
 \end{figure}
 
 \subsection{Klassendiagramm}
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.7]{images/usecase1-worlddata/worlddata-classdiagram.png}
 	\caption{WorldData Klassendiagramm}
@@ -94,7 +94,7 @@ index.html & Hauptseite der Applikation \\
 \subsubsection{Landesgrenzen}
 Die Landesgrenzen liegen als KML-Datei vor. Diese beinhaltet alle Länder mit ihren Grenzen definiert als Polygone.
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-worldborders_kml.png}
 	\caption{WorldData Landesgrenzen als KML}
@@ -113,7 +113,7 @@ Die Landesgrenzen liegen als KML-Datei vor. Diese beinhaltet alle Länder mit ih
 
 Die Tabelle sollte nun folgendermassen aussehen:
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.65]{images/usecase1-worlddata/worlddata-worldborders_import_done.png}
 	\caption{WorldData Landesgrenzen erfolgreich als Fusion Table importiert}
@@ -132,7 +132,7 @@ Die Daten liegen als CSV-Datei vor. Diese beinhaltet folgende Spalten:
 \item ...
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-data_csv.png}
 	\caption{WorldData Daten als CSV}
@@ -143,7 +143,7 @@ Das Vorgehen für den Import der Daten ist dasselbe wie bei den Landesgrenzen.
 
 Die Tabelle sollte nun folgendermassen aussehen:
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.5]{images/usecase1-worlddata/worlddata-data_import_done.png}
 	\caption{WorldData Daten erfolgreich als Fusion Table importiert}
@@ -165,7 +165,7 @@ Sind beide Fusion Tables erstellt müssen diese zusammengefügt werden, um sie s
 
 Die zusammengeführte Tabelle sollte nun folgendermassen aussehen:
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.4]{images/usecase1-worlddata/worlddata-merge_done.png}
 	\caption{WorldData Merge der Landesgrenzen- und Daten-Tabelle}
@@ -175,7 +175,7 @@ Die zusammengeführte Tabelle sollte nun folgendermassen aussehen:
 \subsubsection{Merge-Tabelle für die Verwendung mit FusionTablesLayer vorbereiten}
 Um die Tabelle nun als FusionTablesLayer verwenden zu können, muss diese als \emph{öffentlich} markiert werden. Dazu klickt man bei der geöffneten Tabelle auf den \emph{Share}-Button in der linken oberen Ecke.
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer1.png}
 	\caption{WorldData Freigabe der Merge-Tabelle}
@@ -184,7 +184,7 @@ Um die Tabelle nun als FusionTablesLayer verwenden zu können, muss diese als \e
 
 Im Dialogfenster wählt man unter \emph{Visibility options} den Eintrag \emph{Public} aus.
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer2.png}
 	\caption{WorldData Freigabeeinstellungen der Merge-Tabelle}
@@ -193,14 +193,14 @@ Im Dialogfenster wählt man unter \emph{Visibility options} den Eintrag \emph{Pu
 
 Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Dazu wählt man im Menü  \emph{File > About} und kopiert sich die angezeigte \emph{Numeric ID} im geöffneten Dialog.
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer3.png}
 	\caption{WorldData ID der Merge-Tabelle finden}
 	\label{worlddata-prepare_fusiontableslayer3.png}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer4.png}
 	\caption{WorldData ID der Merge-Tabelle Dialog}
@@ -254,7 +254,7 @@ Parameter & Datentyp & Beschreibung \\
 \subsection{Starten der Applikation}
 Beim Starten der Applikation sollten nun alle Themen der angegebenen Fusion Table in das Auswahlfeld \emph{Ebene auswählen...} geladen werden.
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-application_start.png}
 	\caption{WorldData Auswahlliste der Themen}
