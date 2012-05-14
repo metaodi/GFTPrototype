@@ -168,6 +168,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	},
 	
 	syncProblemMarkers: function(data) {
+		console.log(data);
 		var dataObjs = FixMyStreet.gftLib.convertToObject(data);
 		
 		var currentRowIds = {};
@@ -204,8 +205,18 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 				marker.setMap(map);
 			}
 			
-			var typeText = me.getTypeStore().getById(problem.type).getData().text;
-			var statusValue = me.getStatusStore().getById(problem.status).getData().value;
+			// get type
+			var type = me.getTypeStore().getById(problem.type);
+			var typeText = problem.type;
+			if(type) {
+				typeText = type.get('text');
+			}
+			// get status
+			var status =  me.getStatusStore().getById(problem.status);
+			var statusValue = problem.status;
+			if(status) {
+				statusValue = status.get('value');
+			}
 			
 			marker.type = problem.type;
 			marker.content =
@@ -331,12 +342,12 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			cls: 'typeFilterFieldSet'
 		});
 		this.typeStore.each(function(type) {
-			var typeValue = type.getData().value;
+			var typeValue = type.get('value');
 			if(typeValue != 'undefined') {
 				me.setTypeFilterToggleState(typeValue, true);
 				var toggle = Ext.create('Ext.field.Toggle', {
 					name: typeValue,
-					label: type.getData().text,
+					label: type.get('text'),
 					value: 1,
 					labelWidth: '60%',
 					listeners: {

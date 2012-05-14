@@ -78,14 +78,17 @@ Ext.define("FixMyStreet.controller.List", {
 		actionSheet.setProblem(problem);
 		actionSheet.setListItem(item);
 		
-		var data = problem.getData();
-		
 		// set actionsheet title
-		var typeText = Ext.getStore('Types').getById(data.type).getData().text;
-		this.getActionSheetTitlePanel().setHtml(typeText + ': ' + data.address);
+		// get type
+		var type = Ext.getStore('Types').getById(problem.get('type'));
+		var typeText = problem.get('type');
+		if(type) {
+			typeText = type.get('text');
+		}
+		this.getActionSheetTitlePanel().setHtml(typeText + ': ' + problem.get('address'));
 		
 		// show or hied delete button
-		if(data.status != 'new') {
+		if(problem.get('status') != 'new') {
 			this.getActionSheetDeleteButton().hide();
 		} else {
 			this.getActionSheetDeleteButton().show();
@@ -122,7 +125,7 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	showProblemOnMap: function(problem) {
-		var locationArray = problem.getData().location.split(FixMyStreet.util.Config.getFusionTable().latlngSeparator, 2);
+		var locationArray = problem.get('location').split(FixMyStreet.util.Config.getFusionTable().latlngSeparator, 2);
 		this.redirectTo('map/' + locationArray[0] + '/' + locationArray[1]);
 	},
 	
@@ -164,8 +167,16 @@ Ext.define("FixMyStreet.controller.List", {
                 //loop through each of the regular expressions
                 for (i = 0; i < regexps.length; i++) {
                     var search = regexps[i];
+					
+					// get type
+					var type = me.getTypeStore().getById(record.get('type'));
+					var typeText = record.get('type');
+					if(type) {
+						typeText = type.get('text');
+					}
+					
 					// match address and type
-                    var didMatch = record.get('address').match(search) || me.getTypeStore().getById(record.get('type')).getData().text.match(search);
+                    var didMatch = record.get('address').match(search) || typeText.match(search);
 
                     //if it matched the first or last name, push it into the matches array
                     matched.push(didMatch);
