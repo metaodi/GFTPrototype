@@ -601,3 +601,218 @@ asyncTest("createView", 3, function() {
 	
 	gft.createView(testCb, {viewName:'test_view', query:"select Text from " + this.testGftInsertTable + " where Number = 33"});
 });
+
+asyncTest("SELECT after INSERT with ST_INTERSECTS (one column adress)", 4, function() {
+	var gft = this.gft;
+	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var rowId = null;
+	
+	
+	var locStr = 'Rathausstrasse 8, 8640 Rapperswil-Jona, Switzerland';
+	var lat = 47.22645443980465;
+	var lng = 8.81760273809823;
+	var lowerLeftCorner  = 'LATLNG(' + (lat - 0.1) + ',' + (lng - 0.1) + ')';
+	var upperRightCorner = 'LATLNG(' + (lat + 0.1) + ',' + (lng + 0.1) + ')';
+	
+	var testCb = function(data,status) {
+		if (data === null || data.error !== undefined) {
+			ok(false, "select failed with status: " + status);
+			console.log(status);
+			console.log(data);
+			start();
+			return;
+		}
+		notStrictEqual(data.rows,undefined,'There should be results');
+		if (data.rows !== undefined) {
+			equal(data.rows.length,1,'There should be exaxtly one record');
+			equal(data.rows[0][0],rowId,'The returned row should equal the previous inserted row.');
+		}
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execSelect(testCb, {table:tableId, conditions:["rowid = '" + rowId + "'", "ST_INTERSECTS(Location, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))"]});
+	}
+	
+	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (one column adress)', 90, locStr, getDateString()]});
+});
+
+asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and space)", 4, function() {
+	var gft = this.gft;
+	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var rowId = null;
+	
+	var lat = 47.22398443540521;
+	var lng = 8.813815458969202;
+	var locStr = lat + ' ' + lng;
+	var lowerLeftCorner  = 'LATLNG(' + (lat - 0.1) + ',' + (lng - 0.1) + ')';
+	var upperRightCorner = 'LATLNG(' + (lat + 0.1) + ',' + (lng + 0.1) + ')';
+	
+	var testCb = function(data,status) {
+		if (data === null || data.error !== undefined) {
+			ok(false, "select failed with status: " + status);
+			console.log(status);
+			console.log(data);
+			start();
+			return;
+		}
+		notStrictEqual(data.rows,undefined,'There should be results');
+		if (data.rows !== undefined) {
+			equal(data.rows.length,1,'There should be exaxtly one record');
+			equal(data.rows[0][0],rowId,'The returned row should equal the previous inserted row.');
+		}
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execSelect(testCb, {fields:['rowid','Text','Number','Location','Date'], table:tableId, conditions:["rowid = '" + rowId + "'", "ST_INTERSECTS(Location, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))"]});
+	}
+	
+	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (one column lat/lng and space)', 91, locStr, getDateString()]});
+});
+
+asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and comma)", 4, function() {
+	var gft = this.gft;
+	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var rowId = null;
+	
+	var lat = 47.22398443540521;
+	var lng = 8.813815458969202;
+	var locStr = lat + ',' + lng;
+	var lowerLeftCorner  = 'LATLNG(' + (lat - 0.1) + ',' + (lng - 0.1) + ')';
+	var upperRightCorner = 'LATLNG(' + (lat + 0.1) + ',' + (lng + 0.1) + ')';
+	
+	var testCb = function(data,status) {
+		if (data === null || data.error !== undefined) {
+			ok(false, "select failed with status: " + status);
+			console.log(status);
+			console.log(data);
+			start();
+			return;
+		}
+		notStrictEqual(data.rows,undefined,'There should be results');
+		if (data.rows !== undefined) {
+			equal(data.rows.length,1,'There should be exaxtly one record');
+			equal(data.rows[0][0],rowId,'The returned row should equal the previous inserted row.');
+		}
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execSelect(testCb, {fields:['rowid','Text','Number','Location','Date'], table:tableId, conditions:["rowid = '" + rowId + "'", "ST_INTERSECTS(Location, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))"]});
+	}
+	
+	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (one column lat/lng and comma)', 92, locStr, getDateString()]});
+});
+
+asyncTest("SELECT after INSERT with ST_INTERSECTS (one column KML)", 4, function() {
+	var gft = this.gft;
+	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var rowId = null;
+	
+	var lat = 47.22398443540521;
+	var lng = 8.813815458969202;
+	var locStr = "<Point><coordinates>"+lng+"," + lat + "</coordinates></Point>";
+	var lowerLeftCorner  = 'LATLNG(' + (lat - 0.1) + ',' + (lng - 0.1) + ')';
+	var upperRightCorner = 'LATLNG(' + (lat + 0.1) + ',' + (lng + 0.1) + ')';
+	
+	var testCb = function(data,status) {
+		if (data === null || data.error !== undefined) {
+			ok(false, "select failed with status: " + status);
+			console.log(status);
+			console.log(data);
+			start();
+			return;
+		}
+		notStrictEqual(data.rows,undefined,'There should be results');
+		if (data.rows !== undefined) {
+			equal(data.rows.length,1,'There should be exaxtly one record');
+			equal(data.rows[0][0],rowId,'The returned row should equal the previous inserted row.');
+		}
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execSelect(testCb, {fields:['rowid','Text','Number','Location','Date'], table:tableId, conditions:["rowid = '" + rowId + "'", "ST_INTERSECTS(Location, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))"]});
+	}
+	
+	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','Location','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (one column KML)', 93, locStr, getDateString()]});
+});
+
+asyncTest("SELECT after INSERT with ST_INTERSECTS (two column lat/lng)", 4, function() {
+	var gft = this.gft;
+	var tableId = '1Ur-OvnHt5i3b0lgldsqv4Y63clPI3JxHe4e27b4';
+	var rowId = null;
+	
+	var lat = 47.22398443540521;
+	var lng = 8.813815458969202;
+	var lowerLeftCorner  = 'LATLNG(' + (lat - 0.1) + ',' + (lng - 0.1) + ')';
+	var upperRightCorner = 'LATLNG(' + (lat + 0.1) + ',' + (lng + 0.1) + ')';
+	
+	var testCb = function(data,status) {
+		if (data === null || data.error !== undefined) {
+			ok(false, "select failed with status: " + status);
+			console.log(status);
+			console.log(data);
+			start();
+			return;
+		}
+		notStrictEqual(data.rows,undefined,'There should be results');
+		if (data.rows !== undefined) {
+			equal(data.rows.length,1,'There should be exaxtly one record');
+			equal(data.rows[0][0],rowId,'The returned row should equal the previous inserted row.');
+		}
+		start();
+	}
+	
+	var selectCb = function(data,status) {
+		if (data === null) {
+			ok(false, "insert failed with status: " + status);
+			start();
+			return;
+		}
+		var statusObj = JSON.parse(status);
+		equal(statusObj.gapiRequest.data.statusText, "OK", "Status 'OK' expected");
+		
+		rowId = data.rows[0][0];
+		gft.execSelect(testCb, {fields:['rowid','Text','Number','latitude','longitude','Date'], table:tableId, conditions:["rowid = '" + rowId + "'", "ST_INTERSECTS(latitude, RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))"]});
+	}
+	
+	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','latitude','longitude','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (two column lat/lng)', 94, lat, lng, getDateString()]});
+});
