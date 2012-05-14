@@ -8,7 +8,15 @@ Ext.define('FixMyStreet.store.Problems', {
 		grouper: {
 			groupFn: function(record) {
 				var statusStore = Ext.getStore('Status');
-				return statusStore.getById(record.getData().status).getData().value;
+				
+				// get status
+				var status =  statusStore.getById(record.get('status'));
+				var statusValue = record.get('status');
+				if(status) {
+					statusValue = status.get('value');
+				}
+				
+				return statusValue;
 			}
 		},
 		groupDir: 'DESC',
