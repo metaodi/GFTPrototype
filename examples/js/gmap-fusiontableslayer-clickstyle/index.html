@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - Goolge Maps - FusionTablesLayer Click Style</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript">
+		function init() {
+			var position = new google.maps.LatLng(30, 8);
+			
+			var map = new google.maps.Map(document.getElementById('map_canvas'), {
+				center: position,
+				zoom: 2,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var layer = new google.maps.FusionTablesLayer({
+				query: {
+					select: 'geometry',
+					from: '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0'
+				},
+				styles: [{
+					polygonOptions: {
+						fillColor: "#ffff00",
+						strokeColor: "#ffff00",
+						strokeWeight: 1,
+						fillOpacity: 0.3
+					}
+				}]
+			});
+			
+			layer.setMap(map);
+			
+			var onMapClick = function(countryname) {
+				layer.setOptions({
+					query: {
+						select: 'geometry',
+						from: '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0'
+					},
+					styles: [
+						{
+							polygonOptions: {
+								fillColor: "#ffff00",
+								strokeColor: "#ffff00",
+								strokeWeight: 1,
+								fillOpacity: 0.3
+							}
+						},
+						{
+							where: "name = '" + countryname + "'",
+							polygonOptions: {
+								fillColor: "#ff0000",
+								strokeColor: "#ff0000",
+								strokeWeight: 1,
+								fillOpacity: 0.5
+							}
+						}
+					]
+				});
+			};
+			
+			// info window
+			google.maps.event.addListener(layer, 'click', function(e) {
+				onMapClick(e.row['name'].value);
+				e.infoWindowHtml = e.row['name'].value;
+				document.getElementById('clickinfo').innerHTML = 'Clicked on: ' + e.row['name'].value;
+			});
+		}
+
+	</script>
+</head>
+<body onload="init()">
+	<h1>JS Example - Goolge Maps - FusionTablesLayer Click Style</h1>
+	<h2>Map</h2>
+	<div id="map_canvas" style="width:800px; height:500px"></div>
+	<h2>Click Info</h2>
+	<div id="clickinfo"><em>-- Click on something --</em></div>
+</body>
+</html>
