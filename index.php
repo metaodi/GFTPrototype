@@ -60,6 +60,16 @@ $examplesArr = Array(
 				'Coin'
 			)
 		),
+		'gmap-fusiontableslayer-clickstyle' => Array(
+			'title' => 'FusionTablesLayer Click Style',
+			'tags' => Array(
+				'gmap',
+				'fusiontableslayer'
+			),
+			'fusiontables' => Array(
+				'Landesgrenzen'
+			)
+		),
 		'gmap-dynamic-fusiontableslayer' => Array(
 			'title' => 'Dynamic FusionTablesLayer',
 			'tags' => Array(
@@ -136,7 +146,8 @@ $labelColorMapping = Array(
 $fusiontableToUrlMapping = Array(
 	'Schweizer Städte' => 'https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw',
 	'Chart Test Table' => 'https://www.google.com/fusiontables/DataSource?docid=1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg',
-	'Coin' => 'https://www.google.com/fusiontables/DataSource?docid=1UflpL9f3WGrNdSPK4UAUHVAFdycZWu0_qnEPfAA'
+	'Coin' => 'https://www.google.com/fusiontables/DataSource?docid=1UflpL9f3WGrNdSPK4UAUHVAFdycZWu0_qnEPfAA',
+	'Landesgrenzen' => 'https://www.google.com/fusiontables/DataSource?docid=1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0'
 );
 ?>
 
@@ -195,7 +206,7 @@ $fusiontableToUrlMapping = Array(
 		</ul>
 		<h3>Diverses</h3>
 		<ul id="examples">
-			<li class="odd"><a href="http://jenkins.rdmr.ch:8080/job/Import%20GIS%20files%20to%20GFT/">Geodaten Converter</a> (nur mit Login ausführbar)</li>
+			<li class="odd"><a href="http://jenkins.rdmr.ch:8080/job/Convert-GIS-files/">Geodaten Converter</a></li>
 		</ul>
 		
 		<h2>UseCases</h2>
@@ -220,7 +231,7 @@ $fusiontableToUrlMapping = Array(
 				<dd>Diese Applikation läuft auf allen gängigen Browsern. Eine vollständige Liste mit den unterstützten Browsern findet man hier: <a href="http://jquerymobile.com/gbs/" target="_blank">jQuery Mobile Supported Platforms</a></dd>
 			</dl>
 			<p class="app-start">
-				<a href="./usecases/worlddata" class="btn btn-primary">Applikation starten</a>
+				<a href="http://worlddata.rdmr.ch/" class="btn btn-primary">Applikation starten</a>
 			</p>
 		</div>
 		
@@ -243,8 +254,8 @@ $fusiontableToUrlMapping = Array(
 				<dd>Diese Applikation läuft auf allen WebKit-Browsern (Desktop: Chrome, Opera, Safari / Mobile: iOS, Android, Blackberry)</dd>
 			</dl>
 			<p class="app-start">
-				<a href="./usecases/fixmystreet" class="btn btn-primary">App starten</a>
-				<a href="./usecases/fixmystreet/index_iphone.html" class="btn btn-info">App starten (iPhone Preview Mode)</a>
+				<a href="http://fixmystreet.rdmr.ch/" class="btn btn-primary">App starten</a>
+				<a href="http://fixmystreet.rdmr.ch/index_iphone.html" class="btn btn-info">App starten (iPhone Preview Mode)</a>
 			</p>
 		</div>
 		
@@ -268,7 +279,8 @@ $fusiontableToUrlMapping = Array(
 				<dd><a href="http://redmine.rdmr.ch/redmine/projects/gftprototype" target="_blank">http://redmine.rdmr.ch/redmine/projects/gftprototype</a></dd>
 				<dt>Continuous Integration:</dt>
 				<dd><a href="http://jenkins.rdmr.ch:8080/job/GFTPrototype/" target="_blank">http://jenkins.rdmr.ch:8080/job/GFTPrototype/</a></dd>
-				
+				<dt>Dokumentation:</dt>
+				<dd><a href="http://jenkins.rdmr.ch:8080/job/GFTPrototype/ws/_DOCUMENTATION/02_Documentation/GFTPrototype.pdf" target="_blank">GFTPrototype.pdf</a> (Momentan nur mit Login aufrufbar)</dd>
 			</dl>
 		</div>
 	</div>
