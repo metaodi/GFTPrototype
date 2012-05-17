@@ -203,9 +203,6 @@ Ext.define("FixMyStreet.controller.List", {
     },
 	
     // Base Class functions.
-    launch: function () {
-        this.callParent(arguments);
-    },
     init: function () {
 		var me = this;
         me.callParent(arguments);

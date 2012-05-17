@@ -6,8 +6,7 @@ Ext.define('FixMyStreet.model.Status', {
         fields: [
 			// type of id property has to be auto
             { name: 'key', type: 'auto' },
-            { name: 'value', type: 'string' },
-            { name: 'sorting', type: 'int' }
+            { name: 'value', type: 'string' }
         ]
     }
 });

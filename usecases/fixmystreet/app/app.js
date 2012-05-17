@@ -63,7 +63,6 @@ Ext.application({
     ],
 	
     views: [
-		'MainContainer',
 		'MapNoCenter'
     ],
 	
