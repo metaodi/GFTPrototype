@@ -9,9 +9,12 @@
 \author{Jürg Hunziker\\jhunzike@hsr.ch
 		\and
 		Stefan Oderbolz\\soderbol@hsr.ch}
-
 \date{29. Mai 2012}
-\maketitle
+
+\input{head/titlepage.tex}
+
+% Seitennummerierung mit roemischen Zeichen
+\pagenumbering{roman}
 
 % Glossar
 \input{head/glossar.tex}
@@ -38,6 +41,10 @@
 % -----------------------------------------
 % BODY
 % -----------------------------------------
+
+% Seitennummerierung mit arabischen Zeichen
+\pagenumbering{arabic}
+
 % Einleitung
 \part{Einleitung}
 \input{body/einleitung.tex}
