@@ -231,7 +231,8 @@ $fusiontableToUrlMapping = Array(
 				<dd>Diese Applikation läuft auf allen gängigen Browsern. Eine vollständige Liste mit den unterstützten Browsern findet man hier: <a href="http://jquerymobile.com/gbs/" target="_blank">jQuery Mobile Supported Platforms</a></dd>
 			</dl>
 			<p class="app-start">
-				<a href="http://worlddata.rdmr.ch/" class="btn btn-primary">Applikation starten</a>
+				<a href="./usecases/worlddata/" class="btn btn-primary">Applikation starten</a>
+				<br />(Alternative Domäne: <a href="http://worlddata.rdmr.ch">worlddata.rdmr.ch</a>)
 			</p>
 		</div>
 		
@@ -254,8 +255,9 @@ $fusiontableToUrlMapping = Array(
 				<dd>Diese Applikation läuft auf allen WebKit-Browsern (Desktop: Chrome, Opera, Safari / Mobile: iOS, Android, Blackberry)</dd>
 			</dl>
 			<p class="app-start">
-				<a href="http://fixmystreet.rdmr.ch/" class="btn btn-primary">App starten</a>
-				<a href="http://fixmystreet.rdmr.ch/index_iphone.html" class="btn btn-info">App starten (iPhone Preview Mode)</a>
+				<a href="./usecases/fixmystreet/" class="btn btn-primary">App starten</a>
+				<a href="./usecases/fixmystreet/index_iphone.html" class="btn btn-info">App starten (iPhone Preview Mode)</a>
+				<br />(Alternative Domäne: <a href="http://fixmystreet.rdmr.ch">fixmystreet.rdmr.ch</a>)
 			</p>
 		</div>
 		
