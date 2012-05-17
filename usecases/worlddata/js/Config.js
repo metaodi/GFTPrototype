@@ -3,7 +3,7 @@
 // -------------------------------------
 // fusion table configuration
 $.fusiontable = {
-	id: 3444289,
+	id: '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0',
 	field: 'geometry',
 	typeField: 'Indicator Code',
 	types: {
