@@ -1,9 +1,9 @@
 \chapter{Use Case 2: FixMyStreet}
 
 \section{Einführung}
-FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England mit der Webseite \url{http://www.fixmystreet.com/}. Beide Beispiele bieten neben der Webseite auch eine native App für iOS und Android an.
+FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England mit der Webseite \url{http://www.fixmystreet.com/}. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
 
-Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem Bürger per Webseite oder App entdeckte Defekte in seiner Umgebung (defekte Strassenlampen, Schlaglöcher, usw.) direkt der Stadt oder Gemeinde zu melden. Diese kann dann diese Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
+Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem Bürger per Webseite oder App entdeckte Defekte in seiner Umgebung (defekte Strassenlampen, Schlaglöcher, usw.) direkt der dafür zuständigen Behörde zu melden. Diese kann dann die erhaltenen Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
 
 \subsection{Ziel}
 Das Ziel dieses UseCases war die Erstellung einer WebApp, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
@@ -11,14 +11,27 @@ Das Ziel dieses UseCases war die Erstellung einer WebApp, welche genau dieses Ko
 Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige GIS-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
 \section{Anforderungsspezifikation}
+\subsection{Storyboard}
+Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstellt.
+
+\begin{enumerate}
+\item Claudia entdeckt auf ihrem Heimweg eine defekte Strassenlampe \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-1.jpg}
+\item Sie öffnet die "Fix my street"-App auf ihrem Handy und meldet den Standort der defekten Strassenlampe \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-2.jpg}
+\item Am nächsten Tag überprüft der Werkshofleiter Franz die neuen gemeldeten Fälle im System und findet den Eintrag von Claudia \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-3.jpg}
+\item Er macht sich auf den Weg und repariert die defekte Strassenlampe welche Claudia gemeldet hat \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-4.jpg}
+\item Am Abend darauf stellt Claudia erfreut fest, dass die Strassenlampe bereits repariert wurde \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-5.jpg}
+\end{enumerate}
+
 \subsection{Use Cases}
-\begin{figure}[!h]
+
+\begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/fixmystreet-usecasediagram.png}
+	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/fixmystreet-usecasediagram.png}
 	\caption{FixMyStreet UseCase Diagramm}
 	\label{fixmystreet-usecasediagram}
 \end{figure}
 
+% Use Case 1a: Defekt melden
 \subsubsection{Use Case 1a: Defekt melden}
 \paragraph{Primary Actor}
 \begin{itemize}
@@ -59,6 +72,7 @@ Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte
 \paragraph{Frequency of Occurrence}
 Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kann.
 
+% Use Case 1b: Defekt löschen
 \subsubsection{Use Case 1b: Defekt löschen}
 \paragraph{Primary Actor}
 \begin{itemize}
@@ -90,7 +104,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kan
 \end{enumerate}
 
 \paragraph{Alternative Flows}
-2a. Falls der Status des Defektes bereits von einem Gemeindearbeiter geändert wurde, ist es für den Bürger nicht mehr möglich den Defekt zu löschen.
+2a. Falls der Status des Defektes bereits von einem Gemeindearbeiter geändert wurde (in beispielsweise \emph{In Bearbeitung} oder in \emph{Erledigt}, ist es für den Bürger nicht mehr möglich den Defekt zu löschen.
 
 \paragraph{Special Requirements}
 -
@@ -98,9 +112,68 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kan
 \paragraph{Frequency of Occurrence}
 Tritt sehr häuft auf, da es für jeden Bürger, welcher bereits einen Defekt gemeldet hat, möglich ist seine eigenen Defekte wieder zu löschen.
 
+% Use Case 2: Noch nicht behobene Defekte auf Karte anzeigen
+\subsubsection{Use Case 2: Noch nicht behobene Defekte auf Karte anzeigen}
+Der Bürger öffnet die Übersicht. Darin werden ihm alle noch nicht behobene Defekte grafisch auf der Karte angezeigt. Die Daten werden laufend aktualisiert, damit er immer einen aktuellen Stand der Defekte sieht.
+
+% Use Case 3: Heatmap aller Defekte anzeigen
+\subsubsection{Use Case 3: Heatmap aller Defekte anzeigen}
+Der Bürger öffnet wiederum die Übersicht. Darin hat er die Möglichkeit die Defekte als Heatmap darstellen zu lassen. Dabei werden ihm Gebiete in denen viele Defekte gemeldet wurden farblich stärker markiert als Gebiete in denen kaum Defekte gemeldet wurden. Diese Ansicht wird ebenfalls laufend aktualisiert. 
+
+% Use Case 4: Defekte bearbeiten
+\subsubsection{Use Case 4: Defekte bearbeiten}
+Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Darin findet er eine Liste mit allen gemeldeten Defekten. Diese kann er direkt bearbeiten.
+
+\emph{Hinweis: Dieser UseCase wird vom gegebenen Google Fusion Table GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
+
+% Use Case 5: Defekte auf Karte anzeigen
+\subsubsection{Use Case 5: Defekte auf Karte anzeigen}
+Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Er hat darin die Möglichkeit alle Defekte auf der Karte anzuzeigen.
+
+\emph{Hinweis: Dieser UseCase wird vom gegebenen Google Fusion Table GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
+
+
 \section{Analyse}
 
 \section{Design}
+
+\subsection{Paper-Prototype}
+\paragraph{Maske: Melden}
+Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
+
+\begin{figure}[!h]
+\subfigure[Defekt melden - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden.jpg}}
+\hfill
+\subfigure[Fehleranzeige beim Absenden ohne Defekttyp-Auswahl]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_fehler.jpg}}
+\end{figure}
+
+\begin{figure}[!h]
+\subfigure[Defekttyp-Auswahl aufgeklappt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektauswaehlen.jpg}}
+\hfill
+\subfigure[Defekttyp ausgewählt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektausgewaehlt.jpg}}
+\end{figure}
+
+\begin{figure}[!h]
+\subfigure[Defekt-Markierung auf Karte verschoben]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_ortgewaehlt.jpg}}
+\hfill
+\subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_meldungerfolgreich.jpg}}
+\end{figure}
+
+\paragraph{Maske: Verwalten}
+In dieser Maske kann man seine eigenen Defekt-Meldungen verwalten. Die gemeldeten Defekte werden gruppiert nach "Offene Defekte" und "Behobene Defekte". Zu jedem Defekt wird der aktuelle Status angezeigt. Mit einem Klick auf einen Defekt erreicht man dessen Detailanzeige.
+
+\begin{figure}[!h]
+\subfigure[Defekte verwalten - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten.jpg}}
+\hfill
+\subfigure[Detailansicht eines gemeldeten Defekts]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten_detail.jpg}}
+\end{figure}
+
+\paragraph{Maske: Anzeigen}
+Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit einem Klick auf eine Defekt-Markierung erhält man zusätzliche Information zu diesem Defekt.
+
+\begin{figure}[!h]
+\subfigure[Anzeigen - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-anzeigen.jpg}}
+\end{figure}
 
 \subsection{ERD}
 
@@ -141,25 +214,59 @@ gftlib-js & 1.0 \\
 
 \section{Implementation}
 \subsection{Quellcode-Struktur}
-\begin{tabular}{|l|l|}
+
+\rowcolors{1}{}{lightgrey}
+\begin{tabular}{|l|p{10cm}|}
 \hline 
-Datei & Beschreibung \\ 
+\textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
-resources/images/ & Bilder der Applikation \\ 
-\hline 
-resources/styles/ & CSS-Styles der Applikation \\ 
-\hline 
-app/app.js & Einstiegspunkt der Applikation \\ 
-\hline 
+app/app.js & Startet die Applikation \\ 
 app/controller/List.js & Kontroller der \emph{List}-View \\ 
-\hline 
+app/controller/Main.js & Hautp-Kontroller der Applikation (Steuert die einzelnen Ansichten) \\ 
 app/controller/Map.js & Basis-Kontroller der \emph{Report}-View und der \emph{Map}-View \\ 
-\hline
 app/controller/ProblemMap.js & Kontroller der \emph{Map}-View \\ 
-\hline
 app/controller/ReportMap.js & Kontroller der \emph{Report}-View \\ 
+app/model/*.js & Daten-Modelle der Applikation (Problem, Status, ...) \\ 
+app/plugin/PullRefresh.js & PullRefresh Plugin der Liste \\ 
+app/proxy/FusionTables.js & Proxy zur Anbindung der Google Fusion Tabelle an die Applikation \\ 
+app/store/*.js & Daten-Speicher der Applikation (Probleme, Typen, ...) \\ 
+app/utli/Config.js & Konfiguration der Applikation \\ 
+app/utli/Geolocation.js & Steuert Zugriff auf aktuelle Geolocation des Geräts \\ 
+app/view/*.js & Views der Applikation \\ 
+resources/images/ & Bilder der Applikation \\ 
+resources/styles/ & CSS-Styles der Applikation \\ 
+index.html & Einstiegspunkt der Applikation (Inkludiert app/app.js, welches die Applikation startet) \\ 
 \hline
 \end{tabular} 
+
+\subsection{Anbindung an Google Fusion Table}
+Sencha Touch verwendet für den Zugriff auf fremde Datenquellen das Konzept der Proxies. Ein Proxy verbindet einen internen Applikations-Store mit der eigentlichen Datenquelle.
+
+Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (LocalStorage) zu kommunizieren. Zudem existieren Proxies für AJAX-Serveranfragen oder JSONP-Anfragen.
+
+Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene Javascript Fusion Table Library \emph{gftlib-js} (\ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
+Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen Create, Read und Delete. Ein Aktualisieren von gemeldeten Problemen ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Die Operationen sind jeweils in den Methoden create(), read() und destory() des Proxies abgebildet.
+
+\subsection{Wiedererkennung des Benutzers}
+Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um die App zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
+
+Wir generieren dazu beim ersten Starten der App eine Version 1 UUID\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im LocalStorage des Browsers ab. Die gemeldeten Probleme beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
+
+Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer seinen Browsercache leert oder die App an einem anderen Gerät startet, erhält er eine neue UUID, welche den neu erfassten Problemen zugeordnet wird. So können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
+
+\subsection{Automatisches Aktualisieren der Übersichtsmaske}
+Eine weitere Anforderung war es eine möglichst aktuelle Ansicht aller gemeldeten Fälle zu bieten. Wir haben dazu in der Übersichtsmaske ein Polling implementiert. Dieses aktualisiert alle 30 Sekunden die Markierungen auf der Karte indem es eine Anfrage an die Fusion Table sendet. Gelöschte und erledigte Probleme werden entfernt und Neue hinzugefügt.
+
+Die Karte aktualisiert sich zudem jedes Mal, wenn die Übersichtsmaske aufgerufen wird.
+
+\subsection{Auf Übersichtsmaske nur Probleme für sichtbaren Bereich laden}
+Um nicht zu viele Markierungen gleichzeitig zu laden und so die Applikation zu verlangsamen, laden wir auf der Übersichtsmaske nur die Probleme, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben wird oder der Zoom geändert wird, werden die Probleme für den neuen Bereich nachgeladen.
+
+Dazu haben wir das Spatial-Query ST\_INTERSECTS des SQL APIs (\ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
+
+\subsection{Heatmap-Ansicht auf Übersichtsmaske}
+Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Probleme als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature verwendet. 
 
 \section{Test}
 

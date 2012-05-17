@@ -1,4 +1,4 @@
-\chapter{Use Case 1: WorldData Explorer}
+\chapter{Use Case 1: WorldData}
 
 \section{Einführung}
 Im ersten Use Case geht es hauptsächlich um die Anzeige grosser Datenmengen auf der Karte. Dazu importieren wir bestehende Datenbestände in die Google Fusion Tables und visualisieren diese mittels Google Maps API auf der Karte.
@@ -7,7 +7,7 @@ Im ersten Use Case geht es hauptsächlich um die Anzeige grosser Datenmengen auf
 Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt werden. Die Daten sind pro Jahr und Thema unterteilt. Über eine Zeitachse soll es möglich sein die Daten der verschiedenen Jahre zu selektieren. Eine solche Darstellung kann beispielsweise dabei helfen Zusammenhänge zwischen verschiedenen Themenbereichen zu finden.
 
 \subsection{Vorgehen}
-Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer auf der Karte dargestellt werden kann.
+Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer des Google Maps APIs auf der Karte dargestellt werden kann.
 
 \subsection{Datenquellen}
 Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank.org/}) verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als XML- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als CSV-Dateien gespeichert haben. Diese konnten wir als neue Google Fusion Tables importieren.
@@ -15,10 +15,6 @@ Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank
 Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite (\url{http://www.gelib.com/world-borders.htm}) bezogen. 
 
 \section{Anforderungsspezifikation}
-\paragraph{Systemanforderungen:}
-\begin{itemize}
-\item Unterstützte Plattformen: Entspricht der Liste der unterstützen Plattformen von von jQuery Mobile (\url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms})
-\end{itemize}
 
 \section{Analyse}
 
@@ -41,6 +37,11 @@ Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Eart
 \end{figure}
 
 \section{Implementation}
+Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wurde das Javascript Framework jQuery Mobile verwendet. Dieses bietet eine sehr grosse Plattform-Unterstützung, was im Webbereich sehr wichtig ist.
+
+\subsection{Systemanforderungen:}
+Da es sich um eine Webapplikation handelt, ist es möglich die Applikation auf beinahe allen Geräten, welche über einem Browser verfügen zu starten. Einschränkungen gibt es nur in den unterstützten Browsern. Eine Liste davon findet sich auf der Webseite des jQuery Mobile Frameworks:  \url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms}
+
 \subsection{Abhängigkeiten}
 \begin{tabular}{|l|l|}
 \hline 
@@ -56,7 +57,6 @@ Cubiq - Add to home screen & 2.0 \\
 \hline 
 \end{tabular} 
 
-\section{Implementation}
 \subsection{Quellcode-Struktur}
 \begin{tabular}{|l|l|}
 \hline 
@@ -78,7 +78,7 @@ lib/ & Von der Applikation verwendete Libraries \\
 \hline 
 styles/ & CSS-Styles der Applikation \\ 
 \hline
-index.html & Hauptseite der Applikation \\ 
+index.html & Startseite der Applikation \\ 
 \hline
 \end{tabular} 
 
@@ -91,13 +91,15 @@ index.html & Hauptseite der Applikation \\
 
 \section{Benutzerdokumentation}
 \subsection{Importieren der Daten in Google Fusion Tables}
+
 \subsubsection{Landesgrenzen}
+\label{Landesgrenzen}
 Die Landesgrenzen liegen als KML-Datei vor. Diese beinhaltet alle Länder mit ihren Grenzen definiert als Polygone.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-worldborders_kml.png}
-	\caption{WorldData Landesgrenzen als KML}
+	\caption{WorldData Landesgrenzen liegen als KML-Datei vor}
 	\label{worlddata-worldborders_kml}
 \end{figure}
 
@@ -135,13 +137,13 @@ Die Daten liegen als CSV-Datei vor. Diese beinhaltet folgende Spalten:
 \begin{figure}[!h]
 	\centering
 	\includegraphics{images/usecase1-worlddata/worlddata-data_csv.png}
-	\caption{WorldData Daten als CSV}
+	\caption{WorldData Daten liegen als CSV-Datei vor}
 	\label{worlddata-data_csv}
 \end{figure}
 
-Das Vorgehen für den Import der Daten ist dasselbe wie bei den Landesgrenzen.
+Das Vorgehen für den Import der Daten ist dasselbe wie bei den Landesgrenzen (\ref{Landesgrenzen}).
 
-Die Tabelle sollte nun folgendermassen aussehen:
+Nach dem Import der Daten sollte die Tabelle folgendermassen aussehen:
 
 \begin{figure}[!h]
 	\centering
@@ -186,12 +188,12 @@ Im Dialogfenster wählt man unter \emph{Visibility options} den Eintrag \emph{Pu
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer2.png}
+	\includegraphics[scale=0.5]{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer2.png}
 	\caption{WorldData Freigabeeinstellungen der Merge-Tabelle}
 	\label{worlddata-prepare_fusiontableslayer2.png}
 \end{figure}
 
-Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Dazu wählt man im Menü  \emph{File > About} und kopiert sich die angezeigte \emph{Numeric ID} im geöffneten Dialog.
+Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Dazu wählt man im Menü  \emph{File > About} und kopiert sich die angezeigte \emph{Encrypted ID} im geöffneten Dialog.
 
 \begin{figure}[!h]
 	\centering
@@ -256,7 +258,7 @@ Beim Starten der Applikation sollten nun alle Themen der angegebenen Fusion Tabl
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{images/usecase1-worlddata/worlddata-application_start.png}
+	\includegraphics[scale=0.7]{images/usecase1-worlddata/worlddata-application_start.png}
 	\caption{WorldData Auswahlliste der Themen}
 	\label{worlddata-application_start.png}
 \end{figure}
