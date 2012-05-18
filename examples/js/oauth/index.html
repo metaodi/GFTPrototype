@@ -40,7 +40,17 @@
 				}
 			}
 			
-			gft.execSql(printer, 'SHOW TABLES');
+			gft.execQuery(printer, 'SHOW TABLES');
+			
+			/*
+			var consolePrinter = function(data) {
+				console.log(data);
+			}
+			gft.createView(consolePrinter, {
+				viewName: 'ftFixMyStreet_v2_Read',
+				query: "select * from 1D0UaUJoYStOuQxNhO1IZoN9X8JCBHvpza0nbuZo"
+			});
+			*/
 		}
 		
 		
