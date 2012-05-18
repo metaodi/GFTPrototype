@@ -54,8 +54,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var me = this;
         me.callParent(arguments);
 		
-		var latlng = this.getCurrentLocationLatLng(mapComp);
-		
 		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
 			// if geolocation isn't available
 			map.setZoom(FixMyStreet.util.Config.getMap().defaultZoom);
@@ -76,11 +74,16 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			}
 		});
 		
+		var latlng = this.getCurrentLocationLatLng(mapComp);
+		
 		// geocode current position and update current address
 		me.geocodePosition(latlng);
 		
 		// add problem marker to map
 		me.addProblemMarker(latlng, map);
+		
+		// center map to current position
+		mapComp.setMapCenter(latlng);
     },
 	
 	addProblemMarker: function(latlng, map) {
@@ -221,9 +224,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 	// -------------------------------------------------------
     // Base Class functions
 	// -------------------------------------------------------
-    launch: function () {
-        this.callParent(arguments);
-    },
     init: function () {
 		var me = this;
         me.callParent(arguments);

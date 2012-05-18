@@ -13,9 +13,6 @@ Ext.define("FixMyStreet.controller.Main", {
 			mainTabPanel: {
 				activeitemchange: 'onMainTabPanelActiveItemChange',
 				initialize: 'onMainTabPanelInitialize'
-			},
-			problemMap: {
-				maprender: 'onProblemMapRender'
 			}
 		},
 		routes: {
@@ -24,6 +21,7 @@ Ext.define("FixMyStreet.controller.Main", {
 			'map': 'showMap',
 			'map/:lat/:lng': {
                 action: 'showMap',
+				// only allow floating numbers for latitude and longitude
                 conditions: {
                     ':lat': "[0-9]+\.+[0-9]+",
 					':lng': "[0-9]+\.+[0-9]+"
@@ -41,32 +39,20 @@ Ext.define("FixMyStreet.controller.Main", {
 	onMainTabPanelInitialize: function(container, eOpts) {
 		var viewName = this.getInitView();
 		Ext.Logger.log('mainTabPanel initalized (viewName: ' + viewName + ', lat: ' + this.getInitLat() + ', lng: ' + this.getInitLng() + ')');
-		if (viewName !== null) {
-			this.setInitView(null);
+		
+		// if initial view is set redirect to this view
+		if (viewName) {
+			Ext.Logger.log('redirect to ' + viewName);
 			if (this.getInitLat()) {
 				this.redirectTo(viewName + '/' + this.getInitLat() + '/' + this.getInitLng());
 			} else {
 				this.redirectTo(viewName);
 			}
+			this.setInitView(null);
 		}
 	},
 	
-	onProblemMapRender: function() {
-		this.centerMap(this.getInitLat(),this.getInitLng());
-	},
-	
-	centerMap: function(lat,lng) {
-		if (this.getProblemMap !== undefined && this.getProblemMap() !== undefined) {
-			if (lat && lng) {
-				this.getProblemMap().setMapCenter(new google.maps.LatLng(this.getInitLat(), this.getInitLng()));
-				this.getProblemMap().getMap().setZoom(FixMyStreet.util.Config.getMap().reportZoom);
-				
-				this.setInitLat(null);
-				this.setInitLng(null);
-			}
-		}
-	},
-	
+	// shows report view
 	showReport: function() {
 		var viewName = 'report';
 		this.saveInitView(viewName);
@@ -86,6 +72,24 @@ Ext.define("FixMyStreet.controller.Main", {
 		this.centerMap(lat,lng);
 	},
 	
+	centerMap: function(lat,lng) {
+		if(this.getProblemMap() && lat && lng) {
+			if(this.getFirstProblemMapCall()) {
+				// @TODO ugly timeout to center map correctly on first call (wait till map is correctly rendered)
+				Ext.defer(function() {
+					this.centerMap(lat,lng);
+				}, 500, this);
+			} else {
+				this.getProblemMap().setMapCenter(new google.maps.LatLng(this.getInitLat(), this.getInitLng()));
+				this.getProblemMap().getMap().setZoom(FixMyStreet.util.Config.getMap().reportZoom);
+
+				this.setInitLat(null);
+				this.setInitLng(null);
+			}
+		}
+		this.setFirstProblemMapCall(false);
+	},
+	
 	saveInitView: function(viewName, lat, lng) {
 		if (lat) {
 			this.setCenterToOwnPosition(false);
@@ -96,7 +100,7 @@ Ext.define("FixMyStreet.controller.Main", {
 	},
 	
 	switchView: function(viewName) {
-		if (this.getMainTabPanel() !== undefined) {
+		if (this.getMainTabPanel()) {
 			var viewNr = this.getViewNr(viewName);
 			this.setRedirect(false);
 			this.getMainTabPanel().setActiveItem(viewNr);
@@ -111,6 +115,7 @@ Ext.define("FixMyStreet.controller.Main", {
 		me.initLng = null;
 		me.redirect = true;
 		me.centerToOwnPosition = true;
+		me.firstProblemMapCall = true;
 	},
 	
 	getViewNr: function(viewName) {
@@ -151,5 +156,11 @@ Ext.define("FixMyStreet.controller.Main", {
 	},
 	setCenterToOwnPosition: function(centerToOwnPosition) {
 		this.centerToOwnPosition = centerToOwnPosition;
+	},
+	getFirstProblemMapCall: function() {
+		return this.firstProblemMapCall;
+	},
+	setFirstProblemMapCall: function(firstProblemMapCall) {
+		this.firstProblemMapCall = firstProblemMapCall;
 	}
 });

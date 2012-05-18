@@ -3,6 +3,8 @@ Ext.define('FixMyStreet.view.MapNoCenter', {
 	alias: 'widget.mapnocenter',
 	
 	config: {
+		rendered: false,
+		
 		mapOptions: {
 			// set default center to zurich
 			center: new google.maps.LatLng(FixMyStreet.util.Config.getMap().lat, FixMyStreet.util.Config.getMap().lng),

@@ -1,9 +1,9 @@
 Ext.define("FixMyStreet.controller.Map", {
 	extend: "Ext.app.Controller",
-	
+		
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
-		me.setMapRendered(true);
+		mapComp.setRendered(true);
 		
 		var geo = FixMyStreet.geo;
 		mapComp.setGeo(geo);
@@ -23,11 +23,6 @@ Ext.define("FixMyStreet.controller.Map", {
 			geo.addListener('locationupdate', function() {
 				me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
 			});
-		}
-		
-		// center map to current position
-		if (this.getApplication().getController('Main').getCenterToOwnPosition()) {
-			mapComp.setMapCenter(latlng);
 		}
     },
 	
@@ -82,8 +77,6 @@ Ext.define("FixMyStreet.controller.Map", {
 		var me = this;
         me.callParent(arguments);
 		
-		me.mapRendered = false;
-		
 		// prepare problem marker images
 		me.problemMarkerImages = [];
 		var currentType = 0;
@@ -121,12 +114,6 @@ Ext.define("FixMyStreet.controller.Map", {
 		);
     },
 	
-	getMapRendered: function() {
-		return this.mapRendered;
-	},
-	setMapRendered: function(mapRendered) {
-		this.mapRendered = mapRendered;
-	},
 	getOwnPositionMarker: function() {
 		return this.ownPositionMarker;
 	},

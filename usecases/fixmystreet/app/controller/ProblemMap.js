@@ -45,6 +45,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		if(value === this.getMapContainer()) {
 			this.setPollingEnabled(true);
 			this.setBoundsChangedListenerEnabled(true);
+			// trigger bounds changed event to refresh data
 			this.onMapBoundsChanged();
 		} else {
 			clearTimeout(this.getBoundsChangedTimeout());
@@ -63,6 +64,11 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
 			// if geolocation isn't available
 			me.getProblemCurrentLocationButton().setDisabled(true);
+		}
+		
+		// if map isn't rendered from a route with latitude/longitude center map to current location
+		if (this.getApplication().getController('Main').getCenterToOwnPosition()) {
+			mapComp.setMapCenter(me.getCurrentLocationLatLng(mapComp));
 		}
 		
 		// load problems for new map bound
@@ -103,7 +109,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 		
 		if(me.getPollingEnabled()) {
-			if(me.getMapRendered()) {
+			if(me.getProblemMap().getRendered()) {
 				me.updateMarkers();
 				me.updateFusionTablesLayer();
 			}
@@ -315,9 +321,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	// -------------------------------------------------------
     // Base Class functions
 	// -------------------------------------------------------
-    launch: function () {
-        this.callParent(arguments);
-    },
     init: function () {
 		var me = this;
 		
