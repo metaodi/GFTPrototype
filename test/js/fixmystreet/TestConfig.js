@@ -15,10 +15,10 @@ test("Config values", function() {
 test("GFT config values", function() {
 	var gftConfig = FixMyStreet.util.Config.getFusionTable();
 	equals(gftConfig.idField, 'rowid');
-	equals(gftConfig.writeTableId, '1E-hyhqyj9CCBj53F3Pb8jExUqoAqhZWWHFrxnNU');
-	equals(gftConfig.readTableId, '1F7rJMZ0wD3MS7TXu98fqYsHG1sULL8dszHI_qzQ');
+	equals(gftConfig.writeTableId, '1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac');
+	equals(gftConfig.readTableId, '1no3_lJ0CCazZVN6rlAY8vrtf9ejoz_xo0e7a9cY');
 	
-	var allFields = ['userid', 'timestamp', 'location', 'address', 'type', 'status'];
+	var allFields = ['userid', 'timestamp', 'latitude', 'longitude', 'address', 'type', 'status'];
 	ok($.isArray(gftConfig.fields), 'Fields must be an array');
 	deepEqual(gftConfig.fields,allFields,'Fields should match');
 	
