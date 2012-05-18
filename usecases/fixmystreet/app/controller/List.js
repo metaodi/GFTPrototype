@@ -125,8 +125,7 @@ Ext.define("FixMyStreet.controller.List", {
 	},
 	
 	showProblemOnMap: function(problem) {
-		var locationArray = problem.get('location').split(FixMyStreet.util.Config.getFusionTable().latlngSeparator, 2);
-		this.redirectTo('map/' + locationArray[0] + '/' + locationArray[1]);
+		this.redirectTo('map/' + problem.get('latitude') + '/' + problem.get('longitude'));
 	},
 	
 	/**

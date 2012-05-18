@@ -164,12 +164,19 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var upperRightCorner = 'LATLNG(' + mapBounds.getNorthEast().lat() + ',' + mapBounds.getNorthEast().lng() + ')';
 		var spatialQuery = "ST_INTERSECTS(" + FixMyStreet.util.Config.getFusionTable().locationField + ", RECTANGLE(" + lowerLeftCorner + ", " + upperRightCorner + "))";
 		
+		// BUGFIX for FusionTable Bug:
+		// Newly inserted records aren't geocoded and do not appear in a query with a spatial condition
+		var conditionLatLow = "latitude >= " + mapBounds.getSouthWest().lat();
+		var conditionLatHigh = "latitude <= " + mapBounds.getNorthEast().lat();
+		var conditionLngLow = "longitude >= " + mapBounds.getSouthWest().lng();
+		var conditionLngHigh =  "latitude <= " + mapBounds.getNorthEast().lng();
+		
 		// add problem markers to map
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
 			table: FixMyStreet.util.Config.getFusionTable().readTableId,
 			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields,
 			// don't show done problems
-			conditions: [spatialQuery, "status NOT EQUAL TO 'done'"]
+			conditions: [conditionLatLow, conditionLatHigh, conditionLngLow, conditionLngHigh, "status NOT EQUAL TO 'done'"]
 		}, me);
 	},
 	
@@ -195,10 +202,8 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		
 		// if marker for current problem isn't painted yet
 		if(!me.getProblemMarkerById(problem.rowid)) {
-			var locationArray = problem.location.split(FixMyStreet.util.Config.getFusionTable().latlngSeparator, 2);
-			
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(locationArray[0], locationArray[1]),
+				position: new google.maps.LatLng(problem.latitude, problem.longitude),
 				animation: google.maps.Animation.DROP,
 				icon: me.getProblemMarkerImagesById(problem.type),
 				shadow: me.getMarkerShadow(),
