@@ -26,7 +26,7 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/fixmystreet-usecasediagram.png}
+	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/uml/fixmystreet-usecasediagram.png}
 	\caption{FixMyStreet UseCase Diagramm}
 	\label{fixmystreet-usecasediagram}
 \end{figure}
@@ -179,6 +179,15 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 
 \subsection{Klassendiagramm}
 
+\subsection{Deploymentdiagramm}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/uml/fixmystreet-deployment_model.png}
+	\caption{FixMyStreet Deploymentdiagramm}
+	\label{fixmystreet-deployment_model}
+\end{figure}
+
 \section{Implementation}
 \subsection{Systemanforderungen:}
 Die WebApp basiert auf dem Sencha Touch 2 Framework. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
@@ -215,26 +224,40 @@ gftlib-js & 1.0 \\
 \section{Implementation}
 \subsection{Quellcode-Struktur}
 
-\rowcolors{1}{}{lightgrey}
 \begin{tabular}{|l|p{10cm}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
 app/app.js & Startet die Applikation \\ 
-app/controller/List.js & Kontroller der \emph{List}-View \\ 
-app/controller/Main.js & Hautp-Kontroller der Applikation (Steuert die einzelnen Ansichten) \\ 
-app/controller/Map.js & Basis-Kontroller der \emph{Report}-View und der \emph{Map}-View \\ 
-app/controller/ProblemMap.js & Kontroller der \emph{Map}-View \\ 
-app/controller/ReportMap.js & Kontroller der \emph{Report}-View \\ 
+\hline 
+app/controller/List.js & Controller der \emph{List}-View \\ 
+\hline 
+app/controller/Main.js & Haupt-Controller der Applikation (Steuert die einzelnen Ansichten) \\ 
+\hline 
+app/controller/Map.js & Basis-Controller der \emph{Report}-View und der \emph{Map}-View \\ 
+\hline 
+app/controller/ProblemMap.js & Controller der \emph{Map}-View \\ 
+\hline 
+app/controller/ReportMap.js & Controller der \emph{Report}-View \\ 
+\hline 
 app/model/*.js & Daten-Modelle der Applikation (Problem, Status, ...) \\ 
+\hline 
 app/plugin/PullRefresh.js & PullRefresh Plugin der Liste \\ 
+\hline 
 app/proxy/FusionTables.js & Proxy zur Anbindung der Google Fusion Tabelle an die Applikation \\ 
+\hline 
 app/store/*.js & Daten-Speicher der Applikation (Probleme, Typen, ...) \\ 
+\hline 
 app/utli/Config.js & Konfiguration der Applikation \\ 
+\hline 
 app/utli/Geolocation.js & Steuert Zugriff auf aktuelle Geolocation des Geräts \\ 
+\hline 
 app/view/*.js & Views der Applikation \\ 
+\hline 
 resources/images/ & Bilder der Applikation \\ 
+\hline 
 resources/styles/ & CSS-Styles der Applikation \\ 
+\hline 
 index.html & Einstiegspunkt der Applikation (Inkludiert app/app.js, welches die Applikation startet) \\ 
 \hline
 \end{tabular} 
