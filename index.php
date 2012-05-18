@@ -282,7 +282,7 @@ $fusiontableToUrlMapping = Array(
 				<dt>Continuous Integration:</dt>
 				<dd><a href="http://jenkins.rdmr.ch:8080/job/GFTPrototype/" target="_blank">http://jenkins.rdmr.ch:8080/job/GFTPrototype/</a></dd>
 				<dt>Dokumentation:</dt>
-				<dd><a href="http://jenkins.rdmr.ch:8080/job/GFTPrototype/ws/_DOCUMENTATION/02_Documentation/GFTPrototype.pdf" target="_blank">GFTPrototype.pdf</a> (Momentan nur mit Login aufrufbar)</dd>
+				<dd><a href="./_DOCUMENTATION/02_Documentation/GFTPrototype.pdf" target="_blank">GFTPrototype.pdf</a></dd>
 			</dl>
 		</div>
 	</div>
