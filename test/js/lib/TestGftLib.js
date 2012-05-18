@@ -634,8 +634,6 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column adress)", 4, funct
 	var testCb = function(data,status) {
 		if (data === null || data.error !== undefined) {
 			ok(false, "select failed with status: " + status);
-			console.log(status);
-			console.log(data);
 			start();
 			return;
 		}
@@ -677,8 +675,6 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and space)
 	var testCb = function(data,status) {
 		if (data === null || data.error !== undefined) {
 			ok(false, "select failed with status: " + status);
-			console.log(status);
-			console.log(data);
 			start();
 			return;
 		}
@@ -720,8 +716,6 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and comma)
 	var testCb = function(data,status) {
 		if (data === null || data.error !== undefined) {
 			ok(false, "select failed with status: " + status);
-			console.log(status);
-			console.log(data);
 			start();
 			return;
 		}
@@ -763,8 +757,6 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column KML)", 4, function
 	var testCb = function(data,status) {
 		if (data === null || data.error !== undefined) {
 			ok(false, "select failed with status: " + status);
-			console.log(status);
-			console.log(data);
 			start();
 			return;
 		}
@@ -805,8 +797,6 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (two column lat/lng)", 4, func
 	var testCb = function(data,status) {
 		if (data === null || data.error !== undefined) {
 			ok(false, "select failed with status: " + status);
-			console.log(status);
-			console.log(data);
 			start();
 			return;
 		}
