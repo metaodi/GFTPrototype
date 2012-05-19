@@ -41,13 +41,20 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 	},
 	
+	/**
+	 * Called when avtive item of tappanel changes
+	 * @private
+	 */
 	onTabPanelActiveItemChange: function(tapPanelComp, value, oldValue, eOpts) {
 		if(value === this.getMapContainer()) {
+			// if new activepanel is problem map enable polling and refresh data
+			this.getProblemMap().setDisplayed(true);
 			this.setPollingEnabled(true);
 			this.setBoundsChangedListenerEnabled(true);
 			// trigger bounds changed event to refresh data
 			this.onMapBoundsChanged();
 		} else {
+			// if new activepanel something else disable polling
 			clearTimeout(this.getBoundsChangedTimeout());
 			this.setBoundsChangedTimeout(null);
 			clearTimeout(this.getNextPollTimeout());
@@ -57,6 +64,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 	},
 	
+	/**
+	 * Called when problem map is rendered
+	 * @private
+	 */
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
         me.callParent(arguments);
@@ -66,7 +77,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			me.getProblemCurrentLocationButton().setDisabled(true);
 		}
 		
-		// if map isn't rendered from a route with latitude/longitude center map to current location
+		// if map isn't rendered from a route with latitude/longitude -> center map to current location
 		if (this.getApplication().getController('Main').getCenterToOwnPosition()) {
 			mapComp.setMapCenter(me.getCurrentLocationLatLng(mapComp));
 		}
@@ -77,6 +88,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		});
     },
 	
+	/**
+	 * Called when map bounds have changed
+	 * @private
+	 */
 	onMapBoundsChanged: function() {
 		var me = this;
 		
@@ -98,6 +113,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 	},
 	
+	/**
+	 * Refreshes problem data (markers, heatmap)
+	 * @private
+	 */
 	refreshData: function() {
 		Ext.Logger.log(new Date());
 		Ext.Logger.log('refresh data');
@@ -124,8 +143,14 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		me.setBoundsChangedListenerEnabled(true);
 	},
 	
+	/**
+	 * Updates fusiontableslayer
+	 * @private
+	 */
 	updateFusionTablesLayer: function() {
 		var typeFilterToggleStates = this.getTypeFilterToggleStates();
+		
+		// create condition for fusiontableslayer
 		var condition = FixMyStreet.util.Config.getFusionTable().typeField + ' IN (';
 		var activeTypesArr = [];
 		
@@ -143,6 +168,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		condition += activeTypesArr.join(", ");
 		condition += ')';
 		
+		// set new condition
 		this.getFusionTablesLayer().setOptions({
 			query: {
 				select: FixMyStreet.util.Config.getFusionTable().locationField,
@@ -155,6 +181,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		});
 	},
 	
+	/**
+	 * Updates markers
+	 * @private
+	 */
 	updateMarkers: function() {
 		var me = this;
 		
@@ -171,23 +201,26 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var conditionLngLow = "longitude >= " + mapBounds.getSouthWest().lng();
 		var conditionLngHigh =  "latitude <= " + mapBounds.getNorthEast().lng();
 		
-		// add problem markers to map
+		// requesting problems from fusiontable
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
 			table: FixMyStreet.util.Config.getFusionTable().readTableId,
 			fields: FixMyStreet.util.Config.getFusionTable().idField + ', ' + FixMyStreet.util.Config.getFusionTable().fields,
-			// don't show done problems
 			conditions: [conditionLatLow, conditionLatHigh, conditionLngLow, conditionLngHigh, "status NOT EQUAL TO 'done'"]
 		}, me);
 	},
 	
+	/**
+	 * Synchronizes problem markers with recieved data from fusiontable
+	 * @private
+	 */
 	syncProblemMarkers: function(data) {
 		console.log(data);
 		var dataObjs = FixMyStreet.gftLib.convertToObject(data);
 		
 		var currentRowIds = {};
-		for(var problem in dataObjs) {
-			currentRowIds[dataObjs[problem].rowid] = true;
-			this.addProblemMarker(this.getProblemMap().getMap(), dataObjs[problem]);
+		for(var problemRow in dataObjs) {
+			currentRowIds[dataObjs[problemRow].rowid] = true;
+			this.addProblemMarker(this.getProblemMap().getMap(), dataObjs[problemRow]);
 		}
 		
 		for(var markerId in this.getProblemMarkers()) {
@@ -197,47 +230,55 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 	},
 	
-	addProblemMarker: function(map, problem) {
+	/**
+	 * Creates a new problem marker from a given fusiontable row
+	 * 
+	 * @param	map				map on which the marker should be added
+	 * @param	problemRow		row from fusiontable
+	 * 
+	 * @private
+	 */
+	addProblemMarker: function(map, problemRow) {
 		var me = this;
 		
 		// if marker for current problem isn't painted yet
-		if(!me.getProblemMarkerById(problem.rowid)) {
+		if(!me.getProblemMarkerById(problemRow.rowid)) {
 			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(problem.latitude, problem.longitude),
+				position: new google.maps.LatLng(problemRow.latitude, problemRow.longitude),
 				animation: google.maps.Animation.DROP,
-				icon: me.getProblemMarkerImagesById(problem.type),
+				icon: me.getProblemMarkerImagesById(problemRow.type),
 				shadow: me.getMarkerShadow(),
 				// do not optimize marker image to recieve retina display support
 				optimized: false
 			});
 			
 			// show marker only when marker layer is activated and when problem type is activated
-			if(me.markerLayerButtonIsPressed() && me.getTypeFilterToggleStateByTypeId(problem.type)) {
+			if(me.isMarkerLayerButtonPressed() && me.getTypeFilterToggleStateByTypeId(problemRow.type)) {
 				marker.setMap(map);
 			}
 			
 			// get type
-			var type = me.getTypeStore().getById(problem.type);
-			var typeText = problem.type;
+			var type = me.getTypeStore().getById(problemRow.type);
+			var typeText = problemRow.type;
 			if(type) {
 				typeText = type.get('text');
 			}
 			// get status
-			var status =  me.getStatusStore().getById(problem.status);
-			var statusValue = problem.status;
+			var status =  me.getStatusStore().getById(problemRow.status);
+			var statusValue = problemRow.status;
 			if(status) {
 				statusValue = status.get('value');
 			}
 			
-			marker.type = problem.type;
+			marker.type = problemRow.type;
 			marker.content =
 				'<div class="infowindow-content">' +
 					'<div class="trail-info">' +
-						'<p class="date">' + new Timestamp(parseInt(problem.timestamp)).getDate() + '</p>' +
-						'<div class="image"><img src="./resources/images/problem-types/' + problem.type + '.png" /></div>' +
+						'<p class="date">' + new Timestamp(parseInt(problemRow.timestamp)).getDate() + '</p>' +
+						'<div class="image"><img src="./resources/images/problem-types/' + problemRow.type + '.png" /></div>' +
 						'<div class="info">' +
-							'<h1>' + typeText + '<span class="status ' + problem.status + '">' + statusValue + '</span></h1>' +
-							'<p class="address">' + problem.address + '</p>' +
+							'<h1>' + typeText + '<span class="status ' + problemRow.status + '">' + statusValue + '</span></h1>' +
+							'<p class="address">' + problemRow.address + '</p>' +
 						'</div>' +
 					'</div>' +
 				'</div>';
@@ -253,10 +294,17 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			});
 			
 			// add marker to problem markers array
-			me.addProblemMarkerToArray(problem.rowid, marker);
+			me.addProblemMarkerToArray(problemRow.rowid, marker);
 		}
 	},
 	
+	/**
+	 * Removes a problem marker
+	 * 
+	 * @param	rowid	RowId of marker which should be removed
+	 * 
+	 * @private
+	 */
 	removeProblemMarker: function(rowid) {
 		var marker = this.getProblemMarkerById(rowid);
 		google.maps.event.removeListener(marker.listener);
@@ -265,29 +313,51 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		this.removeProblemMarkerFromArrayById(rowid);
 	},
 	
+	/**
+	 * Called when current location button is tapped
+	 * @private
+	 */
 	onCurrentLocationButtonTap: function(button, e, eOpts) {
 		var me = this;
-		var map = me.getProblemMap();
+		var mapComp = me.getProblemMap();
 		
-		var latlng = me.getCurrentLocationLatLng(map);
-		map.setMapCenter(latlng);
+		var latlng = me.getCurrentLocationLatLng(mapComp);
+		mapComp.setMapCenter(latlng);
 	},
 	
+	/**
+	 * Called when settings button is tapped
+	 * @private
+	 */
 	onSettingsPopupButtonTap: function(buttonComp, e, eOpts) {
 		this.getSettingsPopupPanel().showBy(this.getSettingsPopupButton());
 	},
+	
+	/**
+	 * Called when settings popup close button is tapped
+	 * @private
+	 */
 	onSettingsPopupCloseButtonTap: function(buttonComp, e, eOpts) {
 		this.getSettingsPopupPanel().hide();
 	},
+	
+	/**
+	 * Called when settings popup hides
+	 * @private
+	 */
 	onSettingsPopupPanelHide: function(panelComp, eOpts) {
-		if(this.markerLayerButtonIsPressed()) {
+		if(this.isMarkerLayerButtonPressed()) {
 			this.showMarkerLayer();
 		}
-		if(this.heatmapLayerButtonIsPressed()) {
+		if(this.isHeatmapLayerButtonPressed()) {
 			this.showHeatmapLayer();
 		}
 	},
 	
+	/**
+	 * Shows marker layer on map and deactivates heatmap layer
+	 * @private
+	 */
 	showMarkerLayer: function() {
 		// hide heatmap layer
 		this.getFusionTablesLayer().setMap(null);
@@ -304,6 +374,10 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		}
 	},
 	
+	/**
+	 * Shows heatmap layer on map and deactivates marker layer
+	 * @private
+	 */
 	showHeatmapLayer: function() {
 		// hide markers
 		var problemMarkers = this.getProblemMarkers();
@@ -316,10 +390,18 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		this.getFusionTablesLayer().setMap(this.getProblemMap().getMap());
 	},
 	
-	markerLayerButtonIsPressed: function() {
+	/**
+	 * Tells if marker layer button is pressed or not
+	 * @private
+	 */
+	isMarkerLayerButtonPressed: function() {
 		return this.getLayerSegementedButton().getPressedButtons()[0] == this.getMarkerLayerButton();
 	},
-	heatmapLayerButtonIsPressed: function() {
+	/**
+	 * Tells if heatmap layer button is pressed or not
+	 * @private
+	 */
+	isHeatmapLayerButtonPressed: function() {
 		return this.getLayerSegementedButton().getPressedButtons()[0] == this.getHeatmapLayerButton();
 	},
 	
@@ -349,6 +431,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var fieldset = Ext.create('Ext.form.FieldSet', {
 			cls: 'typeFilterFieldSet'
 		});
+		// add a toogle field for each type
 		this.typeStore.each(function(type) {
 			var typeValue = type.get('value');
 			if(typeValue != 'undefined') {
@@ -368,6 +451,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 			}
 		});
 		
+		// add fieldset to popup panel
 		this.settingsPopupPanel.add([fieldset]);
     },
 	

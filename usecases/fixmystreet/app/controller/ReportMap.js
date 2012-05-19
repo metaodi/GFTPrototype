@@ -25,7 +25,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 				maprender: 'onMapRender'
 			},
 			typeSelectField: {
-				change: 'onTypeChange'
+				change: 'onTypeSelectFieldChange'
 			},
 			reportButton: {
 				tap: 'onReportButtonTap'
@@ -50,9 +50,16 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		}
 	},
 	
+	/**
+	 * Called when report map is rendered
+	 * @private
+	 */
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
         me.callParent(arguments);
+		
+		// set displayed property of map in maprender event because we don't have an acitveItemChange listener here   
+		mapComp.setDisplayed(true);
 		
 		if(mapComp.getGeo() && !mapComp.getGeo().isAvailable()) {
 			// if geolocation isn't available
@@ -64,7 +71,7 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		google.maps.event.addListener(map, 'click', function(event) {
 			me.setDoubleClickTimeout(Ext.defer(function() {
 				me.setProblemMarkerPosition(event.latLng)
-			}, 500, me));
+			}, 400, me));
 		});
 		google.maps.event.addListener(map, 'dblclick', function(event) {
 			// if click event was already triggered, cancel click action
@@ -76,9 +83,6 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		
 		var latlng = this.getCurrentLocationLatLng(mapComp);
 		
-		// geocode current position and update current address
-		me.geocodePosition(latlng);
-		
 		// add problem marker to map
 		me.addProblemMarker(latlng, map);
 		
@@ -86,6 +90,14 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		mapComp.setMapCenter(latlng);
     },
 	
+	/**
+	 * Adds problem marker to map
+	 * 
+	 * @param	latlng		position of marker
+	 * @param	map			map on which marker should be displayed
+	 * 
+	 * @private
+	 */
 	addProblemMarker: function(latlng, map) {
 		var me = this;
 		
@@ -100,14 +112,34 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			optimized: false
 		});
 		
+		// add dragend listener to own position marker
 		google.maps.event.addListener(marker, 'dragend', function() {
 			me.geocodePosition(marker.getPosition());
 		});
 		
+		// geocode current position and update current address
+		me.geocodePosition(latlng);
+		
 		me.setProblemMarker(marker);
 	},
 	
-	onTypeChange: function(field, newValue, oldValue, eOpts) {
+	/**
+	 * Sets the problem marker position
+	 * 
+	 * @param	latlng		new position	
+	 * 
+	 * @private
+	 */
+	setProblemMarkerPosition: function(latlng) {
+		this.getProblemMarker().setPosition(latlng);
+		this.geocodePosition(latlng);
+	},
+	
+	/**
+	 * Called when problem type gets changed
+	 * @private
+	 */
+	onTypeSelectFieldChange: function(field, newValue, oldValue, eOpts) {
 		var me = this;
 		
 		if(field.getValue() == 'undefined') {
@@ -122,22 +154,38 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		me.getProblemMarker().setIcon(markerIcon);
 	},
 	
+	/**
+	 * Geocodes given location
+	 * 
+	 * @param	latlng		Location which should be geocoded
+	 * 
+	 * @private
+	 */
 	geocodePosition: function(latlng) {
 		var me = this;
 		this.getGeocoder().geocode({'latLng': latlng}, function(results, status) {
 			if(status == google.maps.GeocoderStatus.OK) {
 				if(results[0]) {
+					// select address of most accurate result (array position 0)
 					me.updateCurrentAddress(results[0].formatted_address);
 				}
 			}
 		});
 	},
 	
+	/**
+	 * Updates the current address
+	 * @private
+	 */
 	updateCurrentAddress: function(address) {
 		this.setCurrentAddress(address);
 		this.getAddressTextField().setValue(address);
 	},
 	
+	/**
+	 * Called when report button is tapped
+	 * @private
+	 */
 	onReportButtonTap: function(button, e, eOpts) {
 		var me = this;
 		
@@ -150,11 +198,16 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		}
 	},
 	
+	/**
+	 * Handler of confirm dialog response
+	 * @private
+	 */
 	handleReportButtonConfirmResponse: function(buttonId, value, opt) {
 		var me = this;
 		if(buttonId == 'yes') {
+			// if yes button was clicked
 			try {
-				// creating problem instance
+				// creating new problem instance
 				var status = 'new';
 				var type = me.getTypeSelectField().getValue();
 				
@@ -181,11 +234,19 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		}
 	},
 	
+	/**
+	 * Displays the confirmation popup
+	 * @private
+	 */
 	showProblemAddedPopupPanel: function() {
 		Ext.Viewport.add(this.getProblemAddedPopupPanel());
 		this.getProblemAddedPopupPanel().show();
 	},
 	
+	/**
+	 * Resets view state
+	 * @private
+	 */
 	resetView: function() {
 		this.getReportButton().setUi('normal');
 		this.getTypeSelectField().setCls();
@@ -195,31 +256,39 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 		var latlng = this.getCurrentLocationLatLng(this.getReportMap());
 		
 		this.getReportMap().setMapCenter(latlng);
-		this.getProblemMarker().setPosition(latlng);
-		this.geocodePosition(latlng);
+		this.setProblemMarkerPosition(latlng);
 		this.setTimestamp(null);
 	},
 	
+	/**
+	 * Called when current location button is tapped
+	 * @private
+	 */
 	onCurrentLocationButtonTap: function(button, e, eOpts) {
 		var me = this;
 		var mapComp = me.getReportMap();
 		
 		var latlng = me.getCurrentLocationLatLng(mapComp);
 		mapComp.setMapCenter(latlng);
-		me.getProblemMarker().setPosition(latlng);
-		me.geocodePosition(latlng);
+		
+		// reset problem marker to own position
+		me.setProblemMarkerPosition(latlng);
 	},
 	
+	/**
+	 * Called when info button button is tapped
+	 * @private
+	 */
 	onInfoPopupButtonTap: function(button, e, eOpts) {
 		this.getInfoPopupPanel().showBy(this.getInfoPopupButton());
 	},
+	
+	/**
+	 * Called when info popup close button is tapped
+	 * @private
+	 */
 	onInfoPopupCloseButtonTap: function(button, e, eOpts) {
 		this.getInfoPopupPanel().hide();
-	},
-	
-	setProblemMarkerPosition: function(position) {
-		this.getProblemMarker().setPosition(position);
-		this.geocodePosition(position);
 	},
 	
 	// -------------------------------------------------------
@@ -230,7 +299,12 @@ Ext.define("FixMyStreet.controller.ReportMap", {
         me.callParent(arguments);
 		
 		me.problemStore = Ext.getStore('Problems');
-		me.problemStore.addListener('write', function(store, data, eOpts) { Ext.Logger.log('manually refreshing list from controller'); me.getProblemList().refresh(); });
+		// adding write listener to problem store to refresh problem list
+		me.problemStore.addListener('write', function(store, data, eOpts) {
+			Ext.Logger.log('manually refreshing list from controller');
+			me.getProblemList().refresh();
+		});
+		
 		me.problemMarker = null;
 		me.geocoder = new google.maps.Geocoder();
 		me.currentAddress = null;

@@ -30,12 +30,10 @@ Ext.define("FixMyStreet.controller.Main", {
         }
 	},
 	
-	onMainTabPanelActiveItemChange: function(container, value, oldValue, eOpts) {
-		if (this.getRedirect()) {
-			this.redirectTo(value.getUrl());
-		}
-	},
-	
+	/**
+	 * Called when tabpanel is initialized
+	 * @private
+	 */
 	onMainTabPanelInitialize: function(container, eOpts) {
 		var viewName = this.getInitView();
 		Ext.Logger.log('mainTabPanel initalized (viewName: ' + viewName + ', lat: ' + this.getInitLat() + ', lng: ' + this.getInitLng() + ')');
@@ -52,29 +50,62 @@ Ext.define("FixMyStreet.controller.Main", {
 		}
 	},
 	
-	// shows report view
+	/**
+	 * Called when active item of tabpanel changes
+	 * @private
+	 */
+	onMainTabPanelActiveItemChange: function(container, value, oldValue, eOpts) {
+		if (this.getRedirect()) {
+			this.redirectTo(value.getUrl());
+		}
+	},
+	
+	/**
+	 * Shows report view
+	 * @private
+	 */
 	showReport: function() {
 		var viewName = 'report';
 		this.saveInitView(viewName);
 		this.switchView(viewName);
 	},
 	
+	/**
+	 * Shows list view
+	 * @private
+	 */
 	showList: function() {
 		var viewName = 'list';
 		this.saveInitView(viewName);
 		this.switchView(viewName);
 	},
 	
+	/**
+	 * Shows map view
+	 * 
+	 * @param	lat		latitude for map center
+	 * @param	lng		longitude for map center
+	 * 
+	 * @private
+	 */
 	showMap: function(lat,lng) {
 		var viewName = 'map';
 		this.saveInitView(viewName, lat, lng);
-		this.switchView(viewName);
 		this.centerMap(lat,lng);
+		this.switchView(viewName);
 	},
 	
+	/**
+	 * Centers problem map to given position
+	 * 
+	 * @param	lat		latitude for map center
+	 * @param	lng		longitude for map center
+	 * 
+	 * @private
+	 */
 	centerMap: function(lat,lng) {
 		if(this.getProblemMap() && lat && lng) {
-			if(this.getFirstProblemMapCall()) {
+			if(!this.getProblemMap().getDisplayed()) {
 				// @TODO ugly timeout to center map correctly on first call (wait till map is correctly rendered)
 				Ext.defer(function() {
 					this.centerMap(lat,lng);
@@ -87,9 +118,17 @@ Ext.define("FixMyStreet.controller.Main", {
 				this.setInitLng(null);
 			}
 		}
-		this.setFirstProblemMapCall(false);
 	},
 	
+	/**
+	 * Saves the init state
+	 * 
+	 * @param	viewName	name of view to show
+	 * @param	lat			latitude for map center
+	 * @param	lng			longitude for map center
+	 * 
+	 * @private
+	 */
 	saveInitView: function(viewName, lat, lng) {
 		if (lat) {
 			this.setCenterToOwnPosition(false);
@@ -99,6 +138,13 @@ Ext.define("FixMyStreet.controller.Main", {
 		this.setInitLng(lng);
 	},
 	
+	/**
+	 * Switches view to given viewname
+	 * 
+	 * @param	viewName	name of view to show
+	 * 
+	 * @private
+	 */
 	switchView: function(viewName) {
 		if (this.getMainTabPanel()) {
 			var viewNr = this.getViewNr(viewName);
@@ -108,6 +154,9 @@ Ext.define("FixMyStreet.controller.Main", {
 		}
 	},
 	
+	// -------------------------------------------------------
+    // Base Class functions
+	// -------------------------------------------------------
 	init: function () {
 		var me = this;
 		me.initView = null;
@@ -115,9 +164,9 @@ Ext.define("FixMyStreet.controller.Main", {
 		me.initLng = null;
 		me.redirect = true;
 		me.centerToOwnPosition = true;
-		me.firstProblemMapCall = true;
 	},
 	
+	// returns position of each view in tabpanel
 	getViewNr: function(viewName) {
 		var views = {
 			'report': 0,
@@ -156,11 +205,5 @@ Ext.define("FixMyStreet.controller.Main", {
 	},
 	setCenterToOwnPosition: function(centerToOwnPosition) {
 		this.centerToOwnPosition = centerToOwnPosition;
-	},
-	getFirstProblemMapCall: function() {
-		return this.firstProblemMapCall;
-	},
-	setFirstProblemMapCall: function(firstProblemMapCall) {
-		this.firstProblemMapCall = firstProblemMapCall;
 	}
 });

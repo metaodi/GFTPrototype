@@ -1,6 +1,10 @@
 Ext.define("FixMyStreet.controller.Map", {
 	extend: "Ext.app.Controller",
-		
+	
+	/**
+	 * Called when map is rendered
+	 * @private
+	 */
 	onMapRender: function(mapComp, map, eOpts) {
 		var me = this;
 		mapComp.setRendered(true);
@@ -20,12 +24,22 @@ Ext.define("FixMyStreet.controller.Map", {
 		if(geo.isAvailable()) {
 			// add own position marker to map
 			me.addOwnPositionMarker(latlng, map);
+			
+			// add listener for locationupdate event of geolocation for setting marker position
 			geo.addListener('locationupdate', function() {
 				me.setOwnPositionMarkerPosition(new google.maps.LatLng(this.getLatitude(), this.getLongitude()));
 			});
 		}
     },
 	
+	/**
+	 * Adds own position marker to map
+	 * 
+	 * @param	latlng		position of marker
+	 * @param	map			map on which marker should be displayed
+	 * 
+	 * @private
+	 */
 	addOwnPositionMarker: function(latlng, map) {
 		var me = this;
 		
@@ -51,6 +65,14 @@ Ext.define("FixMyStreet.controller.Map", {
 		});
 		me.setOwnPositionMarker(ownPositionMarker);
 	},
+	
+	/**
+	 * Sets position of own position marker 
+	 * 
+	 * @param	latlng		position of marker
+	 * 
+	 * @private
+	 */
 	setOwnPositionMarkerPosition: function(latlng) {
 		var ownPositionMarker = this.getOwnPositionMarker();
 		if(ownPositionMarker) {
@@ -58,6 +80,10 @@ Ext.define("FixMyStreet.controller.Map", {
 		}
 	},
 	
+	/**
+	 * Returns current location
+	 * @private
+	 */
 	getCurrentLocationLatLng: function(mapComp) {
 		var geo = mapComp.getGeo();
 		if(geo && geo.isAvailable()) {
@@ -70,14 +96,11 @@ Ext.define("FixMyStreet.controller.Map", {
 	// -------------------------------------------------------
     // Base Class functions
 	// -------------------------------------------------------
-    launch: function () {
-        this.callParent(arguments);
-    },
     init: function () {
 		var me = this;
         me.callParent(arguments);
 		
-		// prepare problem marker images
+		// prepare problem marker images for each problem type
 		me.problemMarkerImages = [];
 		var currentType = 0;
 		// marker images created with: http://mapicons.nicolasmollet.com/

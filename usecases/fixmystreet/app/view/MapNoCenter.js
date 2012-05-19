@@ -4,6 +4,7 @@ Ext.define('FixMyStreet.view.MapNoCenter', {
 	
 	config: {
 		rendered: false,
+		displayed: false,
 		
 		mapOptions: {
 			// set default center to zurich

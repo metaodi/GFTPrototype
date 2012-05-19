@@ -201,7 +201,9 @@ Ext.define("FixMyStreet.controller.List", {
         this.getProblemStore().clearFilter();
     },
 	
-    // Base Class functions.
+    // -------------------------------------------------------
+    // Base Class functions
+	// -------------------------------------------------------
     init: function () {
 		var me = this;
         me.callParent(arguments);
