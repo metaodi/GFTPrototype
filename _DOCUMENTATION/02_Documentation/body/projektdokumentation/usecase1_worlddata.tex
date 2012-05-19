@@ -15,6 +15,7 @@ Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank
 Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite (\url{http://www.gelib.com/world-borders.htm}) bezogen. 
 
 \section{Analyse}
+\todo[inline]{UseCase 1: WorldData - Analyse}
 
 \section{Design}
 
@@ -101,7 +102,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 \subsection{ERD}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-erd.png}
+	\includegraphics[scale=0.8]{images/usecase1-worlddata/uml/worlddata-erd.png}
 	\caption{WorldData ERD}
 	\label{worlddata-erd}
 \end{figure}
@@ -109,7 +110,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 \subsection{Klassendiagramm}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{images/usecase1-worlddata/worlddata-classdiagram.png}
+	\includegraphics[scale=0.7]{images/usecase1-worlddata/uml/worlddata-classdiagram.png}
 	\caption{WorldData Klassendiagramm}
 	\label{worlddata-classdiagram}
 \end{figure}
@@ -160,8 +161,8 @@ index.html & Startseite der Applikation \\
 \hline
 \end{tabular} 
 
-
 \section{Test}
+\todo[inline]{UseCase 1: WorldData - Test}
 
 \section{Resultate}
 Das FusionTablesLayer Element der Google Maps API eignet sich sehr gut zur Darstellung einer grossen Anzahl von Daten. Leider hindern die Einschränkungen betreffend Styles (siehe \ref{fusiontableslayer-styles-restrictions}) stark den individuellen Gestalltungsprozess der Ebene.
@@ -190,14 +191,14 @@ Die Landesgrenzen liegen als KML-Datei vor. Diese beinhaltet alle Länder mit ih
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{images/usecase1-worlddata/worlddata-worldborders_kml.png}
+	\includegraphics{images/usecase1-worlddata/documentation/worlddata-worldborders_kml.png}
 	\caption{WorldData Landesgrenzen liegen als KML-Datei vor}
 	\label{worlddata-worldborders_kml}
 \end{figure}
 
 \begin{enumerate}
 \item Google Docs öffnen (\url{https://docs.google.com/}) und sich mit seinem Google Account einloggen
-\item Erstellen > Tabelle (Beta) \\ \includegraphics{images/usecase1-worlddata/worlddata-worldborders_import1.png}
+\item Erstellen > Tabelle (Beta) \\ \includegraphics{images/usecase1-worlddata/documentation/worlddata-worldborders_import1.png}
 \item Es öffnet sich die neue Fusion Table mit dem Dialog zum Importieren von bestehenden Daten
 \item Im Tab \emph{From this computer} die lokal gespeicherte Datei auswählen > Next
 \item Die Daten werden automatisch in passende Spalten eingeteilt
@@ -209,7 +210,7 @@ Die Tabelle sollte nun folgendermassen aussehen:
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.65]{images/usecase1-worlddata/worlddata-worldborders_import_done.png}
+	\includegraphics[scale=0.65]{images/usecase1-worlddata/documentation/worlddata-worldborders_import_done.png}
 	\caption{WorldData Landesgrenzen erfolgreich als Fusion Table importiert}
 	\label{worlddata-worldborders_import_done}
 \end{figure}
@@ -228,7 +229,7 @@ Die Daten liegen als CSV-Datei vor. Diese beinhaltet folgende Spalten:
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{images/usecase1-worlddata/worlddata-data_csv.png}
+	\includegraphics{images/usecase1-worlddata/documentation/worlddata-data_csv.png}
 	\caption{WorldData Daten liegen als CSV-Datei vor}
 	\label{worlddata-data_csv}
 \end{figure}
@@ -239,7 +240,7 @@ Nach dem Import der Daten sollte die Tabelle folgendermassen aussehen:
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.5]{images/usecase1-worlddata/worlddata-data_import_done.png}
+	\includegraphics[scale=0.5]{images/usecase1-worlddata/documentation/worlddata-data_import_done.png}
 	\caption{WorldData Daten erfolgreich als Fusion Table importiert}
 	\label{worlddata-data_import_done}
 \end{figure}
@@ -249,19 +250,19 @@ Sind beide Fusion Tables erstellt müssen diese zusammengefügt werden, um sie s
 
 \begin{enumerate}
 \item Eine der beiden Tabellen öffnen
-\item Im Menü \emph{Merge} auswählen \\ \includegraphics{images/usecase1-worlddata/worlddata-merge1.png}
+\item Im Menü \emph{Merge} auswählen \\ \includegraphics{images/usecase1-worlddata/documentation/worlddata-merge1.png}
 \item Es öffnet sich ein Popup, welches durch den Vorgang führt
 \item In der 1. Spalte wählt man die Spalte aus, über welche die beiden Tabellen verbunden werden sollen. In unserem Fall ist dies die Spalte mit den Namen der Länder.
 \item In der 2. Spalte muss man zuerst die andere Tabelle auswählen und dann ebenfalls die Spalte, in welcher die Namen der Länder gespeichert sind.
 \item Schlussendlich muss der neuen Tabelle ein Namen gegeben werden
-\item Mit einem Klick auf \emph{Merge tables} wird die neue Tabelle mit den zusammengefügten Daten erstellt. \\ \includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-merge2.png}
+\item Mit einem Klick auf \emph{Merge tables} wird die neue Tabelle mit den zusammengefügten Daten erstellt. \\ \includegraphics[scale=0.8]{images/usecase1-worlddata/documentation/worlddata-merge2.png}
 \end{enumerate}
 
 Die zusammengeführte Tabelle sollte nun folgendermassen aussehen:
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.4]{images/usecase1-worlddata/worlddata-merge_done.png}
+	\includegraphics[scale=0.4]{images/usecase1-worlddata/documentation/worlddata-merge_done.png}
 	\caption{WorldData Merge der Landesgrenzen- und Daten-Tabelle}
 	\label{worlddata-merge_done}
 \end{figure}
@@ -271,34 +272,34 @@ Um die Tabelle nun als FusionTablesLayer verwenden zu können, muss diese als \e
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer1.png}
+	\includegraphics{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer1.png}
 	\caption{WorldData Freigabe der Merge-Tabelle}
-	\label{worlddata-prepare_fusiontableslayer1.png}
+	\label{worlddata-prepare_fusiontableslayer1}
 \end{figure}
 
 Im Dialogfenster wählt man unter \emph{Visibility options} den Eintrag \emph{Public} aus.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.5]{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer2.png}
+	\includegraphics[scale=0.5]{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer2.png}
 	\caption{WorldData Freigabeeinstellungen der Merge-Tabelle}
-	\label{worlddata-prepare_fusiontableslayer2.png}
+	\label{worlddata-prepare_fusiontableslayer2}
 \end{figure}
 
 Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Dazu wählt man im Menü  \emph{File > About} und kopiert sich die angezeigte \emph{Encrypted ID} im geöffneten Dialog.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer3.png}
+	\includegraphics{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer3.png}
 	\caption{WorldData ID der Merge-Tabelle finden}
-	\label{worlddata-prepare_fusiontableslayer3.png}
+	\label{worlddata-prepare_fusiontableslayer3}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics{images/usecase1-worlddata/worlddata-prepare_fusiontableslayer4.png}
+	\includegraphics{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer4.png}
 	\caption{WorldData ID der Merge-Tabelle Dialog}
-	\label{worlddata-prepare_fusiontableslayer4.png}
+	\label{worlddata-prepare_fusiontableslayer4}
 \end{figure}
 
 \subsection{Konfiguration der Applikation}
@@ -350,7 +351,7 @@ Beim Starten der Applikation sollten nun alle Themen der angegebenen Fusion Tabl
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.7]{images/usecase1-worlddata/worlddata-application_start.png}
+	\includegraphics[scale=0.7]{images/usecase1-worlddata/documentation/worlddata-application_start.png}
 	\caption{WorldData Auswahlliste der Themen}
-	\label{worlddata-application_start.png}
+	\label{worlddata-application_start}
 \end{figure}
