@@ -321,7 +321,17 @@ Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Probleme als H
 \todo[inline]{UseCase 2: FixMyStreet - Test}
 
 \section{Resultate}
-\todo[inline]{UseCase 2: FixMyStreet - Resultate}
+Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines GRANT-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.
+
+Zusätzlich konnten wir die GIS-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns die fehlende  Geocodierung von neu eingefügten Datensätzen \todo[inline]{Referenz auf Geocoding Bug einfügen} daran Spatial-Queries zu verwenden.
+
+Zudem haben wir bewusst auf die Verwendung einer Fusion Tables-Ebene (siehe \ref{gmap-api-fusiontableslayer}) für die Übersichtsmaske verzichtet, da wir dadurch die Möglichkeit verloren hätten Custom-Markers auf der Karte hinzuzufügen. Dies hätte die Usability der App stark verschlechtert, da man nicht mehr direkt den Typen des markierten Defekts erkannt hätte.
+
+Alles in allem waren die Nachteile bei der Verwendung von Google Fusion Tables als Datenbank wahrscheinlich grösser als deren Vorteile.
 
 \section{Weiterentwicklung}
-\todo[inline]{UseCase 2: FixMyStreet - Weiterentwicklung}
+Auch dieser UseCase hat noch ein grosses Ausbaupotential. So wäre es beispielsweise sinnvoll, wenn man bei der Meldung des Defekts noch ein Foto hinzufügen könnte. Damit könnte man noch genauer zeigen, was wirklich defekt ist. Zudem würde es auch der zuständigen Behörde einfacher fallen Spassmeldungen von echten Defekten zu unterscheiden. Zusätzlich wäre es hilfreich, wenn man die Möglichkeit hätte in einem fakultativen Beschreibungsfeld eine zusätzliche Problembeschreibung anzugeben.
+
+Weiter müssten natürlich auch die Stammdaten (Defekttypen, Status) in eine Datenbank ausgelagert werden. Diese sind momentan statisch im Code verankert. Ein Problem würde sich dabei aber stellen. Das Web-GUI der Fusion Table unterstützt momentan keine Auswahllisten von Daten aus einer fremden Tabelle. Man würde deshalb lediglich die Fremdschlüssel der Stammdaten sehen.
+
+Ein weiteres Feature wäre eine Detailansicht der gemeldeten Probleme. Darin liesse sich der Status-Log anzeigen, um genau nachzuverfolgen, was bereits zur Behebung des angezeigten Defekts unternommen wurde. 
