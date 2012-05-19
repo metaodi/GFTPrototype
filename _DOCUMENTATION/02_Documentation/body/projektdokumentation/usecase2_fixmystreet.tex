@@ -1,16 +1,20 @@
 \chapter{Use Case 2: FixMyStreet}
 
+% Einführung
 \section{Einführung}
 FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England mit der Webseite \url{http://www.fixmystreet.com/}. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
 
 Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem Bürger per Webseite oder App entdeckte Defekte in seiner Umgebung (defekte Strassenlampen, Schlaglöcher, usw.) direkt der dafür zuständigen Behörde zu melden. Diese kann dann die erhaltenen Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
 
+% Ziel
 \subsection{Ziel}
 Das Ziel dieses UseCases war die Erstellung einer WebApp, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
 
 Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige GIS-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
-\section{Anforderungsspezifikation}
+% Analyse
+\section{Analyse}
+
 \subsection{Storyboard}
 Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstellt.
 
@@ -26,9 +30,9 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/uml/fixmystreet-usecasediagram.png}
-	\caption{FixMyStreet UseCase Diagramm}
-	\label{fixmystreet-usecasediagram}
+	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/uml/fixmystreet-usecasemodel.png}
+	\caption{FixMyStreet UseCase Modell}
+	\label{fixmystreet-usecasemodel}
 \end{figure}
 
 % Use Case 1a: Defekt melden
@@ -132,11 +136,6 @@ Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Er hat darin d
 
 \emph{Hinweis: Dieser UseCase wird vom gegebenen Google Fusion Table GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
-
-\section{Analyse}
-
-\section{Design}
-
 \subsection{Paper-Prototype}
 \paragraph{Maske: Melden}
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
@@ -175,7 +174,23 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 \subfigure[Anzeigen - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-anzeigen.jpg}}
 \end{figure}
 
+% Design
+\section{Design}
+
 \subsection{ERD}
+Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}. Davon wurden zwei Views erstellt:
+
+\begin{itemize}
+\item \emph{ftFixMyStreet\_Read}: In dieser View sind alle Probleme vorhanden. Die Applikation hat aber nur Lesezugriff darauf.
+\item \emph{ftFixMyStreet\_Write}: In dieser View sind lediglich die Probleme vorhanden deren Status auf \emph{neu} gesetzt ist. Die Applikation kann darin neue Probleme abspeichern und diese auch wieder löschen.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-erd.png}
+	\caption{FixMyStreet ERD}
+	\label{fixmystreet-erd}
+\end{figure}
 
 \subsection{Klassendiagramm}
 
@@ -183,11 +198,21 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/uml/fixmystreet-deployment_model.png}
+	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/uml/fixmystreet-deploymentmodel.png}
 	\caption{FixMyStreet Deploymentdiagramm}
-	\label{fixmystreet-deployment_model}
+	\label{fixmystreet-deploymentmodel}
 \end{figure}
 
+\subsection{Starten der Applikation}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.45]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup.png}
+	\caption{FixMyStreet Sequenzdiagramm - Starten der Applikation}
+	\label{fixmystreet-sequencediagram-applicationstartup}
+\end{figure}
+
+% Implementation
 \section{Implementation}
 \subsection{Systemanforderungen:}
 Die WebApp basiert auf dem Sencha Touch 2 Framework. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
@@ -207,17 +232,17 @@ Die WebApp basiert auf dem Sencha Touch 2 Framework. Dieses bietet eine Basis zu
 \end{itemize}
 
 \subsection{Abhängigkeiten}
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|l|p{10cm}|}
 \hline 
-Library & Version \\ 
+\textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
-Sencha Touch 2 & 2.0.1 \\ 
+Sencha Touch 2 & 2.0.1 & Mobile Framework (MVC Applikation) \\ 
 \hline 
-jQuery & 1.7.1 \\ 
+gftlib-js & 1.0 & Zur Kommunikation mit dem Fusion Table SQL API \\ 
 \hline 
-Google Maps API & V3 \\ 
+jQuery & 1.7.1 & Wird von der gftlib-js verwendet \\ 
 \hline 
-gftlib-js & 1.0 \\ 
+Google Maps API & V3 & Anzeige der Karten \\ 
 \hline 
 \end{tabular} 
 

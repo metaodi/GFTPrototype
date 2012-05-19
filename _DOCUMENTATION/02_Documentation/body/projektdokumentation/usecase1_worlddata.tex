@@ -14,11 +14,89 @@ Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank
 
 Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite (\url{http://www.gelib.com/world-borders.htm}) bezogen. 
 
-\section{Anforderungsspezifikation}
-
 \section{Analyse}
 
 \section{Design}
+
+\subsection{UseCases}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{images/usecase1-worlddata/uml/worlddata-usecasemodel.png}
+	\caption{WorldData UseCase Modell}
+	\label{worlddata-usecasemodel}
+\end{figure}
+
+% Use Case 1: Anzeigen von Daten eines bestimmten Themas
+\subsubsection{Use Case 1: Anzeigen von Daten eines bestimmten Themas}
+\paragraph{Primary Actor}
+\begin{itemize}
+\item Benutzer
+\end{itemize}
+
+\paragraph{Stakeholders and Interests}
+\begin{itemize}
+\item Benutzer: Möchte Daten zu einem bestimmten Thema auf der Karte anzeigen
+\end{itemize}
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item Webapplikation ist gestartet
+\end{itemize}
+
+\paragraph{Success Guarantee (Postconditions)}
+\begin{itemize}
+\item Daten des gewählten Themas werden auf der Karte angezeigt
+\item Legende zu den Daten wird angezeigt
+\end{itemize}
+
+\paragraph{Main Success Scenario}
+\begin{enumerate}
+\item Benutzer wählt das Thema aus
+\end{enumerate}
+
+\paragraph{Special Requirements}
+-
+
+\paragraph{Frequency of Occurrence}
+Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
+
+% Use Case 2: Ändern des Jahres
+\subsubsection{Use Case 2: Ändern des Jahres}
+\paragraph{Primary Actor}
+\begin{itemize}
+\item Benutzer
+\end{itemize}
+
+\paragraph{Stakeholders and Interests}
+\begin{itemize}
+\item Benutzer: Möchte Daten eines anderen Jahres anzeigen
+\end{itemize}
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item Webapplikation ist gestartet
+\item Thema ist ausgewählt
+\end{itemize}
+
+\paragraph{Success Guarantee (Postconditions)}
+\begin{itemize}
+\item Daten des gewählten Jahres werden auf der Karte angezeigt
+\end{itemize}
+
+\paragraph{Main Success Scenario}
+\begin{enumerate}
+\item Benutzer wählt das gewünschte Jahr aus
+\end{enumerate}
+
+\paragraph{Alternative Flows}
+1a. Falls für das gewählte Jahr keine Daten vorhanden sind, ist dies ebenfalls auf der Karte ersichtlich.
+
+\paragraph{Special Requirements}
+-
+
+\paragraph{Frequency of Occurrence}
+Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
 
 \subsection{ERD}
 \begin{figure}[!h]
@@ -43,24 +121,24 @@ Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wu
 Da es sich um eine Webapplikation handelt, ist es möglich die Applikation auf beinahe allen Geräten, welche über einem Browser verfügen zu starten. Einschränkungen gibt es nur in den unterstützten Browsern. Eine Liste davon findet sich auf der Webseite des jQuery Mobile Frameworks:  \url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms}
 
 \subsection{Abhängigkeiten}
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|l|p{8cm}|}
 \hline 
-Library & Version \\ 
+\textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
-jQuery Mobile & 1.1.0 RC2 \\ 
+jQuery Mobile & 1.1.0 & GUI-Elemente \\ 
 \hline 
-jQuery & 1.7.1 \\ 
+jQuery & 1.7.1 & Basis für den Gebrauch von jQuery Mobile \\ 
 \hline 
-Google Maps API & V3 \\ 
+Google Maps API & V3 & Karte mit FusionTablesLayer \\ 
 \hline 
-Cubiq - Add to home screen & 2.0 \\ 
+Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erscheint \\ 
 \hline 
 \end{tabular} 
 
 \subsection{Quellcode-Struktur}
 \begin{tabular}{|l|l|}
 \hline 
-Datei & Beschreibung \\ 
+\textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
 images/ & Bilder der Applikation \\ 
 \hline 
@@ -68,7 +146,7 @@ js/ & JavaScripts der Applikation \\
 \hline 
 js/Config.js & Konfiguration der Applikation \\ 
 \hline 
-js/Controller.js & Kontroller der Applikation \\ 
+js/Controller.js & Controller der Applikation \\ 
 \hline 
 js/Helper.js & Helper-Funktionen welche von der Applikation verwendet werden \\ 
 \hline 
@@ -86,8 +164,22 @@ index.html & Startseite der Applikation \\
 \section{Test}
 
 \section{Resultate}
+Das FusionTablesLayer Element der Google Maps API eignet sich sehr gut zur Darstellung einer grossen Anzahl von Daten. Leider hindern die Einschränkungen betreffend Styles (siehe \ref{fusiontableslayer-styles-restrictions}) stark den individuellen Gestalltungsprozess der Ebene.
+
+Wie wir feststellen mussten, sind diese 5 Stile sehr schnell aufgebraucht. Einer davon fällt meistens für den Standard-Stil weg. Dieser wird angewendet, wenn die entsprechende Zeile aus der Tabelle auf keine Bedingung der restlichen Stile passt. So bleiben lediglich noch 4 Stile übrig für alle Elemente die man speziell hervorheben möchte.
+
+Sobald man dann auch noch verschiedene Geometrie-Typen in der Tabelle abgelegt hat (Punkt, Linie, Fläche), muss man sich gut überlegen, für welche Elemente man wirklich einen speziellen Stil anwenden will.
 
 \section{Weiterentwicklung}
+Da es sich bei der Applikation lediglich um einen Prototypen handelt, bietet diese natürlich noch ein grosses Potential zur Weiterentwicklung. Hier eine Auflistung möglicher Features, welche noch implementiert werden könnten:
+
+\begin{itemize}
+\item Weitere Themen in die Datenbank importieren
+\item Auswahl der Länder für welche Daten angezeigt werden sollen
+\item Anzeige einer Rangliste der 10 Länder mit den höchsten Werten des gewählten Themas
+\item Direkter Vergleich verschiedener Länder
+\end{itemize}
+
 
 \section{Benutzerdokumentation}
 \subsection{Importieren der Daten in Google Fusion Tables}

@@ -44,6 +44,44 @@ DROP TABLE & Löschen einer Tabelle \\
 \hline 
 \end{tabular}
 
+\subsection{Spatial-Queries}
+\label{sqlapi-spatialqueries}
+Die FusionTablesLayer bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
+
+\begin{tabular}{|p{4cm}|p{11cm}|}
+\hline 
+Spatial Keyword & Beschreibung \\ 
+\hline 
+ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} ) & Kann als Bedingung in der WHERE-Klausel des Statements verwendet werden.
+
+Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \emph{{\textless}geometry{\textgreater}} befinden.
+
+\begin{itemize}
+\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
+\item Als \emph{{\textless}geometry{\textgreater}} kann entweder ein \emph{CIRCLE} oder ein \emph{RECTANGLE} verwendet werden. 
+\end{itemize}
+
+\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\hline 
+ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} ) & Kann als Bedingung in der ORDER BY-Klausel des Statements verwendet werden.
+
+Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \emph{{\textless}coordinate{\textgreater}} zurück.
+
+\begin{itemize}
+\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
+\item Die \emph{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
+\end{itemize}
+
+\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\hline 
+CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} ) & Wird verwendet, um einen Kreis von der angegebenen Koordinate \emph{coordinate} mit den Radius \emph{radius} zu erhalten. \\ 
+\hline 
+POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... ) & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \emph{coordinate{\_}x} zu erhalten. \\ 
+\hline 
+RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} ) & Wird verwendet um ein Rechteck mit den Ecken \emph{coordinate{\_}1} (links oben) und \emph{coordinate{\_}2} (rechts unten) zu erhalten. \\ 
+\hline 
+\end{tabular} 
+
 \subsection{Client Libraries}
 Google bietet zum API bereits auch Client Libraries in den Sprachen PHP und Phyton an. Da unserer Applikation aber möglichst nur in Javascript implementiert werden soll erstellten wir uns eine Javascript Library zur Verwendung des SQL APIs.
 
@@ -80,44 +118,6 @@ Die Möglichkeiten dieser Layer sind noch stark eingeschränkt aber die grundleg
 
 So ist es möglich Abfragen mit WHERE-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen. Man kann beispielsweise Flächen mit Zeckengebieten je nach Intensität des Befalls anders einfärben.
 
-\subsection{Spatial-Queries}
-\label{sqlapi-spatialqueries}
-Zudem bieten die FusionTablesLayer bereits eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten.
-
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline 
-Spatial Keyword & Beschreibung \\ 
-\hline 
-ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} ) & Kann als Bedingung in der WHERE-Klausel des Statements verwendet werden.
-
-Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \emph{{\textless}geometry{\textgreater}} befinden.
-
-\begin{itemize}
-\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
-\item Als \emph{{\textless}geometry{\textgreater}} kann entweder ein \emph{CIRCLE} oder ein \emph{RECTANGLE} verwendet werden. 
-\end{itemize}
-
-\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
-\hline 
-ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} ) & Kann als Bedingung in der ORDER BY-Klausel des Statements verwendet werden.
-
-Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \emph{{\textless}coordinate{\textgreater}} zurück.
-
-\begin{itemize}
-\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
-\item Die \emph{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
-\end{itemize}
-
-\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
-\hline 
-CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} ) & Wird verwendet, um einen Kreis von der angegebenen Koordinate \emph{coordinate} mit den Radius \emph{radius} zu erhalten. \\ 
-\hline 
-POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... ) & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \emph{coordinate{\_}x} zu erhalten. \\ 
-\hline 
-RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} ) & Wird verwendet um ein Rechteck mit den Ecken \emph{coordinate{\_}1} (links oben) und \emph{coordinate{\_}2} (rechts unten) zu erhalten. \\ 
-\hline 
-\end{tabular} 
-
 \subsection{Karten-Stile}
 Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich Flächen oder Linien farblich hervorzuheben oder Custom-Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer WHERE-Condition in der Abfrage.
 
@@ -144,6 +144,7 @@ styles: [{
 In diesem Beispiel werden alle Polygone der Tabelle, welche in der Spalte \emph{birds} eine Zahl grösser als 300 eingetragen haben, \emph{blau} eingefärbt. Die restlichen Polygone erhalten eine \emph{grüne} Färbung mit einer Deckkraft von 30\%.
 
 \subsubsection{Einschränkungen}
+\label{fusiontableslayer-styles-restrictions}
 Das Google Maps API hat momentan folgende Einschränkungen bezüglich den Ebenenstilen definiert.
 
 \begin{itemize}
@@ -151,11 +152,6 @@ Das Google Maps API hat momentan folgende Einschränkungen bezüglich den Ebenen
 \item Stile können dabei nur für eine dieser Ebenen angewendet werden
 \item Zudem dürfen für diese Ebene maximal 5 Stile definiert sein
 \end{itemize}
-
-\subsubsection{Persönliche Erfahrungen beim Benutzen von Stilen}
-Wie wir beim Erstellen unseres ersten UseCases \emph{WorldData} feststellen mussten, sind diese 5 Stile sehr schnell aufgebraucht. Einer davon fällt meistens für den Standard-Stil weg. Dieser wird angewendet, wenn die entsprechende Zeile aus der Tabelle auf keine Bedingung der restlichen Stile passt. So bleiben lediglich noch 4 Stile übrig für alle Elemente die man speziell hervorheben möchte.
-
-Sobald man dann auch noch verschiedene Geometrie-Typen in der Tabelle abgelegt hat (Punkt, Linie, Fläche), muss man sich gut entscheiden, für welche Elemente man wirklich einen speziellen Stil anwenden will.
 
 \subsection{Heatmaps}
 Ein weiteres Feature der Fusion Table-Ebenen ist die Möglichkeit die Daten der Tabelle direkt als Heatmap darzustellen. Dabei werden die Daten automatisch nach der Häufigkeit der Vorkommnisse an einem Ort anders eingefärbt. Der verwendete Farbverlauf geht dabei von Grün (für wenig Daten) bis Rot (für viele Daten).
