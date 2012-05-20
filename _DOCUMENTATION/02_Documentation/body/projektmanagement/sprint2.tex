@@ -17,8 +17,9 @@ Alle Informationen zum Sprint 2 sind auch in unserem Wiki zu finden:
 
 \subsubsection{Ziele}
 \begin{itemize}
-	\item  Finden von WebGIS Use Cases (1 \emph{grosser} und 2 \emph{kleine} Use Cases)
-	\item  Geo-Daten importieren und verknüpfen
+	\item Finden von WebGIS Use Cases (1 \emph{grosser} und 2 \emph{kleine} Use Cases)
+	\item Implementation eines kleinen Use Cases
+	\item Geo-Daten importieren und verknüpfen
 	\begin{itemize}
 		\item KML importieren
 		\item Converter einsetzen, dann importieren
@@ -32,13 +33,17 @@ Alle Informationen zum Sprint 2 sind auch in unserem Wiki zu finden:
 \end{itemize}
 
 \subsubsection{Abgabe / Deliverables}
-Wir sind im ersten Sprint gut vorangekommen und konnten mit zahlreichen aufeiander aufbauenden Beispielen lernen wie das API funktioniert und welche Möglichkeiten es bietet: Abfragen erstellen, Zugriff via API, Zugriff via Google Maps Layer (FusionTablesLayer).
+Als ersten umzusetzenden Use Case haben wir uns für "WorldData" (Kapitel \ref{worlddata}) entschieden. Zudem haben wir einen Build-Job (Kapitel \ref{converter-build}) erstellt, welcher es uns erlaubt auf einfache Art und Weise GIS Daten zu importieren.
+
+Für OAuth haben wir ein Beispiel entwickelt, welches es einem Benutzer ermöglicht seine Tabellen für unsere Applikation freizugeben, so dass dann Schreiboperationen möglich werden.
 
 \begin{itemize}
-	\item Infrastruktur aufgesetzt (Repository, Build-Server und Projekmanagement-Tool)
-	\item Lauffähiger Prototyp mit Unit-Test für CRUD-Operationen
-	\item Zahlreiche Beispiele um die Funktionsweise des APIs zu testen
+	\item Erster umgesetzter Use Case
+	\item Import-Verfahren für GIS Daten
+	\item Erweiterte GftLib (Schreiboperationen, Authentifizierung mit OAuth)
 \end{itemize}
 
 \subsubsection{Probleme}
-Es is 
+Der Converter-Build war noch nicht sehr ausgereift, so war es noch nicht möglich das Koordinationsystem zu wechseln und überhaupt ein anderes Format zu wählen als GFT.
+
+Bei der Authentifizierung gab es noch einige Probleme um diese für die Library nutzbar zu machen. Für den Fall, dass wir Google Fusion Tables nicht dazu verwenden möchten auf die Tabellen eines Benutzers zuzugreifen, sondern als Backend-Datenbank zu verwenden, gab es noch keine Lösung.
