@@ -5,6 +5,6 @@ test("Config initialized", 1, function() {
 });
 
 test("Config values", 1, function() {
-	equals($.fusiontable.id, '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0');
+	equals($.fusiontable.id, '1Ex_gdGfRST85LTD9JxCwhohXFtRKo0_ap9G6cEI');
 });
 
