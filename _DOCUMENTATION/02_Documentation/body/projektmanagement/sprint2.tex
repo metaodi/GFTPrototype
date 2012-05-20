@@ -1,0 +1,44 @@
+\subsection{Sprint 2}
+
+Im zweiten Sprint gab es 2 Schwerpunkte: zum einen mussten wir uns langsam Gedanken machen, welche Use Cases wir mit den Google Fusion Tables abdecken wollen. Aus diesem Use Cases sollen dann unabhängige Applikationen entstehen, welche so dann das Potential des Produktes aufzeigen sollen. Zum anderen gab es noch ein wichtiges technischen Thema, nämlich die Schreiboperationen. Dazu waren einige Grundlagen von OAuth nötig, so dass wir dann die ganze Bandbreite der Schnittstelle nutzen konnten.
+
+Als Nebenthema mussten wir uns noch um den Import von verschiedenen GIS Dateien in Fusion Tables kümmern. Zum einen ist dies ein sehr relevantes Thema um eine Migration zu ermöglichen, zum anderen sind viele Daten in beliebigen Formate verfügbar, welche wir natürlich gern als Testdaten nutzen möchten.
+
+Alle Informationen zum Sprint 2 sind auch in unserem Wiki zu finden:
+\url{http://redmine.rdmr.ch/redmine/projects/gftprototype/wiki/Sprint_2}
+
+\subsubsection{Hauptaufgaben / Fokussierung im Sprint}
+\begin{itemize}
+	\item Use Cases erarbeiten
+	\item GIS Daten in GFT importieren
+	\item Informationen über das "Trusted Tester API" sammeln
+	\item Schreiboperationen (INSERT/UPDATE/DELETE) auf Fusion Tables durchführen können (Authentifizierung mit OAuth notwendig)
+\end{itemize}
+
+\subsubsection{Ziele}
+\begin{itemize}
+	\item  Finden von WebGIS Use Cases (1 \emph{grosser} und 2 \emph{kleine} Use Cases)
+	\item  Geo-Daten importieren und verknüpfen
+	\begin{itemize}
+		\item KML importieren
+		\item Converter einsetzen, dann importieren
+		\item Verschiedene Fusion Tables joinen/mergen
+	\end{itemize}
+	\item Trusted Tester API
+	\begin{itemize}
+		\item Zugriff erhalten
+		\item API testen
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Abgabe / Deliverables}
+Wir sind im ersten Sprint gut vorangekommen und konnten mit zahlreichen aufeiander aufbauenden Beispielen lernen wie das API funktioniert und welche Möglichkeiten es bietet: Abfragen erstellen, Zugriff via API, Zugriff via Google Maps Layer (FusionTablesLayer).
+
+\begin{itemize}
+	\item Infrastruktur aufgesetzt (Repository, Build-Server und Projekmanagement-Tool)
+	\item Lauffähiger Prototyp mit Unit-Test für CRUD-Operationen
+	\item Zahlreiche Beispiele um die Funktionsweise des APIs zu testen
+\end{itemize}
+
+\subsubsection{Probleme}
+Es is 
