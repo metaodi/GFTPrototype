@@ -34,6 +34,14 @@
 
 % hyperlinks
 \usepackage{hyperref}
+\hypersetup{
+   colorlinks,%
+   citecolor=blue,%
+   filecolor=blue,%
+   linkcolor=blue,%
+   urlcolor=blue
+}
+\urlstyle{same}
 
 % Absatz
 \setlength{\parindent}{0pt} % Absatzeinzug
@@ -67,6 +75,9 @@
 \setlength{\tabcolsep}{5px}
 % Padding oben und unten (mittels arraystretch)
 \renewcommand{\arraystretch}{1.3}
+
+% Für schöne URLs
+\usepackage{url}
 
 % Syntaxhighlighter (benoetigt color und xcolor package)
 \usepackage{listings}
