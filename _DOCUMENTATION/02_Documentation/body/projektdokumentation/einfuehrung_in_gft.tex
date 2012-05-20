@@ -12,13 +12,14 @@ Google Fusion Tables schafft das Problem der Erreichbarkeit einer Datenbank ab. 
 \subsection{Kollaboration und Nutzung von (ver-)öffentlichen Daten}
 Der Gedanke der Cloud lässt sich abseits vom technischen noch weiterdenken. Durch die allgemeine Verfügbarkeit der Fusion Tables Datenbank, lassen sich die dort eingetragenen Daten mit anderen Benutzern oder gar der Öffentlichkeit teilen. Es gibt sogar eine eigene Suche für öffentliche Tabellen.\cite{fusion-tables-search} Tabellen können dann mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft gebrauchen, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
 
-Diese passive Kollaboration ermöglicht es auf eine breite Palette an öffentlichen bzw. veröffentlichten Daten zurückzugreifen. Via Import lassen sich auch andere bereits bestehende Daten mit Fusion Tables nutzen. Unterstützt sind dabei Tabellen (via Google Spreadsheet) und KML Dateien. Mit unserem im Kapitel X \todo[inline]{Kapitel: Labels vergeben und verweis erstellen} vorgestellten Build lassen sich eine breite Palette von Dateinformaten in Google Fusion Tables importieren.
+Diese passive Kollaboration ermöglicht es auf eine breite Palette an öffentlichen bzw. veröffentlichten Daten zurückzugreifen. Via Import lassen sich auch andere bereits bestehende Daten mit Fusion Tables nutzen. Unterstützt sind dabei Tabellen (via Google Spreadsheet) und KML Dateien. Mit unserem im Kapitel \ref{converter-build} vorgestellten Build lassen sich eine breite Palette von Dateinformaten in Google Fusion Tables importieren.
 
 Um aktiv zu kollaborieren bieten hat Google auch einige Features angedacht. So ist es möglich einzelne Records oder gar Zellen in der Tabelle zu kommentieren, sofern man die nötigen Berechtigungen dafür hat. Falls man Daten von mehreren Lieferanten verwalten lassen will, kann eine Partei eine Tabelle erstellen und verschiedene Views darauf erstellen, welche jeweils von den verschiedenen Datenlieferanten gepflegt werden. Durch entsprechend gesetzte Berechtigungen kann so jeder seine Daten zum ganzen Beitragen, ohne Zugriff auf die Daten aller anderen Lieferanten zu erlangen. Einzig der Besitzer der Tabelle hat den kompletten Überblick. Google hat als Beispiel für diesen Use Case die Applikation "Flu Vaccine Finder" erstellt, welche es den Anbietern von Grippeimpfungen ermöglicht ihre Lokale selbstständig zu erfassen und verwalten.\cite{data-gathering}
 
 
 \section{SQL API}
-Das SQL API bietet eine REST-Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen.
+\label{sql-api}
+Das SQL API bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen.
 
 \begin{tabular}{|l|l|}
 \hline 
@@ -44,50 +45,56 @@ DROP TABLE & Löschen einer Tabelle \\
 \hline 
 \end{tabular}
 
-\subsection{Spatial-Queries}
-\label{sqlapi-spatialqueries}
-Die FusionTablesLayer bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
-
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline 
-Spatial Keyword & Beschreibung \\ 
-\hline 
-ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} ) & Kann als Bedingung in der WHERE-Klausel des Statements verwendet werden.
-
-Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \emph{{\textless}geometry{\textgreater}} befinden.
-
-\begin{itemize}
-\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
-\item Als \emph{{\textless}geometry{\textgreater}} kann entweder ein \emph{CIRCLE} oder ein \emph{RECTANGLE} verwendet werden. 
-\end{itemize}
-
-\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
-\hline 
-ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} ) & Kann als Bedingung in der ORDER BY-Klausel des Statements verwendet werden.
-
-Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \emph{{\textless}coordinate{\textgreater}} zurück.
-
-\begin{itemize}
-\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
-\item Die \emph{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
-\end{itemize}
-
-\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
-\hline 
-CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} ) & Wird verwendet, um einen Kreis von der angegebenen Koordinate \emph{coordinate} mit den Radius \emph{radius} zu erhalten. \\ 
-\hline 
-POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... ) & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \emph{coordinate{\_}x} zu erhalten. \\ 
-\hline 
-RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} ) & Wird verwendet um ein Rechteck mit den Ecken \emph{coordinate{\_}1} (links oben) und \emph{coordinate{\_}2} (rechts unten) zu erhalten. \\ 
-\hline 
-\end{tabular} 
-
-\subsection{Client Libraries}
+\section{Client Libraries}
 Google bietet zum API bereits auch Client Libraries in den Sprachen PHP und Phyton an. Da unserer Applikation aber möglichst nur in Javascript implementiert werden soll erstellten wir uns eine Javascript Library zur Verwendung des SQL APIs.
 
 Durch die Same origin policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, welche es uns daran hinderte AJAX-Requests direkt auf das Google API abzusetzen, mussten wir zuerst nach Lösungen für dieses Problem suchen. Wir wollten es verhindern einen PHP-Server dazwischen zu schalten, welcher uns die Abfragen abnimmt.
 
-So fanden wir in den Google Groups ein inoffizielles JSONP API, welches es erlaubt AJAX-Requests auch über die eigene Domäne hinweg zu senden.
+So fanden wir in den Google Groups ein inoffizielles JSONP API, welches es erlaubt AJAX-Requests auch über die eigene Domäne hinweg zu senden. Dies funktioniert jedoch nur für lesende Zugriffe. Für alle schreibenden Zugriffe mussten wir eine Umgeheungslösung bauen, bei der die Requests über unseren Webserver geschleust wurden. Damit konnten wir die Same-Origin-Policy umgehen. Mit Hilfe des Trusted Tester API (Siehe Abschnitt~\ref{trusted-tester-api}) haben wir schlussendlich dann aber doch noch eine Lösung gefunden, welche direkt im Browser läuft und somit nicht auf Server-Code angewiesen ist.
+
+\section{Trusted Tester API}
+\label{trusted-tester-api}
+Es gibt derzeit zwei verschiedene Versionen des APIs: eine frei öffentlich zugängliche und das sogenannte "Trusted Tester API", welche derzeit im Beta-Stadium ist und ausgewählten Personen zur Verfügung steht. Als wir im Sprint 2 davon erfahren haben, haben wir uns für einen Zugang beworben, welchen wir dann auch erhalten haben.
+
+Das Trusted Tester API bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem API um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem API gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben, aber auch dazu aufrufen, dass neue API ausgiebig zu testen.
+
+Zu den Neuerungen des neuen APIs gehört, dass es auch eine REST-Schnittstelle\cite{rest} bekommen hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem API auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen API POST-Requests abzuschicken und somit endlich auch Schreiboperationen direkt via Browser zu unterstützen. \todo{SOP und Relay-Service, ist das irgendwo schon dokumentiert?}
+
+\subsection{Übersicht}
+Alle Request an das REST-API haben die folgende Form:
+\url{https://www.googleapis.com/fusiontables/<apiVersion>/<resourcePath>?<parameters>}
+
+Folgende Ressourcen sind derzeit unterstützt:
+\begin{itemize}
+	\item Table
+	\item Column
+	\item Template
+	\item Style
+\end{itemize}
+
+Eine Row oder Query Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL API (siehe Abschnitt \ref{sql-api}) verwendet werden.
+
+\begin{tabular}{|l|p{6cm}|p{7.5cm}|}
+\hline 
+\textbf{Operation} & \textbf{Beschreibung} & \textbf{HTTP Mapping} \\ 
+\hline 
+list & Alle Ressourcen eines Typs auflisten & \texttt{GET} auf einem Ressource-Typ\\ 
+\hline 
+get	 & Eine spezifische Ressource holen	& \texttt{GET} auf einer Ressource\\
+\hline 
+insert & Eine neue Ressource einfügen (kreiert eine neue Ressource) & \texttt{POST} auf einem Ressource-Typ (mit Daten um eine neue Ressource zu erstellen)\\
+\hline 
+update & Aktualisieren einer bestehenden Ressource & \texttt{PUT} auf einer Ressource (mit Daten um die Ressource zu aktualisieren)\\
+\hline 
+delete & Löschen einer Ressource & \texttt{DELETE}  auf einer Ressource\\
+\hline 
+\end{tabular}
+
+\subsection{Migration zum neuen API}
+Um zum neuen API zu migrieren müssen einige Dinge beachtet werden.
+
+
+\subsection{Bugs und Austausch mit den Google Entwicklern}
 
 \section{Geocodierung}
 Ein grosser Vorteil der Google Fusion Tables ist die automatische 
@@ -118,6 +125,44 @@ Google bietet von Haus aus aber bereits eine Fusion Table-Integration im Google 
 Die Möglichkeiten dieser Layer sind noch stark eingeschränkt aber die grundlegenden Funktionalitäten für das Arbeiten mit Geodaten sind bereits vorhanden.
 
 So ist es möglich Abfragen mit WHERE-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen. Man kann beispielsweise Flächen mit Zeckengebieten je nach Intensität des Befalls anders einfärben.
+
+\subsection{Spatial-Queries}
+\label{sqlapi-spatialqueries}
+Die FusionTablesLayer bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
+
+\begin{tabular}{|p{4cm}|p{11cm}|}
+\hline 
+\textbf{Spatial Keyword} & \textbf{Beschreibung} \\ 
+\hline 
+ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} ) & Kann als Bedingung in der WHERE-Klausel des Statements verwendet werden.
+
+Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \emph{{\textless}geometry{\textgreater}} befinden.
+
+\begin{itemize}
+\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
+\item Als \emph{{\textless}geometry{\textgreater}} kann entweder ein \emph{CIRCLE} oder ein \emph{RECTANGLE} verwendet werden. 
+\end{itemize}
+
+\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\hline 
+ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} ) & Kann als Bedingung in der ORDER BY-Klausel des Statements verwendet werden.
+
+Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \emph{{\textless}coordinate{\textgreater}} zurück.
+
+\begin{itemize}
+\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
+\item Die \emph{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
+\end{itemize}
+
+\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\hline 
+CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} ) & Wird verwendet, um einen Kreis von der angegebenen Koordinate \emph{coordinate} mit den Radius \emph{radius} zu erhalten. \\ 
+\hline 
+POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... ) & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \emph{coordinate{\_}x} zu erhalten. \\ 
+\hline 
+RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} ) & Wird verwendet um ein Rechteck mit den Ecken \emph{coordinate{\_}1} (links oben) und \emph{coordinate{\_}2} (rechts unten) zu erhalten. \\ 
+\hline 
+\end{tabular} 
 
 \subsection{Karten-Stile}
 Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich Flächen oder Linien farblich hervorzuheben oder Custom-Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer WHERE-Condition in der Abfrage.
