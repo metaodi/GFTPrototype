@@ -11,9 +11,9 @@ Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt we
 Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer des Google Maps APIs auf der Karte dargestellt werden kann.
 
 \subsection{Datenquellen}
-Als Datenquelle wurde der Daten Katalog der Weltbank (\url{http://data.worldbank.org/}) verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als XML- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als CSV-Dateien gespeichert haben. Diese konnten wir als neue Google Fusion Tables importieren.
+Als Datenquelle wurde der Daten Katalog der Weltbank\footnote{\url{http://data.worldbank.org/}} verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als XML- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als CSV-Dateien gespeichert haben. Diese konnten wir als neue Google Fusion Tables importieren.
 
-Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite (\url{http://www.gelib.com/world-borders.htm}) bezogen. 
+Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite\footnote{\url{http://www.gelib.com/world-borders.htm}} bezogen. 
 
 \section{Analyse}
 \todo[inline]{UseCase 1: WorldData - Analyse}
