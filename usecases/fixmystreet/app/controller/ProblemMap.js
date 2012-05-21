@@ -199,7 +199,7 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 		var conditionLatLow = "latitude >= " + mapBounds.getSouthWest().lat();
 		var conditionLatHigh = "latitude <= " + mapBounds.getNorthEast().lat();
 		var conditionLngLow = "longitude >= " + mapBounds.getSouthWest().lng();
-		var conditionLngHigh =  "latitude <= " + mapBounds.getNorthEast().lng();
+		var conditionLngHigh =  "longitude <= " + mapBounds.getNorthEast().lng();
 		
 		// requesting problems from fusiontable
 		FixMyStreet.gftLib.execSelect(me.syncProblemMarkers, {
