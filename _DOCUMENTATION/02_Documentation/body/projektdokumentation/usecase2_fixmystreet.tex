@@ -250,7 +250,7 @@ Google Maps API & V3 & Anzeige der Karten \\
 \section{Implementation}
 \subsection{Quellcode-Struktur}
 
-\begin{longtable}{|l|p{10cm}|}
+\begin{longtable}{|l|p{9.5cm}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
@@ -293,9 +293,9 @@ Sencha Touch verwendet für den Zugriff auf fremde Datenquellen das Konzept der 
 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (LocalStorage) zu kommunizieren. Zudem existieren Proxies für AJAX-Serveranfragen oder JSONP-Anfragen.
 
-Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene Javascript Fusion Table Library \emph{gftlib-js} (\ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
+Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene Javascript Fusion Table Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
 Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen Create, Read und Delete. Ein Aktualisieren von gemeldeten Problemen ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
-Die Operationen sind jeweils in den Methoden create(), read() und destory() des Proxies abgebildet.
+Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \subsection{Wiedererkennung des Benutzers}
 Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um die App zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
@@ -312,7 +312,7 @@ Die Karte aktualisiert sich zudem jedes Mal, wenn die Übersichtsmaske aufgerufe
 \subsection{Auf Übersichtsmaske nur Probleme für sichtbaren Bereich laden}
 Um nicht zu viele Markierungen gleichzeitig zu laden und so die Applikation zu verlangsamen, laden wir auf der Übersichtsmaske nur die Probleme, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben wird oder der Zoom geändert wird, werden die Probleme für den neuen Bereich nachgeladen.
 
-Dazu haben wir das Spatial-Query ST\_INTERSECTS des SQL APIs (\ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
+Dazu haben wir das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL APIs (siehe Abschnitt \ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
 
 \subsection{Heatmap-Ansicht auf Übersichtsmaske}
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Probleme als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature verwendet. 
@@ -321,11 +321,11 @@ Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Probleme als H
 \todo[inline]{UseCase 2: FixMyStreet - Test}
 
 \section{Resultate}
-Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines GRANT-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.
+Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines \inlinecode{GRANT}-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.
 
-Zusätzlich konnten wir die GIS-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns die fehlende  Geocodierung von neu eingefügten Datensätzen \todo[inline]{Referenz auf Geocoding Bug einfügen} daran Spatial-Queries zu verwenden.
+Zusätzlich konnten wir die GIS-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns die fehlende  Geocodierung von neu eingefügten Datensätzen daran Spatial-Queries zu verwenden.\todo{Referenz auf Geocoding Bug einfügen}
 
-Zudem haben wir bewusst auf die Verwendung einer Fusion Tables-Ebene (siehe \ref{gmap-api-fusiontableslayer}) für die Übersichtsmaske verzichtet, da wir dadurch die Möglichkeit verloren hätten Custom-Markers auf der Karte hinzuzufügen. Dies hätte die Usability der App stark verschlechtert, da man nicht mehr direkt den Typen des markierten Defekts erkannt hätte.
+Zudem haben wir bewusst auf die Verwendung einer Fusion Tables-Ebene (siehe Abschnitt \ref{gmap-api-fusiontableslayer}) für die Übersichtsmaske verzichtet, da wir dadurch die Möglichkeit verloren hätten Custom-Markers auf der Karte hinzuzufügen. Dies hätte die Usability der App stark verschlechtert, da man nicht mehr direkt den Typen des markierten Defekts erkannt hätte.
 
 Alles in allem waren die Nachteile bei der Verwendung von Google Fusion Tables als Datenbank wahrscheinlich grösser als deren Vorteile.
 

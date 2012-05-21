@@ -166,7 +166,7 @@ index.html & Startseite der Applikation \\
 \todo[inline]{UseCase 1: WorldData - Test}
 
 \section{Resultate}
-Das FusionTablesLayer Element der Google Maps API eignet sich sehr gut zur Darstellung einer grossen Anzahl von Daten. Leider hindern die Einschränkungen betreffend Styles (siehe \ref{fusiontableslayer-styles-restrictions}) stark den individuellen Gestalltungsprozess der Ebene.
+Das FusionTablesLayer Element der Google Maps API eignet sich sehr gut zur Darstellung einer grossen Anzahl von Daten. Leider hindern die Einschränkungen betreffend Styles (siehe Abschnitt  \ref{fusiontableslayer-styles-restrictions}) stark den individuellen Gestalltungsprozess der Ebene.
 
 Wie wir feststellen mussten, sind diese 5 Stile sehr schnell aufgebraucht. Einer davon fällt meistens für den Standard-Stil weg. Dieser wird angewendet, wenn die entsprechende Zeile aus der Tabelle auf keine Bedingung der restlichen Stile passt. So bleiben lediglich noch 4 Stile übrig für alle Elemente die man speziell hervorheben möchte.
 
@@ -235,7 +235,7 @@ Die Daten liegen als CSV-Datei vor. Diese beinhaltet folgende Spalten:
 	\label{worlddata-data_csv}
 \end{figure}
 
-Das Vorgehen für den Import der Daten ist dasselbe wie bei den Landesgrenzen (\ref{landesgrenzen}).
+Das Vorgehen für den Import der Daten ist dasselbe wie bei den Landesgrenzen (siehe Abschnitt \ref{landesgrenzen}).
 
 Nach dem Import der Daten sollte die Tabelle folgendermassen aussehen:
 
@@ -311,17 +311,17 @@ Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden
 \hline 
 \textbf{Parameter} & \textbf{Typ} & \textbf{Beschreibung} \\ 
 \hline 
-\$.fusiontable.id & int & Öffnetliche ID der zu verwendenden Fusion Table \\ 
+\inlinecode{\$.fusiontable.id} & int & Öffnetliche ID der zu verwendenden Fusion Table \\ 
 \hline 
-\$.fusiontable.field & string & Spaltenname welcher die Landesgrenzen speichert
+\inlinecode{\$.fusiontable.field} & string & Spaltenname welcher die Landesgrenzen speichert
 
 \textit{(ACHTUNG: Gross-/Kleinschreibung relevant)} \\ 
 \hline 
-\$.fusiontable.typeField & string & Spaltenname aus welchem die Themen gelesen werden sollen
+\inlinecode{\$.fusiontable.typeField} & string & Spaltenname aus welchem die Themen gelesen werden sollen
 
 \textit{(ACHTUNG: Gross-/Kleinschreibung relevant)} \\ 
 \hline 
-\$.fusiontable.types & - & Konfiguration der verschiedenen Themen. Für jedes Thema muss ein neuer Block nach folgendem Schema erstellt werden:
+\inlinecode{\$.fusiontable.types} & - & Konfiguration der verschiedenen Themen. Für jedes Thema muss ein neuer Block nach folgendem Schema erstellt werden:
 
 \lstset{language=JavaScript}
 \begin{lstlisting}
@@ -335,15 +335,15 @@ Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden
 }
 \end{lstlisting} \\ 
 \hline 
-- TYPE & string & ID des Themas \\ 
+\inlinecode{TYPE} & string & ID des Themas \\ 
 \hline 
-- TYPE.name & string & Bezeichnung des Themas \\ 
+\inlinecode{TYPE.name} & string & Bezeichnung des Themas \\ 
 \hline 
-- TYPE.styleBoundaries.low & int & Obere Grenze für tiefe Werte \\ 
+\inlinecode{TYPE.styleBoundaries.low} & int & Obere Grenze für tiefe Werte \\ 
 \hline 
-- TYPE.styleBoundaries.medium & int & Obere Grenze für mittlere Werte \\ 
+\inlinecode{TYPE.styleBoundaries.medium} & int & Obere Grenze für mittlere Werte \\ 
 \hline 
-- TYPE.styleBoundaries.high & int & Obere Grenze für hohe Werte \\ 
+\inlinecode{TYPE.styleBoundaries.high} & int & Obere Grenze für hohe Werte \\ 
 \hline 
 \end{longtable}
 
