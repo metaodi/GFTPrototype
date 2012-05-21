@@ -21,9 +21,9 @@ Um aktiv zu kollaborieren bieten hat Google auch einige Features angedacht. So i
 \label{sql-api}
 Das SQL API bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen.
 
-\begin{tabular}{|l|l|}
+\begin{longtable}{|l|p{11cm}|}
 \hline 
-Befehl & Beschreibung \\ 
+\textbf{Befehl} & \textbf{Beschreibung} \\ 
 \hline 
 SHOW TABLES & Abfrage aller Tabellen des angemeldeten Benutzers \\ 
 \hline 
@@ -43,7 +43,7 @@ DELETE & Daten aus einer Tabelle löschen \\
 \hline 
 DROP TABLE & Löschen einer Tabelle \\ 
 \hline 
-\end{tabular}
+\end{longtable}
 
 \section{Client Libraries}
 Google bietet zum API bereits auch Client Libraries in den Sprachen PHP und Phyton an. Da unserer Applikation aber möglichst nur in Javascript implementiert werden soll erstellten wir uns eine Javascript Library zur Verwendung des SQL APIs.
@@ -74,7 +74,7 @@ Folgende Ressourcen sind derzeit unterstützt:
 
 Eine Row oder Query Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL API (siehe Abschnitt \ref{sql-api}) verwendet werden.
 
-\begin{tabular}{|l|p{6cm}|p{7.5cm}|}
+\begin{longtable}{|l|p{6cm}|p{7.5cm}|}
 \hline 
 \textbf{Operation} & \textbf{Beschreibung} & \textbf{HTTP Mapping} \\ 
 \hline 
@@ -88,7 +88,7 @@ update & Aktualisieren einer bestehenden Ressource & \texttt{PUT} auf einer Ress
 \hline 
 delete & Löschen einer Ressource & \texttt{DELETE}  auf einer Ressource\\
 \hline 
-\end{tabular}
+\end{longtable}
 
 \subsection{Migration zum neuen API}
 Um zum neuen API zu migrieren müssen einige Dinge beachtet werden.
@@ -105,9 +105,9 @@ Ein grosser Vorteil der Google Fusion Tables ist die automatische
 Diese geocodierten Standorte werden in der Tabelle hinterlegt sind aber mit den SQL API nicht selektierbar. Man müsste also für jede Zeile die man als Resultat erhält die Geocodierung manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirken würde.
 Es gibt verschiedene Dienste, welche eine solche Geocodierung von Standortdaten anbieten. Die meisten davon haben aber eine Begrenzung der möglichen Anfragen pro Tag.
 
-\begin{tabular}{|l|p{1.9cm}|p{7.3cm}|}
+\begin{longtable}{|l|p{1.9cm}|p{7.3cm}|}
 \hline 
-Anbieter & Anfragen pro Tag & URL \\ 
+\textbf{Anbieter} & \textbf{Anfragen pro Tag} & \textbf{URL} \\ 
 \hline 
 Google Maps Geocoding API & 2500 & \url{https://developers.google.com/maps/documentation/geocoding/?hl=de} \\ 
 \hline 
@@ -115,7 +115,7 @@ Yahoo! PlaceFinder API & 50000 & \url{http://developer.yahoo.com/geo/placefinder
 \hline 
 MapQuest Geocoding API & keine Begrenzung & \url{http://developer.mapquest.com/web/products/dev-services/geocoding-ws} \\ 
 \hline 
-\end{tabular} 
+\end{longtable} 
 
 Wie man sieht erreicht man mit diesen Diensten beim Arbeiten mit grossen Datenmengen schnell die Grenzen.
 
@@ -130,7 +130,7 @@ So ist es möglich Abfragen mit WHERE-Conditions einzuschränken oder die Stile 
 \label{sqlapi-spatialqueries}
 Die FusionTablesLayer bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
 
-\begin{tabular}{|p{4cm}|p{11cm}|}
+\begin{longtable}{|p{4cm}|p{11cm}|}
 \hline 
 \textbf{Spatial Keyword} & \textbf{Beschreibung} \\ 
 \hline 
@@ -162,7 +162,7 @@ POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\t
 \hline 
 RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} ) & Wird verwendet um ein Rechteck mit den Ecken \emph{coordinate{\_}1} (links oben) und \emph{coordinate{\_}2} (rechts unten) zu erhalten. \\ 
 \hline 
-\end{tabular} 
+\end{longtable} 
 
 \subsection{Karten-Stile}
 Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich Flächen oder Linien farblich hervorzuheben oder Custom-Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer WHERE-Condition in der Abfrage.
@@ -170,8 +170,6 @@ Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit is
 \emph{Hinweis: Kann ein Datensatz keinem Stil zugewiesen werden, da er in keine Einschränkung passt, erhält er den letzten definierten Stil.}
 
 \subsubsection{Beispiel eines Stils:}
-Quelle: \url{https://developers.google.com/maps/documentation/javascript/layers?hl=de-DE#fusion_table_styles}
-
 \lstset{language=JavaScript}
 \begin{lstlisting}
 styles: [{
@@ -187,7 +185,7 @@ styles: [{
 }]
 \end{lstlisting}
 
-In diesem Beispiel werden alle Polygone der Tabelle, welche in der Spalte \emph{birds} eine Zahl grösser als 300 eingetragen haben, \emph{blau} eingefärbt. Die restlichen Polygone erhalten eine \emph{grüne} Färbung mit einer Deckkraft von 30\%.
+In diesem Beispiel\footnote{Quelle: \url{https://developers.google.com/maps/documentation/javascript/layers?hl=de-DE\#fusion_table_styles} (Stand: 21.05.2012)} werden alle Polygone der Tabelle, welche in der Spalte \emph{birds} eine Zahl grösser als 300 eingetragen haben, \emph{blau} eingefärbt. Die restlichen Polygone erhalten eine \emph{grüne} Färbung mit einer Deckkraft von 30\%.
 
 \subsubsection{Einschränkungen}
 \label{fusiontableslayer-styles-restrictions}
@@ -258,16 +256,16 @@ Zur Erstellung der AJAX-Requests werden die \$.get()- und \$.post()-Helpermethod
 adfasfsadf,
 
 \subsection{Abhängikeiten}
-\begin{tabular}{|l|l|}
+\begin{longtable}{|l|l|}
 \hline 
 \textbf{Library} & \textbf{Version} \\ 
 \hline 
 jQuery & 1.7.1-min \\ 
 \hline 
-\end{tabular} 
+\end{longtable} 
 
 \subsection{Methoden}
-\begin{tabular}{|l|p{5cm}|p{5cm}|}
+\begin{longtable}{|l|p{5cm}|p{5cm}|}
 \hline 
 \textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
 \hline 
@@ -277,4 +275,4 @@ execSelect(callback, options) & Führt einen SQL-Abfrage aus & callback (Funktio
 \hline 
 convertToObject(gftData) & Konvertiert das Resultat einer Abfrage in sprechende Objekte & • \\ 
 \hline 
-\end{tabular} 
+\end{longtable} 
