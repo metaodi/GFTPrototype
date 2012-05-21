@@ -15,12 +15,6 @@ $client = new apiClient();
 $client->setApplicationName("GFTPrototype");
 $client->setClientId(CLIENT_ID);
 
-//reuse key if it's saved in the session
-session_start();
-if (isset($_SESSION['token'])) {
- $client->setAccessToken($_SESSION['token']);
-}
-
 //add key
 $key = file_get_contents(KEY_FILE);
 $authScope = 'https://accounts.google.com/o/oauth2/token';
@@ -29,7 +23,14 @@ $client->setAssertionCredentials(new apiAssertionCredentials(
   array(FT_SCOPE),
   $key)
 );
-$client::$auth->refreshTokenWithAssertion();
+
+//reuse key if it's saved in the session
+session_start();
+if (isset($_SESSION['token'])) {
+	$client->setAccessToken($_SESSION['token']);
+} else {
+	$client::$auth->refreshTokenWithAssertion();
+}
 
 if (isset ($_GET['jsonp']) && $_GET['jsonp'] != "") {
 	print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
