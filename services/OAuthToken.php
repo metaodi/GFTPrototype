@@ -1,6 +1,5 @@
 <?php
 require_once '../lib/google-api-php-client/src/apiClient.php';
-require_once '../lib/google-api-php-client/src/contrib/apiUrlshortenerService.php';
 
 function generate_jsonp($jsonString,$functionName="callback") {
 	return $functionName."(".$jsonString.");";
@@ -27,12 +26,11 @@ $key = file_get_contents(KEY_FILE);
 $authScope = 'https://accounts.google.com/o/oauth2/token';
 $client->setAssertionCredentials(new apiAssertionCredentials(
   SERVICE_ACCOUNT_NAME,
-  array(FT_SCOPE, "https://www.googleapis.com/auth/urlshortener"),
+  array(FT_SCOPE),
   $key)
 );
+$client::$auth->refreshTokenWithAssertion();
 
-$service = new apiUrlshortenerService($client);
-$data = $service->url->listUrl();
 if (isset ($_GET['jsonp']) && $_GET['jsonp'] != "") {
 	print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
 } else {
