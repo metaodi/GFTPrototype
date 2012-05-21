@@ -49,41 +49,43 @@ Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DES
 \hline 
 \end{longtable}
 
-\subsection{Spatial-Queries}
+\subsection{Abfragen (Queries)}
+
+\subsubsection{Ortsbezogene Abfragen (Spatial-Queries)}
 \label{sqlapi-spatialqueries}
-Die FusionTablesLayer bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
+Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
 
 \begin{longtable}{|p{4cm}|p{11cm}|}
 \hline 
 \textbf{Spatial Keyword} & \textbf{Beschreibung} \\ 
 \hline 
-ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} ) & Kann als Bedingung in der WHERE-Klausel des Statements verwendet werden.
+\inlinecode{ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} )} & Kann als Bedingung in der \inlinecode{WHERE}-Klausel des Statements verwendet werden.
 
-Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \emph{{\textless}geometry{\textgreater}} befinden.
-
-\begin{itemize}
-\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
-\item Als \emph{{\textless}geometry{\textgreater}} kann entweder ein \emph{CIRCLE} oder ein \emph{RECTANGLE} verwendet werden. 
-\end{itemize}
-
-\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
-\hline 
-ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} ) & Kann als Bedingung in der ORDER BY-Klausel des Statements verwendet werden.
-
-Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \emph{{\textless}coordinate{\textgreater}} zurück.
+Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \inlinecode{{\textless}geometry{\textgreater}} befinden.
 
 \begin{itemize}
-\item Als \emph{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{location} hat.
-\item Die \emph{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
+\item Als \inlinecode{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{Location} hat.
+\item Als \inlinecode{{\textless}geometry{\textgreater}} kann entweder ein \inlinecode{CIRCLE} oder ein \inlinecode{RECTANGLE} verwendet werden. 
 \end{itemize}
 
-\textit{Hinweis: ST{\_}INTERSECTS und ST{\_}DISTANCE dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\textit{Hinweis: \inlinecode{ST{\_}INTERSECTS} und \inlinecode{ST{\_}DISTANCE} dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
 \hline 
-CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} ) & Wird verwendet, um einen Kreis von der angegebenen Koordinate \emph{coordinate} mit den Radius \emph{radius} zu erhalten. \\ 
+\inlinecode{ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} )} & Kann als Bedingung in der \inlinecode{ORDER BY}-Klausel des Statements verwendet werden.
+
+Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} zurück.
+
+\begin{itemize}
+\item Als \inlinecode{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{Location} hat.
+\item Die \inlinecode{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
+\end{itemize}
+
+\textit{Hinweis: \inlinecode{ST{\_}INTERSECTS} und \inlinecode{ST{\_}DISTANCE} dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
 \hline 
-POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... ) & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \emph{coordinate{\_}x} zu erhalten. \\ 
+\inlinecode{CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} )} & Wird verwendet, um einen Kreis von der angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} mit den Radius \inlinecode{{\textless}radius{\textgreater}} zu erhalten. \\ 
 \hline 
-RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} ) & Wird verwendet um ein Rechteck mit den Ecken \emph{coordinate{\_}1} (links oben) und \emph{coordinate{\_}2} (rechts unten) zu erhalten. \\ 
+\inlinecode{POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... )} & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \inlinecode{{\textless}{coordinate{\_}x}{\textgreater}} zu erhalten. \\ 
+\hline 
+\inlinecode{RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} )} & Wird verwendet um ein Rechteck mit den Ecken \inlinecode{{\textless}coordinate{\_}1{\textgreater}} (links oben) und \inlinecode{{\textless}coordinate{\_}2{\textgreater}} (rechts unten) zu erhalten. \\ 
 \hline 
 \end{longtable} 
 
@@ -166,10 +168,10 @@ Wie man sieht erreicht man mit diesen Diensten beim Arbeiten mit grossen Datenme
 Google bietet von Haus aus aber bereits eine Fusion Table-Integration im Google Maps API V3 an. Damit ist es möglich Fusion Tables als eigenständige Layer direkt auf der Karte darzustellen.
 Die Möglichkeiten dieser Layer sind noch stark eingeschränkt aber die grundlegenden Funktionalitäten für das Arbeiten mit Geodaten sind bereits vorhanden.
 
-So ist es möglich Abfragen mit WHERE-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen. Man kann beispielsweise Flächen mit Zeckengebieten je nach Intensität des Befalls anders einfärben.
+So ist es möglich Abfragen mit \inlinecode{WHERE}-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen. Man kann beispielsweise Flächen mit Zeckengebieten je nach Intensität des Befalls anders einfärben.
 
 \subsection{Karten-Stile}
-Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich Flächen oder Linien farblich hervorzuheben oder Custom-Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer WHERE-Condition in der Abfrage.
+Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich Flächen oder Linien farblich hervorzuheben oder Custom-Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer \inlinecode{WHERE}-Condition in der Abfrage.
 
 \emph{Hinweis: Kann ein Datensatz keinem Stil zugewiesen werden, da er in keine Einschränkung passt, erhält er den letzten definierten Stil.}
 
@@ -257,7 +259,7 @@ Die Google Fusion Table Javascript Library vereinfacht die Kommunikation mit dem
 
 Zur Erstellung der AJAX-Requests werden die \$.get()- und \$.post()-Helpermethoden der jQuery Library in der Version 1.7.1 (Minified) verwendet.
 
-adfasfsadf,
+\todo{GftLib Abschnitt überarbeiten}
 
 \subsection{Abhängikeiten}
 \begin{longtable}{|l|l|p{11.5cm}|}
@@ -283,3 +285,4 @@ convertToObject(gftData) & Konvertiert das Resultat einer Abfrage in sprechende 
 
 \section{Authentifizierung mit OAuth}
 \label{oauth}
+\todo{OAuth Abschnitt schreiben}
