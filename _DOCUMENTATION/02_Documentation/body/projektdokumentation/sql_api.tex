@@ -1,0 +1,122 @@
+\section{SQL API}
+\label{sql-api}
+Das SQL API bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen\footnote{Befehlsreferenz: \url{https://developers.google.com/fusiontables/docs/developers_reference}}. Die SQL-Befehle werden als Parameter in folgender Form an das API übergeben:
+
+\url{https://www.googleapis.com/fusiontables/<apiVersion>/query?sql=<statement>}
+
+Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DESCRIBE}) werden dabei als \inlinecode{GET}-Request geschickt, schreibende Zugriffe (\inlinecode{CREATE}, \inlinecode{DROP}, \inlinecode{INSERT}, \inlinecode{UPDATE}, \inlinecode{DELETE} mit der \inlinecode{POST}-Methode. Um Daten zu schreiben und für den Zugriff auf private Tabelle ist eine Authentifizierung (siehe Abschnitt \ref{oauth}) mit OAuth nötig.
+
+\begin{longtable}{|l|p{11.5cm}|}
+\hline 
+\textbf{Befehl} & \textbf{Beschreibung} \\ 
+\hline 
+\inlinecode{SHOW TABLES} & Abfrage aller Tabellen des angemeldeten Benutzers \\ 
+\hline 
+\inlinecode{DESCRIBE} & Bezeichnung und Datentypen aller Spalten in einer Tabelle \\ 
+\hline 
+\inlinecode{CREATE TABLE} & Erstellen einer neuen Tabelle \\ 
+\hline 
+\inlinecode{CREATE VIEW} & Erstellen einer View auf Grundlage einer bestehenden Tabelle \\ 
+\hline 
+\inlinecode{SELECT} & Selektieren von Daten einer Tabelle \\ 
+\hline 
+\inlinecode{INSERT} & Neue Zeile zu einer Tabelle hinzufügen \\ 
+\hline 
+\inlinecode{UPDATE} & Daten in einer Tabelle verändern \\ 
+\hline 
+\inlinecode{DELETE} & Daten aus einer Tabelle löschen \\ 
+\hline 
+\inlinecode{DROP TABLE} & Löschen einer Tabelle \\ 
+\hline 
+\end{longtable}
+
+\subsection{Abfragen (Queries)}
+
+\subsubsection{Ortsbezogene Abfragen (Spatial-Queries)}
+\label{sqlapi-spatialqueries}
+Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
+
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline 
+\textbf{Spatial Keyword} & \textbf{Beschreibung} \\ 
+\hline 
+\inlinecode{ST{\_}INTERSECTS( {\textless}location{\_}column{\textgreater}, {\textless}geometry{\textgreater} )} & Kann als Bedingung in der \inlinecode{WHERE}-Klausel des Statements verwendet werden.
+
+Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \inlinecode{{\textless}geometry{\textgreater}} befinden.
+
+\begin{itemize}
+\item Als \inlinecode{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{Location} hat.
+\item Als \inlinecode{{\textless}geometry{\textgreater}} kann entweder ein \inlinecode{CIRCLE} oder ein \inlinecode{RECTANGLE} verwendet werden. 
+\end{itemize}
+
+\textit{Hinweis: \inlinecode{ST{\_}INTERSECTS} und \inlinecode{ST{\_}DISTANCE} dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\hline 
+\inlinecode{ST{\_}DISTANCE( {\textless}location{\_}column{\textgreater}, {\textless}coordinate{\textgreater} )} & Kann als Bedingung in der \inlinecode{ORDER BY}-Klausel des Statements verwendet werden.
+
+Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} zurück.
+
+\begin{itemize}
+\item Als \inlinecode{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{Location} hat.
+\item Die \inlinecode{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
+\end{itemize}
+
+\textit{Hinweis: \inlinecode{ST{\_}INTERSECTS} und \inlinecode{ST{\_}DISTANCE} dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
+\hline 
+\inlinecode{CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} )} & Wird verwendet, um einen Kreis von der angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} mit den Radius \inlinecode{{\textless}radius{\textgreater}} zu erhalten. \\ 
+\hline 
+\inlinecode{POLYGON( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater}, ... )} & Wird verwendet um ein Polygon bestehend aus den angegebenen Koordinaten \inlinecode{{\textless}{coordinate{\_}x}{\textgreater}} zu erhalten. \\ 
+\hline 
+\inlinecode{RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} )} & Wird verwendet um ein Rechteck mit den Ecken \inlinecode{{\textless}coordinate{\_}1{\textgreater}} (links oben) und \inlinecode{{\textless}coordinate{\_}2{\textgreater}} (rechts unten) zu erhalten. \\ 
+\hline 
+\end{longtable} 
+
+\section{Client Libraries}
+Google bietet zum API bereits auch Client Libraries in den Sprachen PHP und Phyton an. Da unserer Applikation aber möglichst nur in Javascript implementiert werden soll erstellten wir uns eine Javascript Library zur Verwendung des SQL APIs.
+
+Durch die Same origin policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, welche es uns daran hinderte AJAX-Requests direkt auf das Google API abzusetzen, mussten wir zuerst nach Lösungen für dieses Problem suchen. Wir wollten es verhindern einen PHP-Server dazwischen zu schalten, welcher uns die Abfragen abnimmt.
+
+So fanden wir in den Google Groups ein inoffizielles JSONP API, welches es erlaubt AJAX-Requests auch über die eigene Domäne hinweg zu senden. Dies funktioniert jedoch nur für lesende Zugriffe. Für alle schreibenden Zugriffe mussten wir eine Umgeheungslösung bauen, bei der die Requests über unseren Webserver geschleust wurden. Damit konnten wir die Same-Origin-Policy umgehen. Mit Hilfe des Trusted Tester API (Siehe Abschnitt~\ref{trusted-tester-api}) haben wir schlussendlich dann aber doch noch eine Lösung gefunden, welche direkt im Browser läuft und somit nicht auf Server-Code angewiesen ist.
+
+\section{Trusted Tester API}
+\label{trusted-tester-api}
+Es gibt derzeit zwei verschiedene Versionen des APIs: eine frei öffentlich zugängliche und das sogenannte "Trusted Tester API", welche derzeit im Beta-Stadium ist und ausgewählten Personen zur Verfügung steht. Als wir im Sprint 2 davon erfahren haben, haben wir uns für einen Zugang beworben, welchen wir dann auch erhalten haben.
+
+Das Trusted Tester API bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem API um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem API gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben, aber auch dazu aufrufen, dass neue API ausgiebig zu testen.
+
+Zu den Neuerungen des neuen APIs gehört, dass es auch eine REST-Schnittstelle\cite{rest} bekommen hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem API auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen API POST-Requests abzuschicken und somit endlich auch Schreiboperationen direkt via Browser zu unterstützen. \todo[inline]{SOP und Relay-Service, ist das irgendwo schon dokumentiert?}
+
+\subsection{Übersicht}
+Alle Request an das REST-API haben die folgende Form:
+\url{https://www.googleapis.com/fusiontables/<apiVersion>/<resourcePath>?<parameters>}
+
+Folgende Ressourcen sind derzeit unterstützt:
+\begin{itemize}
+	\item Table
+	\item Column
+	\item Template
+	\item Style
+\end{itemize}
+
+Eine Row oder Query Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL API (siehe Abschnitt \ref{sql-api}) verwendet werden.
+
+\begin{longtable}{|l|p{6cm}|p{7cm}|}
+\hline 
+\textbf{Operation} & \textbf{Beschreibung} & \textbf{HTTP Mapping} \\ 
+\hline 
+list & Alle Ressourcen eines Typs auflisten & \inlinecode{GET} auf einem Ressource-Typ\\ 
+\hline 
+get	 & Eine spezifische Ressource holen	& \inlinecode{GET} auf einer Ressource\\
+\hline 
+insert & Eine neue Ressource einfügen (kreiert eine neue Ressource) & \inlinecode{POST} auf einem Ressource-Typ (mit Daten um eine neue Ressource zu erstellen)\\
+\hline 
+update & Aktualisieren einer bestehenden Ressource & \inlinecode{PUT} auf einer Ressource (mit Daten um die Ressource zu aktualisieren)\\
+\hline 
+delete & Löschen einer Ressource & \inlinecode{DELETE}  auf einer Ressource\\
+\hline 
+\end{longtable}
+
+\subsection{Migration zum neuen API}
+Um zum neuen API zu migrieren müssen einige Dinge beachtet werden.
+
+
+\subsection{Bugs und Austausch mit den Google Entwicklern}

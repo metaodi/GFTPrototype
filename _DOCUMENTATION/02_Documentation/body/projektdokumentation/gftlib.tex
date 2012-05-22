@@ -1,0 +1,29 @@
+\section{Google Fusion Table Javascript Library (GftLib)}
+\label{gftlib-js}
+Die Google Fusion Table Javascript Library vereinfacht die Kommunikation mit dem Google Fusion Table SQL API. Sie hilft dabei SQL-Queries zu erstellen und per AJAX an das API zu versenden.
+
+Zur Erstellung der AJAX-Requests werden die \$.get()- und \$.post()-Helpermethoden der jQuery Library in der Version 1.7.1 (Minified) verwendet.
+
+\todo[inline]{GftLib Abschnitt überarbeiten}
+
+\subsection{Abhängikeiten}
+\begin{longtable}{|l|l|p{11.5cm}|}
+\hline 
+\textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
+\hline 
+jQuery & 1.7.1-min & AJAX-Requests und weitere Helper-Funktionen \\ 
+\hline 
+\end{longtable} 
+
+\subsection{Methoden}
+\begin{longtable}{|l|p{4.5cm}|p{5cm}|}
+\hline 
+\textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
+\hline 
+execSql(callback, query) & Führt einen SQL-Befehl & callback (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. query (String): SQL-Query \\ 
+\hline 
+execSelect(callback, options) & Führt einen SQL-Abfrage aus & callback (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. query (String): SQL-Query \\ 
+\hline 
+convertToObject(gftData) & Konvertiert das Resultat einer Abfrage in sprechende Objekte & • \\ 
+\hline 
+\end{longtable} 
