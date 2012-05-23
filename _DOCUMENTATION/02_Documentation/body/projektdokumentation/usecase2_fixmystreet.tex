@@ -28,8 +28,9 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 \end{enumerate}
 
 \subsection{Use Cases}
+Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/uml/fixmystreet-usecasemodel.png}
 	\caption{FixMyStreet UseCase Modell}
@@ -138,22 +139,24 @@ Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Er hat darin d
 \emph{Hinweis: Dieser UseCase wird vom gegebenen Google Fusion Table GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
 \subsection{Paper-Prototype}
+Vor der Implementation der Oberfläche wurde das GUI-Design zuerst als Paper-Prototype erstellt und von verschiedenen Personen getestet. Dieser besteht aus drei verschiedenen Hauptmasken.
+
 \paragraph{Maske: Melden}
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \subfigure[Defekt melden - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden.jpg}}
 \hfill
 \subfigure[Fehleranzeige beim Absenden ohne Defekttyp-Auswahl]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_fehler.jpg}}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \subfigure[Defekttyp-Auswahl aufgeklappt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektauswaehlen.jpg}}
 \hfill
 \subfigure[Defekttyp ausgewählt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektausgewaehlt.jpg}}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \subfigure[Defekt-Markierung auf Karte verschoben]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_ortgewaehlt.jpg}}
 \hfill
 \subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_meldungerfolgreich.jpg}}
@@ -162,7 +165,7 @@ Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der De
 \paragraph{Maske: Verwalten}
 In dieser Maske kann man seine eigenen Defekt-Meldungen verwalten. Die gemeldeten Defekte werden gruppiert nach \emph{Offene Defekte} und \emph{Behobene Defekte}. Zu jedem Defekt wird der aktuelle Status angezeigt. Mit einem Klick auf einen Defekt erreicht man dessen Detailanzeige.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \subfigure[Defekte verwalten - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten.jpg}}
 \hfill
 \subfigure[Detailansicht eines gemeldeten Defekts]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten_detail.jpg}}
@@ -171,7 +174,7 @@ In dieser Maske kann man seine eigenen Defekt-Meldungen verwalten. Die gemeldete
 \paragraph{Maske: Anzeigen}
 Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit einem Klick auf eine Defekt-Markierung erhält man zusätzliche Information zu diesem Defekt.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \subfigure[Anzeigen - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-anzeigen.jpg}}
 \end{figure}
 
@@ -179,14 +182,14 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 \section{Design}
 
 \subsection{ERD}
-Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}. Davon wurden zwei Views erstellt:
+Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ}}. Davon wurden zwei Views erstellt:
 
 \begin{itemize}
-\item \emph{ftFixMyStreet\_Read}: In dieser View sind alle Probleme vorhanden. Die Applikation hat aber nur Lesezugriff darauf.
-\item \emph{ftFixMyStreet\_Write}: In dieser View sind lediglich die Probleme vorhanden deren Status auf \emph{neu} gesetzt ist. Die Applikation kann darin neue Probleme abspeichern und diese auch wieder löschen.
+\item \emph{ftFixMyStreet\_Read}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1no3_lJ0CCazZVN6rlAY8vrtf9ejoz_xo0e7a9cY}}: In dieser View sind alle Probleme vorhanden. Die Applikation hat aber nur Lesezugriff darauf.
+\item \emph{ftFixMyStreet\_Write}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac} (private Tabelle)}: In dieser View sind lediglich die Probleme vorhanden deren Status auf \emph{neu} gesetzt ist. Die Applikation kann darin neue Probleme abspeichern und diese auch wieder löschen.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-erd.png}
 	\caption{FixMyStreet ERD}
@@ -197,8 +200,9 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}. Davon wurden zwe
 \todo[inline]{UseCase 2: FixMyStreet - Klassendiagramm}
 
 \subsection{Deploymentdiagramm}
+Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/uml/fixmystreet-deploymentmodel.png}
 	\caption{FixMyStreet Deploymentdiagramm}
@@ -206,10 +210,21 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}. Davon wurden zwe
 \end{figure}
 
 \subsection{Starten der Applikation}
+Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite, welche die \emph{launch()}-Funktion der Applikation aufruft. Danach werden folgende Schritte durchlaufen:
 
-\begin{figure}[h!]
+\begin{enumerate}
+\item Laden der verschiedenen Status-Typen
+\item Laden der Defekt-Typen
+\item Laden der UserId aus dem LocalStorage
+\item Falls noch keine UserId vorhanden ist, wird diese generiert und in den LocalStorage geschrieben
+\item Laden der bereits gemeldeten Defekte des Benutzers aus der Fusion Table
+\item Aktueller Standort des Benutzers wird ausgelesen
+\item Laden der Benutzeroberfläche
+\end{enumerate}
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.45]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup.png}
+	\includegraphics[scale=0.43]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup.png}
 	\caption{FixMyStreet Sequenzdiagramm - Starten der Applikation}
 	\label{fixmystreet-sequencediagram-applicationstartup}
 \end{figure}
@@ -217,7 +232,7 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}. Davon wurden zwe
 % Implementation
 \section{Implementation}
 \subsection{Systemanforderungen:}
-Die WebApp basiert auf dem Sencha Touch 2 Framework. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
+Die WebApp basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
 
 \paragraph{Desktop:}
 \begin{itemize}

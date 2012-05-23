@@ -51,9 +51,9 @@ Ein weiteres Feature der Fusion Table-Ebenen ist die Möglichkeit die Daten der 
 Leider sind momentan die Konfigurationsmöglichkeiten der Heatmap auf ein Minimum beschränkt. Es ist lediglich möglich zu definieren, ob die Heatmap angezeigt werden soll oder nicht. Eine Legende lässt sich beispielsweise nicht anzeigen. So kann man nicht genau sagen, welche werte nun hinter der grünen oder der roten Farbe stecken. Zudem lassen sich diese Farben auch nicht anpassen.
 
 \subsection{Performance}
-Der grösste Vorteil der Fusion Table-Ebenen steckt aber nicht zwingend in den sichtbaren Features. Man findet ihn wohl eher darin, dass die Geocodierungen der Standort-Daten direkt aus der Tabelle gelesen werden und nicht manuell vom Client abgefragt werden müssen. Dadurch kann die Ebene komplett auf den Servern von Google aufbereitet werden. Der Client muss die erhaltenen Daten lediglich noch darstellen. Der Vorteil davon wird durch das folgende Diagramm\footnote{Quelle: \url{http://www.google.com/events/io/2011/sessions/managing-and-visualizing-your-geospatial-data-with-fusion-tables.html} (Stand: 17.05.2012)} schnell ersichtlich.
+Der grösste Vorteil der Fusion Table-Ebenen steckt aber nicht zwingend in den sichtbaren Features. Man findet ihn wohl eher darin, dass die Geocodierungen der Standort-Daten direkt aus der Tabelle gelesen werden und nicht manuell vom Client abgefragt werden müssen. Dadurch kann die Ebene komplett auf den Servern von Google aufbereitet werden. Der Client muss die erhaltenen Daten lediglich noch darstellen. Der Vorteil davon wird durch das folgende Diagramm \ref{fusiontableslayer-compare_markers}\footnote{Quelle: \url{http://www.google.com/events/io/2011/sessions/managing-and-visualizing-your-geospatial-data-with-fusion-tables.html} (Stand: 17.05.2012)} schnell ersichtlich.
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.5]{images/gmap_fusiontableslayer_vs_markers.png}
 	\caption{FusionTablesLayer verglichen mit Markers}
