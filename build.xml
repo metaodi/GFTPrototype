@@ -17,7 +17,7 @@
 	<property name="docu.path"			value="${basedir}/_DOCUMENTATION/02_Documentation" />
 	<property name="docu.file"			value="GFTPrototype.tex" />
 	<property name="docu.glossary"		value="GFTPrototype.glo" />
-	<property name="docu.revisionfile"	value="head/aenderungsverlauf.tex" />
+	<property name="docu.revisionfile"	value="head/impressum_revision.tex" />
 	
 	<tstamp>
 		<format property="TODAY" pattern="dd.MM.yyyy HH:mm:ss" />
