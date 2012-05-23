@@ -1,6 +1,12 @@
 \chapter{Use Case 2: FixMyStreet}
 \label{fixmystreet}
 
+\begin{center}
+\includegraphics[scale=0.8]{images/usecase2-fixmystreet/fixmystreet-icon_with_gloss.png}
+
+{\large \textbf{\url{http://fixmystreet.rdmr.ch/}}}
+\end{center}
+
 % Einführung
 \section{Einführung}
 FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England mit der Webseite \url{http://www.fixmystreet.com/}. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
@@ -130,16 +136,16 @@ Der Bürger öffnet wiederum die Übersicht. Darin hat er die Möglichkeit die D
 \subsubsection{Use Case 4: Defekte bearbeiten}
 Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Darin findet er eine Liste mit allen gemeldeten Defekten. Diese kann er direkt bearbeiten.
 
-\emph{Hinweis: Dieser UseCase wird vom gegebenen Google Fusion Table GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
+\emph{Hinweis: Dieser Use Case wird vom gegebenen Google Fusion Tables Web-GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
 % Use Case 5: Defekte auf Karte anzeigen
 \subsubsection{Use Case 5: Defekte auf Karte anzeigen}
 Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Er hat darin die Möglichkeit alle Defekte auf der Karte anzuzeigen.
 
-\emph{Hinweis: Dieser UseCase wird vom gegebenen Google Fusion Table GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
+\emph{Hinweis: Dieser Use Case wird vom gegebenen Google Fusion Tables Web-GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
 \subsection{Paper-Prototype}
-Vor der Implementation der Oberfläche wurde das GUI-Design zuerst als Paper-Prototype erstellt und von verschiedenen Personen getestet. Dieser besteht aus drei verschiedenen Hauptmasken.
+Vor der Implementation der Oberfläche wurde ein Paper-Prototype des GUI-Design erstellt. Dieses wurde von verschiedenen Personen getestet. Der Prototype besteht aus drei verschiedenen Hauptmasken.
 
 \paragraph{Maske: Melden}
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
@@ -200,7 +206,7 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 \todo[inline]{UseCase 2: FixMyStreet - Klassendiagramm}
 
 \subsection{Deploymentdiagramm}
-Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
+Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fusiontablesproxy}) auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
 
 \begin{figure}[H]
 	\centering
@@ -216,7 +222,7 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite,
 \item Laden der verschiedenen Status-Typen
 \item Laden der Defekt-Typen
 \item Laden der UserId aus dem LocalStorage
-\item Falls noch keine UserId vorhanden ist, wird diese generiert und in den LocalStorage geschrieben
+\item Falls noch keine UserId vorhanden ist, wird diese generiert und in den LocalStorage geschrieben (siehe Abschnitt \ref{fixmystreet-user-detection})
 \item Laden der bereits gemeldeten Defekte des Benutzers aus der Fusion Table
 \item Aktueller Standort des Benutzers wird ausgelesen
 \item Laden der Benutzeroberfläche
@@ -305,6 +311,7 @@ index.html & Einstiegspunkt der Applikation (Inkludiert app/app.js, welches die 
 \end{longtable} 
 
 \subsection{Anbindung an Google Fusion Table}
+\label{fusiontablesproxy}
 Sencha Touch verwendet für den Zugriff auf fremde Datenquellen das Konzept der Proxies. Ein Proxy verbindet einen internen Applikations-Store mit der eigentlichen Datenquelle.
 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (LocalStorage) zu kommunizieren. Zudem existieren Proxies für AJAX-Serveranfragen oder JSONP-Anfragen.
@@ -314,6 +321,7 @@ Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operat
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \subsection{Wiedererkennung des Benutzers}
+\label{fixmystreet-user-detection}
 Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um die App zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
 
 Wir generieren dazu beim ersten Starten der App eine Version 1 UUID\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im LocalStorage des Browsers ab. Die gemeldeten Probleme beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
@@ -321,6 +329,7 @@ Wir generieren dazu beim ersten Starten der App eine Version 1 UUID\footnote{\ur
 Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer seinen Browsercache leert oder die App an einem anderen Gerät startet, erhält er eine neue UUID, welche den neu erfassten Problemen zugeordnet wird. So können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
 
 \subsection{Automatisches Aktualisieren der Übersichtsmaske}
+\label{fixmystreet-polling}
 Eine weitere Anforderung war es eine möglichst aktuelle Ansicht aller gemeldeten Fälle zu bieten. Wir haben dazu in der Übersichtsmaske ein Polling implementiert. Dieses aktualisiert alle 30 Sekunden die Markierungen auf der Karte indem es eine Anfrage an die Fusion Table sendet. Gelöschte und erledigte Probleme werden entfernt und Neue hinzugefügt.
 
 Die Karte aktualisiert sich zudem jedes Mal, wenn die Übersichtsmaske aufgerufen wird.

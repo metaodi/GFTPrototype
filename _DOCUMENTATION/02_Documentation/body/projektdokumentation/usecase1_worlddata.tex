@@ -1,8 +1,14 @@
 \chapter{Use Case 1: WorldData}
 \label{worlddata}
 
+\begin{center}
+\includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-icon_with_gloss.png}
+
+{\large \textbf{\url{http://worlddata.rdmr.ch/}}}
+\end{center}
+
 \section{Einführung}
-Im ersten Use Case geht es hauptsächlich um die Anzeige grosser Datenmengen auf der Karte. Dazu importieren wir bestehende Datenbestände in die Google Fusion Tables und visualisieren diese mittels Google Maps API auf der Karte.
+Im ersten Use Case geht es hauptsächlich um die Anzeige grosser Datenmengen auf der Karte. Dazu importieren wir bestehende Datenbestände in die Google Fusion Tables und visualisieren diese mittels FusionTablesLayer des Google Maps API (siehe Abschnitt \ref{gmap-api-fusiontableslayer}) auf der Karte.
 
 \subsection{Ziel}
 Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt werden. Die Daten sind pro Jahr und Thema unterteilt. Über eine Zeitachse soll es möglich sein die Daten der verschiedenen Jahre zu selektieren. Eine solche Darstellung kann beispielsweise dabei helfen Zusammenhänge zwischen verschiedenen Themenbereichen zu finden.
@@ -21,6 +27,7 @@ Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Eart
 \section{Design}
 
 \subsection{UseCases}
+Folgende Anwendungsfälle sollen von der Applikation abgedeckt werden.
 
 \begin{figure}[H]
 	\centering
@@ -117,7 +124,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 \end{figure}
 
 \section{Implementation}
-Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wurde das Javascript Framework jQuery Mobile verwendet. Dieses bietet eine sehr grosse Plattform-Unterstützung, was im Webbereich sehr wichtig ist.
+Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wurde das Javascript Framework jQuery Mobile\footnote{\url{http://jquerymobile.com/}} verwendet. Dieses bietet eine sehr grosse Plattform-Unterstützung, was im Webbereich sehr wichtig ist.
 
 \subsection{Systemanforderungen:}
 Da es sich um eine Webapplikation handelt, ist es möglich die Applikation auf beinahe allen Geräten, welche über einem Browser verfügen zu starten. Einschränkungen gibt es nur in den unterstützten Browsern. Eine Liste davon findet sich auf der Webseite des jQuery Mobile Frameworks:  \url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms}
