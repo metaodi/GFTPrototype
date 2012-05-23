@@ -8,8 +8,8 @@
 	<script type="text/javascript">
 		function init() {
 			fusiontables = {
-				2741123: {
-					name: 'Own',
+				'1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw': {
+					name: 'Population',
 					field: 'location',
 					where: 'ST_INTERSECTS(location, CIRCLE(LATLNG(46.519962,6.633597),' + (document.getElementById('distanceRangeValue').value * 1000) + '))'
 				}
@@ -54,8 +54,13 @@
 			var checkboxInput = document.createElement('input');
 			checkboxInput.setAttribute('type', 'checkbox');
 			checkboxInput.setAttribute('id', tableId);
-			checkboxInput.setAttribute('onclick', 'toggleLayer(' + tableId + ')');
+			checkboxInput.setAttribute('onclick', 'toggleLayer(\'' + tableId + '\')');
 			checkboxDiv.appendChild(checkboxInput);
+			
+			// create data source div
+			var dataSource = document.createElement('div');
+			dataSource.innerHTML = 'Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId + '" target="_blank">' + tableId + '</a>)<br /><br />';
+			checkboxDiv.appendChild(dataSource);
 			
 			// append div element to form
 			document.getElementById('layers').appendChild(checkboxDiv);
@@ -164,10 +169,10 @@
 			if(circle) {
 				circle.setCenter(marker.getPosition());
 			}
-			fusiontables[2741123].where = 'ST_INTERSECTS(location, CIRCLE(LATLNG(' + marker.getPosition().lat() +',' + marker.getPosition().lng() + '),' + (document.getElementById('distanceRangeValue').value * 1000) + '))';
-			console.log(fusiontables[2741123].where);
-			if(layers[2741123]) {
-				updateLayer(2741123);
+			fusiontables['1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw'].where = 'ST_INTERSECTS(location, CIRCLE(LATLNG(' + marker.getPosition().lat() +',' + marker.getPosition().lng() + '),' + (document.getElementById('distanceRangeValue').value * 1000) + '))';
+			console.log(fusiontables['1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw'].where);
+			if(layers['1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw']) {
+				updateLayer('1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw');
 			}
 		}
 	</script>
@@ -177,7 +182,7 @@
 	<h2>Map</h2>
 	<form id="layers">
 		<label for="populationRange">Distance:</label>
-		<input id="distanceRange" type="range" min="10" max="250" value="0" step="10" onchange="changeDistance(2741123, this.value)" />
+		<input id="distanceRange" type="range" min="10" max="250" value="0" step="10" onchange="changeDistance('1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw', this.value)" />
 		<input id="distanceRangeValue" type="text" size="5" value="10" /> km
 		<!-- <br />
 		<input type="radio" id="geometryCircle" name="geometry" value="CIRCLE" /><label for="geometryCircle">Kreis</label>

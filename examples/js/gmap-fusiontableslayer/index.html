@@ -9,8 +9,10 @@
 		function init() {
 			var infoWindow = new google.maps.InfoWindow();
 			
+			var tableId1 = '1UflpL9f3WGrNdSPK4UAUHVAFdycZWu0_qnEPfAA';
+			var tableId2 = '1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw';
 			var position = new google.maps.LatLng(51.5, 10);
-
+			
 			var map = new google.maps.Map(document.getElementById('map_canvas'), {
 				center: position,
 				zoom: 5,
@@ -20,7 +22,7 @@
 			var layer = new google.maps.FusionTablesLayer({
 				query: {
 					select: 'Location',
-					from: '3107027'
+					from: tableId1
 				},
 				styles: [{
 					polylineOptions: {
@@ -36,22 +38,24 @@
 			var layer2 = new google.maps.FusionTablesLayer({
 				query: {
 					select: 'Location',
-					from: '2741123'
+					from: tableId2
 				}
 			});
 			
 			layer.setMap(map);
 			layer2.setMap(map);
 			
-			infoWindow.setContent('Hallo Velo!');
-            infoWindow.setPosition(position);
-            infoWindow.open(map);
+			document.getElementById('source_layer1').innerHTML = 'Layer 1: Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId1 + '" target="_blank">' + tableId1 + '</a>)';
+			document.getElementById('source_layer2').innerHTML = 'Layer 2: Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId2 + '" target="_blank">' + tableId2 + '</a>)';
 		}
 
 	</script>
 </head>
 <body onload="init()">
 	<h1>JS Example - Goolge Maps - FusionTablesLayer</h1>
+	<h2>Layers</h2>
+	<div id="source_layer1"></div>
+	<div id="source_layer2"></div>
 	<h2>Map</h2>
 	<div id="map_canvas" style="width:600px; height:400px"></div>
 </body>

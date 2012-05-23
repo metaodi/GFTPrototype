@@ -69,10 +69,10 @@
 				}
 			}
 			
-			var sqlQuery = sqlBuilder.select({table:tableId});
+			var sqlQuery = sqlBuilder.selectStmt({table:tableId});
 			document.getElementById('query').innerHTML = sqlQuery;
-			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: ' + tableId + ')';
-			gft.execQuery(printer, sqlQuery);
+			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId + '" target="_blank">' + tableId + '</a>)';
+			gft.execQuery(printer, sqlQuery, this);
 		}
 
 	</script>

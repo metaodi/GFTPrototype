@@ -8,12 +8,12 @@
 	<script type="text/javascript">
 		function init() {
 			fusiontables = {
-				3107027: {
+				'1UflpL9f3WGrNdSPK4UAUHVAFdycZWu0_qnEPfAA': {
 					name: 'Coin',
 					field: 'Location'
 				},
-				2741123: {
-					name: 'Own',
+				'1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw': {
+					name: 'Population',
 					field: 'location',
 					where: 'population > ' + document.getElementById('populationRangeValue').value,
 					styles: [{
@@ -46,13 +46,18 @@
 			checkboxLabel.setAttribute('for', tableId);
 			checkboxLabel.innerHTML = fusiontables[tableId].name;
 			checkboxDiv.appendChild(checkboxLabel);
-
+			
 			// create checkbox input field and add it to the form
 			var checkboxInput = document.createElement('input');
 			checkboxInput.setAttribute('type', 'checkbox');
 			checkboxInput.setAttribute('id', tableId);
-			checkboxInput.setAttribute('onclick', 'toggleLayer(' + tableId + ')');
+			checkboxInput.setAttribute('onclick', 'toggleLayer(\'' + tableId + '\')');
 			checkboxDiv.appendChild(checkboxInput);
+			
+			// create data source div
+			var dataSource = document.createElement('div');
+			dataSource.innerHTML = 'Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId + '" target="_blank">' + tableId + '</a>)<br /><br />';
+			checkboxDiv.appendChild(dataSource);
 			
 			// append div element to form
 			document.getElementById('layers').appendChild(checkboxDiv);
@@ -104,12 +109,13 @@
 </head>
 <body onload="init()">
 	<h1>JS Example - Goolge Maps - Dynamic FusionTablesLayer</h1>
-	<h2>Map</h2>
+	<h2>Layers</h2>
 	<form id="layers">
 		<label for="populationRange">Population over:</label>
-		<input id="populationRange" type="range"  min="200000" max="600000" value="200000" onchange="changePopulation(2741123, this.value)" />
+		<input id="populationRange" type="range"  min="200000" max="600000" value="200000" onchange="changePopulation('1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw', this.value)" />
 		<input id="populationRangeValue" type="text" value="200000" />
 	</form>
+	<h2>Map</h2>
 	<div id="map_canvas" style="width:600px; height:400px"></div>
 </body>
 </html>

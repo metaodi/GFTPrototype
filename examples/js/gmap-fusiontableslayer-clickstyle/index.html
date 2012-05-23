@@ -8,6 +8,7 @@
 	<script type="text/javascript">
 		function init() {
 			var position = new google.maps.LatLng(30, 8);
+			var tableId = '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0';
 			
 			var map = new google.maps.Map(document.getElementById('map_canvas'), {
 				center: position,
@@ -18,7 +19,7 @@
 			var layer = new google.maps.FusionTablesLayer({
 				query: {
 					select: 'geometry',
-					from: '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0'
+					from: tableId
 				},
 				styles: [{
 					polygonOptions: {
@@ -36,7 +37,7 @@
 				layer.setOptions({
 					query: {
 						select: 'geometry',
-						from: '1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0'
+						from: tableId
 					},
 					styles: [
 						{
@@ -66,12 +67,17 @@
 				e.infoWindowHtml = e.row['name'].value;
 				document.getElementById('clickinfo').innerHTML = 'Clicked on: ' + e.row['name'].value;
 			});
+			
+			document.getElementById('source').innerHTML = 'Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId + '" target="_blank">' + tableId + '</a>)';
+			
 		}
 
 	</script>
 </head>
 <body onload="init()">
 	<h1>JS Example - Goolge Maps - FusionTablesLayer Click Style</h1>
+	<h2>Layer</h2>
+	<div id="source"></div>
 	<h2>Map</h2>
 	<div id="map_canvas" style="width:800px; height:500px"></div>
 	<h2>Click Info</h2>

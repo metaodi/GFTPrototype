@@ -1,45 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Google Visualization API Sample</title>
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    google.load('visualization', '1', {packages: ['corechart']});
-    function drawNumberChart() {
-      google.visualization.drawChart({
-        "containerId": "number_div",
-        "dataSourceUrl": 'http://www.google.com/fusiontables/gvizdata?tq=',
-        "query":"SELECT Location,Number FROM 1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg",
-        "refreshInterval": 5,
-        "chartType": "PieChart",
-        "options": {
-          "title":"Number distribution over cities"
-        }
-      });
-    }
+	<title>JS Example - Google Visualization API Sample</title>
+	<meta charset="utf-8">
 	
-	function drawPopulationChart() {
-      google.visualization.drawChart({
-        "containerId": "population_div",
-        "dataSourceUrl": 'http://www.google.com/fusiontables/gvizdata?tq=',
-        "query":"SELECT name,population FROM 1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw",
-        "refreshInterval": 5,
-        "chartType": "BarChart",
-        "options": {
-          "title":"Population by city"
-        }
-      });
-    }
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load('visualization', '1', {packages: ['corechart']});
+		
+		var tableId1 = '1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg';
+		var tableId2 = '1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw';
 
-    google.setOnLoadCallback(drawNumberChart);
-	google.setOnLoadCallback(drawPopulationChart);
-  </script>
+
+		function drawNumberChart() {
+			google.visualization.drawChart({
+				"containerId": "number_div",
+				"dataSourceUrl": 'http://www.google.com/fusiontables/gvizdata?tq=',
+				"query":"SELECT Location,Number FROM " + tableId1,
+				"refreshInterval": 5,
+				"chartType": "PieChart",
+				"options": {
+					"title":"Number distribution over cities"
+				}
+			});
+		}
+		
+		function drawPopulationChart() {
+			google.visualization.drawChart({
+				"containerId": "population_div",
+				"dataSourceUrl": 'http://www.google.com/fusiontables/gvizdata?tq=',
+				"query":"SELECT name,population FROM " + tableId2,
+				"refreshInterval": 5,
+				"chartType": "BarChart",
+				"options": {
+					"title":"Population by city"
+				}
+			});
+		}
+		
+		google.setOnLoadCallback(drawNumberChart);
+		google.setOnLoadCallback(drawPopulationChart);
+		
+		function init() {
+			document.getElementById('number_source').innerHTML = 'Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId1 + '" target="_blank">' + tableId1 + '</a>)';
+			document.getElementById('population_source').innerHTML = 'Data from Google Fusion Table (ID: <a href="https://www.google.com/fusiontables/DataSource?docid=' + tableId2 + '" target="_blank">' + tableId2 + '</a>)';
+		}
+	</script>
 </head>
-<body style="font-family: Arial;border: 0 none;">
+<body onload="init();">
 	<h1>JS Example - Goolge Charts</h1>
 	<h2>Charts</h2>
+	<h3>Numbers</h3>
+	<div id="number_source"></div>
 	<div id="number_div" style="width: 600px; height: 400px;"></div>
+	<h3>Population</h3>
+	<div id="population_source"></div>
 	<div id="population_div" style="width: 600px; height: 400px;"></div>
 </body>
 </html>
