@@ -1,0 +1,80 @@
+\section{Google Fusion Table Javascript Library (GftLib)}
+\label{gftlib-js}
+Die Google Fusion Table Library (GftLib) ist eine von uns entwickelte JavaScript-Bibliothek, welche die Kommunikation mit dem Google Fusion Table SQL API (siehe Abschnitt \ref{sql-api}) vereinfacht. Sie hilft dabei SQL-Abfragen zu erstellen und per \gls{AJAX} an das API zu versenden. Zudem kümmert sich die Library um die Authentifizierung via \gls{OAuth}, so dass auch schreibende Zugriffe oder Zugriffe auf private Tabellen möglich sind.
+
+Die Bibliothek hat Abhängigkeiten zu jQuery\footnote{\url{http://jquery.com/}} (für einige Hilfsfunktionen) sowie dem Google API JavaScript Client\footnote{\url{http://code.google.com/p/google-api-javascript-client/}} (für die Authentifizierung und das Abschicken der Requests).
+
+Die Bibliothek besteht aus 2 Klassen (GftLib und SqlBuilder). Die GftLib ist das API zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt auf einfach Art und Weise SQL Befehle zu generieren.
+
+\subsection{Beispiel}
+In folgendem Beispiel sieht man die GftLib und den SqlBuilder im Einsatz. Zuerst werden alle benötigten Werte initialisiert (Zeilen 1-4), dann wird die Ausgabefunktion \inlinecode{printer} definiert, welche später als Callback-Funktion dient für den Request. Das heisst, dass die Funktion aufgerufen wird, sobald die Antwort der Abfrage zurückkommt. 
+
+Mit der Funktion \inlinecode{convertToObject()} wird die Antwort von Google Fusion Tables in eine für den Benutzer angenehmere Form umgewandelt. Das Resultat der Fusion Tables kommt in der Form eines zweidimensionalen Arrays zurück, jeweils für jeden Datensatz alle abgefragten Felder. Die Funktion erstellt jeweils pro Datensatz ein Objekt, welches die angefragten Felder als Properties hat. So kann man mit deren Namen auf ihre Werte zugreifen (z.B. \inlinecode{places[i].name} oder \inlinecode{places[i].population}).
+
+In diesem Beispiel wird das SQL Query direkt in der Funktion \inlinecode{execSelect()} erzeugt, welche dazu den SqlBuilder verwendet.
+
+\lstset{language=JavaScript}
+\begin{lstlisting}
+var tableId = '1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw';
+var gft = new GftLib();
+var resultList = document.getElementById("result");
+
+var printer = function(data) {
+	var places = gft.convertToObject(data);
+
+	for (var i = 0; i < places.length; i++) {
+		var listElem = document.createElement('li');
+		listElem.innerHTML = 'Place: ' + places[i].name + ' / Population: ' + places[i].population;
+		resultList.appendChild(listElem);
+	}
+}
+
+gft.execSelect(printer, {table:tableId, fields:['name', 'population']});
+\end{lstlisting}
+
+\subsection{Abhängikeiten}
+\begin{longtable}{|l|p{2cm}|p{7cm}|}
+\hline 
+\textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
+\hline 
+jQuery & 1.7.1-min & Helper-Funktionen und \gls{AJAX}-Requests für den OAuthTokenService  \\ 
+\hline 
+Google APIs Client Library & ALPHA release & \gls{AJAX}-Requests an das Google API und Authentifizierung \\ 
+\hline 
+\end{longtable} 
+
+\subsection{Methoden}
+\subsubsection{GftLib}
+\begin{longtable}{|l|p{3cm}|p{6cm}|}
+\hline 
+\textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
+\hline 
+execQuery(callback, query) &  Führt eine SQL-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{query} (String): SQL-Query \\ 
+\hline 
+execSql(callback, sql) & Führt einen beliebigen SQL-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{sql} (String): SQL-Befehl \\ 
+\hline 
+execSelect(callback, options) & Führt eine \inlinecode{SELECT}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.selectStmt()} \\ 
+\hline 
+execInsert(callback, options) & Führt einen \inlinecode{INSERT}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.insertStmt()} \\ 
+\hline 
+execUpdate(callback, options) & Führt einen \inlinecode{UPDATE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.updateStmt()} \\ 
+\hline 
+execDelete(callback, options) & Führt einen \inlinecode{DELETE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.deleteStmt()} \\ 
+\hline 
+getTableDescription(callback, options) & Führt eine \inlinecode{DESCRIBE}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.describeStmt()} \\ 
+\hline 
+createView(callback, options) & Führt einen \inlinecode{CREATE VIEW}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.createViewStmt()} \\ 
+\hline 
+convertToObject(gftData) & Konvertiert das Resultat einer Abfrage in sprechende Objekte & gftData (Object) ist die Antwort auf einen SQL Befehl von Google Fusion Tables \\ 
+\hline 
+\end{longtable} 
+
+\subsubsection{SqlBuilder}
+\todo[inline]{SqlBuilder Tabelle ergänzen}
+\begin{longtable}{|l|p{3cm}|p{6cm}|}
+\hline 
+\textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
+\hline
+selectStmt(options) & Erstellt ein \inlinecode{SELECT} Statement & \inlinecode{options} (Object): fields: abzufrganden Felder (Default "*"), table: Abzufragende Tabelle (obligatorisch), conditions: Array von Bedingungen für die \inlinecode{WHERE}-Klausel \\
+\hline
+\end{longtable} 
