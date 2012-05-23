@@ -10,6 +10,8 @@
 
 % Literaturverzeichnis (Deutsch)
 \usepackage{bibgerm}
+% Spezialseiten (Literarturverzeichnis, Abbildungsverzeichnis, usw.) in Inhaltsverzeichnis anzeigen
+\usepackage[nottoc]{tocbibind}
 
 % Farben
 \usepackage{color}
@@ -61,6 +63,14 @@
 \usepackage{fancyhdr} 
 \pagestyle{fancy} 
 \fancyhf{}
+% Grossschreibung in Kopfzeile deaktivieren
+\renewcommand{\chaptermark}[1]{%
+\markboth{\chaptername\ \thechapter{}: #1}{}}
+\renewcommand{\sectionmark}[1]{%
+\markright{\thesection{}: #1}{}}
+
+% MakeUppercase überschreiben, um Grosschreibung in Kopfzeile auch für Spezialseiten zu deaktivieren (Achtung böser Hack!)
+\renewcommand*\MakeUppercase[1]{#1}
 
 % Linien nach dem Header und vor dem Footer
 %\renewcommand{\footrulewidth}{0.4pt}
