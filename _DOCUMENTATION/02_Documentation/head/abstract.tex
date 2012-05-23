@@ -1,5 +1,13 @@
+% Titel des Abstracts aendern
+\renewcommand{\abstractname}{{\Huge\bfseries Abstract}}
+
 \begin{abstract}
-\todo[inline]{Abstract schreiben}
-Ein Abstract ist eine rein textuelle kurze Zusammenfassung der Arbeit. Der Abstract ist für die Recherche in grossen Dokumentensammlungen geeignet. Er umfasst nie mehr als eine Seite, typisch sogar nur etwa 200 Worte (etwa 20 Zeilen). 
-Der Begriff 'Kurzfassung' ist zuwenig genau definiert; er soll wenn möglich vermieden werden.
+% Seitennummerierung auf Abstract-Seite einschalten
+\thispagestyle{plain}
+
+Ziel dieser Arbeit war es das Potentials der Clouddatenbank \emph{Goolge Fusion Tables} aufzuzeigen. Dazu wurden zuerst einige Beispiele erstellt, welche die verschiedenen Features der Fusion Table verwenden. Zusätzlich wurden Anwendungsfälle im GIS-Bereich gesucht, welche sich ebenfalls mit Google Fusion Tables umsetzen lassen würden. Diese wurden dann als Prototypen implementiert, um den Aufwand aufzuzeigen, welchen es benötigt, um mit Google Fusion Tables eine GIS-Software zu entwickeln.
+
+Es wurden schlussendlich zwei Anwendungsfälle umgesetzt. Zum einen wurde eine Webapplikation implementiert, die es erlaubt historische Daten von verschiedenen Ländern miteinander zu vergleichen. Das Ziel dabei, war das Anzeigen von grossen Datenmengen auf der Karte.
+
+Als zweiten Anwendungsfall wurde eine mobile WebApp entwickelt, welche es dem Benutzer erlaubt Defekte in seiner Umgebung an die zuständige Behörde zu melden. Google Fusion Table wurde dabei als Datenbank zur Speicherung der gemeldeten Defekte verwendet.
 \end{abstract}
