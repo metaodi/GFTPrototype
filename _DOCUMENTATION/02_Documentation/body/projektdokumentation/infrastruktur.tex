@@ -17,7 +17,12 @@ Bei Jenkins CI\footnote{\url{http://jenkins-ci.org/}} handelt es sich um ein Ope
 \subsection{Logfile-Analyse mit dem Log Parser Plugin}
 Das Log Parser Plugin\footnote{\url{http://wiki.hudson-ci.org/display/HUDSON/Log+Parser+Plugin}} ermöglicht es auf einfache Art und Weise Probleme mit dem Build festzustellen. Für den Build kann es zum Teil sehr schwierig sein, den Status des Builds zu bestimmen. Der Build kann erkennen ob ein aufgerufener Befehl fehlgeschlagen hat oder ob die ausgeführten Tests erfolgreich durchlaufen. Wenn jedoch ein aufgerufenes Programm eine Warnung oder einen Fehler anzeigt, kann der Build das nicht selbst erkennen. Hier kommt der Logparser ins Spiel. Man kann Muster definieren für Dinge die auf eine Warnung oder einen Fehler hindeuten. Diese Logik erlaubt es dem Build viel detailliertere Aussagen über die laufende Installation zu machen.
 
-\includegraphics[scale=0.5]{images/jenkins-parsed-output.png}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{images/infrastruktur/jenkins-parsed-output}
+	\caption{Ansicht des Logfiles mit dem Log Parser Plugin}
+	\label{jenkins-parsed-output}
+\end{figure}
 
 \subsection{Trigger (Auslöser)}
 Der Trigger für einen Build ist, wenn eine Änderung auf GitHub gepusht wurde. Dazu haben wir das GitHub Plugin\footnote{\url{https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin}} auf Jenkins installiert (welches sich einfach im Backend installieren lässt). Im GitHub Repository müssen dann noch sogenannte Web Hooks{\footnote{\url{http://help.github.com/post-receive-hooks/}} eingerichtet werden, so dass GitHub jeweils Jenkins benachrichtigt, sobald Änderungen eintreffen.
@@ -36,7 +41,12 @@ Hier zum Beispiel unser \inlinecode{build}-Target, welches alle anderen Targets 
 \subsection{Testausführung}
 Zur Darstellung der Testresultate bauen wir auf dem JUnit XML-Interpreter auf, welcher in Jenkins bereits dabei ist. Dazu ist es lediglich notwendig alle Testresultate in das JUnit XML-Format zu bringen, die ganzen Auswertungen, Grafiken etc. bekommt man dann quasi "gratis" dazu.
 
-\includegraphics[scale=0.35]{images/jenkins-test-results.png}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.35]{images/infrastruktur/jenkins-test-results}
+	\caption{Diagramm der Testresultate im Verlaufe der Zeit}
+	\label{jenkins-test-results}
+\end{figure}
 
 \section{Projektmanagement mit Redmine}
 \todo[inline]{Redmine Abschnitt schreiben}
