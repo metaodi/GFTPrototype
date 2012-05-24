@@ -595,6 +595,7 @@ asyncTest("createView + INSERT", 3, function() {
 	gft.createView(testCb, {viewName:'test_view', query:"select Text from " + this.testGftInsertTable + " where Number = 33"});
 });
 
+/*
 asyncTest("SELECT after INSERT with ST_INTERSECTS (one column adress)", 4, function() {
 	var gft = this.gft;
 	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
@@ -799,3 +800,4 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (two column lat/lng)", 4, func
 	
 	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','latitude','longitude','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (two column lat/lng)', 94, lat, lng, getDateString()]});
 });
+*/
