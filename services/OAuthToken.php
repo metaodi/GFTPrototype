@@ -1,7 +1,8 @@
 <?php
 require_once '../lib/google-api-php-client/src/apiClient.php';
 
-function generate_jsonp($jsonString,$functionName="callback") {
+function generate_jsonp($jsonString,$functionName="callback") 
+{
 	return $functionName."(".$jsonString.");";
 }
 
@@ -18,28 +19,38 @@ $client->setClientId(CLIENT_ID);
 //add key
 $key = file_get_contents(KEY_FILE);
 $authScope = 'https://accounts.google.com/o/oauth2/token';
-$client->setAssertionCredentials(new apiAssertionCredentials(
-  SERVICE_ACCOUNT_NAME,
-  array(FT_SCOPE),
-  $key)
-);
+$client->setAssertionCredentials(new apiAssertionCredentials(SERVICE_ACCOUNT_NAME, array(FT_SCOPE), $key));
 
 //reuse key if it's saved in the session
 session_start();
-if (isset($_SESSION['token'])) {
+$expired = false;
+if (isset($_SESSION['token'])) 
+{
 	$client->setAccessToken($_SESSION['token']);
-} else {
+	$accessToken = json_decode($client->getAccessToken());
+	if (($accessToken->created + ($accessToken->expires_in - 30)) < time()) 
+	{
+		$expired = true;
+	}
+} 
+
+if (!isset($_SESSION['token']) || $expired)
+{
 	$client::$auth->refreshTokenWithAssertion();
 }
 
-if (isset ($_GET['jsonp']) && $_GET['jsonp'] != "") {
-	print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
-} else {
-	print $client->getAccessToken();
-}
+if ($client->getAccessToken()) 
+{
+	if (isset ($_GET['jsonp']) && $_GET['jsonp'] != "") 
+	{
+		print generate_jsonp($client->getAccessToken(),$_GET['jsonp']);
+	}
+	else 
+	{
+		print $client->getAccessToken();
+	}
 
-//save to key for the session
-if ($client->getAccessToken()) {
-  $_SESSION['token'] = $client->getAccessToken();
+	//save to key for the session
+	$_SESSION['token'] = $client->getAccessToken();
 }
 ?>
