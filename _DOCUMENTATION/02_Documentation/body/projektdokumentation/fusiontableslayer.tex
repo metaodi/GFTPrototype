@@ -34,9 +34,9 @@ In diesem Beispiel\footnote{Quelle: \url{https://developers.google.com/maps/docu
 Das Google Maps API hat momentan folgende Einschränkungen bezüglich den Ebenenstilen definiert.
 
 \begin{itemize}
-\item Auf einer Karte können maximal 5 FusionTablesLayer gleichzeitig angezeigt werden
-\item Stile können dabei nur für eine dieser Ebenen angewendet werden
-\item Zudem dürfen für diese Ebene maximal 5 Stile definiert sein
+\item Auf einer Karte können \textbf{maximal 5 FusionTablesLayer gleichzeitig} angezeigt werden
+\item Stile können dabei nur für \textbf{eine dieser Ebenen} angewendet werden
+\item Zudem dürfen für diese Ebene \textbf{maximal 5 Stile} definiert sein
 \end{itemize}
 
 \subsection{Heatmaps}
@@ -73,9 +73,6 @@ Eine Ausnahme dieser Regelung bilden dabei die Maps API Premier Kunden. Diese ha
 
 Die Lizenzpreise für Maps API Premier Kunden beginnen bei 10'000\$ pro Jahr und unterscheiden sich je nach Bedürfnis und Verwendung. 
 
-\subsubsection{Anzahl Datensätze in Fusion Table}
-Zusätzlich werden lediglich die ersten 100'000 Zeilen der Tabelle gelesen. Alle weiteren Zeilen werden nicht in die Erstellung des Layer einbezogen und somit auch nicht angezeigt.
-
 \subsubsection{Event-Handling auf Fusion Table-Ebenen}
 Bislang ist es erst möglich den Klick-Event auf einer Fusion Table-Ebene zu Behandeln. Dieser liefert standardmässig das Template des InfoWindows mit, welches mit dem Klick angezeigt wird. Zudem erhält man die Daten der "`angeklickten Zeile"' beziehungsweise die zugehörigen Daten des angeklickten Objekts auf der Karte. Man hat die Möglichkeit dieses Template anzupassen bevor das InfoWindow angezeigt wird.
 
@@ -88,3 +85,6 @@ Als Übergangslösung findet sich bereits eine Custom Library mit dem Namen \emp
 Für den Benutzer entsteht so der Effekt als würde sich die Farbe des gehoverten Elementes ändern.
 
 Die Libary wird in folgendem Blog-Artikel noch sehr gut erklärt: \url{http://csessig.wordpress.com/2012/02/07/multiple-layers-and-rollover-effects-for-fusion-table-maps/}
+
+\subsubsection{Weitere Einschränkungen}
+Zusätzlich sind die allgemeinen Limitationen der Google Fusion Tables (siehe Tabelle \ref{gft-limitations}) zu beachten.

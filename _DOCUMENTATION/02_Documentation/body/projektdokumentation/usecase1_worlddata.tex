@@ -32,7 +32,7 @@ Folgende Anwendungsfälle sollen von der Applikation abgedeckt werden.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{images/usecase1-worlddata/uml/worlddata-usecasemodel.png}
-	\caption{WorldData UseCase Modell}
+	\caption{WorldData: UseCase Modell}
 	\label{worlddata-usecasemodel}
 \end{figure}
 
@@ -107,12 +107,12 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 \paragraph{Frequency of Occurrence}
 Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
 
-\subsection{ERD}
+\subsection{Datenbankschema}
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8]{images/usecase1-worlddata/uml/worlddata-erd.png}
-	\caption{WorldData ERD}
-	\label{worlddata-erd}
+	\includegraphics[scale=0.8]{images/usecase1-worlddata/uml/worlddata-datamodel.png}
+	\caption{WorldData Datenbankschema}
+	\label{worlddata-datamodel}
 \end{figure}
 
 \subsection{Klassendiagramm}
@@ -142,6 +142,7 @@ Google Maps API & V3 & Karte mit FusionTablesLayer \\
 \hline 
 Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erscheint \\ 
 \hline 
+\caption{WorldData: Abhängigkeiten}
 \end{longtable} 
 
 \subsection{Quellcode-Struktur}
@@ -167,6 +168,7 @@ styles/ & CSS-Styles der Applikation \\
 \hline
 index.html & Startseite der Applikation \\ 
 \hline
+\caption{WorldData: Quellcode-Struktur}
 \end{longtable} 
 
 \section{Test}
@@ -298,7 +300,7 @@ Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Daz
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer3.png}
+	\includegraphics[scale=0.7]{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer3.png}
 	\caption{WorldData ID der Merge-Tabelle finden}
 	\label{worlddata-prepare_fusiontableslayer3}
 \end{figure}
@@ -352,6 +354,7 @@ Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden
 \hline 
 \inlinecode{TYPE.styleBoundaries.high} & int & Obere Grenze für hohe Werte \\ 
 \hline 
+\caption{WorldData: Konfigurationsparameter}
 \end{longtable}
 
 \subsection{Starten der Applikation}

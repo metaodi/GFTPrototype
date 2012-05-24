@@ -9,6 +9,22 @@ Der Begriff \emph{Software-as-a-Service} (Saas) hat sich in den letzten Jahren e
 \subsection{Datenbank in der Cloud}
 Google Fusion Tables schafft das Problem der Erreichbarkeit einer Datenbank ab. Fusion Tables sind dezentral in der Cloud gespeichert und dort lassen sie sich einfach vertikal skalieren. Die momentanen geltenden Limiten der Datenbank sind 250MB Speicher für eine Tabelle, 25'000 Abfragen pro Tag und Benutzer sowie 100'000 Elemente, die gleichzeitig auf der Karte dargestellt werden können. Allgemein werden bei Abfragen nur die ersten 100'000 Resultate als Antwort zurückgeliefert. Diese Einschränkungen können Kunden mit Google Maps Premier auf Anfrage verändern. \cite{fusion-tables-geo-limits}
 
+\begin{longtable}{|l|l|}
+\hline 
+\textbf{Beschreibung} & \textbf{Limitation} \\ 
+\hline 
+Speicher & 250MB \\ 
+\hline 
+Abfragen pro Tag & 25'000 \\ 
+\hline 
+Gleichzeitig angezeigte Elemente auf Karte & 100'000 \\ 
+\hline 
+Für Abfragen berücksichtigte Records & erste 100'000 \\ 
+\hline 
+\caption{Limitationen der Google Fusion Tables}
+\label{gft-limitations}
+\end{longtable} 
+
 \subsection{Kollaboration und Nutzung von (ver-)öffentlichen Daten}
 Der Gedanke der Cloud lässt sich abseits vom technischen noch weiterdenken. Durch die allgemeine Verfügbarkeit der Fusion Tables Datenbank, lassen sich die dort eingetragenen Daten mit anderen Benutzern oder gar der Öffentlichkeit teilen. Es gibt sogar eine eigene Suche für öffentliche Tabellen.\cite{fusion-tables-search} Tabellen können dann mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft gebrauchen, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
 

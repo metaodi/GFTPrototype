@@ -39,7 +39,7 @@ Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/uml/fixmystreet-usecasemodel.png}
-	\caption{FixMyStreet UseCase Modell}
+	\caption{FixMyStreet: UseCase Modell}
 	\label{fixmystreet-usecasemodel}
 \end{figure}
 
@@ -187,7 +187,7 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 % Design
 \section{Design}
 
-\subsection{ERD}
+\subsection{Datenbankschema}
 Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ}}. Davon wurden zwei Views erstellt:
 
 \begin{itemize}
@@ -197,9 +197,9 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-erd.png}
-	\caption{FixMyStreet ERD}
-	\label{fixmystreet-erd}
+	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-datamodel.png}
+	\caption{FixMyStreet: Datenbankschema}
+	\label{fixmystreet-datamodel}
 \end{figure}
 
 \subsection{Klassendiagramm}
@@ -211,7 +211,7 @@ Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{F
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/uml/fixmystreet-deploymentmodel.png}
-	\caption{FixMyStreet Deploymentdiagramm}
+	\caption{FixMyStreet: Deploymentdiagramm}
 	\label{fixmystreet-deploymentmodel}
 \end{figure}
 
@@ -231,7 +231,7 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite,
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.43]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup.png}
-	\caption{FixMyStreet Sequenzdiagramm - Starten der Applikation}
+	\caption{FixMyStreet: Sequenzdiagramm - Starten der Applikation}
 	\label{fixmystreet-sequencediagram-applicationstartup}
 \end{figure}
 
@@ -293,9 +293,9 @@ jQuery & 1.7.1 & Wird von der gftlib-js verwendet \\
 \hline 
 Google Maps API & V3 & Anzeige der Karten \\ 
 \hline 
+\caption{FixMyStreet: Abhängigkeiten}
 \end{longtable} 
 
-\section{Implementation}
 \subsection{Quellcode-Struktur}
 
 \begin{longtable}{|l|p{9.5cm}|}
@@ -334,6 +334,7 @@ resources/styles/ & CSS-Styles der Applikation \\
 \hline 
 index.html & Einstiegspunkt der Applikation (Inkludiert app/app.js, welches die Applikation startet) \\ 
 \hline
+\caption{FixMyStreet: Quellcode-Struktur}
 \end{longtable} 
 
 \subsection{Anbindung an Google Fusion Table}
@@ -349,7 +350,7 @@ Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{images/usecase2-fixmystreet/uml/fixmystreet-proxy-classmodel}
-	\caption{FixMyStreet FusionTablesLayer Proxy}
+	\caption{FixMyStreet: FusionTablesLayer Proxy}
 	\label{fixmystreet-proxy-classmodel}
 \end{figure}
 
