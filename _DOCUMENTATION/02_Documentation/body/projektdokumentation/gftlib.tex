@@ -49,23 +49,23 @@ Google APIs Client Library & ALPHA release & \gls{AJAX}-Requests an das Google A
 \hline 
 \textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
 \hline 
-execQuery(callback, query) &  Führt eine SQL-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{query} (String): SQL-Query \\ 
+\inlinecode{execQuery(callback, query)} &  Führt eine SQL-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{query} (String): SQL-Query \\ 
 \hline 
-execSql(callback, sql) & Führt einen beliebigen SQL-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{sql} (String): SQL-Befehl \\ 
+\inlinecode{execSql(callback, sql)} & Führt einen beliebigen SQL-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{sql} (String): SQL-Befehl \\ 
 \hline 
-execSelect(callback, options) & Führt eine \inlinecode{SELECT}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.selectStmt()} \\ 
+\inlinecode{execSelect(callback, options)} & Führt eine \inlinecode{SELECT}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.selectStmt()} \\ 
 \hline 
-execInsert(callback, options) & Führt einen \inlinecode{INSERT}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.insertStmt()} \\ 
+\inlinecode{execInsert(callback, options)} & Führt einen \inlinecode{INSERT}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.insertStmt()} \\ 
 \hline 
-execUpdate(callback, options) & Führt einen \inlinecode{UPDATE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.updateStmt()} \\ 
+\inlinecode{execUpdate(callback, options)} & Führt einen \inlinecode{UPDATE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.updateStmt()} \\ 
 \hline 
-execDelete(callback, options) & Führt einen \inlinecode{DELETE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.deleteStmt()} \\ 
+\inlinecode{execDelete(callback, options)} & Führt einen \inlinecode{DELETE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.deleteStmt()} \\ 
 \hline 
-getTableDescription(callback, options) & Führt eine \inlinecode{DESCRIBE}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.describeStmt()} \\ 
+\inlinecode{getTableDescription(callback, options)} & Führt eine \inlinecode{DESCRIBE}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.describeStmt()} \\ 
 \hline 
-createView(callback, options) & Führt einen \inlinecode{CREATE VIEW}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.createViewStmt()} \\ 
+\inlinecode{createView(callback, options)} & Führt einen \inlinecode{CREATE VIEW}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.createViewStmt()} \\ 
 \hline 
-convertToObject(gftData) & Konvertiert das Resultat einer Abfrage in sprechende Objekte & gftData (Object) ist die Antwort auf einen SQL Befehl von Google Fusion Tables \\ 
+\inlinecode{convertToObject(gftData)} & Konvertiert das Resultat einer Abfrage in sprechende Objekte & gftData (Object) ist die Antwort auf einen SQL Befehl von Google Fusion Tables \\ 
 \hline 
 \end{longtable} 
 
@@ -78,3 +78,12 @@ convertToObject(gftData) & Konvertiert das Resultat einer Abfrage in sprechende 
 selectStmt(options) & Erstellt ein \inlinecode{SELECT} Statement & \inlinecode{options} (Object): fields: abzufrganden Felder (Default *), table: Abzufragende Tabelle (obligatorisch), conditions: Array von Bedingungen für die \inlinecode{WHERE}-Klausel \\
 \hline
 \end{longtable} 
+
+\subsection{Implementation}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{images/gftlib-js/gftlibjs-classmodel.png}
+	\caption{GftLib Klassendiagramm}
+	\label{gftlibjs-classmodel}
+\end{figure}
+\todo[inline]{GftLib: Implementierung?}
