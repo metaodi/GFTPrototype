@@ -237,8 +237,34 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite,
 
 % Implementation
 \section{Implementation}
-\subsection{Systemanforderungen:}
-Die WebApp basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
+Die WebApp basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript.
+
+Das Framework bietet die Möglichkeit eine Applikation streng nach dem MVC-Pattern aufzubauen.
+
+Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\footnote{\url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.ComponentQuery}}. Damit lassen sich View-Komponenten über verschiedene Attribute referenzieren. So kann man beispielsweise über deren eindeutige ID eine Referenz auf das Objekt erstellen.
+
+In den Controller-Klassen werden genau über dieses Konzept Referenzen auf die View-Objekte erstellt und darauf zugegriffen. Damit ist es in fast allen Fällen möglich, die View-Klassen frei von Bussinesslogik zu halten.
+
+\paragraph{Beispiel einer ComponentQuery}
+Das folgende Beispiel\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \emph{nav} via ComponentQuery die View-Komponente mit der ID \emph{mainNav}.
+
+\lstset{language=JavaScript}
+\begin{lstlisting}
+Ext.define('MyApp.controller.Main', {
+	extend: 'Ext.app.Controller',
+	
+	config: {
+		refs: {
+			nav: '#mainNav'
+		}
+	}
+	
+	...
+});
+\end{lstlisting}
+
+\subsection{Systemanforderungen}
+Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
 
 \paragraph{Desktop:}
 \begin{itemize}
