@@ -1,9 +1,9 @@
-\section{Geocodierung}
-\label{geocodierung}
+\section{Geocodierung in Google Fusion Tables}
+\label{gft-geocoding}
 Ein grosser Vorteil der Google Fusion Tables ist die automatische 
 \gls{Geocodierung} von Standortdaten. Sobald eine neue Zeile zu einer Tabelle hinzugefügt wird, werden alle Zellen vom Typ \emph{Location} einem eindeutigen Standort auf der Karte zugewiesen. Ist dies nicht möglich, da beispielsweise eine Adresse in mehreren Orten vorkommen kann, bleibt die Zelle gelb hinterlegt.
 
- \begin{figure}[!h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.75]{images/einfuehrung/geocoding_failed.png}
 	\caption{Geocodierung für Ort \emph{Springfield} fehlgeschlagen}
@@ -24,6 +24,7 @@ Yahoo! PlaceFinder API & 50000 & \url{http://developer.yahoo.com/geo/placefinder
 \hline 
 MapQuest Geocoding API & keine Begrenzung & \url{http://developer.mapquest.com/web/products/dev-services/geocoding-ws} \\ 
 \hline 
+\caption{Geocoding Limitierungen}
 \end{longtable} 
 
 Wie man sieht erreicht man mit diesen Diensten beim Arbeiten mit grossen Datenmengen schnell die Grenzen.
