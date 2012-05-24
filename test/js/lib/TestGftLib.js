@@ -11,11 +11,13 @@ module("GftLib", {
 			'getTableDescription',
 			'createView',
 			'convertToObject',
+			'getAccessToken',
+			'setAccessToken',
 			'__sendRequest',
 			'__readRequest',
 			'__writeRequest',
 			'__auth',
-			'__getAccessToken',
+			'__retrieveAccessToken',
 			'__scopedDataCallback'
 		];
 		this.privateMethods = [
@@ -23,16 +25,8 @@ module("GftLib", {
 			'readRequest',
 			'writeRequest',
 			'auth',
-			'getAccessToken',
+			'retrieveAccessToken',
 			'scopedDataCallback',
-		];
-		this.constants = [
-			'GFT_PATH',
-			'ACCESS_TOKEN_URL',
-			'clientId',
-			'apiKey',
-			'scope',
-			'accessToken'
 		];
 		this.testGftTable = '1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg';
 		this.testGftInsertTable = '1uMyelq7qaA9htJLYIcEdD9jyV3MYjB_PrMUiwmE';
@@ -42,13 +36,6 @@ module("GftLib", {
 
 test("Construtor", function() {
 	ok(this.gft instanceof GftLib, 'Object should be of GftLib or one of it\'s childs');
-});
-
-test("Public API", function() {
-	var publicApi = this.publicMethods.concat(this.constants);
-	for (var prop in this.gft) {
-		ok(publicApi.indexOf(prop) > -1, 'Public property ' + prop + ' is in API');
-	}
 });
 
 test("Public Methods", function() {
@@ -66,20 +53,6 @@ test("Private Methods", function() {
 		ok(!this.gft.hasOwnProperty(fn), 'Private function ' + fn + ' should not be accessible');
 		strictEqual(typeof this.gft[ut_fn], 'function', 'Unit test alias ' + ut_fn + ' should exist');
 	}
-});
-
-test("Constants", function() {
-	for (var i in this.constants) {
-		var constant = this.constants[i];
-		ok(this.gft.hasOwnProperty(constant), 'Constant ' + constant + ' should exist');
-	}
-	
-	strictEqual(this.gft.GFT_PATH,'/fusiontables/v1/query');
-	strictEqual(this.gft.ACCESS_TOKEN_URL,'http://gft.rdmr.ch/services/OAuthToken.php?jsonp=?');
-	strictEqual(this.gft.clientId, '63601791805.apps.googleusercontent.com');
-    strictEqual(this.gft.apiKey, 'AIzaSyCAI2GoGWfLBvgygLKQp5suUk3RCG7r_ME');
-    strictEqual(this.gft.scope, 'https://www.googleapis.com/auth/fusiontables');
-	strictEqual(this.gft.accessToken, null);
 });
 
 asyncTest("scopedDataCallback w/o scope", 3, function() {
@@ -120,7 +93,7 @@ asyncTest("sendRequest", 6, function() {
 		start();
 	}
 	var params = {
-		path: this.gft.GFT_PATH,
+		path: '/fusiontables/v1/query',
 		params: { 
 			sql: "select * from " + this.testGftTable + " limit 1"
 		}
@@ -172,20 +145,21 @@ asyncTest("auth", 4, function() {
 	var gft = this.gft;
 	var testCb = function(success) {
 		equal(success,true,'Successful authentication excepected');
-		notStrictEqual(gft.accessToken,null,'After calling auth() the accessToken (' + gft.accessToken + ') should be set');
-		strictEqual(gft.accessToken,gapi.auth.getToken().access_token,'accessToken should be set on gapi.auth');
+		var accessToken = gft.getAccessToken();
+		notStrictEqual(accessToken,null,'After calling auth() the accessToken (' + accessToken + ') should be set');
+		strictEqual(accessToken,gapi.auth.getToken().access_token,'accessToken should be set on gapi.auth');
 		start();
 	}
-	strictEqual(gft.accessToken,null,'Before calling auth() the accessToken should be null');
+	strictEqual(gft.getAccessToken(),null,'Before calling auth() the accessToken should be null');
 	gft.__auth(testCb);
 });
 
 asyncTest("getAccessToken w/o accessToken", 8, function() {
 	var gft = this.gft;
 	var testCb = function(data,status) {
-		strictEqual(status,'success','Successful retrieval of accessTOken excepected');
+		strictEqual(status,'success','Successful retrieval of accessToken excepected');
 		if (data === null) {
-			ok(false, "getAccessToken failed with status: " + status);
+			ok(false, "retrieveAccessToken failed with status: " + status);
 			start();
 			return;
 		}
@@ -193,19 +167,20 @@ asyncTest("getAccessToken w/o accessToken", 8, function() {
 		ok(data.hasOwnProperty('expires_in'), "Data should have 'expires_in' property");
 		ok(data.hasOwnProperty('created'), "Data should have 'created' property");
 		
+		var accessToken = gft.getAccessToken();
 		notStrictEqual(data.access_token,null,'accessToken should be in data');
-		notStrictEqual(gft.accessToken,null,'After calling getAccessToken() the accessToken (' + gft.accessToken + ') should be set');
-		strictEqual(data.access_token,gft.accessToken,'Retrieved and set value should be the same');
+		notStrictEqual(accessToken,null,'After calling retrieveAccessToken() the accessToken (' + accessToken + ') should be set');
+		strictEqual(data.access_token,accessToken,'Retrieved and set value should be the same');
 		start();
 	}
-	strictEqual(gft.accessToken,null,'Before calling getAccessToken() the accessToken should be null');
-	gft.__getAccessToken(testCb);
+	strictEqual(gft.getAccessToken(),null,'Before calling retrieveAccessToken() the accessToken should be null');
+	gft.__retrieveAccessToken(testCb);
 });
 
 asyncTest("getAccessToken with accessToken", 6, function() {
 	var gft = this.gft;
 	var testAccessToken = 'testAccessToken';
-	gft.accessToken = testAccessToken;
+	gft.setAccessToken(testAccessToken);
 	var testCb = function(data,status) {
 		strictEqual(status,undefined,'There should be not status if accessToken is provided');
 		
@@ -213,11 +188,12 @@ asyncTest("getAccessToken with accessToken", 6, function() {
 		equal(data.hasOwnProperty('expires_in'), false, "Data should not have 'expires_in' property");
 		equal(data.hasOwnProperty('created'), false, "Data should not have 'created' property");
 		
-		notStrictEqual(gft.accessToken,null,'After calling getAccessToken() the accessToken (' + gft.accessToken + ') should be set');
-		strictEqual(gft.accessToken,testAccessToken,'Retrieved and set value should be the same');
+		var accessToken = gft.getAccessToken();
+		notStrictEqual(accessToken,null,'After calling retrieveAccessToken() the accessToken (' + accessToken + ') should be set');
+		strictEqual(gft.getAccessToken(),testAccessToken,'Retrieved and set value should be the same');
 		start();
 	}
-	gft.__getAccessToken(testCb);
+	gft.__retrieveAccessToken(testCb);
 });
 
 asyncTest("execQuery", 7, function() {
