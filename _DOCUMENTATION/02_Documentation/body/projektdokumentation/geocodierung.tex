@@ -10,7 +10,8 @@ Ein grosser Vorteil der Google Fusion Tables ist die automatische
 	\label{geocoding_failed}
 \end{figure}
 
-Diese geocodierten Standorte werden in der Tabelle hinterlegt sind aber mit den SQL API nicht selektierbar. Man müsste also für jede Zeile die man als Resultat erhält die Geocodierung manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirken würde.
+Diese geocodierten Standorte werden in der Tabelle hinterlegt. Leider sind diese Daten über das SQL API nicht selektierbar. Man müsste also für jede Zeile die man als Resultat erhält die Geocodierung manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirken würde.
+
 Es gibt verschiedene Dienste, welche eine solche Geocodierung von Standortdaten anbieten. Die meisten davon haben aber eine Begrenzung der möglichen Anfragen pro Tag.
 
 \begin{longtable}{|l|p{1.9cm}|p{7.3cm}|}
@@ -27,6 +28,8 @@ MapQuest Geocoding API & keine Begrenzung & \url{http://developer.mapquest.com/w
 
 Wie man sieht erreicht man mit diesen Diensten beim Arbeiten mit grossen Datenmengen schnell die Grenzen.
 
-\subsection{Bug beim Geocoding von neuen Datensätzen}
+\subsection{Geocoding von neuen Datensätzen nur manuell möglich}
 \label{geocodierung-bug}
-\todo[inline]{Geocoding-Bug beschreiben}
+Ein grosses Problem stellt sich darin, dass über das SQL API neu eingefügte Datensätze nicht automatisch geocodiert werden. Dies führt dazu, dass diese Daten von Abfragen, welche eine ortsbezogene Einschränkung beinhalten (siehe Abschnitt \ref{sqlapi-spatialqueries}), nicht zurückgeliefert werden.
+
+Eine Geocodierung der Daten kann nur manuell über das Fusion Tables Web-GUI gestartet werden.

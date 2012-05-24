@@ -191,8 +191,8 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ}}. Davon wurden zwei Views erstellt:
 
 \begin{itemize}
-\item \emph{ftFixMyStreet\_Read}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1no3_lJ0CCazZVN6rlAY8vrtf9ejoz_xo0e7a9cY}}: In dieser View sind alle Probleme vorhanden. Die Applikation hat aber nur Lesezugriff darauf.
-\item \emph{ftFixMyStreet\_Write}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac} (private Tabelle)}: In dieser View sind lediglich die Probleme vorhanden deren Status auf \emph{neu} gesetzt ist. Die Applikation kann darin neue Probleme abspeichern und diese auch wieder löschen.
+\item \emph{ftFixMyStreet\_Read}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1no3_lJ0CCazZVN6rlAY8vrtf9ejoz_xo0e7a9cY}}: In dieser View sind alle gemeldeten Defekte sichtbar, die Applikation hat aber nur Lesezugriff darauf.
+\item \emph{ftFixMyStreet\_Write}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac} (private Tabelle)}: In dieser View sind lediglich die Defekte vorhanden deren Status auf \emph{neu} gesetzt ist. Die Applikation kann darin neue Defekte abspeichern und diese auch wieder löschen.
 \end{itemize}
 
 \begin{figure}[H]
@@ -288,13 +288,13 @@ app/controller/ProblemMap.js & Controller der \emph{Map}-View \\
 \hline 
 app/controller/ReportMap.js & Controller der \emph{Report}-View \\ 
 \hline 
-app/model/*.js & Daten-Modelle der Applikation (Problem, Status, ...) \\ 
+app/model/*.js & Daten-Modelle der Applikation (Defekt, Status, ...) \\ 
 \hline 
 app/plugin/PullRefresh.js & PullRefresh Plugin der Liste \\ 
 \hline 
 app/proxy/FusionTables.js & Proxy zur Anbindung der Google Fusion Tabelle an die Applikation \\ 
 \hline 
-app/store/*.js & Daten-Speicher der Applikation (Probleme, Typen, ...) \\ 
+app/store/*.js & Daten-Speicher der Applikation (Defekte, Typen, ...) \\ 
 \hline 
 app/utli/Config.js & Konfiguration der Applikation \\ 
 \hline 
@@ -316,31 +316,40 @@ Sencha Touch verwendet für den Zugriff auf fremde Datenquellen das Konzept der 
 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (LocalStorage) zu kommunizieren. Zudem existieren Proxies für AJAX-Serveranfragen oder JSONP-Anfragen.
 
-Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene Javascript Fusion Table Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
-Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen Create, Read und Delete. Ein Aktualisieren von gemeldeten Problemen ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Fusion Table Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
+Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen Create, Read und Delete. Ein Änderung von gemeldeten Defekten ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{images/usecase2-fixmystreet/uml/fixmystreet-proxy-classmodel}
+	\caption{FixMyStreet FusionTablesLayer Proxy}
+	\label{fixmystreet-proxy-classmodel}
+\end{figure}
 
 \subsection{Wiedererkennung des Benutzers}
 \label{fixmystreet-user-detection}
 Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um die App zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
 
-Wir generieren dazu beim ersten Starten der App eine Version 1 UUID\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im LocalStorage des Browsers ab. Die gemeldeten Probleme beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
+Wir generieren dazu beim ersten Starten der App eine Version 1 UUID\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im LocalStorage des Browsers ab. Die gemeldeten Defekte beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
 
-Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer seinen Browsercache leert oder die App an einem anderen Gerät startet, erhält er eine neue UUID, welche den neu erfassten Problemen zugeordnet wird. So können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
+Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer seinen Browsercache leert oder die App an einem anderen Gerät startet, erhält er eine neue UUID, welche den neu erfassten Defekten zugeordnet wird. So können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
 
 \subsection{Automatisches Aktualisieren der Übersichtsmaske}
 \label{fixmystreet-polling}
-Eine weitere Anforderung war es eine möglichst aktuelle Ansicht aller gemeldeten Fälle zu bieten. Wir haben dazu in der Übersichtsmaske ein Polling implementiert. Dieses aktualisiert alle 30 Sekunden die Markierungen auf der Karte indem es eine Anfrage an die Fusion Table sendet. Gelöschte und erledigte Probleme werden entfernt und Neue hinzugefügt.
+Eine weitere Anforderung war es eine möglichst aktuelle Ansicht aller gemeldeten Fälle zu bieten. Wir haben dazu in der Übersichtsmaske ein Polling implementiert. Dieses aktualisiert alle 30 Sekunden die Markierungen auf der Karte indem es eine Anfrage an die Fusion Table sendet. Gelöschte und erledigte Defekte werden entfernt und Neue hinzugefügt.
 
 Die Karte aktualisiert sich zudem jedes Mal, wenn die Übersichtsmaske aufgerufen wird.
 
-\subsection{Auf Übersichtsmaske nur Probleme für sichtbaren Bereich laden}
-Um nicht zu viele Markierungen gleichzeitig zu laden und so die Applikation zu verlangsamen, laden wir auf der Übersichtsmaske nur die Probleme, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben wird oder der Zoom geändert wird, werden die Probleme für den neuen Bereich nachgeladen.
+\subsection{Auf Übersichtsmaske nur Defekte im sichtbaren Bereich laden}
+Um nicht zu viele Markierungen gleichzeitig zu laden, was sich negativ auf die Performance der Applikation auswirken würde, laden wir auf der Übersichtsmaske nur diejenigen Defekte, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben wird oder der Zoom verändert wird, werden die Defekte für den neuen Bereich nachgeladen.
 
-Dazu haben wir das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL APIs (siehe Abschnitt \ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
+Dazu haben wir vorerst das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL APIs (siehe Abschnitt \ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir diesem als Parameter ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
+
+Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (siehe Abschnitt \ref{geocodierung-bug}), mussten wir in der letzen Version der Applikation das Spatial-Query wieder entfernen und durch eine eigene \inlinecode{WHERE}-Bedingung ersetzen. Ansonsten würden neu gemeldete Defekte solange nicht auf der Karte angezeigt, bis die Datensätze über das Fusion Tables Web-GUI manuell geokodiert werden.
 
 \subsection{Heatmap-Ansicht auf Übersichtsmaske}
-Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Probleme als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature verwendet. 
+Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
 \section{Test}
 \todo[inline]{UseCase 2: FixMyStreet - Test}
@@ -359,6 +368,6 @@ Auch dieser UseCase hat noch ein grosses Ausbaupotential. So wäre es beispielsw
 
 Weiter müssten natürlich auch die Stammdaten (Defekttypen, Status) in eine Datenbank ausgelagert werden. Diese sind momentan statisch im Code verankert. Ein Problem würde sich dabei aber stellen. Das Web-GUI der Fusion Table unterstützt momentan keine Auswahllisten von Daten aus einer fremden Tabelle. Man würde deshalb lediglich die Fremdschlüssel der Stammdaten sehen.
 
-Ein weiteres Feature wäre eine Detailansicht der gemeldeten Probleme. Darin liesse sich der Status-Log anzeigen, um genau nachzuverfolgen, was bereits zur Behebung des angezeigten Defekts unternommen wurde. 
+Ein weiteres Feature wäre eine Detailansicht der gemeldeten Defekte. Darin liesse sich der Status-Log anzeigen, um genau nachzuverfolgen, was bereits zur Behebung des angezeigten Defekts unternommen wurde. 
 
 Zudem wäre es sinnvoll, wenn die App auch offline verwendbar wäre. Dadurch könnte man Defekte auch an Orten melden, welche über keine ausreichende Mobilnetzabdeckung verfügen.
