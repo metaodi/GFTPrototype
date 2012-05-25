@@ -45,39 +45,118 @@ Google APIs Client Library & ALPHA release & \gls{AJAX}-Requests an das Google A
 
 \subsection{Methoden}
 \subsubsection{GftLib}
-\begin{longtable}{|l|p{3cm}|p{6cm}|}
+\begin{longtable}{|p{4.2cm}|p{3cm}|p{7cm}|}
 \hline 
 \textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
 \hline 
-\inlinecode{execQuery(callback, query)} &  Führt eine SQL-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{query} (String): SQL-Query \\ 
+\inlinecode{execQuery( callback, query )} &  Führt eine SQL-Abfrage aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{query} (String): SQL-Query
+\end{itemize} \\ 
 \hline 
-\inlinecode{execSql(callback, sql)} & Führt einen beliebigen SQL-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{sql} (String): SQL-Befehl \\ 
+\inlinecode{execSql( callback, sql )} & Führt einen beliebigen SQL-Befehl aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{sql}: SQL-Befehl
+\end{itemize} \\ 
 \hline 
-\inlinecode{execSelect(callback, options)} & Führt eine \inlinecode{SELECT}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.selectStmt()} \\ 
+\inlinecode{execSelect( callback, options )} & Führt eine \inlinecode{SELECT}-Abfrage aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird.
+\item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.selectStmt()}
+\end{itemize} \\ 
+\hline
+\inlinecode{execInsert( callback, options )} & Führt einen \inlinecode{INSERT}-Befehl aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird.
+\item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.insertStmt()}
+\end{itemize} \\ 
+\hline
+\inlinecode{execUpdate( callback, options )} & Führt einen \inlinecode{UPDATE}-Befehl aus &
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.updateStmt()}
+\end{itemize} \\ 
 \hline 
-\inlinecode{execInsert(callback, options)} & Führt einen \inlinecode{INSERT}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.insertStmt()} \\ 
+\inlinecode{execDelete( callback, options )} & Führt einen \inlinecode{DELETE}-Befehl aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird.
+\item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.deleteStmt()} 
+\end{itemize} \\ 
 \hline 
-\inlinecode{execUpdate(callback, options)} & Führt einen \inlinecode{UPDATE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.updateStmt()} \\ 
+\inlinecode{getTableDescription( callback, options )} & Führt eine \inlinecode{DESCRIBE}-Abfrage aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.describeStmt()}
+\end{itemize} \\
 \hline 
-\inlinecode{execDelete(callback, options)} & Führt einen \inlinecode{DELETE}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.deleteStmt()} \\ 
+\inlinecode{createView( callback, options )} & Führt einen \inlinecode{CREATE VIEW}-Befehl aus & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.createViewStmt()} 
+\end{itemize} \\ 
 \hline 
-\inlinecode{getTableDescription(callback, options)} & Führt eine \inlinecode{DESCRIBE}-Abfrage aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.describeStmt()} \\ 
-\hline 
-\inlinecode{createView(callback, options)} & Führt einen \inlinecode{CREATE VIEW}-Befehl aus & \inlinecode{callback} (Funktion): Callback-Methode welche nach Beendigung der Methode aufgerufen wird. \inlinecode{options} (Object): Parameter für \inlinecode{SqlBuilder.createViewStmt()} \\ 
-\hline 
-\inlinecode{convertToObject(gftData)} & Konvertiert das Resultat einer Abfrage in sprechende Objekte & gftData (Object) ist die Antwort auf einen SQL Befehl von Google Fusion Tables \\ 
+\inlinecode{convertToObject( gftData )} & Konvertiert das Resultat einer Abfrage in sprechende Objekte & 
+\begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
+\item \inlinecode{gftData}: Antwort auf einen SQL Befehl von Google Fusion Tables
+\end{itemize} \\ 
 \hline 
 \end{longtable} 
 
 \subsubsection{SqlBuilder}
-\todo[inline]{SqlBuilder Tabelle ergänzen}
-\begin{longtable}{|l|p{3cm}|p{6cm}|}
+Die Methoden des SqlBuilders nehmen jeweils ein Parameter-Objekt\footnote{\url{http://www.refactoring.com/catalog/introduceParameterObject.html}} entgegen und erstellen daraus SQL-Befehle, welche dann als Input für die GftLib gebraucht werden können.
+
+\begin{longtable}{|p{4.2cm}|p{3cm}|p{7cm}|}
 \hline 
 \textbf{Methode} & \textbf{Beschreibung} & \textbf{Parameter} \\ 
 \hline
-selectStmt(options) & Erstellt ein \inlinecode{SELECT} Statement & \inlinecode{options} (Object): fields: abzufrganden Felder (Default *), table: Abzufragende Tabelle (obligatorisch), conditions: Array von Bedingungen für die \inlinecode{WHERE}-Klausel \\
+\inlinecode{selectStmt( options )} & Generiert ein \inlinecode{SELECT} Statement & 
+\inlinecode{options}: Parameter-Objekt mit folgenden Feldern:
+\begin{itemize}[noitemsep]
+\item \inlinecode{fields}: Array von Feldernamen (Default *)
+\item \inlinecode{table}: ID der Tabelle oder View
+\item \inlinecode{conditions}: Array von Bedingungen für die \inlinecode{WHERE}-Klausel 
+\end{itemize}\\
 \hline
-\end{longtable} 
+\inlinecode{insertStmt( options )} & Generiert ein \inlinecode{INSERT} Statement & 
+\inlinecode{options}: Parameter-Objekt mit folgenden Feldern:
+\begin{itemize}[noitemsep]
+\item \inlinecode{fields}: Array von Feldernamen (Default *)
+\item \inlinecode{table}: ID der Tabelle oder View
+\item \inlinecode{values}: Array von Werten (in der gleichen Reihenfolge wie \inlinecode{fields})
+\end{itemize}\\
+\hline
+\inlinecode{updateStmt( options )} & Generiert ein \inlinecode{UPDATE} Statement & 
+\inlinecode{options}: Parameter-Objekt mit folgenden Feldern:
+\begin{itemize}[noitemsep]
+\item \inlinecode{fields}: Array von Feldernamen (Default *)
+\item \inlinecode{table}: ID der Tabelle oder View
+\item \inlinecode{values}: Array von Werten (in der gleichen Reihenfolge wie \inlinecode{fields})
+\item \inlinecode{conditions}: Array von Bedingungen für die \inlinecode{WHERE}-Klausel
+\end{itemize}\\
+\hline
+\inlinecode{deleteStmt( options )} & Generiert ein \inlinecode{DELETE} Statement & 
+\inlinecode{options}: Parameter-Objekt mit folgenden Feldern:
+\begin{itemize}[noitemsep]
+\item \inlinecode{table}: ID der Tabelle oder View
+\item \inlinecode{conditions}: Array von Bedingungen für die \inlinecode{WHERE}-Klausel
+\end{itemize}\\
+\hline
+\inlinecode{describeStmt( options )} & Generiert ein \inlinecode{DESCRIBE} Statement & 
+\inlinecode{options}: Parameter-Objekt mit folgenden Feldern:
+\begin{itemize}[noitemsep]
+\item \inlinecode{table}: ID der Tabelle oder View
+\end{itemize}\\
+\hline
+\inlinecode{createViewStmt( options )} & Generiert ein \inlinecode{CREATE VIEW} Statement & 
+\inlinecode{options}: Parameter-Objekt mit folgenden Feldern:
+\begin{itemize}[noitemsep]
+\item \inlinecode{viewName}: Name der neuen View
+\item \inlinecode{query}: Ein SQL-Query, das der View zugrunde liegt
+\end{itemize}\\
+\hline
+\end{longtable}
 
 \subsection{Implementation}
 \begin{figure}[H]
