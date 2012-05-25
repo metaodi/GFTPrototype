@@ -42,7 +42,7 @@ Das Google Maps API hat momentan folgende Einschränkungen bezüglich den Ebenen
 \subsection{Heatmaps}
 Ein weiteres Feature der Fusion Table-Ebenen ist die Möglichkeit die Daten der Tabelle direkt als Heatmap darzustellen. Dabei werden die Daten automatisch nach der Häufigkeit der Vorkommnisse an einem Ort anders eingefärbt. Der verwendete Farbverlauf geht dabei von Grün (für wenig Daten) bis Rot (für viele Daten).
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics{images/einfuehrung/gmap_fusiontableslayer_heatmap}
 	\caption{Daten als Heatmap mit FusionTablesLayer}
@@ -54,7 +54,7 @@ Leider sind momentan die Konfigurationsmöglichkeiten der Heatmap auf ein Minimu
 \subsection{Performance}
 Der grösste Vorteil der Fusion Table-Ebenen steckt aber nicht zwingend in den sichtbaren Features. Man findet ihn wohl eher darin, dass die Geocodierungen der Standort-Daten direkt aus der Tabelle gelesen werden und nicht manuell vom Client abgefragt werden müssen. Dadurch kann die Ebene komplett auf den Servern von Google aufbereitet werden. Der Client muss die erhaltenen Daten lediglich noch darstellen. Der Vorteil davon wird durch das folgende Diagramm \ref{fusiontableslayer-compare_markers}\footnote{Quelle: \url{http://www.google.com/events/io/2011/sessions/managing-and-visualizing-your-geospatial-data-with-fusion-tables.html} (Stand: 17.05.2012)} schnell ersichtlich.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/einfuehrung/gmap_fusiontableslayer_vs_markers}
 	\caption{FusionTablesLayer verglichen mit Markers}

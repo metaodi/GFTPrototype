@@ -8,7 +8,7 @@ Das Open-Source Projekt BitNami\footnote{\url{http://bitnami.org/}} erstellt fü
 \section{Git-Repository bei GitHub}
 Wir haben uns für ein Git-Repository entschieden und können somit grundsätzlich unabhängig und offline arbeiten. Als Master für unsere Entwicklung und den Build verwenden wir ein gemeinsames GitHub-Repository\footnote{\url{https://github.com/odi86/GFTPrototype}}.
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\textwidth]{images/infrastruktur/github-gui}
 	\caption{Commit-History in GitHub}
@@ -32,7 +32,7 @@ Bei Jenkins CI\footnote{\url{http://jenkins-ci.org/}} handelt es sich um ein Ope
 \subsection{Logfile-Analyse mit dem Log Parser Plugin}
 Das Log Parser Plugin\footnote{\url{http://wiki.hudson-ci.org/display/HUDSON/Log+Parser+Plugin}} ermöglicht es auf einfache Art und Weise Probleme mit dem Build festzustellen. Für den Build kann es zum Teil sehr schwierig sein, den Status des Builds zu bestimmen. Der Build kann erkennen ob ein aufgerufener Befehl fehlgeschlagen hat oder ob die ausgeführten Tests erfolgreich durchlaufen. Wenn jedoch ein aufgerufenes Programm eine Warnung oder einen Fehler anzeigt, kann der Build das nicht selbst erkennen. Hier kommt der Logparser ins Spiel. Man kann Muster definieren für Dinge die auf eine Warnung oder einen Fehler hindeuten. Diese Logik erlaubt es dem Build viel detailliertere Aussagen über die laufende Installation zu machen.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\textwidth]{images/infrastruktur/jenkins-parsed-output}
 	\caption{Ansicht des Logfiles mit dem Log Parser Plugin}
@@ -56,7 +56,7 @@ Hier zum Beispiel unser \inlinecode{build}-Target, welches alle anderen Targets 
 \subsection{Testausführung}
 Zur Darstellung der Testresultate bauen wir auf dem JUnit XML-Interpreter auf, welcher in Jenkins bereits dabei ist. Dazu ist es lediglich notwendig alle Testresultate in das JUnit XML-Format zu bringen, die ganzen Auswertungen, Grafiken etc. bekommt man dann quasi "gratis" dazu.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\textwidth]{images/infrastruktur/jenkins-test-results}
 	\caption{Diagramm der Testresultate im Verlaufe der Zeit}
