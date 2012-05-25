@@ -2,20 +2,21 @@
 \label{fixmystreet}
 
 \begin{center}
-\includegraphics[scale=0.8]{images/usecase2-fixmystreet/fixmystreet-icon_with_gloss.png}
+\includegraphics[scale=0.8]{images/usecase2-fixmystreet/fixmystreet-icon_with_gloss}
 
 {\large \textbf{\url{http://fixmystreet.rdmr.ch/}}}
 \end{center}
 
 % Einführung
 \section{Einführung}
+\subsection{Idee}
 FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England mit der Webseite \url{http://www.fixmystreet.com/}. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
 
 Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem Bürger per Webseite oder App entdeckte Defekte in seiner Umgebung (defekte Strassenlampen, Schlaglöcher, usw.) direkt der dafür zuständigen Behörde zu melden. Diese kann dann die erhaltenen Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
 
 % Ziel
 \subsection{Ziel}
-Das Ziel dieses UseCases war die Erstellung einer WebApp, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
+Das Ziel dieses Use Cases war die Erstellung einer WebApp, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
 
 Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige GIS-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
@@ -38,7 +39,7 @@ Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{images/usecase2-fixmystreet/uml/fixmystreet-usecasemodel.png}
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-usecasemodel}
 	\caption{FixMyStreet: UseCase Modell}
 	\label{fixmystreet-usecasemodel}
 \end{figure}
@@ -197,20 +198,47 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-datamodel.png}
+	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-datamodel}
 	\caption{FixMyStreet: Datenbankschema}
 	\label{fixmystreet-datamodel}
 \end{figure}
 
 \subsection{Klassendiagramm}
-\todo[inline]{UseCase 2: FixMyStreet - Klassendiagramm}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-packagediagram}
+	\caption{FixMyStreet: Packagediagramm}
+	\label{fixmystreet-packagediagram}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-view-classmodel}
+	\caption{FixMyStreet: View Klassendiagramm}
+	\label{fixmystreet-view-classmodel}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-controller-classmodel}
+	\caption{FixMyStreet: Controller Klassendiagramm}
+	\label{fixmystreet-controller-classmodel}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-store-classmodel}
+	\caption{FixMyStreet: Stores Klassendiagramm}
+	\label{fixmystreet-store-classmodel}
+\end{figure}
 
 \subsection{Deploymentdiagramm}
 Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fusiontablesproxy}) auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{images/usecase2-fixmystreet/uml/fixmystreet-deploymentmodel.png}
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-deploymentmodel}
 	\caption{FixMyStreet: Deploymentdiagramm}
 	\label{fixmystreet-deploymentmodel}
 \end{figure}
@@ -230,7 +258,7 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite,
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.43]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup.png}
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup}
 	\caption{FixMyStreet: Sequenzdiagramm - Starten der Applikation}
 	\label{fixmystreet-sequencediagram-applicationstartup}
 \end{figure}
@@ -349,7 +377,7 @@ Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.7]{images/usecase2-fixmystreet/uml/fixmystreet-proxy-classmodel}
+	\includegraphics[width=0.7\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-proxy-classmodel}
 	\caption{FixMyStreet: FusionTablesLayer Proxy}
 	\label{fixmystreet-proxy-classmodel}
 \end{figure}
@@ -391,7 +419,7 @@ Zudem haben wir bewusst auf die Verwendung einer Fusion Tables-Ebene (siehe Absc
 Alles in allem waren die Nachteile bei der Verwendung von Google Fusion Tables als Datenbank wahrscheinlich grösser als deren Vorteile.
 
 \section{Weiterentwicklung}
-Auch dieser UseCase hat noch ein grosses Ausbaupotential. So wäre es beispielsweise sinnvoll, wenn man bei der Meldung des Defekts noch ein Foto hinzufügen könnte. Damit könnte man noch genauer zeigen, was wirklich defekt ist. Zudem würde es auch der zuständigen Behörde einfacher fallen Spassmeldungen von echten Defekten zu unterscheiden. Zusätzlich wäre es hilfreich, wenn man die Möglichkeit hätte in einem fakultativen Beschreibungsfeld eine zusätzliche Problembeschreibung anzugeben.
+Auch dieser Use Case hat noch ein grosses Ausbaupotential. So wäre es beispielsweise sinnvoll, wenn man bei der Meldung des Defekts noch ein Foto hinzufügen könnte. Damit könnte man noch genauer zeigen, was wirklich defekt ist. Zudem würde es auch der zuständigen Behörde einfacher fallen Spassmeldungen von echten Defekten zu unterscheiden. Zusätzlich wäre es hilfreich, wenn man die Möglichkeit hätte in einem fakultativen Beschreibungsfeld eine zusätzliche Problembeschreibung anzugeben.
 
 Weiter müssten natürlich auch die Stammdaten (Defekttypen, Status) in eine Datenbank ausgelagert werden. Diese sind momentan statisch im Code verankert. Ein Problem würde sich dabei aber stellen. Das Web-GUI der Fusion Table unterstützt momentan keine Auswahllisten von Daten aus einer fremden Tabelle. Man würde deshalb lediglich die Fremdschlüssel der Stammdaten sehen.
 
