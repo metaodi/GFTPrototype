@@ -17,28 +17,6 @@ Google Fusion Tables wurde am 10. Juni 2009 der Öffentlichkeit zugänglich gema
 	\label{gft-webgui-map}
 \end{figure}
 
-\subsection{Software-as-a-Service (SaaS) / Cloud}
-Der Begriff \emph{Software-as-a-Service} (SaaS) hat sich in den letzten Jahren etabliert und bezeichnet die Dienstleistung eine Software nicht nur für einen Kunden zu entwickeln, sondern auch gleich deren Betrieb zu übernehmen. Diese gesamthafte Dienstleistung wird dann dem Kunden angeboten, so dass dieser keine eigene Infrastruktur betreiben muss. Die \gls{Cloud} ist die logische  Erweiterung dieses Konzepts, dabei wird der angebotene Dienst transparent auf mehreren Umgebungen und an verschiedenen Lokationenn angeboten. Dies soll zum einen eine hohe Erreichbarkeit gewährleisten, zum anderen kann ein Anbieter dadurch sehr leicht skalieren.\cite{cloud}
-
-\subsection{Datenbank in der Cloud}
-Google Fusion Tables schafft das Problem der Erreichbarkeit einer Datenbank ab. Fusion Tables sind dezentral in der \gls{Cloud} gespeichert und dort lassen sie sich einfach vertikal skalieren. Die momentanen geltenden Limiten der Datenbank sind 250MB Speicher für eine Tabelle, 25'000 Abfragen pro Tag und Benutzer sowie 100'000 Elemente, die gleichzeitig auf der Karte dargestellt werden können. Allgemein werden bei Abfragen nur die ersten 100'000 Resultate als Antwort zurückgeliefert. Diese Einschränkungen können Kunden mit Google Maps Premier auf Anfrage verändern. \cite{fusion-tables-geo-limits}
-
-\begin{longtable}{|l|l|}
-\hline 
-\textbf{Beschreibung} & \textbf{Limitation} \\ 
-\hline 
-Speicher & 250MB \\ 
-\hline 
-Abfragen pro Tag & 25'000 \\ 
-\hline 
-Gleichzeitig angezeigte Elemente auf Karte & 100'000 \\ 
-\hline 
-Für Abfragen berücksichtigte Records & erste 100'000 \\ 
-\hline 
-\caption{Limitationen der Google Fusion Tables}
-\label{gft-limitations}
-\end{longtable} 
-
 \subsection{Kollaboration und Nutzung von (ver-)öffentlichen Daten}
 Der Gedanke der \gls{Cloud} lässt sich abseits vom technischen noch weiterdenken. Durch die allgemeine Verfügbarkeit der Fusion Tables Datenbank, lassen sich die dort eingetragenen Daten mit anderen Benutzern oder gar der Öffentlichkeit teilen. Es gibt sogar eine eigene Suche für öffentliche Tabellen.\cite{fusion-tables-search} Tabellen können dann mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft gebrauchen, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
 
@@ -72,6 +50,25 @@ Mit Views können Einschränkungen von Base Tables vorgenommen werden. Dies kann
 Views können nur von Base Tables oder anderen Views erstellt werden, \gls{Merge}d Tables sind nicht unterstützt\footnote{\url{https://developers.google.com/fusiontables/docs/developers_guide\#CreatingView}}.
 
 Ein schönes Beispiel für die Verwendung von Views in Google Fusion Tables ist der Flu Vaccine Finder\footnote{\url{https://developers.google.com/fusiontables/docs/articles/data_gathering}} von Google.
+
+\subsection{Limiten}
+Da die Google Fusion Tables kostenlos angeboten werden, hat Google einige Limiten bei der Benutzung der Datenbank festgelegt. So darf eine einzelne Tabelle maximal 250MB Speicher belegen. Zudem sind die Abfragen pro Benutzer und Tag auf 25'000 beschränkt. Auf der Karte lassen sich maximal 100'000 Elemente gleichzeitig darstellen. Allgemein werden bei Abfragen nur die ersten 100'000 Resultate als Antwort zurückgeliefert. Diese Einschränkungen können Kunden des Google Maps API Premier\footnote{\url{http://www.google.com/enterprise/earthmaps/maps.html}} auf Anfrage verändern. Die Preise dafür starten bei 10'000\$ pro Jahr und ändern sich je nach Bedürfnis.\cite{fusion-tables-geo-limits}
+
+\begin{longtable}{|l|l|}
+\hline 
+\textbf{Beschreibung} & \textbf{Limitation} \\ 
+\hline 
+Speicher pro Tabelle & 250MB \\ 
+\hline 
+Abfragen pro Benutzer und Tag & 25'000 \\ 
+\hline 
+Gleichzeitig angezeigte Elemente auf Karte & 100'000 \\ 
+\hline 
+Für Abfragen berücksichtigte Records & erste 100'000 \\ 
+\hline 
+\caption{Limitationen der Google Fusion Tables}
+\label{gft-limitations}
+\end{longtable} 
 
 \subsection{Austausch mit den Google Entwicklern}
 Da es sich bei Google Fusion Tables um ein relativ neues Projekt handelt war uns bewusst, dass wir früher oder später vor Problemen stehen würden. Von daher für uns klar, dass wir die beiden offiziellen Supportkanäle (Mailingliste\footnote{Die Mailingliste ist für allgemeine oder konzeptionelle Fragen: \url{https://groups.google.com/forum/?fromgroups\#!forum/fusion-tables-users-group}} und StackOverflow\footnote{Google hat alle technischen Fragen zu GFT in die bekannte Entwickler-Community StackOverflow ausgelagert: \url{http://stackoverflow.com/questions/tagged/google-fusion-tables}}) aktiv nutzen werden. Zum einen ist es sehr interessant zu sehen welche Ideen und Probleme andere Leute haben und zum anderen auch einen guten Kontakt zur Community und den Google Entwicklern zu pflegen.
