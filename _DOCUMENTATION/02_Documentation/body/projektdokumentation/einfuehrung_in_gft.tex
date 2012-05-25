@@ -18,10 +18,10 @@ Google Fusion Tables wurde am 10. Juni 2009 der Öffentlichkeit zugänglich gema
 \end{figure}
 
 \subsection{Software-as-a-Service (SaaS) / Cloud}
-Der Begriff \emph{Software-as-a-Service} (Saas) hat sich in den letzten Jahren etabliert und bezeichnet die Dienstleistung eine Software nicht nur für einen Kunden zu entwickeln, sondern auch gleich deren Betrieb zu übernehmen. Diese gesamthafte Dienstleistung wird dann dem Kunden angeboten, so dass dieser keine eigene Infrastruktur betreiben muss. Die "`Cloud"' ist die logische  Erweiterung dieses Konzepts, dabei wird der angebotene Dienst transparent auf mehreren Umgebungen und an verschiedenen Lokationenn angeboten. Dies soll zum einen eine hohe Erreichbarkeit gewährleisten, zum anderen kann ein Anbieter dadurch sehr leicht skalieren. \todo[inline]{Quellenverweis}
+Der Begriff \emph{Software-as-a-Service} (SaaS) hat sich in den letzten Jahren etabliert und bezeichnet die Dienstleistung eine Software nicht nur für einen Kunden zu entwickeln, sondern auch gleich deren Betrieb zu übernehmen. Diese gesamthafte Dienstleistung wird dann dem Kunden angeboten, so dass dieser keine eigene Infrastruktur betreiben muss. Die \gls{Cloud} ist die logische  Erweiterung dieses Konzepts, dabei wird der angebotene Dienst transparent auf mehreren Umgebungen und an verschiedenen Lokationenn angeboten. Dies soll zum einen eine hohe Erreichbarkeit gewährleisten, zum anderen kann ein Anbieter dadurch sehr leicht skalieren.\cite{cloud}
 
 \subsection{Datenbank in der Cloud}
-Google Fusion Tables schafft das Problem der Erreichbarkeit einer Datenbank ab. Fusion Tables sind dezentral in der Cloud gespeichert und dort lassen sie sich einfach vertikal skalieren. Die momentanen geltenden Limiten der Datenbank sind 250MB Speicher für eine Tabelle, 25'000 Abfragen pro Tag und Benutzer sowie 100'000 Elemente, die gleichzeitig auf der Karte dargestellt werden können. Allgemein werden bei Abfragen nur die ersten 100'000 Resultate als Antwort zurückgeliefert. Diese Einschränkungen können Kunden mit Google Maps Premier auf Anfrage verändern. \cite{fusion-tables-geo-limits}
+Google Fusion Tables schafft das Problem der Erreichbarkeit einer Datenbank ab. Fusion Tables sind dezentral in der \gls{Cloud} gespeichert und dort lassen sie sich einfach vertikal skalieren. Die momentanen geltenden Limiten der Datenbank sind 250MB Speicher für eine Tabelle, 25'000 Abfragen pro Tag und Benutzer sowie 100'000 Elemente, die gleichzeitig auf der Karte dargestellt werden können. Allgemein werden bei Abfragen nur die ersten 100'000 Resultate als Antwort zurückgeliefert. Diese Einschränkungen können Kunden mit Google Maps Premier auf Anfrage verändern. \cite{fusion-tables-geo-limits}
 
 \begin{longtable}{|l|l|}
 \hline 
@@ -40,21 +40,38 @@ Für Abfragen berücksichtigte Records & erste 100'000 \\
 \end{longtable} 
 
 \subsection{Kollaboration und Nutzung von (ver-)öffentlichen Daten}
-Der Gedanke der Cloud lässt sich abseits vom technischen noch weiterdenken. Durch die allgemeine Verfügbarkeit der Fusion Tables Datenbank, lassen sich die dort eingetragenen Daten mit anderen Benutzern oder gar der Öffentlichkeit teilen. Es gibt sogar eine eigene Suche für öffentliche Tabellen.\cite{fusion-tables-search} Tabellen können dann mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft gebrauchen, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
+Der Gedanke der \gls{Cloud} lässt sich abseits vom technischen noch weiterdenken. Durch die allgemeine Verfügbarkeit der Fusion Tables Datenbank, lassen sich die dort eingetragenen Daten mit anderen Benutzern oder gar der Öffentlichkeit teilen. Es gibt sogar eine eigene Suche für öffentliche Tabellen.\cite{fusion-tables-search} Tabellen können dann mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft gebrauchen, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
 
 Diese passive Kollaboration ermöglicht es auf eine breite Palette an öffentlichen bzw. veröffentlichten Daten zurückzugreifen. Via Import lassen sich auch andere bereits bestehende Daten mit Fusion Tables nutzen. Unterstützt sind dabei Tabellen (via Google Spreadsheet) und KML Dateien. Mit unserem im Kapitel \ref{converter-build} vorgestellten Build lassen sich eine breite Palette von Dateinformaten in Google Fusion Tables importieren.
 
 Um aktiv zu kollaborieren bieten hat Google auch einige Features angedacht. So ist es möglich einzelne Records oder gar Zellen in der Tabelle zu kommentieren, sofern man die nötigen Berechtigungen dafür hat. Falls man Daten von mehreren Lieferanten verwalten lassen will, kann eine Partei eine Tabelle erstellen und verschiedene Views darauf erstellen, welche jeweils von den verschiedenen Datenlieferanten gepflegt werden. Durch entsprechend gesetzte Berechtigungen kann so jeder seine Daten zum ganzen Beitragen, ohne Zugriff auf die Daten aller anderen Lieferanten zu erlangen. Einzig der Besitzer der Tabelle hat den kompletten Überblick. Google hat als Beispiel für diesen Use Case die Applikation \emph{Flu Vaccine Finder} erstellt, welche es den Anbietern von Grippeimpfungen ermöglicht ihre Lokale selbstständig zu erfassen und verwalten.\cite{data-gathering}
 
 \subsection{Verschiedene Tabellenarten}
-\todo[inline]{Abschnitt zu Tabellenarten}
-Google Fusion Tables unterscheidet grundsätzlich 3 verschiedene Tabellenarten. Jede Tabelle hat sowohl einen numerischen wie auch einen \emph{verschlüsselten} Namen, der \emph{encid} genannt wird. Wobei das neue API nur noch die encid akzeptiert (siehe Abschnitt \ref{api-migration}). 
+Google Fusion Tables unterscheidet grundsätzlich 3 verschiedene Tabellenarten\footnote{Tabellenarten in Google Fusion Tables: \url{https://developers.google.com/fusiontables/docs/developers_guide\#Exploring}}. Jede Tabelle hat sowohl einen Namen wie auch eine numerische und \emph{verschlüsselte} ID (\inlinecode{encid}). Angesprochen wir die Tabelle ausschliesslich über deren ID, wobei das neue API nur noch die \inlinecode{encid} akzeptiert.
 
-\subsubsection{Table}
+\subsubsection{Base Table}
+Eine normale Tabelle kann kann sowohl über das Web-GUI wie auch über das API erstellt werden. Eine Tabelle kann Daten einerseits von einer \gls{KML}-Datei importieren zum anderen kann beim Erstellen ein Google Spreadsheet angegeben werden, dessen Daten dann übernommen werden.
 
 \subsubsection{Merged Table}
+\gls{Merge}d Tables sind ein Mittel um zwei Fusion Tables zusammenzuführen. Der Benutzer muss dabei Rechte für beide Tabellen haben. Im \gls{Merge}-Dialog kann dann die Join-Spalte ausgewählt werden. Sobald der \gls{Merge}-Vorgang abgeschlossen ist, gibt es eine neue \emph{virtuelle} Tabelle, welche die Daten aus beiden zugrundeliegenden Tabellen enthält. Der \gls{Merge} führt intern einen \inlinecode{LEFT OUTER JOIN} durch, wodurch alle Daten der Orginaltabelle erhalten bleiben, jedoch nur die Daten der zweiten Tabelle, welche dem Join-Kriterium entsprechen.\footnote{ \url{https://developers.google.com/fusiontables/docs/developers_guide\#Terminology}}. Änderungen an den zugrundeliegenden Tabellen sind sofort sichtbar.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/usecase1-worlddata/documentation/worlddata-merge2}
+	\caption{Erstellen einer \gls{Merge}d Table über das Web-GUI}
+	\label{create-merge-table}
+\end{figure}
+
+\gls{Merge}d Tables haben einige Einschränkungen. So lassen sie sich bislang nicht via API erstellen, sondern aussschliesslich über das Web-GUI. \inlinecode{INSERT}-Befehle sind nicht möglich und \inlinecode{UPDATE} nur auf Attributen, die nicht am Join beteiligt sind.
+
+Wir haben die \gls{Merge}d Tables im Use Case WorldData verwendet (siehe Kapitel \ref{worlddata}).
 
 \subsubsection{View}
+Mit Views können Einschränkungen von Base Tables vorgenommen werden. Dies kann einserseits die Projektion betreffen, so dass eine View nicht mehr alle Attribute der Orginaltabelle beinhaltet. Andererseits aber auch die Daten selbst, nämlich dann, wenn eine Einschränkung (\inlinecode{WHERE}-Klausel) definiert wurde. Views sind auch ein ideales Mittel um die Berechtigungen zu steuern. So kann z.B. der lesende Zugriff auf eine Menge von Daten gewährt werden, jedoch der schreibende Zugriff nur auf ein Subset, indem man eine entsprechende View erstellt. Wir haben dieses Prinzip in unserem FixMyStreet Use Case verwendet (siehe Kapitel \ref{fixmystreet})
+
+Views können nur von Base Tables oder anderen Views erstellt werden, \gls{Merge}d Tables sind nicht unterstützt\footnote{\url{https://developers.google.com/fusiontables/docs/developers_guide\#CreatingView}}.
+
+Ein schönes Beispiel für die Verwendung von Views in Google Fusion Tables ist der Flu Vaccine Finder\footnote{\url{https://developers.google.com/fusiontables/docs/articles/data_gathering}} von Google.
 
 \subsection{Austausch mit den Google Entwicklern}
 Da es sich bei Google Fusion Tables um ein relativ neues Projekt handelt war uns bewusst, dass wir früher oder später vor Problemen stehen würden. Von daher für uns klar, dass wir die beiden offiziellen Supportkanäle (Mailingliste\footnote{Die Mailingliste ist für allgemeine oder konzeptionelle Fragen: \url{https://groups.google.com/forum/?fromgroups\#!forum/fusion-tables-users-group}} und StackOverflow\footnote{Google hat alle technischen Fragen zu GFT in die bekannte Entwickler-Community StackOverflow ausgelagert: \url{http://stackoverflow.com/questions/tagged/google-fusion-tables}}) aktiv nutzen werden. Zum einen ist es sehr interessant zu sehen welche Ideen und Probleme andere Leute haben und zum anderen auch einen guten Kontakt zur Community und den Google Entwicklern zu pflegen.
