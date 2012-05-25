@@ -32,9 +32,55 @@ Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DES
 \end{longtable}
 
 \subsection{Abfragen (Queries)}
-\todo[inline]{Allgemeiner Queries Abschnitt}
+Mit dem SQL API lassen sich Abfragen an Google Fusion Tables stellen. Die untenstehende Tabelle gibt eine Übersicht der Möglichkeiten.
 
-\subsubsection{Ortsbezogene Abfragen (Spatial-Queries)}
+\begin{longtable}{|p{0.25\twocelltabwidth}|p{0.75\twocelltabwidth}|}
+\hline 
+\textbf{Bereich} & \textbf{Beschreibung} \\ 
+\hline
+Aggregation &  Folgende Funktionen sind unterstützt:
+\begin{itemize}[noitemsep]
+\item \inlinecode{COUNT( )}
+\item \inlinecode{SUM ( {\textless}column{\_}name{\textgreater} )}
+\item \inlinecode{AVERAGE ( {\textless}column{\_}name{\textgreater} )}
+\item \inlinecode{MAXIMUM ( {\textless}column{\_}name{\textgreater} )}
+\item \inlinecode{MINIMUM ( {\textless}column{\_}name{\textgreater} )}
+\end{itemize} \\ 
+\hline 
+Einschränkung auf Datensatz &  \inlinecode{ROWID = {\textless}id{\textgreater}} \\
+\hline 
+Einschränkung auf Attributen &  Für Zahlen: \inlinecode{{\textless}column{\_}name{\textgreater} {\textless}operator{\textgreater} {\textless}number{\textgreater}}
+wobei \inlinecode{{\textless}operator{\textgreater}} folgende Werte haben kann: 
+\begin{itemize}[noitemsep]
+\item \inlinecode{{\textgreater}, {\textless},{\textgreater}=, {\textless}=, =}
+\end{itemize}
+
+Für Strings: \inlinecode{{\textless}column{\_}name{\textgreater} {\textless}operator{\textgreater} {\textless}string{\textgreater} }
+wobei \inlinecode{{\textless}operator{\textgreater}} folgende Werte haben kann: 
+\begin{itemize}[noitemsep]
+\item \inlinecode{\textgreater, {\textless}, \textgreater=, {\textless}=, =}
+\item \inlinecode{LIKE}
+\item \inlinecode{MATCHES}
+\item \inlinecode{STARTS WITH}
+\item \inlinecode{ENDS WITH}
+\item \inlinecode{CONTAINS}
+\item \inlinecode{CONTAINS IGNORING CASE}
+\item \inlinecode{DOES NOT CONTAIN}
+\item \inlinecode{NOT EQUAL TO}
+\item \inlinecode{IN}
+\end{itemize} \\
+\hline
+Einschränkung auf Anzahl Datensätze & \inlinecode{LIMIT {\textless}number{\textgreater}} 
+wobei \inlinecode{{\textless}number{\textgreater}} angibt wieviele Datensätze des Resultats zurückgeliefert werden sollen.
+
+
+Mit \inlinecode{OFFSET {\textless}number{\textgreater}} kann der Bereich, ab welchem das Limit zählt verändert werden.
+\\
+\hline 
+\caption{Liste der verfügbaren Abfragemöglichkeiten des SQL APIs}
+\end{longtable}
+
+\subsection{Ortsbezogene Abfragen (Spatial-Queries)}
 \label{sqlapi-spatialqueries}
 Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
 
@@ -46,7 +92,7 @@ Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Mögl
 
 Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \inlinecode{{\textless}geometry{\textgreater}} befinden.
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item Als \inlinecode{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{Location} hat.
 \item Als \inlinecode{{\textless}geometry{\textgreater}} kann entweder ein \inlinecode{CIRCLE} oder ein \inlinecode{RECTANGLE} verwendet werden. 
 \end{itemize}
@@ -57,7 +103,7 @@ Liefert alle Zeilen zurück, welche sich innerhalb der definierten Geometrie \in
 
 Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} zurück.
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item Als \inlinecode{{\textless}location{\_}column{\textgreater}} muss eine Spalte der Tabelle angegeben werden, welche den Typ \emph{Location} hat.
 \item Die \inlinecode{{\textless}coordinate{\textgreater}} stellt die Koordinate dar, zu welcher der Abstand gemessen werden soll. 
 \end{itemize}
