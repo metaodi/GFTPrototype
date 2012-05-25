@@ -309,7 +309,7 @@ Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
 \end{itemize}
 
 \subsection{Abhängigkeiten}
-\begin{longtable}{|l|l|p{10cm}|}
+\begin{longtable}{|p{0.25\threecelltabwidth}|p{0.1\threecelltabwidth}|p{0.65\threecelltabwidth}|}
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
@@ -326,7 +326,7 @@ Google Maps API & V3 & Anzeige der Karten \\
 
 \subsection{Quellcode-Struktur}
 
-\begin{longtable}{|l|p{9cm}|}
+\begin{longtable}{|p{0.4\twocelltabwidth}|p{0.6\twocelltabwidth}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
@@ -407,7 +407,8 @@ Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (sieh
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
 \section{Test}
-\todo[inline]{UseCase 2: FixMyStreet - Test}
+Aufgrund des verwendeten Sencha Touch 2 Frameworks konnten wir die Applikation nur minimal testen. Zum einen wurden Tests erstellt, welche das Laden der JavaScript-Files überprüft. Weiter wurden auch die Config-Parameter auf ihre Korrektheit überprüft.
+\todo[inline]{FixMyStreet: Weitere Test beschreiben}
 
 \section{Resultate}
 Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines \inlinecode{GRANT}-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.

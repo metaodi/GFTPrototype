@@ -89,6 +89,22 @@
 % Padding oben und unten (mittels arraystretch)
 \renewcommand{\arraystretch}{1.3}
 
+% Variabeln für Tabellenbreiten definieren
+% 2-spaltige Tabelle
+\newlength{\twocelltabwidth}
+\setlength{\twocelltabwidth}{\textwidth}
+\addtolength{\twocelltabwidth}{-4\tabcolsep - 3px} % subtrahiere 4x Padding (\tabcolsep) und 3 Rahmen
+
+% 3-spaltige Tabelle
+\newlength{\threecelltabwidth}
+\setlength{\threecelltabwidth}{\textwidth}
+\addtolength{\threecelltabwidth}{-6\tabcolsep - 4px} % subtrahiere Padding (\tabcolsep) und Rahmen
+
+% 4-spaltige Tabelle
+\newlength{\fourcelltabwidth}
+\setlength{\fourcelltabwidth}{\textwidth}
+\addtolength{\fourcelltabwidth}{-8\tabcolsep - 5px} % subtrahiere Padding (\tabcolsep) und Rahmen
+
 % Für schöne URLs
 \usepackage{url}
 

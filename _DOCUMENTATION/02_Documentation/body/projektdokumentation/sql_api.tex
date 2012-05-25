@@ -6,7 +6,7 @@ Das SQL API bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehle
 
 Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DESCRIBE}) werden dabei als \inlinecode{GET}-Request geschickt, schreibende Zugriffe (\inlinecode{CREATE}, \inlinecode{DROP}, \inlinecode{INSERT}, \inlinecode{UPDATE}, \inlinecode{DELETE} mit der \inlinecode{POST}-Methode. Um Daten zu schreiben und für den Zugriff auf private Tabelle ist eine Authentifizierung (siehe Abschnitt \ref{oauth}) mit OAuth nötig.
 
-\begin{longtable}{|l|p{11.5cm}|}
+\begin{longtable}{|l|l|}
 \hline 
 \textbf{Befehl} & \textbf{Beschreibung} \\ 
 \hline 
@@ -38,7 +38,7 @@ Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DES
 \label{sqlapi-spatialqueries}
 Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
 
-\begin{longtable}{|p{4cm}|p{11cm}|}
+\begin{longtable}{|p{0.25\twocelltabwidth}|p{0.75\twocelltabwidth}|}
 \hline 
 \textbf{Spatial Keyword} & \textbf{Beschreibung} \\ 
 \hline 
@@ -86,9 +86,8 @@ Es gibt derzeit zwei verschiedene Versionen des APIs: eine frei öffentlich zug�
 
 Das Trusted Tester API bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem API um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem API gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben, aber auch dazu aufrufen, dass neue API ausgiebig zu testen.
 
-Zu den Neuerungen des neuen APIs gehört, dass es auch eine \gls{REST}-Schnittstelle bekommen hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem API auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen API POST-Requests abzuschicken und somit endlich auch Schreiboperationen direkt via Browser zu unterstützen. \todo[inline]{SOP und Relay-Service, ist das irgendwo schon dokumentiert?}
+Zu den Neuerungen des neuen APIs gehört, dass es auch eine \gls{REST}-Schnittstelle bekommen hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem API auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen API \inlinecode{POST}-Requests abzuschicken und somit endlich auch Schreiboperationen direkt via Browser zu unterstützen. \todo[inline]{SOP und Relay-Service, ist das irgendwo schon dokumentiert?}
 
-\subsection{Übersicht}
 Alle Request an das \gls{REST}-API haben die folgende Form: \\
 \url{https://www.googleapis.com/fusiontables/<apiVersion>/<resourcePath>?<parameters>}
 
@@ -102,19 +101,19 @@ Folgende Ressourcen sind derzeit unterstützt:
 
 Eine Row oder Query Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL API (siehe Abschnitt \ref{sql-api}) verwendet werden.
 
-\begin{longtable}{|l|p{6cm}|p{7cm}|}
+\begin{longtable}{|p{0.5\twocelltabwidth}|p{0.5\twocelltabwidth}|}
 \hline 
-\textbf{Operation} & \textbf{Beschreibung} & \textbf{HTTP Mapping} \\ 
+\textbf{Ziel} & \textbf{HTTP Mapping} \\ 
 \hline 
-list & Alle Ressourcen eines Typs auflisten & \inlinecode{GET} auf einem Ressource-Typ\\ 
+Alle Ressourcen eines Typs auflisten & \inlinecode{GET} auf einem Ressource-Typ\\ 
 \hline 
-get	 & Eine spezifische Ressource holen	& \inlinecode{GET} auf einer Ressource\\
+Eine spezifische Ressource holen	& \inlinecode{GET} auf einer Ressource\\
 \hline 
-insert & Eine neue Ressource einfügen (kreiert eine neue Ressource) & \inlinecode{POST} auf einem Ressource-Typ (mit Daten um eine neue Ressource zu erstellen)\\
+Eine neue Ressource einfügen (kreiert eine neue Ressource) & \inlinecode{POST} auf einem Ressource-Typ (mit Daten um eine neue Ressource zu erstellen)\\
 \hline 
-update & Aktualisieren einer bestehenden Ressource & \inlinecode{PUT} auf einer Ressource (mit Daten um die Ressource zu aktualisieren)\\
+Aktualisieren einer bestehenden Ressource & \inlinecode{PUT} auf einer Ressource (mit Daten um die Ressource zu aktualisieren)\\
 \hline 
-delete & Löschen einer Ressource & \inlinecode{DELETE}  auf einer Ressource\\
+Löschen einer Ressource & \inlinecode{DELETE}  auf einer Ressource\\
 \hline 
 \caption{HTTP Mapping des REST-APIs}
 \end{longtable}
