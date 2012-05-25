@@ -111,7 +111,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{images/usecase1-worlddata/uml/worlddata-datamodel.png}
-	\caption{WorldData Datenbankschema}
+	\caption{WorldData: Datenbankschema}
 	\label{worlddata-datamodel}
 \end{figure}
 
@@ -119,7 +119,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{images/usecase1-worlddata/uml/worlddata-classdiagram.png}
-	\caption{WorldData Klassendiagramm}
+	\caption{WorldData: Klassendiagramm}
 	\label{worlddata-classdiagram}
 \end{figure}
 
@@ -146,27 +146,27 @@ Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erschein
 \end{longtable} 
 
 \subsection{Quellcode-Struktur}
-\begin{longtable}{|l|p{12.5cm}|}
+\begin{longtable}{|l|p{11.5cm}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
-images/ & Bilder der Applikation \\ 
+\inlinecode{images/} & Bilder der Applikation \\ 
 \hline 
-js/ & JavaScripts der Applikation \\ 
+\inlinecode{js/} & JavaScripts der Applikation \\ 
 \hline 
-js/Config.js & Konfiguration der Applikation \\ 
+\inlinecode{js/Config.js} & Konfiguration der Applikation \\ 
 \hline 
-js/Controller.js & Controller der Applikation \\ 
+\inlinecode{js/Controller.js} & Controller der Applikation \\ 
 \hline 
-js/Helper.js & Helper-Funktionen welche von der Applikation verwendet werden \\ 
+\inlinecode{js/Helper.js} & Helper-Funktionen welche von der Applikation verwendet werden \\ 
 \hline 
-js/View.js & Steuert die Anzeige der Applikation \\ 
+\inlinecode{js/View.js} & Steuert die Anzeige der Applikation \\ 
 \hline 
-lib/ & Von der Applikation verwendete Libraries \\ 
+\inlinecode{lib/} & Von der Applikation verwendete Libraries \\ 
 \hline 
-styles/ & CSS-Styles der Applikation \\ 
+\inlinecode{styles/} & CSS-Styles der Applikation \\ 
 \hline
-index.html & Startseite der Applikation \\ 
+\inlinecode{index.html} & Startseite der Applikation \\ 
 \hline
 \caption{WorldData: Quellcode-Struktur}
 \end{longtable} 
@@ -221,7 +221,7 @@ Die Tabelle sollte nun folgendermassen aussehen:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.65]{images/usecase1-worlddata/documentation/worlddata-worldborders_import_done.png}
-	\caption{WorldData Landesgrenzen erfolgreich als Fusion Table importiert}
+	\caption{WorldData: Landesgrenzen erfolgreich als Fusion Table importiert}
 	\label{worlddata-worldborders_import_done}
 \end{figure}
 
@@ -240,7 +240,7 @@ Die Daten liegen als CSV-Datei vor. Diese beinhaltet folgende Spalten:
 \begin{figure}[H]
 	\centering
 	\includegraphics{images/usecase1-worlddata/documentation/worlddata-data_csv.png}
-	\caption{WorldData Daten liegen als CSV-Datei vor}
+	\caption{WorldData: Daten liegen als CSV-Datei vor}
 	\label{worlddata-data_csv}
 \end{figure}
 
@@ -251,7 +251,7 @@ Nach dem Import der Daten sollte die Tabelle folgendermassen aussehen:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{images/usecase1-worlddata/documentation/worlddata-data_import_done.png}
-	\caption{WorldData Daten erfolgreich als Fusion Table importiert}
+	\caption{WorldData: Daten erfolgreich als Fusion Table importiert}
 	\label{worlddata-data_import_done}
 \end{figure}
 
@@ -273,7 +273,7 @@ Die zusammengeführte Tabelle sollte nun folgendermassen aussehen:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{images/usecase1-worlddata/documentation/worlddata-merge_done.png}
-	\caption{WorldData Merge der Landesgrenzen- und Daten-Tabelle}
+	\caption{WorldData: Merge der Landesgrenzen- und Daten-Tabelle}
 	\label{worlddata-merge_done}
 \end{figure}
 
@@ -283,7 +283,7 @@ Um die Tabelle nun als FusionTablesLayer verwenden zu können, muss diese als \e
 \begin{figure}[H]
 	\centering
 	\includegraphics{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer1.png}
-	\caption{WorldData Freigabe der Merge-Tabelle}
+	\caption{WorldData: Freigabe der Merge-Tabelle}
 	\label{worlddata-prepare_fusiontableslayer1}
 \end{figure}
 
@@ -292,7 +292,7 @@ Im Dialogfenster wählt man unter \emph{Visibility options} den Eintrag \emph{Pu
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer2.png}
-	\caption{WorldData Freigabeeinstellungen der Merge-Tabelle}
+	\caption{WorldData: Freigabeeinstellungen der Merge-Tabelle}
 	\label{worlddata-prepare_fusiontableslayer2}
 \end{figure}
 
@@ -301,14 +301,14 @@ Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Daz
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer3.png}
-	\caption{WorldData ID der Merge-Tabelle finden}
+	\caption{WorldData: ID der Merge-Tabelle finden}
 	\label{worlddata-prepare_fusiontableslayer3}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer4.png}
-	\caption{WorldData ID der Merge-Tabelle Dialog}
+	\caption{WorldData: ID der Merge-Tabelle Dialog}
 	\label{worlddata-prepare_fusiontableslayer4}
 \end{figure}
 
@@ -363,6 +363,6 @@ Beim Starten der Applikation sollten nun alle Themen der angegebenen Fusion Tabl
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{images/usecase1-worlddata/documentation/worlddata-application_start.png}
-	\caption{WorldData Auswahlliste der Themen}
+	\caption{WorldData: Auswahlliste der Themen}
 	\label{worlddata-application_start}
 \end{figure}

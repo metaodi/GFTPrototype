@@ -298,41 +298,41 @@ Google Maps API & V3 & Anzeige der Karten \\
 
 \subsection{Quellcode-Struktur}
 
-\begin{longtable}{|l|p{9.5cm}|}
+\begin{longtable}{|l|p{9cm}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
-app/app.js & Startet die Applikation \\ 
+\inlinecode{app/app.js} & Startet die Applikation \\ 
 \hline 
-app/controller/List.js & Controller der \emph{List}-View \\ 
+\inlinecode{app/controller/List.js} & Controller der \emph{List}-View \\ 
 \hline 
-app/controller/Main.js & Haupt-Controller der Applikation (Steuert die einzelnen Ansichten) \\ 
+\inlinecode{app/controller/Main.js} & Haupt-Controller der Applikation (Steuert die einzelnen Ansichten) \\ 
 \hline 
-app/controller/Map.js & Basis-Controller der \emph{Report}-View und der \emph{Map}-View \\ 
+\inlinecode{app/controller/Map.js} & Basis-Controller der \emph{Report}-View und der \emph{Map}-View \\ 
 \hline 
-app/controller/ProblemMap.js & Controller der \emph{Map}-View \\ 
+\inlinecode{app/controller/ProblemMap.js} & Controller der \emph{Map}-View \\ 
 \hline 
-app/controller/ReportMap.js & Controller der \emph{Report}-View \\ 
+\inlinecode{app/controller/ReportMap.js} & Controller der \emph{Report}-View \\ 
 \hline 
-app/model/*.js & Daten-Modelle der Applikation (Defekt, Status, ...) \\ 
+\inlinecode{app/model/*.js} & Daten-Modelle der Applikation (Defekt, Status, ...) \\ 
 \hline 
-app/plugin/PullRefresh.js & PullRefresh Plugin der Liste \\ 
+\inlinecode{app/plugin/PullRefresh.js} & PullRefresh Plugin der Liste \\ 
 \hline 
-app/proxy/FusionTables.js & Proxy zur Anbindung der Google Fusion Tabelle an die Applikation \\ 
+\inlinecode{app/proxy/FusionTables.js} & Proxy zur Anbindung der Google Fusion Tabelle an die Applikation \\ 
 \hline 
-app/store/*.js & Daten-Speicher der Applikation (Defekte, Typen, ...) \\ 
+\inlinecode{app/store/*.js} & Daten-Speicher der Applikation (Defekte, Typen, ...) \\ 
 \hline 
-app/utli/Config.js & Konfiguration der Applikation \\ 
+\inlinecode{app/utli/Config.js} & Konfiguration der Applikation \\ 
 \hline 
-app/utli/Geolocation.js & Steuert Zugriff auf aktuelle Geolocation des Geräts \\ 
+\inlinecode{app/util/Geolocation.js} & Steuert Zugriff auf aktuelle Geolocation des Geräts \\ 
 \hline 
-app/view/*.js & Views der Applikation \\ 
+\inlinecode{app/view/*.js} & Views der Applikation \\ 
 \hline 
-resources/images/ & Bilder der Applikation \\ 
+\inlinecode{resources/images/} & Bilder der Applikation \\ 
 \hline 
-resources/styles/ & CSS-Styles der Applikation \\ 
+\inlinecode{resources/styles/} & CSS-Styles der Applikation \\ 
 \hline 
-index.html & Einstiegspunkt der Applikation (Inkludiert app/app.js, welches die Applikation startet) \\ 
+\inlinecode{index.html} & Einstiegspunkt der Applikation (Inkludiert \inlinecode{app/app.js}, welches die Applikation startet) \\ 
 \hline
 \caption{FixMyStreet: Quellcode-Struktur}
 \end{longtable} 
