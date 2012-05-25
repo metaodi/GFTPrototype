@@ -4,7 +4,7 @@ ok /LaTeX Warning: Label\(s\) may have changed. Rerun to get cross-references ri
 ok /0 warnings/
 ok /Package glosstex Warning: Term |There were undefined references/
 ok /Package natbib Warning: Citation\\\(s\\\) may have changed/
-ok /LaTeX Warning: `h' float specifier changed to/
+ok /LaTeX Warning: .* float specifier changed to/
 
 # TODO: fix missing citation, but ignore missing Citations for now
 ok /LaTeX Warning: Citation .* on page \d+ undefined/
