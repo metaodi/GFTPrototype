@@ -4,12 +4,21 @@
 $examplesArr = Array(
 	'js' => Array(
 		'data-print' => Array(
-			'title' => 'Select data',
+			'title' => 'Print data',
 			'tags' => Array(
 				'sqlapi'
 			),
 			'fusiontables' => Array(
 				'Schweizer Städte'
+			)
+		),
+		'data-select' => Array(
+			'title' => 'Select data',
+			'tags' => Array(
+				'sqlapi'
+			),
+			'fusiontables' => Array(
+				'Beliebige'
 			)
 		),
 		'spatialquery-condition' => Array(
@@ -147,7 +156,8 @@ $fusiontableToUrlMapping = Array(
 	'Schweizer Städte' => 'https://www.google.com/fusiontables/DataSource?docid=1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw',
 	'Chart Test Table' => 'https://www.google.com/fusiontables/DataSource?docid=1R9FMod3LN7UO3R6jp7gJeSQ9hbEVOwLqF0AZFQg',
 	'Coin' => 'https://www.google.com/fusiontables/DataSource?docid=1UflpL9f3WGrNdSPK4UAUHVAFdycZWu0_qnEPfAA',
-	'Landesgrenzen' => 'https://www.google.com/fusiontables/DataSource?docid=1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0'
+	'Landesgrenzen' => 'https://www.google.com/fusiontables/DataSource?docid=1FYur7QKupz9UFDiTbAiIVGgsdbHUypzpHz2Iqb0',
+	'Beliebige' => ''
 );
 ?>
 
@@ -186,6 +196,8 @@ $fusiontableToUrlMapping = Array(
 					++$fusiontableCounter;
 					if($fusiontableName == 'Private') {
 						$content .= 'Private Tabelle';
+					} else if ($fusiontableToUrlMapping[$fusiontableName] == '') {
+						$content .= $fusiontableName;
 					} else {
 						$content .= '<a href="'.$fusiontableToUrlMapping[$fusiontableName].'" target="_blank">'.$fusiontableName.'</a>';
 					}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Example - Select data</title>
+	<meta charset="utf-8">
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://apis.google.com/js/client.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/SqlBuilder.js"></script>
+	<script type="text/javascript" src="../../../lib/gftlib-js/GftLib.js"></script>
+	<script type="text/javascript">
+		var gft;
+		function init() {
+			gft = new GftLib();
+		}
+		
+		function sendQuery() {
+			var result = document.getElementById("result");
+			var sqlQuery = document.getElementById('query').value;
+
+			var printTable = function(data) {
+				document.getElementById('queryText').innerHTML = sqlQuery;
+				
+				console.log(data);
+				if (data.error) {
+					var out = "<h3 style='color:red'>Error occured!</h3>";
+					out = out + "<strong>Code:</strong> " + data.error.code + "<br/>";
+					out = out + "<strong>Message:</strong> " + data.error.message;
+					result.innerHTML = out;
+					return;
+				}
+				
+				/* the table */
+				var table = document.createElement('table');
+				table.border = 1;
+				
+				/* header */
+				var row = document.createElement('tr');
+				for (var i = 0; i < data.columns.length; i++) {
+					var cell = document.createElement('th');
+					cell.innerHTML = data.columns[i];
+					row.appendChild(cell);
+				}
+				table.appendChild(row);
+				
+				/* data */
+				for (var i = 0; i < data.rows.length; i++) {
+					var record = document.createElement('tr');
+					for (var c = 0; c < data.columns.length; c++) {
+						var cell = document.createElement('td');
+						cell.innerHTML = data.rows[i][c];
+						record.appendChild(cell);
+					}
+					table.appendChild(record);
+				}
+				
+				result.appendChild(table);
+			}
+
+			gft.execQuery(printTable, sqlQuery);
+		}
+	</script>
+</head>
+<body onload="init();">
+	<h1>JS Example - Select data</h1>
+	<h2>Query</h2>
+	<textarea cols="70" rows="5" type="text" name="query" id="query">select * from 1LWXSMsZINyfjAKGqeS-822wi4WmlaGmmvh20Ujw
+	</textarea>
+	<button onclick="sendQuery()">Send</button>
+	<div id="queryText"></div>
+	<h2>Result</h2>
+	<div id="result"></div>
+</body>
+</html>
