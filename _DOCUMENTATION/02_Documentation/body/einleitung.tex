@@ -75,20 +75,18 @@ Repsitory & \url{https://github.com/odi86/GFTPrototype} \\
 \end{longtable} 
 
 \section{Stand der Technik}
+Diese Arbeit beschäftigt sich mit sogenannten \gls{Cloud}-Datenbanken, mit einem Fokus auf ortsbezogene Daten. Wichtig sind dabei die verschiedenen Möglichkeiten zur Visualisierung von Daten. Dieser Abschnitt erklärt die zugehörigen Konzepte und Produkte.
 
 \subsection{Software-as-a-Service (SaaS) / Cloud}
 Der Begriff \emph{Software-as-a-Service} (SaaS) hat sich in den letzten Jahren etabliert und bezeichnet die Dienstleistung eine Software nicht nur für einen Kunden zu entwickeln, sondern auch gleich deren Betrieb zu übernehmen. Diese gesamthafte Dienstleistung wird dann dem Kunden angeboten, so dass dieser keine eigene Infrastruktur betreiben muss. Die \gls{Cloud} ist die logische  Erweiterung dieses Konzepts, dabei wird der angebotene Dienst transparent auf mehreren Umgebungen und an verschiedenen Lokationenn angeboten. Dies soll zum einen eine hohe Erreichbarkeit gewährleisten, zum anderen kann ein Anbieter dadurch sehr leicht skalieren.\cite{cloud}
 
 \subsection{Datenbank in der Cloud}
-Google Fusion Tables schafft das Problem der Erreichbarkeit einer Datenbank ab. Fusion Tables sind dezentral in der \gls{Cloud} gespeichert und dort lassen sie sich einfach vertikal skalieren.
+\gls{Cloud}-Datenbanken wie Google Fusion Tables schaffen das Problem der Erreichbarkeit ab. Sie sind dezentral in der gespeichert und dort lassen sie sich einfach vertikal skalieren. Dies macht es sehr einfach Zugang zu bekommen und Daten mit anderen Personen zu teilen. Dank der bereitgestellten Infrastuktur kann sich ein Anwender der Datenbank auf das wesentliche konzentrieren: die Daten in geeigneter Form abzulegen und auszulesen.
 
-\todo[inline]{Stand der Technik beschreiben}
+\subsection{Produkte}
+Neben der in dieser Arbeit beschriebenen Google Fusion Tables (siehe Kapitel \ref{einfuehrung}) gilt es vor allem noch das Produkt CartoDB zu erwähnen. CartoDB\footnote{\url{http://cartodb.com/}} basiert auf PostGIS\footnote{\url{http://postgis.refractions.net/}}, einer PostgreSQL-Erweiterung für geografische Daten. Das Projekt wurde während unserer Arbeit, am 3. April 2012, veröffentlicht\footnote{Welcome to CartoDB 1.0 \url{http://blog.cartodb.com/post/20403296927/welcome-to-cartodb-1-0}}. Das Projekt ist Open-Source und lässt sich somit komplett in einer eigenen Umgebung installieren\footnote{Repository mit Installationsanleitung: \url{https://github.com/Vizzuality/cartodb}}.
 
-Was machen andere / welche ähnlichen Arbeiten gibt es zum Thema? Was kann von anderen verwendet werden?
-
-Diese Einleitung soll für den Ingenieur irgendeiner Fachrichtung verständlich sein. Sie stellt die Aufgabe in einen grösseren Zusammenhang und liefert eine genaue Beschreibung der Problemstellung. Allfällige Vorarbeiten oder ähnlich gelagerte Arbeiten werden diskutiert. 
-
-Theoretische Grundlagen sind nur so weit auszuarbeiten, als dies für die Lösung der Aufgabe nötig ist (keine Lehrbücher schreiben). Die Erkenntnisse aus den theoretischen Untersuchungen sind wenn immer möglich direkt mit der Problemlösung zu verknüpfen.
+Daneben bietet CartoDB aber wie Google auch die Möglichkeit den Dienst von ihnen zu beziehen (SaaS).
 
 \section{Vision/Umsetzungskonzept}
 \todo[inline]{Vision/Umsetzungskonzept beschreiben}
