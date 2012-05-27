@@ -14,6 +14,7 @@ Im ersten Use Case geht es hauptsächlich um die Anzeige grosser Datenmengen auf
 Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt werden. Die Daten sind pro Jahr und Thema unterteilt. Über eine Zeitachse soll es möglich sein die Daten der verschiedenen Jahre zu selektieren. Eine solche Darstellung kann beispielsweise dabei helfen Zusammenhänge zwischen verschiedenen Themenbereichen zu finden.
 
 \subsection{Vorgehen}
+\label{worlddata-vorgehen}
 Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer des Google Maps APIs auf der Karte dargestellt werden kann.
 
 \section{Analyse}
@@ -109,7 +110,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
 
 \subsection{Datenbankschema}
-\todo[inline]{WorldData: Diagramme beschreiben}
+Wie bereits im Abschnitt \ref{worlddata-vorgehen} beschrieben verwendet die Applikation die Daten der Merged-Tabelle \emph{MERGE-ftWorldBorders\_ftWorldData} (siehe Abschnitt \ref{merge-table}). Diese beinhaltet pro Thema und Land eine Zeile mit Daten. Diese Daten sind wiederum pro Jahr in einer Spalte abgelegt.
 
 \begin{figure}[H]
 	\centering
@@ -118,10 +119,12 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 	\label{worlddata-datamodel}
 \end{figure}
 
-\subsection{Klassendiagramm}
+\subsection{Aufbau der Applikation}
+Die Applikation ist über eine View aufgebaut, welche von einem Controller gesteuert wird. Beide verwenden Konfigurationsparameter, welche in der \emph{Config}-Klasse gesetzt werden können.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/usecase1-worlddata/uml/worlddata-classdiagram}
+	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/uml/worlddata-classdiagram}
 	\caption{WorldData: Klassendiagramm}
 	\label{worlddata-classdiagram}
 \end{figure}
@@ -178,7 +181,32 @@ Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erschein
 \todo[inline]{WorldData: Tests beschreiben}
 
 \section{Resultate}
-Das FusionTablesLayer Element der Google Maps API eignet sich sehr gut zur Darstellung einer grossen Anzahl von Daten. Leider hindern die Einschränkungen betreffend Styles (siehe Abschnitt  \ref{fusiontableslayer-styles-restrictions}) stark den individuellen Gestalltungsprozess der Ebene.
+Das Resultat dieses Use Cases ist eine Webapplikation, welches es dem Benutzer erlaubt länderspezifische Daten zu verschiedenen Themen auf der Karte darzustellen.
+
+\subsection{Features}
+\begin{itemize}
+\item Auswahl des Themas über Selectbox
+\item Wahl des Jahres über Slider
+\item Weitere Informationen zu den angezeigten Daten per Klick auf das gewünschte Land
+\end{itemize}
+
+\subsection{Screenshots}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_1960}
+	\caption{WorldData: Population im Jahr 1960}
+	\label{worlddata-screenshots-population_1960}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_2010}
+	\caption{WorldData: Population im Jahr 2010}
+	\label{worlddata-screenshots-population_2010}
+\end{figure}
+
+\subsection{Erkenntnisse zum FusionTablesLayer-Element}
+Das FusionTablesLayer-Element der Google Maps API eignet sich sehr gut zur Darstellung einer grossen Anzahl von Daten. Leider hindern die Einschränkungen betreffend Styles (siehe Abschnitt  \ref{fusiontableslayer-styles-restrictions}) stark den individuellen Gestalltungsprozess der Ebene.
 
 Wie wir feststellen mussten, sind diese 5 Stile sehr schnell aufgebraucht. Einer davon fällt meistens für den Standard-Stil weg. Dieser wird angewendet, wenn die entsprechende Zeile aus der Tabelle auf keine Bedingung der restlichen Stile passt. So bleiben lediglich noch 4 Stile übrig für alle Elemente die man speziell hervorheben möchte.
 
@@ -205,7 +233,7 @@ Die Landesgrenzen liegen als KML-Datei vor. Diese beinhaltet alle Länder mit ih
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/usecase1-worlddata/documentation/worlddata-worldborders_kml}
-	\caption{WorldData Landesgrenzen liegen als KML-Datei vor}
+	\caption{WorldData: Landesgrenzen liegen als KML-Datei vor}
 	\label{worlddata-worldborders_kml}
 \end{figure}
 
