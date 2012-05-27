@@ -68,7 +68,9 @@ wobei \inlinecode{{\textless}operator{\textgreater}} folgende Werte haben kann:
 \item \inlinecode{DOES NOT CONTAIN}
 \item \inlinecode{NOT EQUAL TO}
 \item \inlinecode{IN}
-\end{itemize} \\
+\end{itemize} 
+
+Formeln oder Vergleiche mit anderen Attributen der Tabelle sind nicht unterstützt.\\
 \hline
 Einschränkung auf Anzahl Datensätze & \inlinecode{LIMIT {\textless}number{\textgreater}} 
 wobei \inlinecode{{\textless}number{\textgreater}} angibt wieviele Datensätze des Resultats zurückgeliefert werden sollen.
@@ -79,6 +81,8 @@ Mit \inlinecode{OFFSET {\textless}number{\textgreater}} kann der Bereich, ab wel
 \hline 
 \caption{Liste der verfügbaren Abfragemöglichkeiten des SQL APIs}
 \end{longtable}
+
+Um mehrere Bedingungen in einer \inlinecode{WHERE}-Klausel zu verwenden können diese mit \inlinecode{AND} verbunden werden. Verknüpfungen mit \inlinecode{OR} sind hingegen nicht unterstützt.
 
 \subsection{Ortsbezogene Abfragen (Spatial-Queries)}
 \label{sqlapi-spatialqueries}
