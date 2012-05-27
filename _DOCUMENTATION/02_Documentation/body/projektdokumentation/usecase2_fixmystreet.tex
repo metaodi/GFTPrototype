@@ -198,34 +198,19 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{images/usecase2-fixmystreet/uml/fixmystreet-datamodel}
+	\includegraphics[scale=0.8]{images/usecase2-fixmystreet/uml/fixmystreet-datamodel}
 	\caption{FixMyStreet: Datenbankschema}
 	\label{fixmystreet-datamodel}
 \end{figure}
 
-\subsection{Klassendiagramm}
-
-\todo[inline]{FixMyStreet: Diagramme beschreiben}
+\subsection{Package-Struktur}
+Die Package-Struktur wird vom Sencha Touch Framework fix vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}. Diese abstrahieren jeweils einen Datenspeicher. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation verwendet (siehe Abschnitt \ref{fusiontablesproxy}).
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-packagediagram}
-	\caption{FixMyStreet: Packagediagramm}
+	\includegraphics[width=0.6\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-packagediagram}
+	\caption{FixMyStreet: Package-Diagramm}
 	\label{fixmystreet-packagediagram}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-view-classmodel}
-	\caption{FixMyStreet: View Klassendiagramm}
-	\label{fixmystreet-view-classmodel}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-controller-classmodel}
-	\caption{FixMyStreet: Controller Klassendiagramm}
-	\label{fixmystreet-controller-classmodel}
 \end{figure}
 
 \begin{figure}[H]
@@ -235,7 +220,28 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 	\label{fixmystreet-store-classmodel}
 \end{figure}
 
-\subsection{Deploymentdiagramm}
+\subsection{Aufbau der Benutzeroberfläche}
+Wie in Abbildung \ref{fixmystreet-view-classmodel} ersichtlich besteht die Applikation aus den drei verschiedenen Hauptmasken \emph{Report}, \emph{List} und \emph{Map}. Diese werden über den \emph{MainContainer} in einem Tabpanel dargestellt.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-view-classmodel}
+	\caption{FixMyStreet: View Klassendiagramm}
+	\label{fixmystreet-view-classmodel}
+\end{figure}
+
+
+\subsection{Zusammenspiel der Controller}
+Die Applikation wird auf oberster Ebene vom \emph{Main}-Controller gesteuert. Dieser ist dafür zuständig, jeweils die korrekten Masken anzuzeigen. Die einzelnen Masken werden dann von eigenen Controllern gesteuert.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-controller-classmodel}
+	\caption{FixMyStreet: Controller Klassendiagramm}
+	\label{fixmystreet-controller-classmodel}
+\end{figure}
+
+\subsection{Deployment}
 Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fusiontablesproxy}) auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
 
 \begin{figure}[H]
@@ -406,12 +412,75 @@ Dazu haben wir vorerst das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL API
 Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (siehe Abschnitt \ref{geocodierung-bug}), mussten wir in der letzen Version der Applikation das Spatial-Query wieder entfernen und durch eine eigene \inlinecode{WHERE}-Bedingung ersetzen. Ansonsten würden neu gemeldete Defekte solange nicht auf der Karte angezeigt, bis die Datensätze über das Fusion Tables Web-GUI manuell geokodiert werden.
 
 \subsection{Heatmap-Ansicht auf Übersichtsmaske}
+\label{fixmystreet-heatmap}
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
 \section{Test}
 \todo[inline]{FixMyStreet: Tests beschreiben}
 
 \section{Resultate}
+Das Resultat dieses Use Cases ist eine voll ausgereifte WebApp. 
+
+\subsection{Maske: Defekt melden}
+Dies ist die Hauptmaske der App. Sie wird geöffnet sobald der Benutzer die Applikation startet. Darauf kann der Benutzer Defekte an beliebigen Orten melden.
+
+\subsubsection{Features}
+\begin{itemize}
+\item Defekt-Markierung kann per \emph{Drag\&Drop} oder per \emph{Klick} auf der Karte verschoben werden \\ \includegraphics{images/usecase2-fixmystreet/features/features-report-drag_and_drop}
+\item Zentrierung der Karte und Positionierung der Defekt-Markierung auf die eigene Position \includegraphics{images/usecase2-fixmystreet/features/features-report-center_map_button}
+\item Schritt für Schritt Anleitung \includegraphics{images/usecase2-fixmystreet/features/features-report-info_button}
+\end{itemize}
+
+\subsubsection{Screenshots}
+
+\begin{figure}[H]
+\subfigure[Defekt melden]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-report_type_choosen}}
+\hfill
+\subfigure[Bestätigungsmeldung]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-report_confirm}}
+\hfill
+\subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-report_sent}}
+\end{figure}
+
+\subsection{Maske: Meine Defekte}
+In dieser Ansicht werden dem Benutzer alle bereits gemeldeten Defekte aufgelistet. Die Defekte sind nach ihrem aktuellen Status (\emph{Neu}, \emph{In Bearbeitung} und \emph{Erledigt}) gruppiert.
+
+\subsubsection{Features}
+\begin{itemize}
+\item Aktualisierung der Liste per Pull-Down-Geste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-pull_down_refresh}
+\item Durchsuchen der Liste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-search}
+\item Öffnen des Kontextmenüs zu einem Eintrag per \emph{Swipe}- oder per \emph{Tap-And-Hold}-Geste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-contextmenu}
+\end{itemize}
+
+\subsubsection{Screenshots}
+\begin{figure}[H]
+\subfigure[Liste mit gemeldeten Defekten]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-list}}
+\hfill
+\subfigure[Aktualisiern der Liste]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-list_pulldownrefresh}}
+\hfill
+\subfigure[Kontextmenü eines Defekts]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-list_contextmenu}}
+\end{figure}
+
+\subsection{Maske: Defekte anzeigen}
+Hier werden dem Benutzer alle noch nicht behobenen Defekte auf der Karte angezeigt.
+
+\subsubsection{Features}
+\begin{itemize}
+\item Zentrieren der Karte auf die eigene Position \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-report-center_map_button}
+\item Filtern nach Defekt-Typ \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-map-settings}
+\item Anzeige der Defekte als Heatmap
+\end{itemize}
+
+\subsubsection{Screenshots}
+\begin{figure}[H]
+\subfigure[Defekte anzeigen]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-map}}
+\hfill
+\subfigure[Einstellungen]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-map_filter}}
+\hfill
+\subfigure[Defekte als Heatmap anzeigen]{\includegraphics[width=0.3\textwidth]{images/usecase2-fixmystreet/screenshots/fixmystreet-screenshots-map_heatmap}}
+\end{figure}
+
+
+\subsection{Probleme bei der Verwendung von Google Fusion Tables als Datenbank}
 Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines \inlinecode{GRANT}-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.
 
 Zusätzlich konnten wir die GIS-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns die fehlende  Geocodierung von neu eingefügten Datensätzen daran Spatial-Queries zu verwenden (siehe Abschnitt \ref{geocodierung-bug}).

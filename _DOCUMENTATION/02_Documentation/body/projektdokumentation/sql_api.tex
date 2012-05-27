@@ -6,7 +6,7 @@ Das SQL API bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehle
 
 Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DESCRIBE}) werden dabei als \inlinecode{GET}-Request geschickt, schreibende Zugriffe (\inlinecode{CREATE}, \inlinecode{DROP}, \inlinecode{INSERT}, \inlinecode{UPDATE}, \inlinecode{DELETE} mit der \inlinecode{POST}-Methode. Um Daten zu schreiben und für den Zugriff auf private Tabelle ist eine Authentifizierung (siehe Abschnitt \ref{oauth}) mit OAuth nötig.
 
-\begin{longtable}{|l|l|}
+\begin{longtable}{|p{0.2\twocelltabwidth}|p{0.8\twocelltabwidth}|}
 \hline 
 \textbf{Befehl} & \textbf{Beschreibung} \\ 
 \hline 
@@ -122,6 +122,7 @@ Liefert die Datensätze sortiert nach der Distanz zur angegebenen Koordinate \in
 \section{Client Libraries}
 Google bietet zum API bereits auch Client Libraries in den Sprachen PHP und Phyton an. Da unserer Applikation aber möglichst nur in Javascript implementiert werden soll erstellten wir uns eine Javascript Library zur Verwendung des SQL APIs.
 
+\todo[inline]{Client Libraries Abschnitt überarbeiten (Glossareintrag für SOP, JSONP)}
 Durch die Same origin policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, welche es uns daran hinderte AJAX-Requests direkt auf das Google API abzusetzen, mussten wir zuerst nach Lösungen für dieses Problem suchen. Wir wollten es verhindern einen PHP-Server dazwischen zu schalten, welcher uns die Abfragen abnimmt.
 
 So fanden wir in den Google Groups ein inoffizielles JSONP API, welches es erlaubt AJAX-Requests auch über die eigene Domäne hinweg zu senden. Dies funktioniert jedoch nur für lesende Zugriffe. Für alle schreibenden Zugriffe mussten wir eine Umgeheungslösung bauen, bei der die Requests über unseren Webserver geschleust wurden. Damit konnten wir die Same-Origin-Policy umgehen. Mit Hilfe des Trusted Tester API (Siehe Abschnitt~\ref{trusted-tester-api}) haben wir schlussendlich dann aber doch noch eine Lösung gefunden, welche direkt im Browser läuft und somit nicht auf Server-Code angewiesen ist.

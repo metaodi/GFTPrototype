@@ -14,6 +14,7 @@ Im ersten Use Case geht es hauptsächlich um die Anzeige grosser Datenmengen auf
 Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt werden. Die Daten sind pro Jahr und Thema unterteilt. Über eine Zeitachse soll es möglich sein die Daten der verschiedenen Jahre zu selektieren. Eine solche Darstellung kann beispielsweise dabei helfen Zusammenhänge zwischen verschiedenen Themenbereichen zu finden.
 
 \subsection{Vorgehen}
+\label{worlddata-vorgehen}
 Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer des Google Maps APIs auf der Karte dargestellt werden kann.
 
 \section{Analyse}
@@ -109,7 +110,7 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
 
 \subsection{Datenbankschema}
-\todo[inline]{WorldData: Diagramme beschreiben}
+Wie bereits im Abschnitt \ref{worlddata-vorgehen} beschrieben verwendet die Applikation die Daten der Merged-Tabelle \emph{MERGE-ftWorldBorders\_ftWorldData} (siehe Abschnitt \ref{merge-table}). Diese beinhaltet pro Thema und Land eine Zeile mit Daten. Diese Daten sind wiederum pro Jahr in einer Spalte abgelegt.
 
 \begin{figure}[H]
 	\centering
@@ -118,10 +119,12 @@ Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikatio
 	\label{worlddata-datamodel}
 \end{figure}
 
-\subsection{Klassendiagramm}
+\subsection{Aufbau der Applikation}
+Die Applikation ist über eine View aufgebaut, welche von einem Controller gesteuert wird. Beide verwenden Konfigurationsparameter, welche in der \emph{Config}-Klasse gesetzt werden können.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/usecase1-worlddata/uml/worlddata-classdiagram}
+	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/uml/worlddata-classdiagram}
 	\caption{WorldData: Klassendiagramm}
 	\label{worlddata-classdiagram}
 \end{figure}
