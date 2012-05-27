@@ -1,27 +1,27 @@
 \chapter{Einleitung}
 \label{einleitung}
-In unserer Arbeit untersuchen wir die Möglichkeiten welche die Clouddatenbank Google Fusion Tables bietet. Es sollen einige Prototypen für verschiedenste Anwendungsfälle im GIS-Bereich erstellt werden, welche das Potential der Datenbank aufzeigen.
+In unserer Arbeit untersuchen wir die Möglichkeiten welche die \gls{Cloud}-Datenbank Google Fusion Tables bietet. Es sollen einige Prototypen für verschiedenste Anwendungsfälle im \gls{GIS}-Bereich erstellt werden, welche das Potential der Datenbank aufzeigen.
 
 \section{Problemstellung}
-Die Aufgabenstellung stammt von der GEOINFO AG\footnote{\url{www.geoinfo.ch}}, welche massgeschneiderte GIS-Softwarelösungen für ihre Kunden entwickelt.
+Die Aufgabenstellung stammt von der GEOINFO AG\footnote{\url{www.geoinfo.ch}}, welche massgeschneiderte \gls{GIS}-Softwarelösungen für ihre Kunden entwickelt.
 
-Für solche Unternehmen wird es nach und nach schwieriger sich auf dem Markt zu beweisen, da bereits viele cloudbasierte GIS-Lösungen sehr günstig oder gar kostenlos erhältlich sind. Durch die Prototypen soll ersichtlich gemacht werden, welche Anwendungsfälle von bestehenden proprietären GIS-Sytemen bereits mit Google Fusion Tables realisierbar wären und welchen Aufwand dies darstellen würde.
+Für solche Unternehmen wird es nach und nach schwieriger sich auf dem Markt zu beweisen, da bereits viele cloudbasierte \gls{GIS}-Lösungen sehr günstig oder gar kostenlos erhältlich sind. Durch die Prototypen soll ersichtlich gemacht werden, welche Anwendungsfälle von bestehenden proprietären \gls{GIS}-Sytemen bereits mit Google Fusion Tables realisierbar wären und welchen Aufwand dies darstellen würde.
 
 \section{Aufgabenstellung}
-Im Rahmen dieser Arbeit sollen das Potential aber auch Einschränkungen von Google Fusion Tables für den Einsatzbereich eines öffentlichen Web GIS evaluiert werden. Es ist aufzuzeigen, welche der typischen Anwendungsfälle, wie sie in aktuellen Web GIS Lösungen\footnote{z.B. \url{www.geoportal.ch} oder \url{www.stadtplan.stadt-zuerich.ch}} implementiert sind, auf Basis von Google Fusion Tables und Google Maps realisiert werden könnten. Eine Auswahl dieser Grundfunktionen ist anhand eines Prototypen zu implementieren. Die Zielgruppe sind demnach GIS-Sachbearbeiter.
+Im Rahmen dieser Arbeit sollen das Potential aber auch Einschränkungen von Google Fusion Tables für den Einsatzbereich eines öffentlichen Web \gls{GIS} evaluiert werden. Es ist aufzuzeigen, welche der typischen Anwendungsfälle, wie sie in aktuellen Web GIS Lösungen\footnote{z.B. \url{www.geoportal.ch} oder \url{www.stadtplan.stadt-zuerich.ch}} implementiert sind, auf Basis von Google Fusion Tables und Google Maps realisiert werden könnten. Eine Auswahl dieser Grundfunktionen ist anhand eines Prototypen zu implementieren. Die Zielgruppe sind demnach \gls{GIS}-Sachbearbeiter.
 
 \section{Ziele}
 In der Aufgabenstellung der Arbeit wurden folgende Ziele definiert:
 \begin{itemize}
-\item Evaluation von Google Fusion Talbes in Kombination mit Google Maps u.a. mit Blick auf deren Funktionalität, Anwendbarkeit, Zuverlässigkeit und Performance
-\item Entwurf und Dokumentation einer GIS-Architektur, welche einerseits Cloud Services (am Beispiel von Fusion Talbes) andererseits die Geodaten- und Serviceinfrastruktur einer Organisation integriert oder migriert.
+\item Evaluation von Google Fusion Tables in Kombination mit Google Maps u.a. mit Blick auf deren Funktionalität, Anwendbarkeit, Zuverlässigkeit und Performance
+\item Entwurf und Dokumentation einer \gls{GIS}-Architektur, welche einerseits Cloud Services (am Beispiel von Fusion Talbes) andererseits die Geodaten- und Serviceinfrastruktur einer Organisation integriert oder migriert.
 \item Analyse verschiedener Use Cases wobei einer davon als Prototyp einer Webapplikation (voll) implementiert werden soll. 
-\item Implementierung und Bewertung von verschiedenen cloudbasierten GIS-Prototypen unter Verwendung der Google Fusion Tables API
+\item Implementierung und Bewertung von verschiedenen cloudbasierten \gls{GIS}-Prototypen unter Verwendung der Google Fusion Tables API
 \begin{itemize}
 	\item Prototyp(en) aus Use Case-Evaluation (oben). Dabei sollen v.a. auch die Geometrietypen Linestring und Polygon berücksichtigt werden.
 	\item Prototyp einer Datenerfassung/Verwaltung am Beispiel eines Point-of-Interest (POI) Layers mit grossen Datenmengen
 \end{itemize}
-\item Prototyping für zukünftige (GIS-) Kollaborationsplattformen. Es soll aufgezeigt werden, wie sich bestehende Konzepte\footnote{z.B. \url{www.mysg.ch/locations} oder \url{http://ch.tilllate.com/de/locations})} verbessern lassen oder weiterentwickeln könnten.
+\item Prototyping für zukünftige (\gls{GIS}-) Kollaborationsplattformen. Es soll aufgezeigt werden, wie sich bestehende Konzepte\footnote{z.B. \url{www.mysg.ch/locations} oder \url{http://ch.tilllate.com/de/locations})} verbessern lassen oder weiterentwickeln könnten.
 \end{itemize}
 
 \section{Rahmenbedingung}
@@ -33,16 +33,16 @@ In der Aufgabenstellung der Arbeit wurden folgende Ziele definiert:
 \end{itemize}
 
 \section{Vorgehen}
-Die Arbeit umfasst zwei Themenbereiche. Einen theoretischen Teil in dem untersucht wird, inwiefern Google Fusion Tables eine Konkurrenz für bestehende proprietäre GIS-Lösungen darstellt. Als zweiten Teil sollen verschiedene Anwendungsfälle mit Google Fusion Tables als Prototypen nachgebaut werden, wobei einer davon als mobile Webapplikation ausprogrammiert werden soll.
+Die Arbeit umfasst zwei Themenbereiche. Einen theoretischen Teil in dem untersucht wird, inwiefern Google Fusion Tables eine Konkurrenz für bestehende proprietäre \gls{GIS}-Lösungen darstellt. Als zweiten Teil sollen verschiedene Anwendungsfälle mit Google Fusion Tables als Prototypen nachgebaut werden, wobei einer davon als mobile Webapplikation ausprogrammiert werden soll.
 
 \subsection{Potential von Google Fusion Tables}
-In einem theoretischen Teil soll aufgezeigt werden, inwiefern sich bestehende GIS-Lösungen mit Google Fusion Tables ablösen lassen.
+In einem theoretischen Teil soll aufgezeigt werden, inwiefern sich bestehende \gls{GIS}-Lösungen mit Google Fusion Tables ablösen lassen.
 
-Dies soll am Beispiel eines Migrationsszenarios festgestellt werden. Die bestehenden GIS-Daten sollen möglichst einfach exportiert und anschliessend in eine Google Fusion Tables-Datenbank importiert werden. Dafür werden die geeigneten Formate zur Übertragung der Daten evaluiert.
+Dies soll am Beispiel eines Migrationsszenarios festgestellt werden. Die bestehenden \gls{GIS}-Daten sollen möglichst einfach exportiert und anschliessend in eine Google Fusion Tables-Datenbank importiert werden. Dafür werden die geeigneten Formate zur Übertragung der Daten evaluiert.
 
 Da sich die Datenstrukturen von bestehenden Lösungen stark unterscheiden können, ist es nicht das Ziel eine Schritt-für-Schritt Anleitung zu erstellen. Primär geht es darum mögliche Migrationspfade zu entwickeln.
 
-Dadurch soll das gegenwärtige Potential von Google Fusion Tables abgeschätzt werden. Diese Erkenntnis soll GIS-Lösungsprovidern einen Überblick verschaffen, inwiefern Google Fusion Tables bereits als möglicher Konkurrent angesehen werden muss.
+Dadurch soll das gegenwärtige Potential von Google Fusion Tables abgeschätzt werden. Diese Erkenntnis soll \gls{GIS}-Lösungsprovidern einen Überblick verschaffen, inwiefern Google Fusion Tables bereits als möglicher Konkurrent angesehen werden muss.
 
 \subsection{Erstellung von Prototypen}
 Der beschriebene theoretische Teil soll anschliessend durch verschiedene Prototypen belegt werden. Es soll versucht werden mehrere Standard-Anwendungsfälle im GIS-Bereich mittels Google Fusion Tables zu realisieren. Diese Prototypen sollen hauptsächlich in Form von Webapplikationen entwickelt werden.
@@ -107,8 +107,18 @@ Ursprünglich wollten wir 3 Use Cases umsetzen, wir haben uns dann aber im Verla
 Als Zusatz- oder Nebenprodukt haben wir noch ein Tool bereitgestellt mit dem sich zum einen Geodaten in andere Formate konvertieren lassen und zum anderen direkt Dateien als Tabellen in Google Fusion Tables importieren lassen (siehe Kapitel \ref{converter-build}).
 
 \section{Schlussfolgerungen und Ausblick}
-\todo[inline]{Schlussfolgerungen und Ausblick beschreiben}
+Das Fazit unserer Arbeit fällt gemischt aus. Zum einen bietet Google Fusion Tables einen kostenlosen Dienst an, welcher für kleinere Anwendungen genügend bietet sowohl als Datenbank-Backend wie auch als Speicherort für Daten eines Benutzers. Das SQL API lässt fast keine Wünsche offen.
 
-Die Schlussfolgerungen bilden zusammen mit der Zusammenfassung die wichtigsten Abschnitte eines Berichts und sollen daher am sorgfältigsten ausgearbeitet sein. Die Schlussfolgerungen enthalten eine Zusammenfassung und Beurteilung der Resultate (Vergleich mit anderen Lösungen, was wurde erreicht, was nicht, was bleibt noch zu tun, was würde man nun anders tun).
- 
-In den Schlussfolgerungen soll auch ein Ausblick auf das weitere Vorgehen bzw. auf die Bedeutung der erreichten Ergebnisse gegeben werden.
+Die Handhabung ist sehr einfach und entspricht meistens den Erwartungen. Die Dokumentation ist sehr gut und ausführlich. Falls doch Fragen auftauchen gibt es eine aktive Community, an die man sich wenden kann. 
+
+Ein grosses Plus ist die einfache Bedienung und die zahlreichen Visualisierungsmöglichkeiten, welche Google bereits anbietet. Durch die Integration in Google Maps können Daten sehr einfach auf einer Karte dargestellt werden.
+
+Zum anderen gibt es aber einige harte Limiten, an welche man stösst, wenn man grössere Applikationen bauen will. Dass zum Beispiel jeweils nur die ersten 100'000 Datensätze einer Tabelle als Result eines Queries geliefert werden, kann für grössere Datensammlungen zu einem Problem werden. Auch die Anzahl gleichzeitiger Zugriffe ist limitiert, sofern man dafür nicht extra bezahlen möchte.
+
+Wenn man die Features ansieht, merkt man schnell, dass ein Typ Use Case unterstützt wird, jedoch nicht viel mehr. Es gibt zwar die Möglichkeit über Merged Tables einen Left-Outer-Join von 2 Tabellen hinzubekommen, jedoch wäre die normale SQL Join Syntax sehr wünschenswert, da sich damit beliebige Abfragen realisieren lassen. 
+
+Die OAuth Dokumentation ist zwar für den Normalfall (Zugriff auf Tabellen eines Benutzers) sehr gut dokumentiert. Das neue \emph{Service Account}-Modell findet noch fast keine Erwähnung. Die Handhabung ist etwas sperrig, aber schlussendlich doch machbar. Leider sind aber momentan die Berechtigungen nur sehr grob einstellbar. So gibt es lediglich einen OAuth-Scope, und dieser ermöglicht alle Schreiboperationen auf einem Account. Für einige Situationen wäre es wünschenswert gewisse SQL-Befehle (z.B. \inlinecode{DELETE}) zu verbieten.
+
+Das Web-GUI lässt auch noch einige Wünsche offen, da es noch nicht sehr stabil läuft. Die Bedienung ist nicht intuitiv und eignet sich gar nicht um Daten zu ändern. Das neue, sogenannte \emph{experimental UI}, hat schon einige Verbesserungen gebracht, es bietet aber noch immer nicht die gleichen Funktionen wie das UI. So lassen sich zum Beispiel keine Views mit einer \inlinecode{WHERE}-Klausel über das Web-GUI definieren. 
+
+Das neue API sieht sehr vielversprechend aus. Die Entwickler bei Google sind grundsätzlich offen für Anregungen, Kritik oder Feature Requests. Dieses noch sehr junge Projekt ist aktiv in Entwicklung. Es bleibt abzuwarten, wie sich GFT und das Konkurrenzprodukt CartoDB zukünftig positionieren werden.
