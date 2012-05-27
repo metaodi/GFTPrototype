@@ -2,7 +2,6 @@
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
 			<pathelement location="lib/antlibs/ant-contrib-1.0b3.jar"/>
-			<pathelement location="lib/antlibs/jakarta-regexp-1.3.jar"/>
 		</classpath>
 	</taskdef>
 	
@@ -63,7 +62,7 @@
 		<delete quiet="true" file="${upload.dir}/${convert.filename}" />
 		<delete quiet="true" dir="${upload.dir}/${convert.filename}" />
 		
-		<echo message="Convert given file to ${format} (${coordinate_system})"/>
+		<echo message="Convert given file to ${format} (${target_coord_system})"/>
 		<exec executable="/usr/local/bin/ogr2ogr" failonerror="true">
 			<arg value="-skipfailures" />
 			<arg value="-s_srs" />
