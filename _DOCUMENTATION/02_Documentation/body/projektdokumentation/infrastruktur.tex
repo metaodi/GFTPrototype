@@ -24,6 +24,7 @@ Nach einigem Suchen sind wir schliesslich auf das Projekt PhantomJS\footnote{\ur
 Es hat sich dann noch als Schwierigkeit ergeben, dass wir den Output von QUnit in eine für Jenkins verständliche Form bringen mussten. Dazu haben wir den Testrunner \inlinecode{run\_qunit.js} erweitert und mit zusätzlichen Ausgabemöglichkeiten ausgestattet. Alle nötigen Schritte haben wir schliesslich als Anleitung in einem Blogpost\footnote{\url{http://www.readmore.ch/post/18940470535}} veröffentlicht. Wir haben auch schon Feedback\footnote{\url{https://github.com/odi86/GFTPrototype/issues/1}} dazu erhalten und konnten so unsere Lösung weiter verbessern.
 
 \section{Continuous Integration mit dem Jenkins Build-Server}
+\label{build-server}
 Bei Jenkins CI\footnote{\url{http://jenkins-ci.org/}} handelt es sich um ein Open Source Projekt, welches Unterstützung bietet für die Projektautomatisierung. Es unterstützt zahlreiche Repositories und Build-Mechanismen. Wir haben auch einige Plugins aktiviert, u.a. die GitHub- und Redmine-Integration oder der Logfile-Parser.
 
 \subsection{Logfile-Analyse mit dem Log Parser Plugin}
