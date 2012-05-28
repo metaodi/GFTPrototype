@@ -2,6 +2,7 @@
 \label{converter-build}
 
 \section{Idee}
+\todo[inline]{Erklären weshalb Build verwendet wurde?}
 Für die Konvertierung von GIS-Daten hatten wir die Idee, dies mit Hilfe eines Builds zu machen. Das heisst ein Skript auf unserem Build-Server Jenkins (siehe Abschnitt \ref{build-server}) laufen zu lassen. Dadurch fiel die Programmierung eines Web-GUIs weg, da dieses bereits von Jenkins generiert wird.
 
 Der Converter-Build war zu Beginn ein sehr einfaches Hilfsmittel um Testdaten in Google Fusion Tables zu laden. Das Problem war, dass GFT von sich aus nur den Import von Google Spreadsheet, \gls{CSV}- und \gls{KML}-Dateien zu lässt, andere Formate sind nicht unterstützt. Viele frei verfügbare \gls{GIS}-Daten sind jedoch in anderen Formaten verfügbar, so dass eine Konvertierung zwangläufig notwendig ist. Zuerst haben wir jeweils den GeoConverter der HSR\footnote{\url{http://geoconverter.hsr.ch/}} für diesen Zweck verwendet. Der Prozess war allerdings etwas mühsam, da die konvertierte Datei dann jeweils noch manuell in eine Fusion Table importiert werden musste.
