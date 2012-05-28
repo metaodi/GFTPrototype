@@ -40,7 +40,8 @@ Die Voraussetzungen für den Converter-Build sind zunächst eine Jenkins-Instanz
 
 Das Herzstück des Builds ist die GDAL/OGR Bibliothek welche sich aus dem Quellcode kompilieren lässt. Wichtig ist dabei, dass die Option \inlinecode{-{}-with-curl} angegeben wird, da ansonsten der GFT-Import nicht funktioniert.
 
-\begin{lstlisting}
+\lstset{language=bash}
+\begin{lstlisting}[caption=Kompilierung der GDAL/OGR Bibliothek mit cURL, label=converter-build-example]
 $ ./configure --with-curl
 $ make
 # make install
