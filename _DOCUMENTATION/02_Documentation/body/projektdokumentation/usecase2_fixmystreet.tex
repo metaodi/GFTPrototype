@@ -20,7 +20,7 @@
 % Einführung
 \section{Einführung}
 \subsection{Idee}
-FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England mit der Webseite \url{http://www.fixmystreet.com/}. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
+FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland, welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England, welches die Webseite \url{http://www.fixmystreet.com/} zur Verfügung stellt. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
 
 Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem Bürger per Webseite oder App entdeckte Defekte in seiner Umgebung (defekte Strassenlampen, Schlaglöcher, usw.) direkt der dafür zuständigen Behörde zu melden. Diese kann dann die erhaltenen Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
 
@@ -28,7 +28,7 @@ Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem 
 \subsection{Ziel}
 Das Ziel dieses Use Cases war die Erstellung einer WebApp, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
 
-Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige GIS-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
+Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige \gls{GIS}-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
 % Analyse
 \section{Analyse}
@@ -37,12 +37,31 @@ Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte
 Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstellt.
 
 \begin{enumerate}
-\item Claudia entdeckt auf ihrem Heimweg eine defekte Strassenlampe \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-1.jpg}
-\item Sie öffnet die \emph{Fix my street}-App auf ihrem Handy und meldet den Standort der defekten Strassenlampe \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-2.jpg}
-\item Am nächsten Tag überprüft der Werkshofleiter Franz die neuen gemeldeten Fälle im System und findet den Eintrag von Claudia \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-3.jpg}
-\item Er macht sich auf den Weg und repariert die defekte Strassenlampe welche Claudia gemeldet hat \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-4.jpg}
-\item Am Abend darauf stellt Claudia erfreut fest, dass die Strassenlampe bereits repariert wurde \\ \includegraphics[scale=0.4]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-5.jpg}
+\item Claudia entdeckt auf ihrem Heimweg eine defekte Strassenlampe.
+\item Sie öffnet die \emph{FixMyStreet}-WebApp auf ihrem Handy und meldet den Standort der defekten Strassenlampe.
+\item Am nächsten Tag überprüft der Werkshofleiter Franz die neuen gemeldeten Fälle im System und findet den Eintrag von Claudia.
+\item Er macht sich auf den Weg und repariert die defekte Strassenlampe.
+\item Am Abend darauf stellt Claudia erfreut fest, dass die Strassenlampe bereits repariert wurde.
 \end{enumerate}
+
+% Subfigure counter zuruecksetzen
+\setcounter{subfigure}{0}
+\begin{figure}[H]
+\subfigure[Defekte Strassenlampe entdeckt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-1}}
+\hfill
+\subfigure[Defekt melden]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-2}}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Neue Meldungen überprüfen]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-3}}
+\hfill
+\subfigure[Defekt reparieren]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-4}}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Defekt repariert]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-5}}
+\end{figure}
+
 
 \subsection{Use Cases}
 Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
@@ -56,88 +75,58 @@ Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 
 % Use Case 1a: Defekt melden
 \subsubsection{Use Case 1a: Defekt melden}
-\paragraph{Primary Actor}
-\begin{itemize}
-\item Bürger
-\end{itemize}
 
-\paragraph{Stakeholders and Interests}
-\begin{itemize}
-\item Bürger: Möchte einen entdeckten Defekt melden
-\end{itemize}
-
-\paragraph{Preconditions}
-\begin{itemize}
-\item WebApp ist gestartet
-\end{itemize}
-
-\paragraph{Success Guarantee (Postconditions)}
-\begin{itemize}
+\renewcommand{\arraystretch}{2}
+\begin{longtable}{p{0.25\twocelltabwidth}p{0.75\twocelltabwidth}}
+\textit{Primary Actor} & Bürger \\ 
+\textit{Stakeholders and Interests} & Bürger: Möchte einen entdeckten Defekt melden \\ 
+\textit{Preconditions} & WebApp ist gestartet \\ 
+\textit{Success Guarantee (Postconditions)} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Neuer Defekt ist in Datenbank gespeichert
 \item Defekt ist in der Liste und auf der Karte ersichtlich
 \item Melde-Maske wurde in den Ursprungszustand zurückgesetzt (kein Defekttyp ausgewählt, Markierung wieder auf die aktuelle Position verschoben)
-\end{itemize}
-
-\paragraph{Main Success Scenario}
-\begin{enumerate}
+\end{itemize} \\ 
+\textit{Main Success Scenario} & \begin{enumerate}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Bürger wählt Defekttypen aus
 \item Bürger verschiebt Markierung auf Karte zur Position des Defekts
 \item Bürger sendet den Defekt ab
 \item Bürger bestätigt die Kontrollfrage, ob der defekt tatsächlich gesendet werden soll
-\end{enumerate}
+\end{enumerate} \\ 
+\textit{Alternative Flows} & 2a. Markierung muss nicht zwangsläufig verschoben werden. Sie zeigt beim Starten der WebApp auf die aktuelle Position
 
-\paragraph{Alternative Flows}
-2a. Markierung muss nicht zwangsläufig verschoben werden. Sie zeigt beim Starten der WebApp auf die aktuelle Position. Falls dies nicht zugelassen wird zeigt sie auf einen vorkonfigurierten Ort.
-
-\paragraph{Special Requirements}
--
-
-\paragraph{Frequency of Occurrence}
-Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kann.
+2b. Falls die WebApp nicht auf die aktuelle Position zugreifen kann, zeigt die Markierung auf einen vorkonfigurierten Ort \\ 
+\textit{Frequency of Occurrence} & Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kann \\ 
+\end{longtable} 
+\renewcommand{\arraystretch}{1.3}
 
 % Use Case 1b: Defekt löschen
 \subsubsection{Use Case 1b: Defekt löschen}
-\paragraph{Primary Actor}
-\begin{itemize}
-\item Bürger
-\end{itemize}
 
-\paragraph{Stakeholders and Interests}
-\begin{itemize}
-\item Bürger: Möchte einen bereits gemeldeten Defekt löschen
-\end{itemize}
-
-\paragraph{Preconditions}
-\begin{itemize}
+\renewcommand{\arraystretch}{2}
+\begin{longtable}{p{0.25\twocelltabwidth}p{0.75\twocelltabwidth}}
+\textit{Primary Actor} & Bürger \\ 
+\textit{Stakeholders and Interests} & Bürger: Möchte einen bereits gemeldeten Defekt löschen \\ 
+\textit{Preconditions} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item WebApp ist gestartet
 \item Die Listenansicht wurde geöffnet 
 \item Es wurde bereits ein Defekt gemeldet
-\end{itemize}
-
-\paragraph{Success Guarantee (Postconditions)}
-\begin{itemize}
+\end{itemize} \\ 
+\textit{Success Guarantee (Postconditions)} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Der Defekt wurde aus der Datenbank gelöscht
 \item Defekt ist nicht mehr auf der Liste und auf der Karte ersichtlich
-\end{itemize}
-
-\paragraph{Main Success Scenario}
-\begin{enumerate}
+\end{itemize} \\ 
+\textit{Main Success Scenario} & \begin{enumerate}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Bürger markiert den zu löschenden Defekt in der Liste
 \item Bürger wählt den Befehl \emph{Löschen}
-\end{enumerate}
-
-\paragraph{Alternative Flows}
-2a. Falls der Status des Defektes bereits von einem Gemeindearbeiter geändert wurde (in beispielsweise \emph{In Bearbeitung} oder in \emph{Erledigt}, ist es für den Bürger nicht mehr möglich den Defekt zu löschen.
-
-\paragraph{Special Requirements}
--
-
-\paragraph{Frequency of Occurrence}
-Tritt sehr häuft auf, da es für jeden Bürger, welcher bereits einen Defekt gemeldet hat, möglich ist seine eigenen Defekte wieder zu löschen.
+\end{enumerate} \\ 
+\textit{Alternative Flows} & 2a. Falls der Status des Defektes bereits von einem Gemeindearbeiter geändert wurde (in beispielsweise \emph{In Bearbeitung} oder in \emph{Erledigt}), ist es für den Bürger nicht mehr möglich den Defekt zu löschen \\ 
+\textit{Frequency of Occurrence} & Tritt sehr häuft auf, da es für jeden Bürger, welcher bereits einen Defekt gemeldet hat, möglich ist seine eigenen Defekte wieder zu löschen \\ 
+\end{longtable} 
+\renewcommand{\arraystretch}{1.3}
 
 % Use Case 2: Noch nicht behobene Defekte auf Karte anzeigen
 \subsubsection{Use Case 2: Noch nicht behobene Defekte auf Karte anzeigen}
-Der Bürger öffnet die Übersicht. Darin werden ihm alle noch nicht behobene Defekte grafisch auf der Karte angezeigt. Die Daten werden laufend aktualisiert, damit er immer einen aktuellen Stand der Defekte sieht.
+Der Bürger öffnet die Übersicht. Darin werden ihm alle noch nicht behobene Defekte grafisch auf der Karte angezeigt. Die Daten werden laufend aktualisiert, damit er immer einen aktuellen Stand der gemeldeten Defekte sieht.
 
 % Use Case 3: Heatmap aller Defekte anzeigen
 \subsubsection{Use Case 3: Heatmap aller Defekte anzeigen}
@@ -145,20 +134,20 @@ Der Bürger öffnet wiederum die Übersicht. Darin hat er die Möglichkeit die D
 
 % Use Case 4: Defekte bearbeiten
 \subsubsection{Use Case 4: Defekte bearbeiten}
-Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Darin findet er eine Liste mit allen gemeldeten Defekten. Diese kann er direkt bearbeiten.
+Der Gemeindearbeiter öffnet die FixMyStreet Fusion Table. Darin findet er eine Liste mit allen gemeldeten Defekten. Diese kann er direkt bearbeiten.
 
 \emph{Hinweis: Dieser Use Case wird vom gegebenen Google Fusion Tables Web-GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
 % Use Case 5: Defekte auf Karte anzeigen
 \subsubsection{Use Case 5: Defekte auf Karte anzeigen}
-Der Gemeindearbeiter öffnet die FixMyStreet Google Fusion Table. Er hat darin die Möglichkeit alle Defekte auf der Karte anzuzeigen.
+Der Gemeindearbeiter öffnet die FixMyStreet Fusion Table. Er hat darin die Möglichkeit alle Defekte auf der Karte anzuzeigen.
 
 \emph{Hinweis: Dieser Use Case wird vom gegebenen Google Fusion Tables Web-GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
 \subsection{Paper-Prototype}
 Vor der Implementation der Oberfläche wurde ein Paper-Prototype des GUI-Design erstellt. Dieses wurde von verschiedenen Personen getestet. Der Prototype besteht aus drei verschiedenen Hauptmasken.
 
-\paragraph{Maske: Melden}
+\paragraph{Maske:Defekt melden}
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
 
 \begin{figure}[H]
@@ -179,8 +168,8 @@ Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der De
 \subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_meldungerfolgreich.jpg}}
 \end{figure}
 
-\paragraph{Maske: Verwalten}
-In dieser Maske kann man seine eigenen Defekt-Meldungen verwalten. Die gemeldeten Defekte werden gruppiert nach \emph{Offene Defekte} und \emph{Behobene Defekte}. Zu jedem Defekt wird der aktuelle Status angezeigt. Mit einem Klick auf einen Defekt erreicht man dessen Detailanzeige.
+\paragraph{Maske: Defekte verwalten}
+In dieser Maske kann man seine bereits gemeldeten Defekte verwalten. Diese werden gruppiert in \emph{Offene Defekte} und \emph{Behobene Defekte}. Zu jedem Defekt wird der aktuelle Status angezeigt. Mit einem Klick auf einen Defekt erreicht man dessen Detailanzeige.
 
 \begin{figure}[H]
 \subfigure[Defekte verwalten - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten.jpg}}
@@ -188,7 +177,7 @@ In dieser Maske kann man seine eigenen Defekt-Meldungen verwalten. Die gemeldete
 \subfigure[Detailansicht eines gemeldeten Defekts]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten_detail.jpg}}
 \end{figure}
 
-\paragraph{Maske: Anzeigen}
+\paragraph{Maske: Defekte anzeigen}
 Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit einem Klick auf eine Defekt-Markierung erhält man zusätzliche Information zu diesem Defekt.
 
 \begin{figure}[H]
@@ -199,11 +188,11 @@ Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit eine
 \section{Design}
 
 \subsection{Datenbankschema}
-Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ}}. Davon wurden zwei Views erstellt:
+Die Applikation verwendet als Haupttabelle die Fusion Table \emph{ftFixMyStreet}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1ggQAh0WF7J7myI27_Pv4anl0wBJQ7ERt4W5E6QQ}}. Davon wurden zwei Views erstellt:
 
 \begin{itemize}
 \item \emph{ftFixMyStreet\_Read}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1no3_lJ0CCazZVN6rlAY8vrtf9ejoz_xo0e7a9cY}}: In dieser View sind alle gemeldeten Defekte sichtbar, die Applikation hat aber nur Lesezugriff darauf.
-\item \emph{ftFixMyStreet\_Write}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac} (private Tabelle)}: In dieser View sind lediglich die Defekte vorhanden deren Status auf \emph{neu} gesetzt ist. Die Applikation kann darin neue Defekte abspeichern und diese auch wieder löschen.
+\item \emph{ftFixMyStreet\_Write}\footnote{\url{https://www.google.com/fusiontables/DataSource?docid=1EX1S20fZmhetpLuWf_i-Hi5qfx1412a3TbRV1Ac} (private Tabelle)}: In dieser View sind lediglich die Defekte vorhanden deren Status auf \emph{Neu} gesetzt ist. Die Applikation kann darin neue Defekte abspeichern und diese auch wieder löschen.
 \end{itemize}
 
 \begin{figure}[H]
@@ -214,7 +203,7 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 \end{figure}
 
 \subsection{Package-Struktur}
-Die Package-Struktur wird vom Sencha Touch Framework fix vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}. Diese abstrahieren jeweils einen Datenspeicher. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation verwendet (siehe Abschnitt \ref{fixmystreet-proxy}).
+Die Package-Struktur wird vom Sencha Touch Framework 2 fix vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}. Diese abstrahieren jeweils einen Datenspeicher. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation verwendet (siehe Abschnitt \ref{fixmystreet-proxy}).
 
 \begin{figure}[H]
 	\centering
@@ -252,7 +241,7 @@ Die Applikation wird auf oberster Ebene vom \emph{Main}-Controller gesteuert. Di
 \end{figure}
 
 \subsection{Deployment}
-Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fixmystreet-proxy}) auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
+Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fixmystreet-proxy}) auf die GftLib (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den WebService \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
 
 \begin{figure}[H]
 	\centering
@@ -277,25 +266,23 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite,
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-sequencediagram-applicationstartup}
-	\caption{FixMyStreet: Sequenzdiagramm - Starten der Applikation}
+	\caption{FixMyStreet: Starten der Applikation}
 	\label{fixmystreet-sequencediagram-applicationstartup}
 \end{figure}
 
 % Implementation
 \section{Implementation}
-Die WebApp basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript.
-
-Das Framework bietet die Möglichkeit eine Applikation streng nach dem MVC-Pattern aufzubauen.
+Die WebApp basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
 
 Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\footnote{\url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.ComponentQuery}}. Damit lassen sich View-Komponenten über verschiedene Attribute referenzieren. So kann man beispielsweise über deren eindeutige ID eine Referenz auf das Objekt erstellen.
 
 In den Controller-Klassen werden genau über dieses Konzept Referenzen auf die View-Objekte erstellt und darauf zugegriffen. Damit ist es in fast allen Fällen möglich, die View-Klassen frei von Bussinesslogik zu halten.
 
-\paragraph{Beispiel einer ComponentQuery}
-Das folgende Beispiel\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \emph{nav} via ComponentQuery die View-Komponente mit der ID \emph{mainNav}.
+\paragraph{Beispiel einer Component-Query}
+Das Beispiel \ref{st2-componentquery}\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \emph{nav} via Component-Query die View-Komponente mit der ID \emph{mainNav}.
 
 \lstset{language=JavaScript}
-\begin{lstlisting}[caption=ComponentQuery in Sencha Touch 2, label=st2-componentquery]
+\begin{lstlisting}[caption=Beispiel eines Component-Queries in Sencha Touch 2, label=st2-componentquery]
 Ext.define('MyApp.controller.Main', {
 	extend: 'Ext.app.Controller',
 	
@@ -328,18 +315,18 @@ Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
 \end{itemize}
 \end{itemize}
 
-Weitere Informationen zu den unterstützten Geräten findet man auf folgender Seite \url{http://www.sencha.com/products/touch/features/} unter \emph{Sencha Touch 2 Device Support}.
+Eie vollständige Liste der unterstützten Geräte findet man auf der Seite \url{http://www.sencha.com/products/touch/features/} unter \emph{Sencha Touch 2 Device Support}.
 
 \subsection{Abhängigkeiten}
 \begin{longtable}{|p{0.25\threecelltabwidth}|p{0.1\threecelltabwidth}|p{0.65\threecelltabwidth}|}
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
-Sencha Touch 2 & 2.0.1 & Mobile Framework (MVC Applikation) \\ 
+Sencha Touch 2 & 2.0.1 & Framework zur Erstellung von mobilen WebApps \\ 
 \hline 
-gftlib-js & 1.0 & Zur Kommunikation mit dem Fusion Table SQL API \\ 
+gftlib-js & 1.0 & Kommunikation mit dem Google Fusion Tables via SQL API \\ 
 \hline 
-jQuery & 1.7.1 & Wird von der gftlib-js verwendet \\ 
+jQuery & 1.7.1 & Wird von der GftLib verwendet \\ 
 \hline 
 Google Maps API & V3 & Anzeige der Karten \\ 
 \hline 
@@ -364,7 +351,7 @@ Google Maps API & V3 & Anzeige der Karten \\
 \hline 
 \inlinecode{app/controller/ReportMap.js} & Controller der \emph{Report}-View \\ 
 \hline 
-\inlinecode{app/model/*.js} & Daten-Modelle der Applikation (Defekt, Status, ...) \\ 
+\inlinecode{app/model/*.js} & Daten-Modelle der Applikation (Defekt, Typ, ...) \\ 
 \hline 
 \inlinecode{app/plugin/PullRefresh.js} & PullRefresh Plugin der Liste \\ 
 \hline 
@@ -374,9 +361,9 @@ Google Maps API & V3 & Anzeige der Karten \\
 \hline 
 \inlinecode{app/utli/Config.js} & Konfiguration der Applikation \\ 
 \hline 
-\inlinecode{app/util/Geolocation.js} & Steuert Zugriff auf aktuelle Geolocation des Geräts \\ 
+\inlinecode{app/util/Geolocation.js} & Steuert Zugriff auf aktuelle Position des Geräts \\ 
 \hline 
-\inlinecode{app/view/*.js} & Views der Applikation \\ 
+\inlinecode{app/view/*.js} & View-Klassen der Applikation \\ 
 \hline 
 \inlinecode{resources/images/} & Bilder der Applikation \\ 
 \hline 
@@ -389,57 +376,55 @@ Google Maps API & V3 & Anzeige der Karten \\
 
 \subsection{Anbindung an Google Fusion Table}
 \label{fixmystreet-proxy}
-Sencha Touch verwendet für den Zugriff auf fremde Datenquellen das Konzept der Proxies. Ein Proxy verbindet einen internen Applikations-Store mit der eigentlichen Datenquelle.
+Das Sencha Touch 2 Framework verwendet für den Zugriff auf fremde Datenquellen das Konzept der \emph{Proxies}. Ein Proxy verbindet einen internen Applikations-Store mit der eigentlichen Datenquelle.
 
-Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (LocalStorage) zu kommunizieren. Zudem existieren Proxies für AJAX-Serveranfragen oder JSONP-Anfragen.
+Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (Web Storage\footnote{\url{http://de.wikipedia.org/wiki/Web_Storage}}) zu kommunizieren. Zudem existieren Proxies für \gls{AJAX}-Serveranfragen oder \gls{JSONP}-Anfragen.
 
-Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Fusion Table Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
-Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen Create, Read und Delete. Ein Änderung von gemeldeten Defekten ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
+Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/usecase2-fixmystreet/uml/fixmystreet-proxy-classmodel}
-	\caption{FixMyStreet: FusionTablesLayer Proxy}
+	\caption{FixMyStreet: Aufbau des FusionTablesLayer-Proxies}
 	\label{fixmystreet-proxy-classmodel}
 \end{figure}
 
 \subsection{Wiedererkennung des Benutzers}
 \label{fixmystreet-user-detection}
-Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um die App zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
+Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um diese zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
 
-Wir generieren dazu beim ersten Starten der App eine Version 1 UUID\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im LocalStorage des Browsers ab. Die gemeldeten Defekte beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
+Wir generieren dazu beim ersten Starten der Applikation eine \emph{Version 1 UUID}\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im \emph{Web Storage} des Browsers ab. Die gemeldeten Defekte beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
 
-Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer seinen Browsercache leert oder die App an einem anderen Gerät startet, erhält er eine neue UUID, welche den neu erfassten Defekten zugeordnet wird. So können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
+Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer den Cache des Browsers löscht oder die App von einem anderen Gerät aus startet, erhält er eine neue UUID. Seine bereits gemeldeten Defekte kann er somit nur auf dem Gerät sehen, mit welchem er sie gemeldet hat. Dadurch können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
 
 \subsection{Automatisches Aktualisieren der Übersichtsmaske}
 \label{fixmystreet-polling}
-Eine weitere Anforderung war es eine möglichst aktuelle Ansicht aller gemeldeten Fälle zu bieten. Wir haben dazu in der Übersichtsmaske ein Polling implementiert. Dieses aktualisiert alle 30 Sekunden die Markierungen auf der Karte indem es eine Anfrage an die Fusion Table sendet. Gelöschte und erledigte Defekte werden entfernt und Neue hinzugefügt.
+Eine weitere Anforderung war es eine möglichst aktuelle Ansicht aller gemeldeten Fälle zu bieten. Wir haben dazu in der Übersichtsmaske einen Polling-Mechanismus implementiert. Dieses aktualisiert alle 30 Sekunden die Markierungen auf der Karte indem es eine Anfrage an die Fusion Table sendet. Gelöschte und erledigte Defekte werden entfernt und Neue hinzugefügt.
 
 Die Karte aktualisiert sich zudem jedes Mal, wenn die Übersichtsmaske aufgerufen wird.
 
 \subsection{Auf Übersichtsmaske nur Defekte im sichtbaren Bereich laden}
-Um nicht zu viele Markierungen gleichzeitig zu laden, was sich negativ auf die Performance der Applikation auswirken würde, laden wir auf der Übersichtsmaske nur diejenigen Defekte, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben wird oder der Zoom verändert wird, werden die Defekte für den neuen Bereich nachgeladen.
+Um nicht zu viele Markierungen gleichzeitig zu laden, was sich negativ auf die Performance der Applikation auswirken würde, laden wir auf der Übersichtsmaske nur diejenigen Defekte, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben oder der Zoom verändert wird, werden die Defekte für den neuen Bereich nachgeladen.
 
 Dazu haben wir vorerst das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL APIs (siehe Abschnitt \ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir diesem als Parameter ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
 
-Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (siehe Abschnitt \ref{geocodierung-bug}), mussten wir in der letzen Version der Applikation das Spatial-Query wieder entfernen und durch eine eigene \inlinecode{WHERE}-Bedingung ersetzen. Ansonsten würden neu gemeldete Defekte solange nicht auf der Karte angezeigt, bis die Datensätze über das Fusion Tables Web-GUI manuell geokodiert werden.
+Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (siehe Abschnitt \ref{geocodierung-bug}), mussten wir das Spatial-Query aber wieder entfernen und durch eine eigene \inlinecode{WHERE}-Bedingung ersetzen. Ansonsten würden neu gemeldete Defekte solange nicht auf der Karte angezeigt, bis die Datensätze über das Fusion Tables Web-GUI manuell geokodiert werden.
 
 \subsection{Heatmap-Ansicht auf Übersichtsmaske}
 \label{fixmystreet-heatmap}
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
 \section{Testing}
-Aufgrund des verwendeten Sencha Touch 2 Frameworks konnten wir die Applikation nur minimal testen. Zum einen wurden Tests erstellt, welche das Laden der JavaScript-Files überprüft. Weiter wurden auch die Config-Parameter auf ihre Korrektheit überprüft.
-
 Das verwendete Framework Sencha Touch 2 machte das Testing der Applikation nicht ganz einfach. Obwohl das Framework den Code sehr stark nach MVC gliedert, haben die einzelnen Teile eine starke Kopplung an das Framework. Dies ist auch der Grund, weshalb wir die Applikation nur punktuell getestet haben\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=FixMyStreet}}.
 
-Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werden. Dies hilft um immer einen konsistenten Stand an Komponenten zu haben, welche so auch zusammen funktionieren können. Zum anderen prüfen wir einige Konfiguration, dabei geht es vor allem darum um Änderungen daran zu erkennen.
+Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werden. Dies hilft dafür immer einen konsistenten Stand an Komponenten zu haben, welche so auch zusammen funktionieren können. Zum anderen prüfen wir einige Konfigurationen. Dabei geht es vor allem darum um Änderungen daran zu erkennen.
 
 Der Use Case basiert zu einem grossen Teil auf unserer Bibliothek GftLib, welche wir für den Zugriff auf die Fusion Tables Datenbank verwenden. Die Bibliothek ist mit ausführlichen Test ausgestattet (siehe Abschnitt \ref{gftlib-testing}). Wir haben schliesslich noch versucht den Proxy (siehe Abschnitt \ref{fixmystreet-proxy}) zu testen, sind jedoch an den Abhängigkeiten zum Framework gescheitert.
 
 \section{Resultate}
-Das Resultat dieses Use Cases ist eine voll ausgereifte WebApp. 
+Das Resultat dieses Use Cases ist eine voll ausgereifte WebApp.
 
 \subsection{Maske: Defekt melden}
 Dies ist die Hauptmaske der App. Sie wird geöffnet sobald der Benutzer die Applikation startet. Darauf kann der Benutzer Defekte an beliebigen Orten melden.
@@ -447,8 +432,8 @@ Dies ist die Hauptmaske der App. Sie wird geöffnet sobald der Benutzer die Appl
 \subsubsection{Features}
 \begin{itemize}
 \item Defekt-Markierung kann per \emph{Drag\&Drop} oder per \emph{Klick} auf der Karte verschoben werden \\ \includegraphics{images/usecase2-fixmystreet/features/features-report-drag_and_drop}
-\item Zentrierung der Karte und Positionierung der Defekt-Markierung auf die eigene Position \includegraphics{images/usecase2-fixmystreet/features/features-report-center_map_button}
-\item Schritt für Schritt Anleitung \includegraphics{images/usecase2-fixmystreet/features/features-report-info_button}
+\item Zentrierung der Karte und Positionierung der Defekt-Markierung auf die eigene Position \\ \includegraphics{images/usecase2-fixmystreet/features/features-report-center_map_button}
+\item Schritt für Schritt Anleitung \\ \includegraphics{images/usecase2-fixmystreet/features/features-report-info_button}
 \end{itemize}
 
 \subsubsection{Screenshots}
@@ -462,13 +447,13 @@ Dies ist die Hauptmaske der App. Sie wird geöffnet sobald der Benutzer die Appl
 \end{figure}
 
 \subsection{Maske: Meine Defekte}
-In dieser Ansicht werden dem Benutzer alle bereits gemeldeten Defekte aufgelistet. Die Defekte sind nach ihrem aktuellen Status (\emph{Neu}, \emph{In Bearbeitung} und \emph{Erledigt}) gruppiert.
+In dieser Ansicht werden dem Benutzer alle bereits von ihm gemeldeten Defekte aufgelistet. Die Defekte sind nach ihrem aktuellen Status (\emph{Neu}, \emph{In Bearbeitung} und \emph{Erledigt}) gruppiert.
 
 \subsubsection{Features}
 \begin{itemize}
 \item Aktualisierung der Liste per Pull-Down-Geste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-pull_down_refresh}
 \item Durchsuchen der Liste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-search}
-\item Öffnen des Kontextmenüs zu einem Eintrag per \emph{Swipe}- oder per \emph{Tap-And-Hold}-Geste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-contextmenu}
+\item Öffnen des Kontextmenüs zu einem Eintrag per \emph{Swipe}- oder \emph{Tap-And-Hold}-Geste \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-list-contextmenu}
 \end{itemize}
 
 \subsubsection{Screenshots}
@@ -485,7 +470,7 @@ Hier werden dem Benutzer alle noch nicht behobenen Defekte auf der Karte angezei
 
 \subsubsection{Features}
 \begin{itemize}
-\item Zentrieren der Karte auf die eigene Position \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-report-center_map_button}
+\item Zentrieren der Karte auf die eigene Position \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-report-center_map_button}
 \item Filtern nach Defekt-Typ \\ \includegraphics[scale=0.8]{images/usecase2-fixmystreet/features/features-map-settings}
 \item Anzeige der Defekte als Heatmap
 \end{itemize}
@@ -503,17 +488,17 @@ Hier werden dem Benutzer alle noch nicht behobenen Defekte auf der Karte angezei
 \subsection{Probleme bei der Verwendung von Google Fusion Tables als Datenbank}
 Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines \inlinecode{GRANT}-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.
 
-Zusätzlich konnten wir die GIS-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns die fehlende  Geocodierung von neu eingefügten Datensätzen daran Spatial-Queries zu verwenden (siehe Abschnitt \ref{geocodierung-bug}).
+Zusätzlich konnten wir die \gls{GIS}-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns beispielsweise die fehlende Geocodierung von neu eingefügten Datensätzen daran Spatial-Queries zu verwenden (siehe Abschnitt \ref{geocodierung-bug}).
 
 Zudem haben wir bewusst auf die Verwendung einer Fusion Tables-Ebene (siehe Abschnitt \ref{gmap-api-fusiontableslayer}) für die Übersichtsmaske verzichtet, da wir dadurch die Möglichkeit verloren hätten Custom-Markers auf der Karte hinzuzufügen. Dies hätte die Usability der App stark verschlechtert, da man nicht mehr direkt den Typen des markierten Defekts erkannt hätte.
 
 Alles in allem waren die Nachteile bei der Verwendung von Google Fusion Tables als Datenbank wahrscheinlich grösser als deren Vorteile.
 
 \section{Weiterentwicklung}
-Auch dieser Use Case hat noch ein grosses Ausbaupotential. So wäre es beispielsweise sinnvoll, wenn man bei der Meldung des Defekts noch ein Foto hinzufügen könnte. Damit könnte man noch genauer zeigen, was wirklich defekt ist. Zudem würde es auch der zuständigen Behörde einfacher fallen Spassmeldungen von echten Defekten zu unterscheiden. Zusätzlich wäre es hilfreich, wenn man die Möglichkeit hätte in einem fakultativen Beschreibungsfeld eine zusätzliche Problembeschreibung anzugeben.
+Auch dieser Use Case hat noch ein grosses Ausbaupotential. So wäre es beispielsweise sinnvoll, wenn man bei der Meldung des Defekts noch ein Foto hinzufügen könnte. Damit könnte man noch genauer zeigen, was wirklich defekt ist. Zudem würde es auch der zuständigen Behörde einfacher fallen "`Spassmeldungen"' von echten Defekten zu unterscheiden. Zusätzlich wäre es hilfreich, wenn man die Möglichkeit hätte in einem Beschreibungsfeld eine zusätzliche Problembeschreibung anzugeben.
 
-Weiter müssten natürlich auch die Stammdaten (Defekttypen, Status) in eine Datenbank ausgelagert werden. Diese sind momentan statisch im Code verankert. Ein Problem würde sich dabei aber stellen. Das Web-GUI der Fusion Table unterstützt momentan keine Auswahllisten von Daten aus einer fremden Tabelle. Man würde deshalb lediglich die Fremdschlüssel der Stammdaten sehen.
+Weiter müssten natürlich auch die Stammdaten (Defekttypen, Status) in einzelne Tabellen ausgelagert werden. Diese sind momentan statisch im Code verankert. Ein Problem würde sich dabei aber stellen: Das Web-GUI der Fusion Table unterstützt momentan keine Auswahllisten von Daten aus einer fremden Tabelle. Man würde deshalb lediglich die Fremdschlüssel der Stammdaten sehen.
 
 Ein weiteres Feature wäre eine Detailansicht der gemeldeten Defekte. Darin liesse sich der Status-Log anzeigen, um genau nachzuverfolgen, was bereits zur Behebung des angezeigten Defekts unternommen wurde. 
 
-Zudem wäre es sinnvoll, wenn die App auch offline verwendbar wäre. Dadurch könnte man Defekte auch an Orten melden, welche über keine ausreichende Mobilnetzabdeckung verfügen.
+Zudem wäre es sinnvoll, wenn die App auch offline nutzbar wäre. Dadurch könnte man Defekte auch an Orten melden, welche über keine ausreichende Mobilnetzabdeckung verfügen.
