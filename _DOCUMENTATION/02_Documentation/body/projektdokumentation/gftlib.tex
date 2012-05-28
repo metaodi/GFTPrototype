@@ -183,6 +183,13 @@ Wir haben insgesamt 84 Tests für die GftLib erstellt, welche jede Funktion mit 
 
 QUnit hat sich als sehr wertvoll erwiesen bei den sogenannten asynchronen Tests. Da unsere Bibliothek sehr stark auf die asynchronen Aufrufen des Google \gls{API}s angewiesen ist, konnten wir trotzdem sehr einfach Tests dazu schreiben ohne uns um diesen Aspekt kümmern zu müssen.
 
-Wenn wir einen Bug gefunden haben, haben wir diesen jeweils mit einem Unit-Test nachvollzogen, so dass dieser nicht noch ein weiteres Mal auftritt. Die Testabdeckung lässt sich leider nicht so einfach messen wie dies beispielsweise bei einer Java-Applikation der Fall ist. Zu diesem Zweck hätten wir in unserem Code überall Messpunkte einbauen müssen, was für für eine Bibliothek grundsätzlich unerwünscht ist.
+Wenn wir einen Bug gefunden haben, haben wir diesen jeweils mit einem Unit-Test nachvollzogen, so dass dieser nicht noch ein weiteres Mal auftritt. Die Testabdeckung haben wir mit JSCoverage\footnote{\url{http://siliconforks.com/jscoverage/}} gemessen, für die GftLib beträgt diese 95\%, beim SqlBuilder sogar 100\% (siehe Abbildung \ref{gftlibjs-testabdeckung}).
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/gftlib-js/gftlibjs-testabdeckung}
+	\caption{Gemessene Testabdeckung mit JSCoverage}
+	\label{gftlibjs-testabdeckung}
+\end{figure}
 
 Da sich ein Grossteil der Funktionalität in privaten Methoden befindet, welche in JavaScript grundsätzlich nicht von aussen zugreifbar sind, haben wir öffentliche Aliase erstellt, um Tests dieser Methoden zu ermöglichen. Die Aliase sind jeweils mit zwei Unterstrichen gekennzeichnet; sie sind nicht teil des öffentlichen \gls{API}s und sollten nur von von Unit-Tests verwendet werden.
