@@ -1,4 +1,4 @@
-% document type: science report
+% Typ des Dokuments
 \documentclass[abstracton, a4paper, 12pt]{scrreprt}
 
 % Encoding (utf8)
@@ -22,9 +22,6 @@
 \definecolor{lightgrey}{rgb}{0.95,0.95,0.95}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-% Tabellen
-\usepackage{longtable}
-
 % Grafiken
 \usepackage[pdftex]{graphicx}
 \usepackage{epsfig}
@@ -39,7 +36,8 @@
 % Zahlen verwenden für Subfigure counter
 \renewcommand{\thesubfigure}{(\arabic{subfigure})}
 
-% hyperlinks
+% Hyperlinks und URLs
+\usepackage{url}
 \usepackage{hyperref}
 \hypersetup{
    colorlinks,%
@@ -58,30 +56,42 @@
 \usepackage[toc]{glossaries}
 \makeglossaries
 
+% Kontrolle über Listen-Eigenschaften
+\usepackage{enumitem}
+
 % TODO Kommentare
 \usepackage{todonotes}
 
-% Definition vom Header und Footer im Seitenlayout
-\usepackage{fancyhdr} 
-\pagestyle{fancy} 
-\fancyhf{}
-% Grossschreibung in Kopfzeile deaktivieren
-\renewcommand{\chaptermark}[1]{%
-\markboth{\chaptername\ \thechapter{}: #1}{}}
-\renewcommand{\sectionmark}[1]{%
-\markright{\thesection{}: #1}{}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Kopf- und Fusszeile
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Kopf- und Fusszeile mit Linien
+\usepackage[automark,headsepline,footsepline]{scrpage2}
 
-% MakeUppercase überschreiben, um Grosschreibung in Kopfzeile auch für Spezialseiten zu deaktivieren (Achtung böser Hack!)
+\pagestyle{scrheadings}
+% Kopf- und Fusszeile auch bei Kapitel- und Partsanfangsseiten
+\renewcommand*{\chapterpagestyle}{scrheadings}
+\renewcommand*{\partpagestyle}{scrheadings} 
+
+% Kopf- und Fusszeile leeren
+\clearscrheadfoot
+
+% Inhalt der Kopfzeile
+\ihead{\footnotesize{\leftmark}}
+
+% Inhalt der Fusszeile
+\ifoot{\footnotesize{Cloudbasiertes Geodatenmanagement mit Google Fusion Tables}}
+\ofoot{\footnotesize{\thepage}}
+
+% MakeUppercase überschreiben, um Grosschreibung in Kopfzeile für Spezialseiten zu deaktivieren (Achtung böser Hack!)
 \renewcommand*\MakeUppercase[1]{#1}
 
-\fancyhead[L]{\footnotesize{\leftmark}}
-\fancyfoot[C]{\footnotesize{\thepage}}
-\fancyhead[R]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tabellen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Für Tabellen, welche über mehrere Seiten gehen
+\usepackage{longtable}
 
-% Header auch bei Kapitelanfangsseite
-\def\chapterpagestyle{fancy}
-
-% Tabelle
 % Padding links und rechts von Zelle
 \setlength{\tabcolsep}{5px}
 % Padding oben und unten (mittels arraystretch)
@@ -103,9 +113,9 @@
 \setlength{\fourcelltabwidth}{\textwidth}
 \addtolength{\fourcelltabwidth}{-8\tabcolsep - 5px} % subtrahiere Padding (\tabcolsep) und Rahmen
 
-% Für schöne URLs
-\usepackage{url}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Syntaxhighlighter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Syntaxhighlighter (benoetigt color und xcolor package)
 \usepackage{listings}
 \renewcommand{\lstlistingname}{Code-Ausschnitt}
@@ -167,6 +177,3 @@
 
 % Inline Code-Formatierung
 \newcommand{\inlinecode}{\texttt}
-
-% Kontrolle über Listen-Eigenschaften
-\usepackage{enumitem}

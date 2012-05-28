@@ -1,9 +1,14 @@
-% Titel des Abstracts aendern
+% Neue Seite beginnen
+\cleardoublepage
+
+% Stil des Abstract-Titels veraendern
 \renewcommand{\abstractname}{{\Huge\bfseries Abstract}}
+% Titel auch in Kopfzeile anzeigen
+\markboth{Abstract}{Abstract}
 
 \begin{abstract}
-% Seitennummerierung auf Abstract-Seite einschalten
-\thispagestyle{plain}
+% Kopf- und Fusszeile auch auf Abstractseite
+\thispagestyle{scrheadings}
 
 Ziel dieser Arbeit war es das Potentials der Cloud-Datenbank \emph{Goolge Fusion Tables} aufzuzeigen. Dazu wurden zuerst einige Beispiele erstellt, welche die verschiedenen Features der Fusion Table verwenden. Zusätzlich wurden Anwendungsfälle im GIS-Bereich gesucht, welche sich ebenfalls mit Google Fusion Tables umsetzen lassen würden. Diese wurden dann als Prototypen implementiert, um den Aufwand aufzuzeigen, welchen es benötigt, um mit Google Fusion Tables eine GIS-Software zu entwickeln.
 
