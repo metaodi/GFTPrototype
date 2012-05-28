@@ -169,6 +169,7 @@ Die Methoden des SqlBuilders nehmen jeweils ein Parameter-Objekt\footnote{\url{h
 Die GftLib verwendet den SqlBuilder um aus gegebenen Input-Parametern SQL-Befehle zu generieren. Diese Befehle werden dann mit Hilfe der Google \gls{API} Bibliothek (\emph{gapi}) abgeschickt. Das Google \gls{API} schickt die Resultate dann via Callback-Funktion wieder zurück an die GftLib. Aus der Bibliothek jQuery verwenden wir einige Helferfunktionen für Strings sowie die Möglichkeit auf einfache Art und Weise \gls{AJAX}-Requests abzuschicken.
 
 \subsection{Testing}
+\label{gftlib-testing}
 Mit Hilfe des Unit-Testing Frameworks QUnit\footnote{\url{http://docs.jquery.com/QUnit}} konnten wir für die GftLib durchgängige Tests erstellen. Die Tests werden in JavaScript geschrieben und können deshalb direkt im Browser ausgeführt werden\footnote{Produktive Tests: \url{http://gft.rdmr.ch/test/js/}}. 
 
 \begin{figure}[!ht]
