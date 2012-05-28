@@ -177,8 +177,11 @@ Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erschein
 \caption{WorldData: Quellcode-Struktur}
 \end{longtable} 
 
-\section{Test}
-\todo[inline]{WorldData: Tests beschreiben}
+\section{Testing}
+Die Applikationslogik dieses Use Cases befindet sich vor allem im Controller und zu kleinen Teilen im Helper. Für diese beiden Komponenten haben wir jeweils Tests erstellt, insgesamt 12\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=WorldData}}.
+Zusätzlich gibt es noch 2 Tests für die Konfiguration, diese dienen vor allem dazu, Änderungen der Konfiguration zu erkennen.
+
+Die Anzeige der Daten basiert auf dem FusionTablesLayer des Google Maps \gls{API}, weshalb wir dort keine eigene Logik haben.
 
 \section{Resultate}
 Das Resultat dieses Use Cases ist eine Webapplikation, welches es dem Benutzer erlaubt länderspezifische Daten zu verschiedenen Themen auf der Karte darzustellen.
