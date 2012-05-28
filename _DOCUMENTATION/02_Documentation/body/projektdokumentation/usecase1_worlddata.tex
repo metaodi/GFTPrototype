@@ -5,6 +5,10 @@
 \includegraphics[scale=0.8]{images/usecase1-worlddata/worlddata-icon_with_gloss}
 
 {\large \textbf{\url{http://worlddata.rdmr.ch/}}}
+
+\vspace{1cm}
+
+\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_1960}
 \end{center}
 
 \section{Einführung}
@@ -15,14 +19,12 @@ Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt we
 
 \subsection{Vorgehen}
 \label{worlddata-vorgehen}
-Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Tabelle importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer des Google Maps APIs auf der Karte dargestellt werden kann.
+Um die Daten pro Land zu visualisieren, werden zuerst die Landesgrenzen als Geometrie-Datensätze in eine separate Fusion Table importiert. In eine andere Tabelle werden dann die Daten importiert unterteilt nach Land und Jahr. Diese beiden Tabellen werden per Merge-Funktion (siehe Abschnitt \ref{merge-table}) zu einer Tabelle zusammengefasst, welche dann mittels FusionTablesLayer auf der Karte dargestellt werden kann.
 
 \section{Analyse}
-Die Idee des Use Cases stammt von der Webapplikation \emph{Public Data}\footnote{\url{http://www.google.ch/publicdata/}} von Google. Darin werden bereits öffentliche Daten aus verschiedensten Quellen über das Google Chart API\footnote{\url{https://developers.google.com/chart/}} in verschiedenen Diagrammen dargestellt.
+Die Idee des Use Cases stammt von der Webapplikation \emph{Public Data}\footnote{\url{http://www.google.ch/publicdata/}} von Google. Darin lassen sich bereits öffentliche Daten aus verschiedensten Quellen über das Google Chart API\footnote{\url{https://developers.google.com/chart/}} in verschiedenen Diagrammen darstellen.
 
-Wir haben diese Applikation als Vorlage für die Umsetzung des Use Cases \emph{WorldData} verwendet. 
-
-Als Datenquelle wurde der Datenkatalog der Weltbank\footnote{\url{http://data.worldbank.org/}} verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als \gls{XML}- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als \gls{CSV}-Dateien gespeichert haben. Diese konnten wir als neue Google Fusion Tables importieren.
+Als Datenquelle wurde der Datenkatalog der Weltbank\footnote{\url{http://data.worldbank.org/}} verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als \gls{XML}- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als \gls{CSV}-Dateien gespeichert haben. Diese konnten wir anschliessend als neue Google Fusion Tables importieren.
 
 Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite\footnote{\url{http://www.gelib.com/world-borders.htm}} bezogen. 
 
@@ -40,74 +42,44 @@ Folgende Anwendungsfälle sollen von der Applikation abgedeckt werden.
 
 % Use Case 1: Anzeigen von Daten eines bestimmten Themas
 \subsubsection{Use Case 1: Anzeigen von Daten eines bestimmten Themas}
-\paragraph{Primary Actor}
-\begin{itemize}
-\item Benutzer
-\end{itemize}
 
-\paragraph{Stakeholders and Interests}
-\begin{itemize}
-\item Benutzer: Möchte Daten zu einem bestimmten Thema auf der Karte anzeigen
-\end{itemize}
-
-\paragraph{Preconditions}
-\begin{itemize}
-\item Webapplikation ist gestartet
-\end{itemize}
-
-\paragraph{Success Guarantee (Postconditions)}
-\begin{itemize}
+\renewcommand{\arraystretch}{2}
+\begin{longtable}{p{0.25\twocelltabwidth}p{0.75\twocelltabwidth}}
+\textit{Primary Actor} & Benutzer \\ 
+\textit{Stakeholders and Interests} & Benutzer: Möchte Daten zu einem bestimmten Thema auf der Karte anzeigen \\ 
+\textit{Preconditions} & Webapplikation ist gestartet \\ 
+\textit{Success Guarantee (Postconditions)} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Daten des gewählten Themas werden auf der Karte angezeigt
 \item Legende zu den Daten wird angezeigt
-\end{itemize}
-
-\paragraph{Main Success Scenario}
-\begin{enumerate}
+\end{itemize} \\ 
+\textit{Main Success Scenario} & \begin{enumerate}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Benutzer wählt das Thema aus
-\end{enumerate}
-
-\paragraph{Special Requirements}
--
-
-\paragraph{Frequency of Occurrence}
-Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
+\end{enumerate} \\ 
+\textit{Frequency of Occurrence} & Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können. \\ 
+\end{longtable} 
+\renewcommand{\arraystretch}{1.3}
 
 % Use Case 2: Ändern des Jahres
 \subsubsection{Use Case 2: Ändern des Jahres}
-\paragraph{Primary Actor}
-\begin{itemize}
-\item Benutzer
-\end{itemize}
 
-\paragraph{Stakeholders and Interests}
-\begin{itemize}
-\item Benutzer: Möchte Daten eines anderen Jahres anzeigen
-\end{itemize}
-
-\paragraph{Preconditions}
-\begin{itemize}
+\renewcommand{\arraystretch}{2}
+\begin{longtable}{p{0.25\twocelltabwidth}p{0.75\twocelltabwidth}}
+\textit{Primary Actor} & Benutzer \\ 
+\textit{Stakeholders and Interests} & Benutzer: Möchte Daten eines anderen Jahres anzeigen \\ 
+\textit{Preconditions} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Webapplikation ist gestartet
 \item Thema ist ausgewählt
-\end{itemize}
-
-\paragraph{Success Guarantee (Postconditions)}
-\begin{itemize}
+\end{itemize} \\ 
+\textit{Success Guarantee (Postconditions)} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Daten des gewählten Jahres werden auf der Karte angezeigt
-\end{itemize}
-
-\paragraph{Main Success Scenario}
-\begin{enumerate}
+\end{itemize} \\ 
+\textit{Main Success Scenario} & \begin{enumerate}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Benutzer wählt das gewünschte Jahr aus
-\end{enumerate}
-
-\paragraph{Alternative Flows}
-1a. Falls für das gewählte Jahr keine Daten vorhanden sind, ist dies ebenfalls auf der Karte ersichtlich.
-
-\paragraph{Special Requirements}
--
-
-\paragraph{Frequency of Occurrence}
-Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können.
+\end{enumerate} \\ 
+\textit{Alternative Flows} & 1a. Falls für das gewählte Jahr keine Daten vorhanden sind, ist dies ebenfalls auf der Karte ersichtlich. \\ 
+\textit{Frequency of Occurrence} & Tritt sehr häufig auf, da eine beliebige Anzahl von Benutzern die Webapplikation bedienen können. \\ 
+\end{longtable} 
+\renewcommand{\arraystretch}{1.3}
 
 \subsection{Datenbankschema}
 Wie bereits im Abschnitt \ref{worlddata-vorgehen} beschrieben verwendet die Applikation die Daten der Merged-Tabelle \emph{MERGE-ftWorldBorders\_ftWorldData} (siehe Abschnitt \ref{merge-table}). Diese beinhaltet pro Thema und Land eine Zeile mit Daten. Diese Daten sind wiederum pro Jahr in einer Spalte abgelegt.
@@ -120,7 +92,7 @@ Wie bereits im Abschnitt \ref{worlddata-vorgehen} beschrieben verwendet die Appl
 \end{figure}
 
 \subsection{Aufbau der Applikation}
-Die Applikation ist über eine View aufgebaut, welche von einem Controller gesteuert wird. Beide verwenden Konfigurationsparameter, welche in der \emph{Config}-Klasse gesetzt werden können.
+Die Applikation ist über eine \emph{View} aufgebaut, welche von einem \emph{Controller} gesteuert wird. Beide verwenden Konfigurationsparameter, welche in der \emph{Config}-Klasse gesetzt werden können. Zusätzlich verwenden beide Klassen Helpermethoden aus der \emph{Helper}-Klasse.
 
 \begin{figure}[H]
 	\centering
@@ -130,7 +102,7 @@ Die Applikation ist über eine View aufgebaut, welche von einem Controller geste
 \end{figure}
 
 \section{Implementation}
-Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wurde das Javascript Framework jQuery Mobile\footnote{\url{http://jquerymobile.com/}} verwendet. Dieses bietet eine sehr grosse Plattform-Unterstützung, was im Webbereich sehr wichtig ist.
+Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wurde das Javascript Framework jQuery Mobile\footnote{\url{http://jquerymobile.com/}} verwendet. Dieses bietet eine sehr grosse Plattform-Unterstützung.
 
 \subsection{Systemanforderungen}
 Da es sich um eine Webapplikation handelt, ist es möglich die Applikation auf beinahe allen Geräten, welche über einem Browser verfügen zu starten. Einschränkungen gibt es nur in den unterstützten Browsern. Eine Liste davon findet sich auf der Webseite des jQuery Mobile Frameworks:  \url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms}
@@ -158,7 +130,7 @@ Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erschein
 \hline 
 \inlinecode{images/} & Bilder der Applikation \\ 
 \hline 
-\inlinecode{js/} & JavaScripts der Applikation \\ 
+\inlinecode{js/} & Hier befindet sich die eigentliche Implementation der Applikation \\ 
 \hline 
 \inlinecode{js/Config.js} & Konfiguration der Applikation \\ 
 \hline 
@@ -178,10 +150,10 @@ Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erschein
 \end{longtable} 
 
 \section{Testing}
-Die Applikationslogik dieses Use Cases befindet sich vor allem im Controller und zu kleinen Teilen im Helper. Für diese beiden Komponenten haben wir jeweils Tests erstellt, insgesamt 12\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=WorldData}}.
+Die Applikationslogik dieses Use Cases befindet sich vor allem im Controller und zu kleinen Teilen im Helper. Für diese beiden Komponenten haben wir jeweils Tests erstellt, insgesamt 12 Stück\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=WorldData}}.
 Zusätzlich gibt es noch 2 Tests für die Konfiguration, diese dienen vor allem dazu, Änderungen der Konfiguration zu erkennen.
 
-Die Anzeige der Daten basiert auf dem FusionTablesLayer des Google Maps \gls{API}, weshalb wir dort keine eigene Logik haben.
+Die Anzeige der Daten basiert auf dem FusionTablesLayer des Google Maps \gls{API}, weshalb wir dort keine eigene Logik haben und diese somit auch nicht testen müssen.
 
 \section{Resultate}
 Das Resultat dieses Use Cases ist eine Webapplikation, welches es dem Benutzer erlaubt länderspezifische Daten zu verschiedenen Themen auf der Karte darzustellen.
@@ -191,19 +163,20 @@ Das Resultat dieses Use Cases ist eine Webapplikation, welches es dem Benutzer e
 \item Auswahl des Themas über Selectbox
 \item Wahl des Jahres über Slider
 \item Weitere Informationen zu den angezeigten Daten per Klick auf das gewünschte Land
+\item Applikation ist dank Verwendung des jQuery Mobile Frameworks ebenfalls auch für Mobilgeräte optimiert
 \end{itemize}
 
 \subsection{Screenshots}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_1960}
+	\includegraphics[width=0.6\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_1960}
 	\caption{WorldData: Population im Jahr 1960}
 	\label{worlddata-screenshots-population_1960}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_2010}
+	\includegraphics[width=0.6\textwidth]{images/usecase1-worlddata/screenshots/worlddata-screenshots-population_2010}
 	\caption{WorldData: Population im Jahr 2010}
 	\label{worlddata-screenshots-population_2010}
 \end{figure}
@@ -231,9 +204,9 @@ Da es sich bei der Applikation lediglich um einen Prototypen handelt, bietet die
 
 \subsubsection{Landesgrenzen}
 \label{landesgrenzen}
-Die Landesgrenzen liegen als KML-Datei vor. Diese beinhaltet alle Länder mit ihren Grenzen definiert als Polygone.
+Die Landesgrenzen liegen als \gls{KML}-Datei vor. Diese beinhaltet alle Länder mit ihren Grenzen definiert als Polygone.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\textwidth]{images/usecase1-worlddata/documentation/worlddata-worldborders_kml}
 	\caption{WorldData: Landesgrenzen liegen als KML-Datei vor}
@@ -293,7 +266,7 @@ Nach dem Import der Daten sollte die Tabelle folgendermassen aussehen:
 Sind beide Fusion Tables erstellt müssen diese zusammengefügt werden, um sie schlussendlich als einen einzelnen Layer auf der Karte darzustellen. Dazu bietet Google Fusion Tables die \emph{Merge}-Funktion an. 
 
 \begin{enumerate}
-\item Eine der beiden Tabellen öffnen
+\item Die Tabelle mit den Landesgrenzen öffnen
 \item Im Menü \emph{Merge} auswählen \\ \includegraphics{images/usecase1-worlddata/documentation/worlddata-merge1}
 \item Es öffnet sich ein Popup, welches durch den Vorgang führt
 \item In der 1. Spalte wählt man die Spalte aus, über welche die beiden Tabellen verbunden werden sollen. In unserem Fall ist dies die Spalte mit den Namen der Länder.
@@ -342,25 +315,25 @@ Als letzten Schritt muss man sich noch die eindeutige ID der Tabelle merken. Daz
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/usecase1-worlddata/documentation/worlddata-prepare_fusiontableslayer4}
-	\caption{WorldData: ID der Merge-Tabelle Dialog}
+	\caption{WorldData: Dialog mit ID der Merge-Tabelle}
 	\label{worlddata-prepare_fusiontableslayer4}
 \end{figure}
 
 \subsection{Konfiguration der Applikation}
-Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden muss diese folgendermassen konfiguriert werden.
+Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden muss das Konfigurations-File der Applikation folgendermassen angepasst werden.
 
 \subsubsection{/js/Config.js}
 \begin{longtable}{|p{0.4\threecelltabwidth}|p{0.1\threecelltabwidth}|p{0.5\threecelltabwidth}|}
 \hline 
 \textbf{Parameter} & \textbf{Typ} & \textbf{Beschreibung} \\ 
 \hline 
-\inlinecode{\$.fusiontable.id} & int & Öffnetliche ID der zu verwendenden Fusion Table \\ 
+\inlinecode{\$.fusiontable.id} & \inlinecode{string} & Öffnetliche ID der zu verwendenden Fusion Table \\ 
 \hline 
-\inlinecode{\$.fusiontable.field} & string & Spaltenname welcher die Landesgrenzen speichert
+\inlinecode{\$.fusiontable.field} & \inlinecode{string} & Spaltenname welcher die Landesgrenzen speichert
 
 \textit{(ACHTUNG: Gross-/Kleinschreibung relevant)} \\ 
 \hline 
-\inlinecode{\$.fusiontable.typeField} & string & Spaltenname aus welchem die Themen gelesen werden sollen
+\inlinecode{\$.fusiontable.typeField} & \inlinecode{string} & Spaltenname aus welchem die Themen gelesen werden sollen
 
 \textit{(ACHTUNG: Gross-/Kleinschreibung relevant)} \\ 
 \hline 
@@ -378,15 +351,15 @@ Um die eben erstellte Fusion Table nun in der WorldData-Applikation zu verwenden
 }
 \end{lstlisting} \\ 
 \hline 
-\inlinecode{TYPE} & string & ID des Themas \\ 
+\inlinecode{TYPE} & \inlinecode{string} & ID des Themas \\ 
 \hline 
-\inlinecode{TYPE.name} & string & Bezeichnung des Themas \\ 
+\inlinecode{TYPE.name} & \inlinecode{string} & Bezeichnung des Themas \\ 
 \hline 
-\inlinecode{TYPE.styleBoundaries.low} & int & Obere Grenze für tiefe Werte \\ 
+\inlinecode{TYPE.styleBoundaries.low} & \inlinecode{int} & Obere Grenze für tiefe Werte \\ 
 \hline 
-\inlinecode{TYPE.styleBoundaries.medium} & int & Obere Grenze für mittlere Werte \\ 
+\inlinecode{TYPE.styleBoundaries.medium} & \inlinecode{int} & Obere Grenze für mittlere Werte \\ 
 \hline 
-\inlinecode{TYPE.styleBoundaries.high} & int & Obere Grenze für hohe Werte \\ 
+\inlinecode{TYPE.styleBoundaries.high} & \inlinecode{int} & Obere Grenze für hohe Werte \\ 
 \hline 
 \caption{WorldData: Konfigurationsparameter}
 \end{longtable}
@@ -396,7 +369,7 @@ Beim Starten der Applikation sollten nun alle Themen der angegebenen Fusion Tabl
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/usecase1-worlddata/documentation/worlddata-application_start}
+	\includegraphics[width=0.6\textwidth]{images/usecase1-worlddata/documentation/worlddata-application_start}
 	\caption{WorldData: Auswahlliste der Themen}
 	\label{worlddata-application_start}
 \end{figure}
