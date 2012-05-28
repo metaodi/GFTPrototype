@@ -204,7 +204,7 @@ Die Applikation verwendet die FusionTable \emph{ftFixMyStreet}\footnote{\url{htt
 \end{figure}
 
 \subsection{Package-Struktur}
-Die Package-Struktur wird vom Sencha Touch Framework fix vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}. Diese abstrahieren jeweils einen Datenspeicher. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation verwendet (siehe Abschnitt \ref{fusiontablesproxy}).
+Die Package-Struktur wird vom Sencha Touch Framework fix vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}. Diese abstrahieren jeweils einen Datenspeicher. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation verwendet (siehe Abschnitt \ref{fixmystreet-proxy}).
 
 \begin{figure}[H]
 	\centering
@@ -242,7 +242,7 @@ Die Applikation wird auf oberster Ebene vom \emph{Main}-Controller gesteuert. Di
 \end{figure}
 
 \subsection{Deployment}
-Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fusiontablesproxy}) auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
+Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fixmystreet-proxy}) auf die Fusion Table Client Library \emph{gftlib-js} (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Google Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
 
 \begin{figure}[H]
 	\centering
@@ -378,7 +378,7 @@ Google Maps API & V3 & Anzeige der Karten \\
 \end{longtable} 
 
 \subsection{Anbindung an Google Fusion Table}
-\label{fusiontablesproxy}
+\label{fixmystreet-proxy}
 Sencha Touch verwendet für den Zugriff auf fremde Datenquellen das Konzept der Proxies. Ein Proxy verbindet einen internen Applikations-Store mit der eigentlichen Datenquelle.
 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (LocalStorage) zu kommunizieren. Zudem existieren Proxies für AJAX-Serveranfragen oder JSONP-Anfragen.
@@ -419,8 +419,15 @@ Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (sieh
 \label{fixmystreet-heatmap}
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
-\section{Test}
+\section{Testing}
 \todo[inline]{FixMyStreet: Tests beschreiben}
+Aufgrund des verwendeten Sencha Touch 2 Frameworks konnten wir die Applikation nur minimal testen. Zum einen wurden Tests erstellt, welche das Laden der JavaScript-Files überprüft. Weiter wurden auch die Config-Parameter auf ihre Korrektheit überprüft.
+
+Das verwendete Framework Sencha Touch 2 machte das Testing der Applikation nicht ganz einfach. Obwohl das Framework den Code sehr stark nach MVC gliedert, haben die einzelnen Teile eine starke Kopplung an das Framework. Dies ist auch der Grund, weshalb wir die Applikation nur punktuell getestet haben\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=FixMyStreet}}.
+
+Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werden. Dies hilft um immer einen konsistenten Stand an Komponenten zu haben, welche so auch zusammen funktionieren können. Zum anderen prüfen wir einige Konfiguration, dabei geht es vor allem darum um Änderungen daran zu erkennen.
+
+Der Use Case basiert zu einem grossen Teil auf unserer Bibliothek GftLib, welche wir für den Zugriff auf die Fusion Tables Datenbank verwenden. Die Bibliothek ist mit ausführlichen Test ausgestattet (siehe Abschnitt \ref{gftlib-testing}). Wir haben schliesslich noch versucht den Proxy (siehe Abschnitt \ref{fixmystreet-proxy}) zu testen, sind jedoch an den Abhängigkeiten zum Framework gescheitert.
 
 \section{Resultate}
 Das Resultat dieses Use Cases ist eine voll ausgereifte WebApp. 
