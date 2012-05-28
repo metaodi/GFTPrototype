@@ -106,7 +106,7 @@ Ext.define("FixMyStreet.controller.Main", {
 	centerMap: function(lat,lng) {
 		if(this.getProblemMap() && lat && lng) {
 			if(!this.getProblemMap().getDisplayed()) {
-				// @TODO ugly timeout to center map correctly on first call (wait till map is correctly rendered)
+				// Timeout to center map correctly on first call (wait till map is correctly rendered)
 				Ext.defer(function() {
 					this.centerMap(lat,lng);
 				}, 500, this);

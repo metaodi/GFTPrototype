@@ -39,8 +39,8 @@ Ext.define("FixMyStreet.controller.ReportMap", {
 			infoPopupCloseButton: {
 				tap: 'onInfoPopupCloseButtonTap'
 			},
-			// @TODO ugly hack to apply done button after slot itemtap
 			typePickerSlot: {
+				// apply done button after slot itemtap
 				itemtap: function() {
 					this.getTypePicker().on({
 						pick: { fn: 'onDoneButtonTap', single: true }
