@@ -1,10 +1,10 @@
 \section{Google Fusion Table Javascript Library (GftLib)}
 \label{gftlib-js}
-Die Google Fusion Table Library (GftLib) ist eine von uns entwickelte JavaScript-Bibliothek, welche die Kommunikation mit dem Google Fusion Table SQL API (siehe Abschnitt \ref{sql-api}) vereinfacht. Sie hilft dabei SQL-Abfragen zu erstellen und per \gls{AJAX} an das API zu versenden. Zudem kümmert sich die Library um die Authentifizierung via \gls{OAuth}, so dass auch schreibende Zugriffe oder Zugriffe auf private Tabellen möglich sind.
+Die Google Fusion Table Library (GftLib) ist eine von uns entwickelte JavaScript-Bibliothek, welche die Kommunikation mit dem Google Fusion Table SQL \gls{API} (siehe Abschnitt \ref{sql-api}) vereinfacht. Sie hilft dabei SQL-Abfragen zu erstellen und per \gls{AJAX} an das \gls{API} zu versenden. Zudem kümmert sich die Library um die Authentifizierung via \gls{OAuth}, so dass auch schreibende Zugriffe oder Zugriffe auf private Tabellen möglich sind.
 
-Die Bibliothek hat Abhängigkeiten zu jQuery\footnote{\url{http://jquery.com/}} (für einige Hilfsfunktionen) sowie dem Google API JavaScript Client\footnote{\url{http://code.google.com/p/google-api-javascript-client/}} (für die Authentifizierung und das Abschicken der Requests).
+Die Bibliothek hat Abhängigkeiten zu jQuery\footnote{\url{http://jquery.com/}} (für einige Hilfsfunktionen) sowie dem Google \gls{API} JavaScript Client\footnote{\url{http://code.google.com/p/google-api-javascript-client/}} (für die Authentifizierung und das Abschicken der Requests).
 
-Die Bibliothek besteht aus 2 Klassen (GftLib und SqlBuilder). Die GftLib ist das API zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt auf einfach Art und Weise SQL Befehle zu generieren.
+Die Bibliothek besteht aus 2 Klassen (GftLib und SqlBuilder). Die GftLib ist das \gls{API} zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt auf einfach Art und Weise SQL Befehle zu generieren.
 
 \subsection{Verwendung}
 In folgendem Beispiel sieht man die GftLib und den SqlBuilder im Einsatz. Zuerst werden alle benötigten Werte initialisiert (Zeilen 1-3), dann wird die Ausgabefunktion \inlinecode{printer} definiert, welche später als Callback-Funktion dient für den Request. Das heisst, dass die Funktion aufgerufen wird, sobald die Antwort der Abfrage zurückkommt. 
@@ -39,7 +39,7 @@ gft.execSelect(printer, {table:tableId, fields:['name', 'population']});
 \hline 
 jQuery & 1.7.1-min & Helper-Funktionen und \gls{AJAX}-Requests für den OAuthTokenService  \\ 
 \hline 
-Google APIs Client Library & ALPHA release & \gls{AJAX}-Requests an das Google API und Authentifizierung \\ 
+Google \gls{API}s Client Library & ALPHA release & \gls{AJAX}-Requests an das Google \gls{API} und Authentifizierung \\ 
 \hline 
 \end{longtable} 
 
@@ -161,8 +161,27 @@ Die Methoden des SqlBuilders nehmen jeweils ein Parameter-Objekt\footnote{\url{h
 \subsection{Implementation}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{images/gftlib-js/gftlibjs-classmodel}
+	\includegraphics[width=0.8\textwidth]{images/gftlib-js/gftlibjs-classmodel}
 	\caption{GftLib Klassendiagramm}
 	\label{gftlibjs-classmodel}
 \end{figure}
-\todo[inline]{GftLib: Implementierung beschreiben}
+
+Die GftLib verwendet den SqlBuilder um aus gegebenen Input-Parametern SQL-Befehle zu generieren. Diese Befehle werden dann mit Hilfe der Google \gls{API} Bibliothek (\emph{gapi}) abgeschickt. Das Google \gls{API} schickt die Resultate dann via Callback-Funktion wieder zurück an die GftLib. Aus der Bibliothek jQuery verwenden wir einige Helferfunktionen für Strings sowie die Möglichkeit auf einfache Art und Weise \gls{AJAX}-Requests abzuschicken.
+
+\subsection{Testing}
+Mit Hilfe des Unit-Testing Frameworks QUnit\footnote{\url{http://docs.jquery.com/QUnit}} konnten wir für die GftLib durchgängige Tests erstellen. Die Tests werden in JavaScript geschrieben und können deshalb direkt im Browser ausgeführt werden\footnote{Produktive Tests: \url{http://gft.rdmr.ch/test/js/}}. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/gftlib-js/gftlibjs-tests}
+	\caption{QUnit Tests der GftLib}
+	\label{gftlibjs-tests}
+\end{figure}
+
+Wir haben insgesamt 84 Tests für die GftLib erstellt, welche jede Funktion mit verschiedenen Parametern prüft. Wir haben den \emph{test early}-Ansatz gewählt, dabei werden die Tests sehr zeitnah zur Erstellung einer Funktion geschrieben. Dank der guten Testabdeckung konnten wir unseren Code regelmässigen Refactorings unterziehen ohne uns darum Sorgen zu machen, bestehende Funktionalität kaputt zu machen (Regression). Es hat sich gezeigt, dass wir dadurch auch in der Lage waren, schnell das neue Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) zu testen und die nötigen Anpassungen vorzunehmen um unsere Tests wieder lauffähig zu machen. Dabei haben wir sogar einen Bug der Schnittstelle entdeckt, welchen wir Google gemeldet haben (siehe Abschnitt \ref{austausch-mit-google}).
+
+QUnit hat sich als sehr wertvoll erwiesen bei den sogenannten asynchronen Tests. Da unsere Bibliothek sehr stark auf die asynchronen Aufrufen des Google \gls{API}s angewiesen ist, konnten wir trotzdem sehr einfach Tests dazu schreiben ohne uns um diesen Aspekt kümmern zu müssen.
+
+Wenn wir einen Bug gefunden haben, haben wir diesen jeweils mit einem Unit-Test nachvollzogen, so dass dieser nicht noch ein weiteres Mal auftritt. Die Testabdeckung lässt sich leider nicht so einfach messen wie dies beispielsweise bei einer Java-Applikation der Fall ist. Zu diesem Zweck hätten wir in unserem Code überall Messpunkte einbauen müssen, was für für eine Bibliothek grundsätzlich unerwünscht ist.
+
+Da sich ein Grossteil der Funktionalität in privaten Methoden befindet, welche in JavaScript grundsätzlich nicht von aussen zugreifbar sind, haben wir öffentliche Aliase erstellt, um Tests dieser Methoden zu ermöglichen. Die Aliase sind jeweils mit zwei Unterstrichen gekennzeichnet; sie sind nicht teil des öffentlichen \gls{API}s und sollten nur von von Unit-Tests verwendet werden.
