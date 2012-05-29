@@ -147,7 +147,7 @@ Der Gemeindearbeiter öffnet die FixMyStreet Fusion Table. Er hat darin die Mög
 \subsection{Paper-Prototype}
 Vor der Implementation der Oberfläche wurde ein Paper-Prototype des GUI-Design erstellt. Dieses wurde von verschiedenen Personen getestet. Der Prototype besteht aus drei verschiedenen Hauptmasken.
 
-\paragraph{Maske:Defekt melden}
+\subsubsection{Maske: Defekt melden}
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
 
 \begin{figure}[H]
@@ -168,7 +168,7 @@ Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der De
 \subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_meldungerfolgreich.jpg}}
 \end{figure}
 
-\paragraph{Maske: Defekte verwalten}
+\subsubsection{Maske: Defekte verwalten}
 In dieser Maske kann man seine bereits gemeldeten Defekte verwalten. Diese werden gruppiert in \emph{Offene Defekte} und \emph{Behobene Defekte}. Zu jedem Defekt wird der aktuelle Status angezeigt. Mit einem Klick auf einen Defekt erreicht man dessen Detailanzeige.
 
 \begin{figure}[H]
@@ -177,7 +177,7 @@ In dieser Maske kann man seine bereits gemeldeten Defekte verwalten. Diese werde
 \subfigure[Detailansicht eines gemeldeten Defekts]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten_detail.jpg}}
 \end{figure}
 
-\paragraph{Maske: Defekte anzeigen}
+\subsubsection{Maske: Defekte anzeigen}
 Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit einem Klick auf eine Defekt-Markierung erhält man zusätzliche Information zu diesem Defekt.
 
 \begin{figure}[H]
@@ -251,7 +251,7 @@ Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{F
 \end{figure}
 
 \subsection{Starten der Applikation}
-Der Benutzer startet die Applikation mit dem Zugriff auf die \emph{index}-Seite, welche die \emph{launch()}-Funktion der Applikation aufruft. Danach werden folgende Schritte durchlaufen:
+Der Benutzer startet die Applikation mit dem Zugriff auf die \inlinecode{index}-Seite, welche die \inlinecode{launch()}-Funktion der Applikation aufruft. Danach werden folgende Schritte durchlaufen:
 
 \begin{enumerate}
 \item Laden der verschiedenen Status-Typen
@@ -278,7 +278,8 @@ Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\foot
 
 In den Controller-Klassen werden genau über dieses Konzept Referenzen auf die View-Objekte erstellt und darauf zugegriffen. Damit ist es in fast allen Fällen möglich, die View-Klassen frei von Bussinesslogik zu halten.
 
-\paragraph{Beispiel einer Component-Query}
+% Hier wurde bewusst eine subsubsection verwendet, um den Titel nicht in das Inhaltsverzeichnis einzufuegen
+\subsubsection{Beispiel einer Component-Query}
 Das Beispiel \ref{st2-componentquery}\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \emph{nav} via Component-Query die View-Komponente mit der ID \emph{mainNav}.
 
 \lstset{language=JavaScript}
