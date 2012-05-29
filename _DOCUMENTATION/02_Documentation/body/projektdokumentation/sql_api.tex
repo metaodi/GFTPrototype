@@ -122,12 +122,15 @@ Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Mögl
 \end{longtable} 
 
 \section{Client Libraries}
-Google bietet zum API bereits auch Client Libraries in den Sprachen PHP und Phyton an. Da unserer Applikation aber möglichst nur in Javascript implementiert werden soll erstellten wir uns eine Javascript Library zur Verwendung des SQL APIs.
+Google bietet Client Libraries zum \gls{API} in den Sprachen PHP\footnote{\url{http://code.google.com/p/fusion-tables-client-php/}} und Python\footnote{\url{http://code.google.com/p/fusion-tables-client-python/}} an. Da wir eine Webapplikation möglichst ohne Serverteil erstellen wollten, waren wir auf eine Bibliothek in JavaScript angewiesen. Da es bislang noch keine solche gab, haben wir selbst begonnen die GftLib zu entwickeln (siehe Abschnitt \ref{gftlib-js}).
 
-\todo[inline]{Client Libraries Abschnitt überarbeiten (Glossareintrag für SOP, JSONP)}
-Durch die Same origin policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, welche es uns daran hinderte AJAX-Requests direkt auf das Google API abzusetzen, mussten wir zuerst nach Lösungen für dieses Problem suchen. Wir wollten es verhindern einen PHP-Server dazwischen zu schalten, welcher uns die Abfragen abnimmt.
+Durch die Same-Origin-Policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, wurden wir daran gehindert \gls{AJAX}-Requests direkt auf das Google \gls{API} abzusetzen. Wir mussten eine Alternative finden, ohne eine Serverkomponente einzuführen.
 
-So fanden wir in den Google Groups ein inoffizielles JSONP API, welches es erlaubt AJAX-Requests auch über die eigene Domäne hinweg zu senden. Dies funktioniert jedoch nur für lesende Zugriffe. Für alle schreibenden Zugriffe mussten wir eine Umgeheungslösung bauen, bei der die Requests über unseren Webserver geschleust wurden. Damit konnten wir die Same-Origin-Policy umgehen. Mit Hilfe des Trusted Tester API (Siehe Abschnitt~\ref{trusted-tester-api}) haben wir schlussendlich dann aber doch noch eine Lösung gefunden, welche direkt im Browser läuft und somit nicht auf Server-Code angewiesen ist.
+Schliesslich fanden wir in den Google Groups ein inoffizielles \gls{JSONP} \gls{API}\footnote{\url{https://groups.google.com/forum/?hl=en&fromgroups\#!topic/fusion-tables-users-group/jCiFfqCgCWM}}, welches es erlaubt \gls{AJAX}-Requests auch über die eigene Domäne hinweg zu senden. Diese Methode funktionierte jedoch nur für lesende Zugriffe. 
+
+Für die schreibenden Zugriffe haben wir als Workaround einen \emph{Relay-Dienst} geschrieben, welcher auf unserem Webserver lief. Der Dienst hat lediglich die Requests entgegengenommen und diese dann an das Google API weitergeleitet.
+
+Als wir den Zugriff auf das Trusted Tester API (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt Requests ans API zu schicken, ohne einen Umweg über \gls{AJAX} zu machen\footnote{Google APIs Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}}.
 
 \section{Trusted Tester API}
 \label{trusted-tester-api}
