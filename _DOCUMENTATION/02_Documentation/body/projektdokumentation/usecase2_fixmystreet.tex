@@ -26,7 +26,7 @@ Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem 
 
 % Ziel
 \subsection{Ziel}
-Das Ziel dieses Use Cases war die Erstellung einer Web-App, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
+Das Ziel dieses Use Cases war die Erstellung einer \gls{WebApp}, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
 
 Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige \gls{GIS}-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
@@ -38,7 +38,7 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 
 \begin{enumerate}
 \item Claudia entdeckt auf ihrem Heimweg eine defekte Strassenlampe.
-\item Sie öffnet die \emph{FixMyStreet} Web-App auf ihrem Handy und meldet den Standort der defekten Strassenlampe.
+\item Sie öffnet die \emph{FixMyStreet} \gls{WebApp} auf ihrem Handy und meldet den Standort der defekten Strassenlampe.
 \item Am nächsten Tag überprüft der Werkshofleiter Franz die neuen gemeldeten Fälle im System und findet den Eintrag von Claudia.
 \item Er macht sich auf den Weg und repariert die defekte Strassenlampe.
 \item Am Abend darauf stellt Claudia erfreut fest, dass die Strassenlampe bereits repariert wurde.
@@ -64,7 +64,7 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 
 
 \subsection{Use Cases}
-Die \emph{FixMyStreet} Web-App soll folgende Use Cases abdecken.
+Die \emph{FixMyStreet} \gls{WebApp} soll folgende Use Cases abdecken.
 
 \begin{figure}[H]
 	\centering
@@ -80,7 +80,7 @@ Die \emph{FixMyStreet} Web-App soll folgende Use Cases abdecken.
 \begin{longtable}{p{0.25\twocelltabwidth}p{0.75\twocelltabwidth}}
 \textit{Primary Actor} & Bürger \\ 
 \textit{Stakeholders and Interests} & Bürger: Möchte einen entdeckten Defekt melden \\ 
-\textit{Preconditions} & Web-App ist gestartet \\ 
+\textit{Preconditions} & \gls{WebApp} ist gestartet \\ 
 \textit{Success Guarantee (Postconditions)} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Neuer Defekt ist in Datenbank gespeichert
 \item Defekt ist in der Liste und auf der Karte ersichtlich
@@ -92,9 +92,9 @@ Die \emph{FixMyStreet} Web-App soll folgende Use Cases abdecken.
 \item Bürger sendet den Defekt ab
 \item Bürger bestätigt die Kontrollfrage, ob der defekt tatsächlich gesendet werden soll
 \end{enumerate} \\ 
-\textit{Alternative Flows} & 2a. Markierung muss nicht zwangsläufig verschoben werden. Sie zeigt beim Starten der Web-App auf die aktuelle Position
+\textit{Alternative Flows} & 2a. Markierung muss nicht zwangsläufig verschoben werden. Sie zeigt beim Starten der \gls{WebApp} auf die aktuelle Position
 
-2b. Falls die Web-App nicht auf die aktuelle Position zugreifen kann, zeigt die Markierung auf einen vorkonfigurierten Ort \\ 
+2b. Falls die \gls{WebApp} nicht auf die aktuelle Position zugreifen kann, zeigt die Markierung auf einen vorkonfigurierten Ort \\ 
 \textit{Frequency of Occurrence} & Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kann \\ 
 \end{longtable} 
 \renewcommand{\arraystretch}{1.3}
@@ -107,7 +107,7 @@ Die \emph{FixMyStreet} Web-App soll folgende Use Cases abdecken.
 \textit{Primary Actor} & Bürger \\ 
 \textit{Stakeholders and Interests} & Bürger: Möchte einen bereits gemeldeten Defekt löschen \\ 
 \textit{Preconditions} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item Web-App ist gestartet
+\item \gls{WebApp} ist gestartet
 \item Die Listenansicht wurde geöffnet 
 \item Es wurde bereits ein Defekt gemeldet
 \end{itemize} \\ 
@@ -151,37 +151,37 @@ Vor der Implementation der Oberfläche wurde ein Paper-Prototype des GUI-Design 
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
 
 \begin{figure}[H]
-\subfigure[Defekt melden - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden.jpg}}
+\subfigure[Defekt melden - Übersicht]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden.jpg}}
 \hfill
-\subfigure[Fehleranzeige beim Absenden ohne Defekttyp-Auswahl]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_fehler.jpg}}
+\subfigure[Fehleranzeige beim Absenden ohne Defekttyp-Auswahl]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_fehler.jpg}}
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Defekttyp-Auswahl aufgeklappt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektauswaehlen.jpg}}
+\subfigure[Defekttyp-Auswahl aufgeklappt]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektauswaehlen.jpg}}
 \hfill
-\subfigure[Defekttyp ausgewählt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektausgewaehlt.jpg}}
+\subfigure[Defekttyp ausgewählt]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_defektausgewaehlt.jpg}}
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Defekt-Markierung auf Karte verschoben]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_ortgewaehlt.jpg}}
+\subfigure[Defekt-Markierung auf Karte verschoben]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_ortgewaehlt.jpg}}
 \hfill
-\subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_meldungerfolgreich.jpg}}
+\subfigure[Defekt erfolgreich gemeldet]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-melden_meldungerfolgreich.jpg}}
 \end{figure}
 
 \subsubsection{Maske: Defekte verwalten}
 In dieser Maske kann man seine bereits gemeldeten Defekte verwalten. Diese werden gruppiert in \emph{Offene Defekte} und \emph{Behobene Defekte}. Zu jedem Defekt wird der aktuelle Status angezeigt. Mit einem Klick auf einen Defekt erreicht man dessen Detailanzeige.
 
 \begin{figure}[H]
-\subfigure[Defekte verwalten - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten.jpg}}
+\subfigure[Defekte verwalten - Übersicht]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten.jpg}}
 \hfill
-\subfigure[Detailansicht eines gemeldeten Defekts]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten_detail.jpg}}
+\subfigure[Detailansicht eines gemeldeten Defekts]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-verwalten_detail.jpg}}
 \end{figure}
 
 \subsubsection{Maske: Defekte anzeigen}
 Auf dieser Maske werden alle gemeldeten Defekte in der Nähe angezeigt. Mit einem Klick auf eine Defekt-Markierung erhält man zusätzliche Information zu diesem Defekt.
 
 \begin{figure}[H]
-\subfigure[Anzeigen - Übersicht]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-anzeigen.jpg}}
+\subfigure[Anzeigen - Übersicht]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/paperprototype/fixmystreet-pp-anzeigen.jpg}}
 \end{figure}
 
 % Design
@@ -272,7 +272,7 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \inlinecode{index}-
 
 % Implementation
 \section{Implementation}
-Die Web-App basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen Web-Apps mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
+Die \gls{WebApp} basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen \gls{WebApp}s mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
 
 Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\footnote{\url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.ComponentQuery}}. Damit lassen sich View-Komponenten über verschiedene Attribute referenzieren. So kann man beispielsweise über deren eindeutige ID eine Referenz auf das Objekt erstellen.
 
@@ -323,7 +323,7 @@ Eie vollständige Liste der unterstützten Geräte findet man auf der Seite \url
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
-Sencha Touch 2 & 2.0.1 & Framework zur Erstellung von mobilen Web-Apps \\ 
+Sencha Touch 2 & 2.0.1 & Framework zur Erstellung von mobilen \gls{WebApp}s \\ 
 \hline 
 gftlib-js & 1.0 & Kommunikation mit dem Google Fusion Tables via SQL \gls{API} \\ 
 \hline 
@@ -382,7 +382,7 @@ Das Sencha Touch 2 Framework verwendet für den Zugriff auf fremde Datenquellen 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (Web Storage\footnote{\url{http://de.wikipedia.org/wiki/Web_Storage}}) zu kommunizieren. Zudem existieren Proxies für \gls{AJAX}-Serveranfragen oder \gls{JSONP}-Anfragen.
 
 Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL \gls{API} mit der Fusion Table zu kommunizieren.
-Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die Web-App nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die \gls{WebApp} nicht vorgesehen und wurde deshalb auch nicht implementiert.
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \begin{figure}[H]
@@ -425,7 +425,7 @@ Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werd
 Der Use Case basiert zu einem grossen Teil auf unserer Bibliothek GftLib, welche wir für den Zugriff auf die Fusion Tables Datenbank verwenden. Die Bibliothek ist mit ausführlichen Test ausgestattet (siehe Abschnitt \ref{gftlib-testing}). Wir haben schliesslich noch versucht den Proxy (siehe Abschnitt \ref{fixmystreet-proxy}) zu testen, sind jedoch an den Abhängigkeiten zum Framework gescheitert.
 
 \section{Resultate}
-Das Resultat dieses Use Cases ist eine voll ausgereifte Web-App.
+Das Resultat dieses Use Cases ist eine voll ausgereifte \gls{WebApp}.
 
 \subsection{Maske: Defekt melden}
 Dies ist die Hauptmaske der App. Sie wird geöffnet sobald der Benutzer die Applikation startet. Darauf kann der Benutzer Defekte an beliebigen Orten melden.
