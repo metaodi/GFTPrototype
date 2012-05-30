@@ -595,12 +595,10 @@ asyncTest("createView + INSERT", 3, function() {
 	gft.createView(testCb, {viewName:'test_view', query:"select Text from " + this.testGftInsertTable + " where Number = 33"});
 });
 
-/*
-asyncTest("SELECT after INSERT with ST_INTERSECTS (one column adress)", 4, function() {
+asyncTest("SELECT after INSERT with ST_INTERSECTS (one column address)", 4, function() {
 	var gft = this.gft;
-	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var tableId = '1HAeyEcDczvFxltrF_iLwh8-hG5ONYpaKzQUkByM';
 	var rowId = null;
-	
 	
 	var locStr = 'Rathausstrasse 8, 8640 Rapperswil-Jona, Switzerland';
 	var lat = 47.22645443980465;
@@ -623,7 +621,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column adress)", 4, funct
 	}
 	
 	var selectCb = function(data,status) {
-		if (data === null) {
+		if (data === null || data.error !== undefined) {
 			ok(false, "insert failed with status: " + status);
 			start();
 			return;
@@ -640,7 +638,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column adress)", 4, funct
 
 asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and space)", 4, function() {
 	var gft = this.gft;
-	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var tableId = '1TizwCNXNEBw0RIuoxnUJvcKmNwJ97L6M_paZXFE';
 	var rowId = null;
 	
 	var lat = 47.22398443540521;
@@ -664,7 +662,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and space)
 	}
 	
 	var selectCb = function(data,status) {
-		if (data === null) {
+		if (data === null || data.error !== undefined) {
 			ok(false, "insert failed with status: " + status);
 			start();
 			return;
@@ -681,7 +679,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and space)
 
 asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and comma)", 4, function() {
 	var gft = this.gft;
-	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var tableId = '1kPCVQ7Soi85GkUmBVGbs_lrvxahxXj341vjxW44';
 	var rowId = null;
 	
 	var lat = 47.22398443540521;
@@ -705,7 +703,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and comma)
 	}
 	
 	var selectCb = function(data,status) {
-		if (data === null) {
+		if (data === null || data.error !== undefined) {
 			ok(false, "insert failed with status: " + status);
 			start();
 			return;
@@ -722,7 +720,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column lat/lng and comma)
 
 asyncTest("SELECT after INSERT with ST_INTERSECTS (one column KML)", 4, function() {
 	var gft = this.gft;
-	var tableId = '10k6S5HN2iF1tWCIytST3Nhq7e5s-Hyakma_IlXE';
+	var tableId = '1ebcorZ-YwcZw0SA604bO4bjWMQ621ZaF3ve8IDA';
 	var rowId = null;
 	
 	var lat = 47.22398443540521;
@@ -746,7 +744,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (one column KML)", 4, function
 	}
 	
 	var selectCb = function(data,status) {
-		if (data === null) {
+		if (data === null || data.error !== undefined) {
 			ok(false, "insert failed with status: " + status);
 			start();
 			return;
@@ -786,7 +784,7 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (two column lat/lng)", 4, func
 	}
 	
 	var selectCb = function(data,status) {
-		if (data === null) {
+		if (data === null || data.error !== undefined) {
 			ok(false, "insert failed with status: " + status);
 			start();
 			return;
@@ -800,4 +798,3 @@ asyncTest("SELECT after INSERT with ST_INTERSECTS (two column lat/lng)", 4, func
 	
 	gft.execInsert(selectCb, {table:tableId, fields:['Text','Number','latitude','longitude','Date'], values:['Insert by Unit-Test for ST_INTERSECTS (two column lat/lng)', 94, lat, lng, getDateString()]});
 });
-*/
