@@ -130,7 +130,7 @@ Schliesslich fanden wir in den Google Groups ein inoffizielles \gls{JSONP} \gls{
 
 Für die schreibenden Zugriffe haben wir als Workaround einen \emph{Relay-Dienst} geschrieben, welcher auf unserem Webserver lief. Der Dienst hat lediglich die Requests entgegengenommen und diese dann an das Google API weitergeleitet.
 
-Als wir den Zugriff auf das Trusted Tester API (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt Requests ans API zu schicken, ohne einen Umweg über \gls{AJAX} \todo{stimmt hier AJAX} zu machen\footnote{Google APIs Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}}.
+Als wir den Zugriff auf das Trusted Tester API (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt mit ihrem JavaScript API Client\footnote{Google APIs Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}} Requests ans API zu schicken, somit entfällt die Same-Origin-Policy Problematik.
 
 \section{Trusted Tester API}
 \label{trusted-tester-api}
