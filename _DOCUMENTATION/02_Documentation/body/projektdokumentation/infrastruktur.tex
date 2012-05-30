@@ -41,7 +41,7 @@ Das Log Parser Plugin\footnote{\url{http://wiki.hudson-ci.org/display/HUDSON/Log
 Wir haben unseren Buildserver so getriggert, dass dieser ausgelöst wird, wenn eine Änderung auf GitHub gepusht wurde. Dazu haben wir das GitHub Plugin\footnote{\url{https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin}} auf Jenkins installiert, welches sich einfach im Backend installieren lässt. Im GitHub-Repository mussten wir dann noch sogenannte Web Hooks{\footnote{\url{http://help.github.com/post-receive-hooks/}} einrichten, so dass GitHub jeweils Jenkins benachrichtigt, sobald Änderungen eintreffen.
 
 \subsection{Build Steuerung mit Ant}
-Zur Build-Steuerung verwenden wir Ant\footnote{\url{http://ant.apache.org/}}. Ant ist vor allem aus der Java-Welt bekannt, lässt sich aber auch gut in andere Umgebungen einbinden. Der Build wir in einer XML-Datei spezifiziert. Einzelne Schritte darin werden \emph{\gls{AntTarget}} genannt und diese sollten grundsätzlich von einander unabhängig sein. Dies ermöglicht es auch nur Teilschritte eines Builds auszuführen. Es lassen sich aber auch Abhängigkeiten zwischen Targets definieren, welche dann der Reihe nach abgearbeitet werden.
+Zur Build-Steuerung verwenden wir Ant\footnote{\url{http://ant.apache.org/}}. Ant ist vor allem aus der Java-Welt bekannt, lässt sich aber auch gut in andere Umgebungen einbinden. Der Build wir in einer \gls{XML}-Datei spezifiziert. Einzelne Schritte darin werden \emph{\gls{AntTarget}} genannt und diese sollten grundsätzlich von einander unabhängig sein. Dies ermöglicht es auch nur Teilschritte eines Builds auszuführen. Es lassen sich aber auch Abhängigkeiten zwischen Targets definieren, welche dann der Reihe nach abgearbeitet werden.
 
 Hier zum Beispiel unser \inlinecode{build}-Target, welches alle anderen Targets als Abhängigkeit hat:
 \lstset{language=Ant}
@@ -52,7 +52,7 @@ Hier zum Beispiel unser \inlinecode{build}-Target, welches alle anderen Targets 
 \end{lstlisting}
 
 \subsection{Testausführung}
-Zur Darstellung der Testresultate bauen wir auf dem JUnit XML-Interpreter auf, welcher in Jenkins bereits integriert ist. Dazu ist es lediglich notwendig alle Testresultate in das JUnit XML-Format zu bringen, die ganzen Auswertungen, Grafiken etc. bekommt man dann quasi "`gratis"' dazu.
+Zur Darstellung der Testresultate bauen wir auf dem JUnit \gls{XML}-Interpreter auf, welcher in Jenkins bereits integriert ist. Dazu ist es lediglich notwendig alle Testresultate in das JUnit \gls{XML}-Format zu bringen, die ganzen Auswertungen, Grafiken etc. bekommt man dann quasi "`gratis"' dazu.
 
 \begin{figure}[!ht]
 	\centering

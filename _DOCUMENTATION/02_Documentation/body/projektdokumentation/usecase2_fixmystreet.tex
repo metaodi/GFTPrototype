@@ -26,7 +26,7 @@ Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem 
 
 % Ziel
 \subsection{Ziel}
-Das Ziel dieses Use Cases war die Erstellung einer WebApp, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
+Das Ziel dieses Use Cases war die Erstellung einer Web-App, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
 
 Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige \gls{GIS}-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
@@ -38,7 +38,7 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 
 \begin{enumerate}
 \item Claudia entdeckt auf ihrem Heimweg eine defekte Strassenlampe.
-\item Sie öffnet die \emph{FixMyStreet}-WebApp auf ihrem Handy und meldet den Standort der defekten Strassenlampe.
+\item Sie öffnet die \emph{FixMyStreet} Web-App auf ihrem Handy und meldet den Standort der defekten Strassenlampe.
 \item Am nächsten Tag überprüft der Werkshofleiter Franz die neuen gemeldeten Fälle im System und findet den Eintrag von Claudia.
 \item Er macht sich auf den Weg und repariert die defekte Strassenlampe.
 \item Am Abend darauf stellt Claudia erfreut fest, dass die Strassenlampe bereits repariert wurde.
@@ -64,7 +64,7 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 
 
 \subsection{Use Cases}
-Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
+Die \emph{FixMyStreet} Web-App soll folgende Use Cases abdecken.
 
 \begin{figure}[H]
 	\centering
@@ -80,7 +80,7 @@ Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 \begin{longtable}{p{0.25\twocelltabwidth}p{0.75\twocelltabwidth}}
 \textit{Primary Actor} & Bürger \\ 
 \textit{Stakeholders and Interests} & Bürger: Möchte einen entdeckten Defekt melden \\ 
-\textit{Preconditions} & WebApp ist gestartet \\ 
+\textit{Preconditions} & Web-App ist gestartet \\ 
 \textit{Success Guarantee (Postconditions)} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
 \item Neuer Defekt ist in Datenbank gespeichert
 \item Defekt ist in der Liste und auf der Karte ersichtlich
@@ -92,9 +92,9 @@ Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 \item Bürger sendet den Defekt ab
 \item Bürger bestätigt die Kontrollfrage, ob der defekt tatsächlich gesendet werden soll
 \end{enumerate} \\ 
-\textit{Alternative Flows} & 2a. Markierung muss nicht zwangsläufig verschoben werden. Sie zeigt beim Starten der WebApp auf die aktuelle Position
+\textit{Alternative Flows} & 2a. Markierung muss nicht zwangsläufig verschoben werden. Sie zeigt beim Starten der Web-App auf die aktuelle Position
 
-2b. Falls die WebApp nicht auf die aktuelle Position zugreifen kann, zeigt die Markierung auf einen vorkonfigurierten Ort \\ 
+2b. Falls die Web-App nicht auf die aktuelle Position zugreifen kann, zeigt die Markierung auf einen vorkonfigurierten Ort \\ 
 \textit{Frequency of Occurrence} & Tritt sehr häufig auf, da eine beliebige Anzahl von Bürgern Defekte melden kann \\ 
 \end{longtable} 
 \renewcommand{\arraystretch}{1.3}
@@ -107,7 +107,7 @@ Die \emph{FixMyStreet}-WebApp soll folgende Use Cases abdecken.
 \textit{Primary Actor} & Bürger \\ 
 \textit{Stakeholders and Interests} & Bürger: Möchte einen bereits gemeldeten Defekt löschen \\ 
 \textit{Preconditions} & \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item WebApp ist gestartet
+\item Web-App ist gestartet
 \item Die Listenansicht wurde geöffnet 
 \item Es wurde bereits ein Defekt gemeldet
 \end{itemize} \\ 
@@ -272,7 +272,7 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \inlinecode{index}-
 
 % Implementation
 \section{Implementation}
-Die WebApp basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen WebApps mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
+Die Web-App basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen Web-Apps mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
 
 Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\footnote{\url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.ComponentQuery}}. Damit lassen sich View-Komponenten über verschiedene Attribute referenzieren. So kann man beispielsweise über deren eindeutige ID eine Referenz auf das Objekt erstellen.
 
@@ -323,13 +323,13 @@ Eie vollständige Liste der unterstützten Geräte findet man auf der Seite \url
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
-Sencha Touch 2 & 2.0.1 & Framework zur Erstellung von mobilen WebApps \\ 
+Sencha Touch 2 & 2.0.1 & Framework zur Erstellung von mobilen Web-Apps \\ 
 \hline 
-gftlib-js & 1.0 & Kommunikation mit dem Google Fusion Tables via SQL API \\ 
+gftlib-js & 1.0 & Kommunikation mit dem Google Fusion Tables via SQL \gls{API} \\ 
 \hline 
 jQuery & 1.7.1 & Wird von der GftLib verwendet \\ 
 \hline 
-Google Maps API & V3 & Anzeige der Karten \\ 
+Google Maps \gls{API} & V3 & Anzeige der Karten \\ 
 \hline 
 \caption{FixMyStreet: Abhängigkeiten}
 \end{longtable} 
@@ -381,8 +381,8 @@ Das Sencha Touch 2 Framework verwendet für den Zugriff auf fremde Datenquellen 
 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (Web Storage\footnote{\url{http://de.wikipedia.org/wiki/Web_Storage}}) zu kommunizieren. Zudem existieren Proxies für \gls{AJAX}-Serveranfragen oder \gls{JSONP}-Anfragen.
 
-Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL API mit der Fusion Table zu kommunizieren.
-Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die WebApp nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL \gls{API} mit der Fusion Table zu kommunizieren.
+Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die Web-App nicht vorgesehen und wurde deshalb auch nicht implementiert.
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \begin{figure}[H]
@@ -409,9 +409,9 @@ Die Karte aktualisiert sich zudem jedes Mal, wenn die Übersichtsmaske aufgerufe
 \subsection{Auf Übersichtsmaske nur Defekte im sichtbaren Bereich laden}
 Um nicht zu viele Markierungen gleichzeitig zu laden, was sich negativ auf die Performance der Applikation auswirken würde, laden wir auf der Übersichtsmaske nur diejenigen Defekte, welche im aktuell sichtbaren Bereich der Karte liegen. Sobald die Karte verschoben oder der Zoom verändert wird, werden die Defekte für den neuen Bereich nachgeladen.
 
-Dazu haben wir vorerst das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL APIs (siehe Abschnitt \ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir diesem als Parameter ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
+Dazu haben wir vorerst das Spatial-Query \inlinecode{ST\_INTERSECTS} des SQL \gls{API}s (siehe Abschnitt \ref{sqlapi-spatialqueries}) verwendet. Als Grenze geben wir diesem als Parameter ein Rechteck bestehend aus zwei Ecken der momentan angezeigten Karte mit.
 
-Aufgrund der Einschränkung, dass neue Datensätze nicht geokodiert werden (siehe Abschnitt \ref{geocodierung-bug}), mussten wir das Spatial-Query aber wieder entfernen und durch eine eigene \inlinecode{WHERE}-Bedingung ersetzen. Ansonsten würden neu gemeldete Defekte solange nicht auf der Karte angezeigt, bis die Datensätze über das Fusion Tables Web-GUI manuell geokodiert werden.
+Aufgrund der Einschränkung, dass neue Datensätze nicht geocodiert werden (siehe Abschnitt \ref{geocodierung-bug}), mussten wir das Spatial-Query aber wieder entfernen und durch eine eigene \inlinecode{WHERE}-Bedingung ersetzen. Ansonsten würden neu gemeldete Defekte solange nicht auf der Karte angezeigt, bis die Datensätze über das Fusion Tables Web-GUI manuell geocodiert werden.
 
 \subsection{Heatmap-Ansicht auf Übersichtsmaske}
 \label{fixmystreet-heatmap}
@@ -425,7 +425,7 @@ Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werd
 Der Use Case basiert zu einem grossen Teil auf unserer Bibliothek GftLib, welche wir für den Zugriff auf die Fusion Tables Datenbank verwenden. Die Bibliothek ist mit ausführlichen Test ausgestattet (siehe Abschnitt \ref{gftlib-testing}). Wir haben schliesslich noch versucht den Proxy (siehe Abschnitt \ref{fixmystreet-proxy}) zu testen, sind jedoch an den Abhängigkeiten zum Framework gescheitert.
 
 \section{Resultate}
-Das Resultat dieses Use Cases ist eine voll ausgereifte WebApp.
+Das Resultat dieses Use Cases ist eine voll ausgereifte Web-App.
 
 \subsection{Maske: Defekt melden}
 Dies ist die Hauptmaske der App. Sie wird geöffnet sobald der Benutzer die Applikation startet. Darauf kann der Benutzer Defekte an beliebigen Orten melden.
@@ -489,7 +489,7 @@ Hier werden dem Benutzer alle noch nicht behobenen Defekte auf der Karte angezei
 \subsection{Probleme bei der Verwendung von Google Fusion Tables als Datenbank}
 Wir hatten einige Probleme bei der Verwendung einer Fusion Table als Datenbank der Applikation. Ein Hauptproblem war klar das Fehlen eines \inlinecode{GRANT}-Mechanismus, wie man ihn von vielen anderen Datenbanksystemen kennt. Die gegebenen Möglichkeiten für die Vergabe von Lese- oder Schreibmöglichkeiten würden für den Gebrauch in einer produktiven Applikation kaum ausreichen.
 
-Zusätzlich konnten wir die \gls{GIS}-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns beispielsweise die fehlende Geocodierung von neu eingefügten Datensätzen daran Spatial-Queries zu verwenden (siehe Abschnitt \ref{geocodierung-bug}).
+Zusätzlich konnten wir die \gls{GIS}-Features, welche Google Fusion Tables anbieten nur minimal nutzen. So hinderte uns beispielsweise die fehlende \gls{Geocodierung} von neu eingefügten Datensätzen daran Spatial-Queries zu verwenden (siehe Abschnitt \ref{geocodierung-bug}).
 
 Zudem haben wir bewusst auf die Verwendung einer Fusion Tables-Ebene (siehe Abschnitt \ref{gmap-api-fusiontableslayer}) für die Übersichtsmaske verzichtet, da wir dadurch die Möglichkeit verloren hätten Custom-Markers auf der Karte hinzuzufügen. Dies hätte die Usability der App stark verschlechtert, da man nicht mehr direkt den Typen des markierten Defekts erkannt hätte.
 

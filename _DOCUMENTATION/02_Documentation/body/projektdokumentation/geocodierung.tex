@@ -10,20 +10,20 @@ Ein grosser Vorteil der Google Fusion Tables ist die automatische
 	\label{geocoding_failed}
 \end{figure}
 
-Diese geocodierten Standorte werden in der Tabelle hinterlegt. Leider sind diese Daten über das SQL API nicht selektierbar. Möchte man die erhaltenen Daten trotzdem auf der Karte positionieren, müsste man deshalb für jede Zeile die Geocodierung manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirken würde.
+Diese geocodierten Standorte werden in der Tabelle hinterlegt. Leider sind diese Daten über das SQL \gls{API} nicht selektierbar. Möchte man die erhaltenen Daten trotzdem auf der Karte positionieren, müsste man deshalb für jede Zeile die \gls{Geocodierung} manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirken würde.
 
 \subsection{Geocoding-Dienste}
-Es gibt verschiedene Dienste, welche eine solche Geocodierung von Standortdaten anbieten. Die meisten davon haben aber eine Begrenzung der möglichen Anfragen pro Tag.
+Es gibt verschiedene Dienste, welche eine solche \gls{Geocodierung} von Standortdaten anbieten. Die meisten davon haben aber eine Begrenzung der möglichen Anfragen pro Tag.
 
 \begin{longtable}{|p{0.4\threecelltabwidth}|p{0.14\threecelltabwidth}|p{0.46\threecelltabwidth}|}
 \hline 
 \textbf{Anbieter} & \textbf{Anfragen pro Tag} & \textbf{URL} \\ 
 \hline 
-Google Maps Geocoding API & 2500 & \url{https://developers.google.com/maps/documentation/geocoding/?hl=de} \\ 
+Google Maps Geocoding \gls{API} & 2500 & \url{https://developers.google.com/maps/documentation/geocoding/?hl=de} \\ 
 \hline 
-Yahoo! PlaceFinder API & 50000 & \url{http://developer.yahoo.com/geo/placefinder/} \\ 
+Yahoo! PlaceFinder \gls{API} & 50000 & \url{http://developer.yahoo.com/geo/placefinder/} \\ 
 \hline 
-MapQuest Geocoding API & keine Begrenzung & \url{http://developer.mapquest.com/web/products/dev-services/geocoding-ws} \\ 
+MapQuest Geocoding \gls{API} & keine Begrenzung & \url{http://developer.mapquest.com/web/products/dev-services/geocoding-ws} \\ 
 \hline 
 \caption{Geocoding Limitierungen}
 \end{longtable} 
@@ -32,6 +32,6 @@ Wie man sieht erreicht man mit diesen Diensten beim Arbeiten mit grossen Datenme
 
 \subsection{Geocoding von neuen Datensätzen nur manuell möglich}
 \label{geocodierung-bug}
-Ein grosses Problem stellt sich darin, dass neue Datensätze, welche über das SQL API  eingefügt wurden nicht automatisch geocodiert werden. Dies führt dazu, dass diese Daten von Abfragen, welche eine ortsbezogene Einschränkung beinhalten (siehe Abschnitt \ref{sqlapi-spatialqueries}), nicht zurückgeliefert werden.
+Ein grosses Problem stellt sich darin, dass neue Datensätze, welche über das SQL \gls{API}  eingefügt wurden nicht automatisch geocodiert werden. Dies führt dazu, dass diese Daten von Abfragen, welche eine ortsbezogene Einschränkung beinhalten (siehe Abschnitt \ref{sqlapi-spatialqueries}), nicht zurückgeliefert werden.
 
-Eine Geocodierung dieser Daten kann nur manuell über das Fusion Tables Web-GUI gestartet werden.
+Eine \gls{Geocodierung} dieser Daten kann nur manuell über das Fusion Tables Web-GUI gestartet werden.
