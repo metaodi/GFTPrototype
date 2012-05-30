@@ -1,6 +1,6 @@
 \section{Google Maps API - FusionTablesLayer}
 \label{gmap-api-fusiontableslayer}
-Google bietet von Haus aus bereits eine Fusion Table-Integration im Google Maps API V3 an. Damit ist es möglich Fusion Tables als eigenständige Layer direkt auf der Karte darzustellen.
+Google bietet von Haus aus bereits eine Fusion Table-Integration im Google Maps \gls{API} V3 an. Damit ist es möglich Fusion Tables als eigenständige Layer direkt auf der Karte darzustellen.
 Die Möglichkeiten dieser Layer sind noch stark eingeschränkt aber die grundlegenden Funktionalitäten für das Arbeiten mit Geodaten sind bereits vorhanden.
 
 So ist es möglich Abfragen mit \inlinecode{WHERE}-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen.
@@ -31,7 +31,7 @@ In diesem Beispiel\footnote{Quelle: \url{https://developers.google.com/maps/docu
 
 \subsubsection{Einschränkungen}
 \label{fusiontableslayer-styles-restrictions}
-Das Google Maps API hat momentan folgende Einschränkungen bezüglich den Ebenenstilen definiert.
+Das Google Maps \gls{API} hat momentan folgende Einschränkungen bezüglich den Ebenenstilen definiert.
 
 \begin{longtable}{|l|l|}
 \hline 
@@ -77,7 +77,7 @@ Ein grosser Nachteil der Fusion Table-Ebenen besteht darin, dass die verwendeten
 
 Von Google wird zur Lösung dieses Problems aber folgendes Vorgehen vorgeschlagen: Man kann für Tabellen mit sensiblen Inhalten eine View erstellen, welche lediglich die öffentlichen Spalten und Zeilen selektiert. Diese View könnte man dann als \emph{öffentlich} markieren und in einer Fusion Table-Ebene verwenden.
 
-Eine Ausnahme dieser Regelung bilden dabei die Maps API Premier Kunden. Diese haben die Möglichkeit eine Fusion Table als \emph{Protectet Map Layer} freizugeben, wodurch sich diese nur in einer definierten Applikation als Ebene einbinden lässt. Die Tabelle bleibt dabei komplett privat und kann nicht ausgelesen werden.
+Eine Ausnahme dieser Regelung bilden dabei die Maps \gls{API} Premier Kunden. Diese haben die Möglichkeit eine Fusion Table als \emph{Protectet Map Layer} freizugeben, wodurch sich diese nur in einer definierten Applikation als Ebene einbinden lässt. Die Tabelle bleibt dabei komplett privat und kann nicht ausgelesen werden.
 
 \subsubsection{Event-Handling auf Fusion Table-Ebenen}
 Bislang ist es erst möglich den Klick-Event auf einer Fusion Table-Ebene zu behandeln. Dieser liefert standardmässig das HTML-Template des InfoWindows mit, welches mit dem Klick angezeigt wird. Zudem erhält man die Daten der "`angeklickten Zeile"' beziehungsweise die zugehörigen Daten des angeklickten Objekts auf der Karte. Man hat die Möglichkeit dieses Template anzupassen bevor das InfoWindow angezeigt wird.
@@ -86,7 +86,7 @@ Weitere Events können auf einer Fusion Table-Ebene aber noch nicht behandelt we
 
 Diese fehlenden Möglichkeiten wurden schon oft von anderen FusionTables-Benutzern bei den Google-Entwicklern angefordert, welche dies ebenfalls als ein wichtiges Feature sehen, dass noch implementiert werden muss.
 
-Als Übergangslösung findet sich bereits eine Custom Library mit dem Namen \emph{Fusion Tips}\footnote{\url{http://gmaps-utility-gis.googlecode.com/svn/trunk/fusiontips/docs/examples.html}}. Diese legt über die Fusion Table-Ebene eine weitere transparente Ebene. Auf dieser Ebene kann man alle Events, welche das Google Maps API anbietet behandeln (somit auch den MouseOver-Event). Sobald die Maus über die Position eines Elementes auf der Fusion Table fährt, sendet der Event einen Request über das SQL API an die Fusion Table und holt sich die Informationen zu der entsprechenden Zeile. So ist es möglich ein neues Element mit der gleichen Form aber beispielsweise einer anderen Farbe darüber zu legen.
+Als Übergangslösung findet sich bereits eine Custom Library mit dem Namen \emph{Fusion Tips}\footnote{\url{http://gmaps-utility-gis.googlecode.com/svn/trunk/fusiontips/docs/examples.html}}. Diese legt über die Fusion Table-Ebene eine weitere transparente Ebene. Auf dieser Ebene kann man alle Events, welche das Google Maps \gls{API} anbietet behandeln (somit auch den MouseOver-Event). Sobald die Maus über die Position eines Elementes auf der Fusion Table fährt, sendet der Event einen Request über das SQL \gls{API} an die Fusion Table und holt sich die Informationen zu der entsprechenden Zeile. So ist es möglich ein neues Element mit der gleichen Form aber beispielsweise einer anderen Farbe darüber zu legen.
 
 Für den Benutzer entsteht so der Effekt als würde sich die Farbe des gehoverten Elementes ändern.
 

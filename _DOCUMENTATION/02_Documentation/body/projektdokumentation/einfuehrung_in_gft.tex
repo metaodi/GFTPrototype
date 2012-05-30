@@ -33,10 +33,10 @@ Diese passive Kollaboration ermöglicht es auf eine breite Palette an öffentlic
 Um aktiv zu kollaborieren hat Google auch einige Features angedacht. So ist es möglich einzelne Datensätze oder gar Zellen in der Tabelle zu kommentieren, sofern man die nötigen Berechtigungen dafür hat. Falls man Daten von mehreren Lieferanten verwalten lassen will, kann eine Partei eine Tabelle erstellen und verschiedene Views darauf erstellen, welche jeweils von den verschiedenen Datenlieferanten gepflegt werden. Durch entsprechend gesetzte Berechtigungen kann so jeder seine Daten zum Ganzen beitragen, ohne Zugriff auf die Daten von anderen Lieferanten zu haben. Einzig der Besitzer der Tabelle hat Berechtigungen auf all dessen Inhalte. Google hat als Beispiel für diesen Use Case die Applikation \emph{Flu Vaccine Finder} erstellt, welche es den Anbietern von Grippeimpfungen ermöglicht ihre Lokale selbstständig zu erfassen und verwalten.\cite{data-gathering}
 
 \subsection{Verschiedene Tabellenarten}
-Google Fusion Tables unterscheidet grundsätzlich drei verschiedene Tabellenarten\footnote{Tabellenarten in Google Fusion Tables: \url{https://developers.google.com/fusiontables/docs/developers_guide\#Exploring}}. Jede Tabelle hat sowohl einen Namen wie auch eine numerische und \emph{verschlüsselte} ID (\inlinecode{encid}). Angesprochen wir die Tabelle ausschliesslich über deren ID, wobei das neue API nur noch die \inlinecode{encid} akzeptiert.
+Google Fusion Tables unterscheidet grundsätzlich drei verschiedene Tabellenarten\footnote{Tabellenarten in Google Fusion Tables: \url{https://developers.google.com/fusiontables/docs/developers_guide\#Exploring}}. Jede Tabelle hat sowohl einen Namen wie auch eine numerische und \emph{verschlüsselte} ID (\inlinecode{encid}). Angesprochen wir die Tabelle ausschliesslich über deren ID, wobei das neue \gls{API} nur noch die \inlinecode{encid} akzeptiert.
 
 \subsubsection{Base Table}
-Eine normale Tabelle kann kann sowohl über das Web-GUI wie auch über das API erstellt werden. Eine Tabelle kann Daten entweder von einer \gls{KML}- oder einer \gls{CSV}-Datei importieren oder von einer bereits vorhandenen Google Spreadsheet-Datei übernehmen.
+Eine normale Tabelle kann kann sowohl über das Web-GUI wie auch über das \gls{API} erstellt werden. Eine Tabelle kann Daten entweder von einer \gls{KML}- oder einer \gls{CSV}-Datei importieren oder von einer bereits vorhandenen Google Spreadsheet-Datei übernehmen.
 
 \subsubsection{Merged Table}
 \label{merge-table}
@@ -49,7 +49,7 @@ Merged Tables sind ein Mittel um zwei Fusion Tables zusammenzuführen. Der Benut
 	\label{create-merge-table}
 \end{figure}
 
-Merged Tables haben einige Einschränkungen. So lassen sie sich bislang nicht via API erstellen, sondern aussschliesslich über das Web-GUI. \inlinecode{INSERT}-Befehle sind nicht möglich und \inlinecode{UPDATE} nur auf Attributen, die nicht am Join beteiligt sind.
+Merged Tables haben einige Einschränkungen. So lassen sie sich bislang nicht via \gls{API} erstellen, sondern aussschliesslich über das Web-GUI. \inlinecode{INSERT}-Befehle sind nicht möglich und \inlinecode{UPDATE} nur auf Attributen, die nicht am Join beteiligt sind.
 
 Wir haben die Merged Tables in unserer erstellen Webapplikation \emph{WorldData} verwendet (siehe Kapitel \ref{worlddata}).
 
@@ -61,7 +61,7 @@ Views können nur von Base Tables oder anderen Views erstellt werden, Merged Tab
 Ein schönes Beispiel für die Verwendung von Views in Google Fusion Tables ist der Flu Vaccine Finder\footnote{\url{https://developers.google.com/fusiontables/docs/articles/data_gathering}} von Google selbst.
 
 \subsection{Limiten}
-Da die Google Fusion Tables kostenlos angeboten werden, hat Google einige Limiten bei der Benutzung der Datenbank festgelegt. So darf eine einzelne Tabelle maximal 250MB Speicher belegen. Zudem sind die Abfragen pro Benutzer und Tag auf 25'000 beschränkt. Auf der Karte lassen sich maximal 100'000 Elemente gleichzeitig darstellen. Allgemein werden zudem bei Abfragen nur die ersten 100'000 Datensätze der Datenbank für das Erstellen der Antwort berücksichtigt. Diese Einschränkungen können Kunden des Google Maps API Premier\footnote{\url{http://www.google.com/enterprise/earthmaps/maps.html}} auf Anfrage verändern. Die Preise dafür starten bei 10'000\$ pro Jahr und können sich je nach Bedürfnis nach oben verändern.\cite{fusion-tables-geo-limits}
+Da die Google Fusion Tables kostenlos angeboten werden, hat Google einige Limiten bei der Benutzung der Datenbank festgelegt. So darf eine einzelne Tabelle maximal 250MB Speicher belegen. Zudem sind die Abfragen pro Benutzer und Tag auf 25'000 beschränkt. Auf der Karte lassen sich maximal 100'000 Elemente gleichzeitig darstellen. Allgemein werden zudem bei Abfragen nur die ersten 100'000 Datensätze der Datenbank für das Erstellen der Antwort berücksichtigt. Diese Einschränkungen können Kunden des Google Maps \gls{API} Premier\footnote{\url{http://www.google.com/enterprise/earthmaps/maps.html}} auf Anfrage verändern. Die Preise dafür starten bei 10'000\$ pro Jahr und können sich je nach Bedürfnis nach oben verändern.\cite{fusion-tables-geo-limits}
 
 \begin{longtable}{|l|l|}
 \hline 
@@ -83,9 +83,9 @@ Für Abfragen berücksichtigte Datensätze & erste 100'000 \\
 \label{austausch-mit-google}
 Da es sich bei Google Fusion Tables um ein relativ neues Projekt handelt war uns bewusst, dass wir früher oder später vor Problemen stehen würden. Von daher war für uns klar, dass wir die beiden offiziellen Supportkanäle (Mailingliste\footnote{Die Mailingliste ist für allgemeine oder konzeptionelle Fragen: \url{https://groups.google.com/forum/?fromgroups\#!forum/fusion-tables-users-group}} und StackOverflow\footnote{Google hat alle technischen Fragen zu GFT in die bekannte Entwickler-Community StackOverflow ausgelagert: \url{http://stackoverflow.com/questions/tagged/google-fusion-tables}}) aktiv nutzen werden. Zum einen ist es sehr interessant zu sehen welche Ideen und Probleme andere Leute haben und zum anderen konnten wir so einen guten Kontakt zur Community und den Google Entwicklern pflegen.
 
-Hauptsächlich wendeten wir uns via der Mailingliste an die Google Entwickler, wo man meist innerhalb eines Tages eine sehr gute Antwort auf Fragen bekommt. Auch ein von uns gemeldeter Bug\footnote{Bug-Report \emph{COUNT() returns as NaN in Trusted Tester API}: \url{http://code.google.com/p/fusion-tables/issues/detail?id=1086}} wurde sehr schnell behoben (nach ca. 2 Wochen). Der Bug ist uns beim Wechsel auf das neue Trusted Tester API (siehe Abschnitt \ref{trusted-tester-api}) dank unserer Unit-Tests aufgefallen. Leider gab es aber nicht für alle unsere Anfragen einfache Lösungen (siehe Abschnitt \ref{geocodierung-bug}).
+Hauptsächlich wendeten wir uns via der Mailingliste an die Google Entwickler, wo man meist innerhalb eines Tages eine sehr gute Antwort auf Fragen bekommt. Auch ein von uns gemeldeter Bug\footnote{Bug-Report \emph{COUNT() returns as NaN in Trusted Tester \gls{API}}: \url{http://code.google.com/p/fusion-tables/issues/detail?id=1086}} wurde sehr schnell behoben (nach ca. 2 Wochen). Der Bug ist uns beim Wechsel auf das neue Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) dank unserer Unit-Tests aufgefallen. Leider gab es aber nicht für alle unsere Anfragen einfache Lösungen (siehe Abschnitt \ref{geocodierung-bug}).
 
-Im April hat es einen Google+ Hangout (Videokonferenz) mit 2 Google Fusion Tables Entwicklern zum Trusted Tester API gegeben, wo sie Feedback und Anregungen gesammelt haben. Da nicht allzu viele Leute anwesend waren, konnten wir ausführlich Feedback geben und unsere Use Cases besprechen.
+Im April hat es einen Google+ Hangout (Videokonferenz) mit 2 Google Fusion Tables Entwicklern zum Trusted Tester \gls{API} gegeben, wo sie Feedback und Anregungen gesammelt haben. Da nicht allzu viele Leute anwesend waren, konnten wir ausführlich Feedback geben und unsere Use Cases besprechen.
 
 % SQL API
 \input{body/projektdokumentation/sql_api.tex}

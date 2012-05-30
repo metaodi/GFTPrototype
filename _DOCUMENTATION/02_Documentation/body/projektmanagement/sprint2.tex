@@ -1,8 +1,8 @@
 \subsection{Sprint 2}
 
-Im zweiten Sprint gab es zwei Schwerpunkte: Zum einen mussten wir uns langsam Gedanken machen, welche Use Cases wir mit den Google Fusion Tables abdecken wollen. Aus diesen Use Cases sollen dann unabhängige Applikationen entstehen, welche dann das Potential des Produktes aufzeigen sollen. Zum anderen gab es noch ein wichtiges technischen Thema, nämlich die Schreiboperationen. Dazu waren einige Grundlagen von OAuth nötig, so dass wir dann die ganze Bandbreite der Schnittstelle nutzen konnten.
+Im zweiten Sprint gab es zwei Schwerpunkte: Zum einen mussten wir uns langsam Gedanken machen, welche Use Cases wir mit den Google Fusion Tables abdecken wollen. Aus diesen Use Cases sollen dann unabhängige Applikationen entstehen, welche dann das Potential des Produktes aufzeigen sollen. Zum anderen gab es noch ein wichtiges technischen Thema, nämlich die Schreiboperationen. Dazu waren einige Grundlagen von \gls{OAuth} nötig, so dass wir dann die ganze Bandbreite der Schnittstelle nutzen konnten.
 
-Als Nebenthema mussten wir uns noch um den Import von verschiedenen GIS Dateien in Fusion Tables kümmern. Zum einen ist dies ein relevantes Thema um eine Migration zu ermöglichen, zum anderen sind viele Daten in beliebigen Formate verfügbar, welche wir natürlich gern als Testdaten nutzen möchten.
+Als Nebenthema mussten wir uns noch um den Import von verschiedenen \gls{GIS} Dateien in Fusion Tables kümmern. Zum einen ist dies ein relevantes Thema um eine Migration zu ermöglichen, zum anderen sind viele Daten in beliebigen Formate verfügbar, welche wir natürlich gern als Testdaten nutzen möchten.
 
 Alle Informationen zum Sprint 2 sind auch in unserem Wiki zu finden:
 \url{http://redmine.rdmr.ch/redmine/projects/gftprototype/wiki/Sprint_2}
@@ -11,36 +11,36 @@ Alle Informationen zum Sprint 2 sind auch in unserem Wiki zu finden:
 \begin{itemize}
 	\item Use Cases erarbeiten
 	\item \gls{GIS} Daten in GFT importieren
-	\item Informationen über das \emph{Trusted Tester API} sammeln
-	\item Schreiboperationen (INSERT/UPDATE/DELETE) auf Fusion Tables durchführen können (Authentifizierung mit OAuth notwendig)
+	\item Informationen über das \emph{Trusted Tester \gls{API}} sammeln
+	\item Schreiboperationen (INSERT/UPDATE/DELETE) auf Fusion Tables durchführen können (Authentifizierung mit \gls{OAuth} notwendig)
 \end{itemize}
 
 \subsubsection{Ziele}
 \begin{itemize}
-	\item Finden von WebGIS Use Cases (1 "`grosser"' und 2 "`kleine"' Use Cases)
+	\item Finden von Web\gls{GIS} Use Cases (1 "`grosser"' und 2 "`kleine"' Use Cases)
 	\item Implementation eines kleinen Use Cases
 	\item Geo-Daten importieren und verknüpfen
 	\begin{itemize}
-		\item KML importieren
+		\item \gls{KML} importieren
 		\item Converter einsetzen, dann importieren
 		\item Verschiedene Fusion Tables joinen/mergen
 	\end{itemize}
-	\item Trusted Tester API
+	\item Trusted Tester \gls{API}
 	\begin{itemize}
 		\item Zugriff erhalten
-		\item API testen
+		\item \gls{API} testen
 	\end{itemize}
 \end{itemize}
 
 \subsubsection{Abgabe / Deliverables}
 Als ersten umzusetzenden Use Case haben wir uns für \emph{WorldData} (siehe Kapitel \ref{worlddata}) entschieden. Zudem haben wir einen Build-Job (siehe Kapitel \ref{converter-build}) erstellt, welcher es uns erlaubt auf einfache Art und Weise \gls{GIS} Daten zu importieren.
 
-Für OAuth haben wir ein Beispiel entwickelt, welches es einem Benutzer ermöglicht seine Tabellen für unsere Applikation freizugeben, so dass dann Schreiboperationen möglich werden.
+Für \gls{OAuth} haben wir ein Beispiel entwickelt, welches es einem Benutzer ermöglicht seine Tabellen für unsere Applikation freizugeben, so dass dann Schreiboperationen möglich werden.
 
 \begin{itemize}
 	\item Erster umgesetzter Use Case \emph{WorldData}
 	\item Import-Verfahren für \gls{GIS} Daten
-	\item Erweiterte GftLib (Schreiboperationen, Authentifizierung mit OAuth)
+	\item Erweiterte GftLib (Schreiboperationen, Authentifizierung mit \gls{OAuth})
 \end{itemize}
 
 \subsubsection{Probleme}

@@ -1,10 +1,10 @@
 \section{SQL API}
 \label{sql-api}
-Das SQL API bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen\footnote{Befehlsreferenz: \url{https://developers.google.com/fusiontables/docs/developers_reference}}. Die SQL-Befehle werden als Parameter in folgender Form an das API übergeben:
+Das SQL \gls{API} bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen\footnote{Befehlsreferenz: \url{https://developers.google.com/fusiontables/docs/developers_reference}}. Die SQL-Befehle werden als Parameter in folgender Form an das \gls{API} übergeben:
 
 \url{https://www.googleapis.com/fusiontables/<apiVersion>/query?sql=<statement>}
 
-Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DESCRIBE}) werden dabei als \inlinecode{GET}-Request geschickt, schreibende Zugriffe (\inlinecode{CREATE}, \inlinecode{DROP}, \inlinecode{INSERT}, \inlinecode{UPDATE}, \inlinecode{DELETE}) mit der \inlinecode{POST}-Methode. Um Daten zu schreiben und für den Zugriff auf private Tabelle ist eine Authentifizierung (siehe Abschnitt \ref{oauth}) mit OAuth nötig.
+Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DESCRIBE}) werden dabei als \inlinecode{GET}-Request geschickt, schreibende Zugriffe (\inlinecode{CREATE}, \inlinecode{DROP}, \inlinecode{INSERT}, \inlinecode{UPDATE}, \inlinecode{DELETE}) mit der \inlinecode{POST}-Methode. Um Daten zu schreiben und für den Zugriff auf private Tabelle ist eine Authentifizierung (siehe Abschnitt \ref{oauth}) mit \gls{OAuth} nötig.
 
 \begin{longtable}{|p{0.2\twocelltabwidth}|p{0.8\twocelltabwidth}|}
 \hline 
@@ -28,11 +28,11 @@ Lesende Zugriffe (\inlinecode{SELECT}, \inlinecode{SHOW TABLES}, \inlinecode{DES
 \hline 
 \inlinecode{DROP TABLE} & Löschen einer Tabelle \\ 
 \hline 
-\caption{Liste der verfügbaren SQL Befehle des SQL APIs}
+\caption{Liste der verfügbaren SQL Befehle des SQL \gls{API}s}
 \end{longtable}
 
 \subsection{Abfragen (Queries)}
-Mit dem \inlinecode{SELECT}-Befehl des SQL API lassen sich Abfragen an Google Fusion Tables stellen. Die untenstehende Tabelle gibt eine Übersicht der Möglichkeiten.
+Mit dem \inlinecode{SELECT}-Befehl des SQL \gls{API} lassen sich Abfragen an Google Fusion Tables stellen. Die untenstehende Tabelle gibt eine Übersicht der Möglichkeiten.
 
 \begin{longtable}{|p{0.25\twocelltabwidth}|p{0.75\twocelltabwidth}|}
 \hline 
@@ -79,14 +79,14 @@ wobei \inlinecode{{\textless}number{\textgreater}} angibt wieviele Datensätze d
 Mit \inlinecode{OFFSET {\textless}number{\textgreater}} kann der Bereich, ab welchem das Limit zählt verändert werden.
 \\
 \hline 
-\caption{Liste der verfügbaren Abfragemöglichkeiten des SQL APIs}
+\caption{Liste der verfügbaren Abfragemöglichkeiten des SQL \gls{API}s}
 \end{longtable}
 
 Um mehrere Bedingungen in einer \inlinecode{WHERE}-Klausel zu verwenden können diese mit \inlinecode{AND} verbunden werden. Verknüpfungen mit \inlinecode{OR} werden hingegen nicht unterstützt.
 
 \subsection{Ortsbezogene Abfragen (Spatial-Queries)}
 \label{sqlapi-spatialqueries}
-Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
+Das SQL \gls{API} bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Möglichkeiten, welche in der folgenden Tabelle dokumentiert sind.
 
 \begin{longtable}{|p{0.25\twocelltabwidth}|p{0.75\twocelltabwidth}|}
 \hline 
@@ -118,7 +118,7 @@ Das SQL API bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage-Mögl
 \hline 
 \inlinecode{RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} )} & Wird verwendet um ein Rechteck mit den Ecken \inlinecode{{\textless}coordinate{\_}1{\textgreater}} (links oben) und \inlinecode{{\textless}coordinate{\_}2{\textgreater}} (rechts unten) zu erhalten. \\ 
 \hline 
-\caption{Liste der verfügbaren Spatial Queries des SQL APIs}
+\caption{Liste der verfügbaren Spatial Queries des SQL \gls{API}s}
 \end{longtable} 
 
 \section{Client Libraries}
@@ -128,19 +128,19 @@ Durch die Same-Origin-Policy\footnote{Die Same-Origin-Policy (SOP) ist ein Siche
 
 Schliesslich fanden wir in den Google Groups ein inoffizielles \gls{JSONP} \gls{API}\footnote{\url{https://groups.google.com/forum/?hl=en&fromgroups\#!topic/fusion-tables-users-group/jCiFfqCgCWM}}, welches es erlaubt \gls{AJAX}-Requests auch über die eigene Domäne hinweg zu senden. Diese Methode funktionierte jedoch nur für lesende Zugriffe. 
 
-Für die schreibenden Zugriffe haben wir als Workaround einen \emph{Relay-Dienst} geschrieben, welcher auf unserem Webserver lief. Der Dienst hat lediglich die Requests entgegengenommen und diese dann an das Google API weitergeleitet.
+Für die schreibenden Zugriffe haben wir als Workaround einen \emph{Relay-Dienst} geschrieben, welcher auf unserem Webserver lief. Der Dienst hat lediglich die Requests entgegengenommen und diese dann an das Google \gls{API} weitergeleitet.
 
-Als wir den Zugriff auf das Trusted Tester API (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt Requests ans API zu schicken, ohne einen Umweg über \gls{AJAX} \todo{stimmt hier AJAX} zu machen\footnote{Google APIs Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}}.
+Als wir den Zugriff auf das Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt Requests ans \gls{API} zu schicken, ohne einen Umweg über \gls{AJAX} \todo{stimmt hier AJAX} zu machen\footnote{Google \gls{API}s Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}}.
 
 \section{Trusted Tester API}
 \label{trusted-tester-api}
-Es gibt derzeit zwei verschiedene Versionen des APIs: eine frei öffentlich zugängliche und das sogenannte \emph{Trusted Tester API}, welche derzeit im Beta-Stadium ist und nur ausgewählten Personen zur Verfügung steht. Als wir im Sprint 2 davon erfahren haben, haben wir uns für einen Zugang beworben, welchen wir dann auch erhalten haben.
+Es gibt derzeit zwei verschiedene Versionen des \gls{API}s: eine frei öffentlich zugängliche und das sogenannte \emph{Trusted Tester \gls{API}}, welche derzeit im Beta-Stadium ist und nur ausgewählten Personen zur Verfügung steht. Als wir im Sprint 2 davon erfahren haben, haben wir uns für einen Zugang beworben, welchen wir dann auch erhalten haben.
 
-Das Trusted Tester API bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem API um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem API gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben.
+Das Trusted Tester \gls{API} bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem \gls{API} um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem \gls{API} gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben.
 
-Zu den Neuerungen des neuen APIs gehört, dass es auch eine \gls{REST}-Schnittstelle erhalten hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem API auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen API \inlinecode{POST}-Requests abzuschicken und so endlich auch Schreiboperationen direkt via Browser zu unterstützen.
+Zu den Neuerungen des neuen \gls{API}s gehört, dass es auch eine \gls{REST}-Schnittstelle erhalten hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem \gls{API} auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen \gls{API} \inlinecode{POST}-Requests abzuschicken und so endlich auch Schreiboperationen direkt via Browser zu unterstützen.
 
-Alle Request an das \gls{REST}-API haben die folgende Form: \\
+Alle Request an das \gls{REST}-\gls{API} haben die folgende Form: \\
 \url{https://www.googleapis.com/fusiontables/<apiVersion>/<resourcePath>?<parameters>}
 
 Folgende Ressourcen sind derzeit unterstützt:
@@ -151,7 +151,7 @@ Folgende Ressourcen sind derzeit unterstützt:
 	\item Style
 \end{itemize}
 
-Eine \emph{Row} oder \emph{Query} Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL API (siehe Abschnitt \ref{sql-api}) verwendet werden.
+Eine \emph{Row} oder \emph{Query} Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL \gls{API} (siehe Abschnitt \ref{sql-api}) verwendet werden.
 
 \begin{longtable}{|p{0.5\twocelltabwidth}|p{0.5\twocelltabwidth}|}
 \hline 
