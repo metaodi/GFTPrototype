@@ -170,7 +170,7 @@ Die GftLib verwendet den SqlBuilder um aus gegebenen Input-Parametern SQL-Befehl
 
 \subsection{Testing}
 \label{gftlib-testing}
-Mit Hilfe des Unit-Testing Frameworks QUnit\footnote{\url{http://docs.jquery.com/QUnit}} konnten wir für die GftLib durchgängige Tests erstellen. Die Tests werden in JavaScript geschrieben und können deshalb direkt im Browser ausgeführt werden\footnote{Produktive Tests: \url{http://gft.rdmr.ch/test/js/}}. 
+Mit Hilfe des Unit-Testing Frameworks QUnit\footnote{\url{http://docs.jquery.com/QUnit}} konnten wir für die GftLib durchgängige Tests erstellen. Die Tests wurden in JavaScript geschrieben und können deshalb direkt im Browser ausgeführt werden\footnote{Produktive Tests: \url{http://gft.rdmr.ch/test/js/}}. 
 
 \begin{figure}[!ht]
 	\centering
@@ -179,11 +179,11 @@ Mit Hilfe des Unit-Testing Frameworks QUnit\footnote{\url{http://docs.jquery.com
 	\label{gftlibjs-tests}
 \end{figure}
 
-Wir haben insgesamt 84 Tests für die GftLib erstellt, welche jede Funktion mit verschiedenen Parametern prüft. Wir haben den \emph{test early}-Ansatz gewählt, dabei werden die Tests sehr zeitnah zur Erstellung einer Funktion geschrieben. Dank der guten Testabdeckung konnten wir unseren Code regelmässigen Refactorings unterziehen ohne uns darum Sorgen zu machen, bestehende Funktionalität kaputt zu machen (Regression). Es hat sich gezeigt, dass wir dadurch auch in der Lage waren, schnell das neue Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) zu testen und die nötigen Anpassungen vorzunehmen um unsere Tests wieder lauffähig zu machen. Dabei haben wir sogar einen Bug der Schnittstelle entdeckt, welchen wir Google gemeldet haben (siehe Abschnitt \ref{austausch-mit-google}).
+Wir haben insgesamt 84 Tests für die GftLib erstellt, welche jede Funktion mit verschiedenen Parametern prüft. Wir haben den \emph{test early}-Ansatz gewählt, dabei werden die Tests sehr zeitnah zur Erstellung einer Funktion geschrieben. Dank der guten Testabdeckung konnten wir unseren Code regelmässigen Refactorings unterziehen ohne uns darum Sorgen zu machen, bestehende Funktionalität kaputt zu machen (Regression). Es hat sich gezeigt, dass wir dadurch auch in der Lage waren, schnell auf das neue Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) zu wechseln, da wir nur sicherstellen mussten, dass unsere Tests wieder fehlerfrei durchlaufen. Dabei haben wir sogar einen Bug der Schnittstelle entdeckt, welchen wir Google gemeldet haben (siehe Abschnitt \ref{austausch-mit-google}).
 
-QUnit hat sich als sehr wertvoll erwiesen bei den sogenannten asynchronen Tests. Da unsere Bibliothek sehr stark auf die asynchronen Aufrufen des Google \gls{API}s angewiesen ist, konnten wir trotzdem sehr einfach Tests dazu schreiben ohne uns um diesen Aspekt kümmern zu müssen.
+QUnit hat sich als sehr wertvoll erwiesen bei den sogenannten asynchronen Tests. Obwohl unsere Bibliothek sehr stark auf die asynchronen Aufrufe des Google \gls{API}s angewiesen ist, konnten wir trotzdem normal Tests schreiben ohne uns speziell um diesen Aspekt kümmern zu müssen.
 
-Wenn wir einen Bug gefunden haben, haben wir diesen jeweils mit einem Unit-Test nachvollzogen, so dass dieser nicht noch ein weiteres Mal auftritt. Die Testabdeckung haben wir mit JSCoverage\footnote{\url{http://siliconforks.com/jscoverage/}} gemessen, für die GftLib beträgt diese 95\%, beim SqlBuilder sogar 100\% (siehe Abbildung \ref{gftlibjs-testabdeckung}).
+Wenn wir einen Bug gefunden haben, haben wir diesen jeweils mit einem Unit-Test nachvollzogen, so dass dieser nicht noch ein weiteres Mal auftritt. Die Testabdeckung haben wir mit JSCoverage\footnote{\url{http://siliconforks.com/jscoverage/}} gemessen, für die GftLib beträgt diese 95\%, beim SqlBuilder sogar 100\% (siehe Abbildung \ref{gftlibjs-testabdeckung}). Bei den fehlenden 5\% handelt es sich um die Fehlerbehandlung der asynchronen Aufrufe, welcher sich nicht so einfach testen lässt.
 
 \begin{figure}[!ht]
 	\centering
@@ -192,4 +192,4 @@ Wenn wir einen Bug gefunden haben, haben wir diesen jeweils mit einem Unit-Test 
 	\label{gftlibjs-testabdeckung}
 \end{figure}
 
-Da sich ein Grossteil der Funktionalität in privaten Methoden befindet, welche in JavaScript grundsätzlich nicht von aussen zugreifbar sind, haben wir öffentliche Aliase erstellt, um Tests dieser Methoden zu ermöglichen. Die Aliase sind jeweils mit zwei Unterstrichen gekennzeichnet; sie sind nicht teil des öffentlichen \gls{API}s und sollten nur von von Unit-Tests verwendet werden.
+Private Methoden sind in JavaScript grundsätzlich nicht von aussen zugreifbar. Da sich ein Grossteil der Funktionalität in solchen privaten Methoden befindet, haben wir öffentliche Aliase erstellt, um Tests dieser Methoden zu ermöglichen. Die Aliase sind jeweils mit zwei Unterstrichen gekennzeichnet; sie sind nicht teil des öffentlichen \gls{API}s und sollten nur von von Unit-Tests verwendet werden.
