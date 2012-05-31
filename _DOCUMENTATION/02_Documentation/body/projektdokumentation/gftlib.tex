@@ -1,15 +1,15 @@
 \section{Google Fusion Table Javascript Library (GftLib)}
 \label{gftlib-js}
-Die Google Fusion Table JavaScript Library (GftLib) ist eine von uns entwickelte JavaScript-Bibliothek, welche die Kommunikation mit dem Google Fusion Table SQL \gls{API} (siehe Abschnitt \ref{sql-api}) vereinfacht. Sie hilft dabei SQL-Abfragen zu erstellen und diese per \gls{AJAX} an das \gls{API} zu senden. Zudem kümmert sich die Library um die Authentifizierung via \gls{OAuth}, so dass auch schreibende Zugriffe oder Zugriffe auf private Tabellen möglich sind.
+Die Google Fusion Table JavaScript Library (GftLib) ist eine von uns entwickelte JavaScript-Bibliothek, welche die Kommunikation mit dem Google Fusion Table SQL \gls{API} (siehe Abschnitt \ref{sql-api}) vereinfacht. Sie hilft dabei, SQL-Abfragen zu erstellen und diese per \gls{AJAX} an das \gls{API} zu senden. Zudem kümmert sich die Library um die Authentifizierung via \gls{OAuth}, so dass auch schreibende Zugriffe oder Zugriffe auf private Tabellen möglich sind.
 
 Die Bibliothek hat Abhängigkeiten zu jQuery\footnote{\url{http://jquery.com/}} (für einige Hilfsfunktionen) sowie dem Google \gls{API} JavaScript Client\footnote{\url{http://code.google.com/p/google-api-javascript-client/}} (für die Authentifizierung und das Abschicken der Requests).
 
-Die Bibliothek besteht aus 2 Klassen (GftLib und SqlBuilder). Die GftLib ist das \gls{API} zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt auf einfach Art und Weise SQL-Befehle zu generieren.
+Die Bibliothek besteht aus 2 Klassen (GftLib und SqlBuilder). Die GftLib ist das \gls{API} zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt, auf einfach Art und Weise SQL-Befehle zu generieren.
 
 \subsection{Verwendung}
 Im Code-Beispiel \ref{gftlib-example} sieht man die GftLib und den SqlBuilder im Einsatz. Zuerst werden alle benötigten Werte initialisiert (Zeilen 1-3), dann wird die Ausgabefunktion \inlinecode{printer} definiert, welche später als Callback-Funktion dient für den Request. Das heisst, dass die Funktion aufgerufen wird, sobald die Antwort der Abfrage zurückkommt. 
 
-Mit der Funktion \inlinecode{convertToObject()} wird die Antwort von Google Fusion Tables in eine für den Benutzer angenehmere Form umgewandelt. Das Resultat der Fusion Tables kommt in der Form eines zweidimensionalen Arrays zurück, jeweils für jeden Datensatz alle abgefragten Felder. Die Funktion erstellt jeweils pro Datensatz ein Objekt, welches die angefragten Felder als Properties hat. So kann man mit deren Namen auf ihre Werte zugreifen (z.B. \inlinecode{places[i].name} oder \inlinecode{places[i].population}).
+Mit der Funktion \inlinecode{convertToObject()} wird die Antwort von Google Fusion Tables in eine für den Benutzer besser verständliche Form umgewandelt. Das Resultat der Fusion Tables kommt in Form eines zweidimensionalen Arrays zurück, welches für jeden Datensatz alle abgefragten Felder enthält. Die Funktion erstellt jeweils pro Datensatz ein Objekt, welches die angefragten Felder als Properties hat. So kann man mit deren Namen auf ihre Werte zugreifen (z.B. \inlinecode{places[i].name} oder \inlinecode{places[i].population}).
 
 In diesem Beispiel wird das SQL Query direkt in der Funktion \inlinecode{execSelect()} erzeugt, welche dazu den SqlBuilder verwendet.
 
@@ -51,49 +51,49 @@ Google \gls{API}s Client Library & ALPHA release & \gls{AJAX}-Requests an das Go
 \hline 
 \inlinecode{execQuery( callback, query )} &  Führt eine SQL-Abfrage aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird. 
 \item \inlinecode{query}: SQL-Query
 \end{itemize} \\ 
 \hline 
 \inlinecode{execSql( callback, sql )} & Führt einen beliebigen SQL-Befehl aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird. 
 \item \inlinecode{sql}: SQL-Befehl
 \end{itemize} \\ 
 \hline 
 \inlinecode{execSelect( callback, options )} & Führt eine \inlinecode{SELECT}-Abfrage aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird.
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird.
 \item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.selectStmt()}
 \end{itemize} \\ 
 \hline
 \inlinecode{execInsert( callback, options )} & Führt einen \inlinecode{INSERT}-Befehl aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird.
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird.
 \item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.insertStmt()}
 \end{itemize} \\ 
 \hline
 \inlinecode{execUpdate( callback, options )} & Führt einen \inlinecode{UPDATE}-Befehl aus &
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird. 
 \item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.updateStmt()}
 \end{itemize} \\ 
 \hline 
 \inlinecode{execDelete( callback, options )} & Führt einen \inlinecode{DELETE}-Befehl aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird.
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird.
 \item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.deleteStmt()} 
 \end{itemize} \\ 
 \hline 
 \inlinecode{getTableDescription( callback, options )} & Führt eine \inlinecode{DESCRIBE}-Abfrage aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird. 
 \item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.describeStmt()}
 \end{itemize} \\
 \hline 
 \inlinecode{createView( callback, options )} & Führt einen \inlinecode{CREATE VIEW}-Befehl aus & 
 \begin{itemize}[noitemsep, nosep, leftmargin=12pt, before*={\mbox{}\vspace{-\baselineskip}}, after*={\mbox{}\vspace{-\baselineskip}}]
-\item \inlinecode{callback}: Callback-Methode welche nach Beendigung der Methode aufgerufen wird. 
+\item \inlinecode{callback}: Callback-Methode, welche nach Beendigung der Methode aufgerufen wird. 
 \item \inlinecode{options}: Parameter-Objekt für \inlinecode{SqlBuilder.createViewStmt()} 
 \end{itemize} \\ 
 \hline 

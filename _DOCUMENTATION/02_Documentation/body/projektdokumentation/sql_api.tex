@@ -1,6 +1,6 @@
 \section{SQL API}
 \label{sql-api}
-Das SQL \gls{API} bietet eine Schnittstelle mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen\footnote{Befehlsreferenz: \url{https://developers.google.com/fusiontables/docs/developers_reference}}. Die SQL-Befehle werden als Parameter in folgender Form an das \gls{API} übergeben:
+Das SQL \gls{API} ist eine Schnittstelle, mit welcher man mit SQL-ähnlichen Befehlen Daten aus Google Fusion Tables abfragen oder verändern kann. Sie verfügt bereits über eine grosse Palette an möglichen Befehlen\footnote{Befehlsreferenz: \url{https://developers.google.com/fusiontables/docs/developers_reference}}. Die SQL-Befehle werden als Parameter in folgender Form an das \gls{API} übergeben:
 
 \url{https://www.googleapis.com/fusiontables/<apiVersion>/query?sql=<statement>}
 
@@ -49,13 +49,13 @@ Aggregation &  Folgende Funktionen sind unterstützt:
 \hline 
 Einschränkung auf Datensatz &  \inlinecode{ROWID = {\textless}id{\textgreater}} \\
 \hline 
-Einschränkung auf Attributen &  Für Zahlen: \inlinecode{{\textless}column{\_}name{\textgreater} {\textless}operator{\textgreater} {\textless}number{\textgreater}}
+Einschränkung auf Attributen &  Für Zahlen: \inlinecode{{\textless}column{\_}name{\textgreater} {\textless}operator{\textgreater} {\textless}number{\textgreater}},
 wobei \inlinecode{{\textless}operator{\textgreater}} folgende Werte haben kann: 
 \begin{itemize}[noitemsep]
 \item \inlinecode{{\textgreater}, {\textless},{\textgreater}=, {\textless}=, =}
 \end{itemize}
 
-Für Strings: \inlinecode{{\textless}column{\_}name{\textgreater} {\textless}operator{\textgreater} {\textless}string{\textgreater} }
+Für Strings: \inlinecode{{\textless}column{\_}name{\textgreater} {\textless}operator{\textgreater} {\textless}string{\textgreater}},
 wobei \inlinecode{{\textless}operator{\textgreater}} folgende Werte haben kann: 
 \begin{itemize}[noitemsep]
 \item \inlinecode{\textgreater, {\textless}, \textgreater=, {\textless}=, =}
@@ -72,17 +72,17 @@ wobei \inlinecode{{\textless}operator{\textgreater}} folgende Werte haben kann:
 
 Formeln oder Vergleiche mit anderen Attributen der Tabelle sind nicht unterstützt.\\
 \hline
-Einschränkung auf Anzahl Datensätze & \inlinecode{LIMIT {\textless}number{\textgreater}} 
-wobei \inlinecode{{\textless}number{\textgreater}} angibt wieviele Datensätze des Resultats zurückgeliefert werden sollen.
+Einschränkung auf Anzahl Datensätze & \inlinecode{LIMIT {\textless}number{\textgreater}}, 
+wobei \inlinecode{{\textless}number{\textgreater}} angibt, wie viele Datensätze des Resultats zurückgeliefert werden sollen.
 
 
-Mit \inlinecode{OFFSET {\textless}number{\textgreater}} kann der Bereich, ab welchem das Limit zählt verändert werden.
+Mit \inlinecode{OFFSET {\textless}number{\textgreater}} kann der Bereich, ab welchem das Limit zählt, verändert werden.
 \\
 \hline 
 \caption{Liste der verfügbaren Abfragemöglichkeiten des SQL \gls{API}s}
 \end{longtable}
 
-Um mehrere Bedingungen in einer \inlinecode{WHERE}-Klausel zu verwenden können diese mit \inlinecode{AND} verbunden werden. Verknüpfungen mit \inlinecode{OR} werden hingegen nicht unterstützt.
+Um mehrere Bedingungen in einer \inlinecode{WHERE}-Klausel zu verwenden, können diese mit \inlinecode{AND} verbunden werden. Verknüpfungen mit \inlinecode{OR} werden hingegen nicht unterstützt.
 
 \subsection{Ortsbezogene Abfragen (Spatial-Queries)}
 \label{sqlapi-spatialqueries}
@@ -114,19 +114,19 @@ Das SQL \gls{API} bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage
 
 \textit{Hinweis: \inlinecode{ST{\_}INTERSECTS} und \inlinecode{ST{\_}DISTANCE} dürfen nicht zusammen im gleichen Statement verwendet werden.} \\ 
 \hline 
-\inlinecode{CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} )} & Wird verwendet, um einen Kreis von der angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} mit den Radius \inlinecode{{\textless}radius{\textgreater}} zu erhalten. \\ 
+\inlinecode{CIRCLE( {\textless}coordinate{\textgreater}, {\textless}radius{\textgreater} )} & Wird verwendet, um einen Kreis von der angegebenen Koordinate \inlinecode{{\textless}coordinate{\textgreater}} mit dem Radius \inlinecode{{\textless}radius{\textgreater}} zu erhalten. \\ 
 \hline 
-\inlinecode{RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} )} & Wird verwendet um ein Rechteck mit den Ecken \inlinecode{{\textless}coordinate{\_}1{\textgreater}} (links oben) und \inlinecode{{\textless}coordinate{\_}2{\textgreater}} (rechts unten) zu erhalten. \\ 
+\inlinecode{RECTANGLE( {\textless}coordinate{\_}1{\textgreater}, {\textless}coordinate{\_}2{\textgreater} )} & Wird verwendet, um ein Rechteck mit den Ecken \inlinecode{{\textless}coordinate{\_}1{\textgreater}} (links oben) und \inlinecode{{\textless}coordinate{\_}2{\textgreater}} (rechts unten) zu erhalten. \\ 
 \hline 
 \caption{Liste der verfügbaren Spatial Queries des SQL \gls{API}s}
 \end{longtable} 
 
 \section{Client Libraries}
-Google bietet Client Libraries zum \gls{API} in den Sprachen PHP\footnote{\url{http://code.google.com/p/fusion-tables-client-php/}} und Python\footnote{\url{http://code.google.com/p/fusion-tables-client-python/}} an. Da wir eine Webapplikation möglichst ohne Serverteil erstellen wollten, waren wir auf eine Bibliothek in JavaScript angewiesen. Da es bislang noch keine solche gab, haben wir selbst begonnen die GftLib zu entwickeln (siehe Abschnitt \ref{gftlib-js}).
+Google bietet Client Libraries zum \gls{API} in den Sprachen PHP\footnote{\url{http://code.google.com/p/fusion-tables-client-php/}} und Python\footnote{\url{http://code.google.com/p/fusion-tables-client-python/}} an. Da wir eine Webapplikation möglichst ohne Serverteil erstellen wollten, waren wir auf eine Bibliothek in JavaScript angewiesen. Da es bislang noch keine solche gab, haben wir selbst begonnen, die GftLib zu entwickeln (siehe Abschnitt \ref{gftlib-js}).
 
-Durch die Same-Origin-Policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, wurden wir daran gehindert \gls{AJAX}-Requests direkt auf das Google \gls{API} abzusetzen. Wir mussten eine Alternative finden, ohne eine Serverkomponente einzuführen.
+Durch die Same-Origin-Policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, wurden wir daran gehindert, \gls{AJAX}-Requests direkt auf das Google \gls{API} abzusetzen. Wir mussten eine Alternative finden, ohne eine Serverkomponente einzuführen.
 
-Schliesslich fanden wir in den Google Groups ein inoffizielles \gls{JSONP} \gls{API}\footnote{\url{https://groups.google.com/forum/?hl=en&fromgroups\#!topic/fusion-tables-users-group/jCiFfqCgCWM}}, welches es erlaubt \gls{AJAX}-Requests auch über die eigene Domäne hinweg zu senden. Diese Methode funktionierte jedoch nur für lesende Zugriffe. 
+Schliesslich fanden wir in den Google Groups ein inoffizielles \gls{JSONP} \gls{API}\footnote{\url{https://groups.google.com/forum/?hl=en&fromgroups\#!topic/fusion-tables-users-group/jCiFfqCgCWM}}, welches es erlaubt, \gls{AJAX}-Requests auch über die eigene Domäne hinweg zu senden. Diese Methode funktionierte jedoch nur für lesende Zugriffe. 
 
 Für die schreibenden Zugriffe haben wir als Workaround einen \emph{Relay-Dienst} geschrieben, welcher auf unserem Webserver lief. Der Dienst hat lediglich die Requests entgegengenommen und diese dann an das Google \gls{API} weitergeleitet.
 
@@ -138,7 +138,7 @@ Es gibt derzeit zwei verschiedene Versionen des \gls{API}s: eine frei öffentlic
 
 Das Trusted Tester \gls{API} bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem \gls{API} um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem \gls{API} gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben.
 
-Zu den Neuerungen des neuen \gls{API}s gehört, dass es auch eine \gls{REST}-Schnittstelle erhalten hat. Damit ist es zum einen möglich Tabelleninformationen abzufragen als auch ganz klassisch CRUD-Operationen auf dem \gls{API} auszuführen. Da wir uns bemüht haben unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen \gls{API} \inlinecode{POST}-Requests abzuschicken und so endlich auch Schreiboperationen direkt via Browser zu unterstützen.
+Zu den Neuerungen des neuen \gls{API}s gehört, dass es auch eine \gls{REST}-Schnittstelle erhalten hat. Damit ist es zum einen möglich, Tabelleninformationen abzufragen und zum anderen ganz klassisch CRUD-Operationen auf dem \gls{API} auszuführen. Da wir uns bemüht haben, unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen \gls{API} \inlinecode{POST}-Requests abzuschicken und so endlich auch Schreiboperationen direkt via Browser zu unterstützen.
 
 Alle Request an das \gls{REST}-\gls{API} haben die folgende Form: \\
 \url{https://www.googleapis.com/fusiontables/<apiVersion>/<resourcePath>?<parameters>}
@@ -151,7 +151,7 @@ Folgende Ressourcen sind derzeit unterstützt:
 	\item Style
 \end{itemize}
 
-Eine \emph{Row} oder \emph{Query} Ressource fehlt noch. Um Abfragen zu machen muss nach wie vor das SQL \gls{API} (siehe Abschnitt \ref{sql-api}) verwendet werden.
+Eine \emph{Row} oder \emph{Query} Ressource fehlt noch. Um Abfragen zu machen, muss nach wie vor das SQL \gls{API} (siehe Abschnitt \ref{sql-api}) verwendet werden.
 
 \begin{longtable}{|p{0.5\twocelltabwidth}|p{0.5\twocelltabwidth}|}
 \hline 
@@ -161,11 +161,11 @@ Alle Ressourcen eines Typs auflisten & \inlinecode{GET} auf einem Ressource-Typ\
 \hline 
 Eine spezifische Ressource holen	& \inlinecode{GET} auf einer Ressource\\
 \hline 
-Eine neue Ressource einfügen (kreiert eine neue Ressource) & \inlinecode{POST} auf einem Ressource-Typ (mit Daten um eine neue Ressource zu erstellen)\\
+Eine neue Ressource einfügen (kreiert eine neue Ressource) & \inlinecode{POST} auf einem Ressource-Typ (mit Daten, um eine neue Ressource zu erstellen)\\
 \hline 
-Aktualisieren einer bestehenden Ressource & \inlinecode{PUT} auf einer Ressource (mit Daten um die Ressource zu aktualisieren)\\
+Aktualisieren einer bestehenden Ressource & \inlinecode{PUT} auf einer Ressource (mit Daten, um die Ressource zu aktualisieren)\\
 \hline 
 Löschen einer Ressource & \inlinecode{DELETE}  auf einer Ressource\\
 \hline 
-\caption{HTTP Mapping des REST-APIs}
+\caption{HTTP-Mapping des REST-APIs}
 \end{longtable}

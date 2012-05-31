@@ -1,15 +1,15 @@
 \section{Google Maps API - FusionTablesLayer}
 \label{gmap-api-fusiontableslayer}
 Google bietet von Haus aus bereits eine Fusion Table-Integration im Google Maps \gls{API} V3 an. Damit ist es möglich Fusion Tables als eigenständige Layer direkt auf der Karte darzustellen.
-Die Möglichkeiten dieser Layer sind noch stark eingeschränkt aber die grundlegenden Funktionalitäten für das Arbeiten mit Geodaten sind bereits vorhanden.
+Die Möglichkeiten dieser Layer sind noch stark eingeschränkt, aber die grundlegenden Funktionalitäten für das Arbeiten mit Geodaten sind bereits vorhanden.
 
-So ist es möglich Abfragen mit \inlinecode{WHERE}-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen.
+So ist es möglich, Abfragen mit \inlinecode{WHERE}-Conditions einzuschränken oder die Stile des Layers selbst zu bestimmen.
 
 \subsection{Karten-Stile}
 \label{fusiontableslayer-styles}
-Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich Flächen oder Linien farblich hervorzuheben oder andere Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer \inlinecode{WHERE}-Condition in der Abfrage.
+Die FusionTablesLayer bieten ein abfragebasiertes Styling der Ebene an. Damit ist es möglich, Flächen oder Linien farblich hervorzuheben oder andere Icons für Markierung zu verwenden. Zu jedem Stil kann man eine Einschränkung festlegen, welche bestimmt, ob dieser für den aktuellen Datensatz angewendet wird oder nicht. Die Einschränkung entspricht grundsätzlich einer \inlinecode{WHERE}-Condition in der Abfrage.
 
-\emph{Hinweis: Passen mehrere Einschränkungen auf ein Datensatz, erhält dieser den Stil, welcher als letztes definiert wurde. Dies kann zu ungewollten Resultaten führen.}
+\emph{Hinweis: Passen mehrere Einschränkungen auf einen Datensatz, erhält dieser den Stil, welcher als letztes definiert wurde. Dies kann zu ungewollten Resultaten führen.}
 
 \subsubsection{Beispiel eines Stils:}
 \lstset{language=JavaScript}
@@ -39,7 +39,7 @@ Das Google Maps \gls{API} hat momentan folgende Einschränkungen bezüglich den 
 \hline 
 Anzahl Ebenen pro Karte & 5 \\ 
 \hline 
-Anzahl Ebenen auf denen Stile definiert sein dürfen & 1 \\ 
+Anzahl Ebenen, auf denen Stile definiert sein dürfen & 1 \\ 
 \hline 
 Anzahl Stile auf Ebene & 5 \\ 
 \hline 
@@ -48,7 +48,7 @@ Anzahl Stile auf Ebene & 5 \\
 \end{longtable} 
 
 \subsection{Heatmaps}
-Ein weiteres Feature der Fusion Table-Ebenen ist die Möglichkeit die Daten der Tabelle direkt als Heatmap darzustellen. Dabei werden die Daten automatisch nach der Häufigkeit der Vorkommnisse an einem Ort anders eingefärbt. Der verwendete Farbverlauf geht dabei von \emph{grün} (für wenig Daten) bis \emph{rot} (für viele Daten).
+Ein weiteres Feature der Fusion Table-Ebenen ist die Möglichkeit, die Daten der Tabelle direkt als Heatmap darzustellen. Dabei werden die Daten automatisch nach der Häufigkeit der Vorkommnisse an einem Ort anders eingefärbt. Der verwendete Farbverlauf geht dabei von \emph{grün} (für wenig Daten) bis \emph{rot} (für viele Daten).
 
 \begin{figure}[!ht]
 	\centering
@@ -73,22 +73,22 @@ Die Zeit für das Rendering der Karte bleibt demnach bei der Verwendung von Fusi
 
 \subsection{Einschränkungen}
 \subsubsection{Freigabe der Tabelle}
-Ein grosser Nachteil der Fusion Table-Ebenen besteht darin, dass die verwendeten Fusion Tables als  \emph{öffentlich} markiert sein müssen, um diese auf einer Karte darzustellen. Sprich jeder kann die Tabellen anzeigen oder auslesen. Es ist also nicht möglich eine Tabelle mit sensiblen Daten als Fusion Table-Ebene darzustellen.
+Ein grosser Nachteil der Fusion Table-Ebenen besteht darin, dass die verwendeten Fusion Tables als  \emph{öffentlich} markiert sein müssen, um diese auf einer Karte darzustellen. Dies bedeuted, dass jeder die Tabellen anzeigen oder auslesen kann. Es ist also nicht möglich, eine Tabelle mit sensiblen Daten als Fusion Table-Ebene darzustellen.
 
 Von Google wird zur Lösung dieses Problems aber folgendes Vorgehen vorgeschlagen: Man kann für Tabellen mit sensiblen Inhalten eine View erstellen, welche lediglich die öffentlichen Spalten und Zeilen selektiert. Diese View könnte man dann als \emph{öffentlich} markieren und in einer Fusion Table-Ebene verwenden.
 
 Eine Ausnahme dieser Regelung bilden dabei die Maps \gls{API} Premier Kunden. Diese haben die Möglichkeit eine Fusion Table als \emph{Protectet Map Layer} freizugeben, wodurch sich diese nur in einer definierten Applikation als Ebene einbinden lässt. Die Tabelle bleibt dabei komplett privat und kann nicht ausgelesen werden.
 
 \subsubsection{Event-Handling auf Fusion Table-Ebenen}
-Bislang ist es erst möglich den Klick-Event auf einer Fusion Table-Ebene zu behandeln. Dieser liefert standardmässig das HTML-Template des InfoWindows mit, welches mit dem Klick angezeigt wird. Zudem erhält man die Daten der "`angeklickten Zeile"' beziehungsweise die zugehörigen Daten des angeklickten Objekts auf der Karte. Man hat die Möglichkeit dieses Template anzupassen bevor das InfoWindow angezeigt wird.
+Bislang ist es erst möglich, den Klick-Event auf einer Fusion Table-Ebene zu behandeln. Dieser liefert standardmässig das HTML-Template des InfoWindows mit. Zudem erhält man die Daten der "`angeklickten Zeile"' beziehungsweise die zugehörigen Daten des angeklickten Objekts auf der Karte. Man hat die Möglichkeit, dieses Template anzupassen bevor das InfoWindow angezeigt wird.
 
-Weitere Events können auf einer Fusion Table-Ebene aber noch nicht behandelt werden. Es ist also nicht möglich beispielsweise ein Objekt auf der Karte bei einem MouseOver-Event anders einzufärben oder ähnliches.
+Weitere Events können auf einer Fusion Table-Ebene aber noch nicht behandelt werden. Es ist also nicht möglich, beispielsweise ein Objekt auf der Karte bei einem MouseOver-Event anders einzufärben oder ähnliches.
 
-Diese fehlenden Möglichkeiten wurden schon oft von anderen FusionTables-Benutzern bei den Google-Entwicklern angefordert, welche dies ebenfalls als ein wichtiges Feature sehen, dass noch implementiert werden muss.
+Diese fehlenden Möglichkeiten wurden schon oft von anderen FusionTables-Benutzern bei den Google-Entwicklern angefordert, welche dies ebenfalls als ein wichtiges Feature sehen, das noch implementiert werden muss.
 
-Als Übergangslösung findet sich bereits eine Custom Library mit dem Namen \emph{Fusion Tips}\footnote{\url{http://gmaps-utility-gis.googlecode.com/svn/trunk/fusiontips/docs/examples.html}}. Diese legt über die Fusion Table-Ebene eine weitere transparente Ebene. Auf dieser Ebene kann man alle Events, welche das Google Maps \gls{API} anbietet behandeln (somit auch den MouseOver-Event). Sobald die Maus über die Position eines Elementes auf der Fusion Table fährt, sendet der Event einen Request über das SQL \gls{API} an die Fusion Table und holt sich die Informationen zu der entsprechenden Zeile. So ist es möglich ein neues Element mit der gleichen Form aber beispielsweise einer anderen Farbe darüber zu legen.
+Als Übergangslösung findet sich bereits eine Custom Library mit dem Namen \emph{Fusion Tips}\footnote{\url{http://gmaps-utility-gis.googlecode.com/svn/trunk/fusiontips/docs/examples.html}}. Diese legt über die Fusion Table-Ebene eine weitere transparente Ebene. Auf dieser Ebene kann man alle Events, welche das Google Maps \gls{API} anbietet, behandeln. Sobald die Maus über die Position eines Elementes auf der Fusion Table fährt, sendet der Event einen Request über das SQL \gls{API} an die Fusion Table und holt sich die Informationen zu der entsprechenden Zeile. So ist es möglich, ein neues Element mit der gleichen Form, aber beispielsweise einer anderen Farbe darüber zu legen.
 
-Für den Benutzer entsteht so der Effekt als würde sich die Farbe des gehoverten Elementes ändern.
+Für den Benutzer entsteht so der Effekt, als würde sich die Farbe des gehoverten Elementes ändern.
 
 Die Libary wird in folgendem Blog-Artikel sehr gut erklärt: \url{http://csessig.wordpress.com/2012/02/07/multiple-layers-and-rollover-effects-for-fusion-table-maps/}
 
