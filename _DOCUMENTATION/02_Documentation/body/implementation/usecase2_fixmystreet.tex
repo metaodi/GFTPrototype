@@ -272,7 +272,7 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \inlinecode{index}-
 
 % Implementation
 \section{Implementation}
-Die \gls{WebApp} basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen \gls{WebApp}s mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
+Die \gls{WebApp} basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen \gls{WebApp}s mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem \gls{MVC}-Pattern aufzubauen.
 
 Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\footnote{\url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.ComponentQuery}}. Damit lassen sich View-Komponenten über verschiedene Attribute referenzieren. So kann man beispielsweise über deren eindeutige ID eine Referenz auf das Objekt erstellen.
 
@@ -382,7 +382,7 @@ Das Sencha Touch 2 Framework verwendet für den Zugriff auf fremde Datenquellen 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (Web Storage\footnote{\url{http://de.wikipedia.org/wiki/Web_Storage}}) zu kommunizieren. Zudem existieren Proxies für \gls{AJAX}-Serveranfragen oder \gls{JSONP}-Anfragen.
 
 Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL \gls{API} mit der Fusion Table zu kommunizieren.
-Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die \gls{WebApp} nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Der Proxy implementiert lediglich die in unserem Use Case verwendeten \gls{CRUD}-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die \gls{WebApp} nicht vorgesehen und wurde deshalb auch nicht implementiert.
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \begin{figure}[H]
@@ -418,7 +418,7 @@ Aufgrund der Einschränkung, dass neue Datensätze nicht geocodiert werden (sieh
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
 \section{Testing}
-Das verwendete Framework Sencha Touch 2 machte das Testing der Applikation nicht ganz einfach. Obwohl das Framework den Code sehr stark nach MVC gliedert, haben die einzelnen Teile eine starke Kopplung an das Framework. Dies ist auch der Grund, weshalb wir die Applikation nur punktuell getestet haben\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=FixMyStreet}}.
+Das verwendete Framework Sencha Touch 2 machte das Testing der Applikation nicht ganz einfach. Obwohl das Framework den Code sehr stark nach \gls{MVC} gliedert, haben die einzelnen Teile eine starke Kopplung an das Framework. Dies ist auch der Grund, weshalb wir die Applikation nur punktuell getestet haben\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=FixMyStreet}}.
 
 Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werden. Dies hilft dafür immer einen konsistenten Stand an Komponenten zu haben, welche so auch zusammen funktionieren können. Zum anderen prüfen wir einige Konfigurationen. Dabei geht es vor allem darum um Änderungen daran zu erkennen.
 
