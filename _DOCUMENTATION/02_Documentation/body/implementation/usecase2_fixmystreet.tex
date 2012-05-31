@@ -20,13 +20,13 @@
 % Einführung
 \section{Einführung}
 \subsection{Idee}
-FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland, welches dazu die Webseite  \url{http://de.seeclickfix.com/} anbietet oder England, welches die Webseite \url{http://www.fixmystreet.com/} zur Verfügung stellt. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
+FixMyStreet ist ein Konzept, welches bereits in verschiedenen Städten bzw. Ländern umgesetzt wurde. Beispiele dafür sind Deutschland\footnote{\url{http://de.seeclickfix.com/}} oder England\footnote{\url{http://www.fixmystreet.com/}}. Beide Beispiele bieten neben der Webseite auch native Apps für iOS und Android an.
 
-Die Idee hinter dem Konzept ist so einfach wie auch genial. Man ermöglicht dem Bürger per Webseite oder App entdeckte Defekte in seiner Umgebung (defekte Strassenlampen, Schlaglöcher, usw.) direkt der dafür zuständigen Behörde zu melden. Diese kann dann die erhaltenen Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
+Die Idee ist so einfach wie auch genial: Man ermöglicht dem Bürger, per Webseite oder App, Defekte in seiner Umgebung (kaputte Strassenlampen, Schlaglöcher, usw.) direkt der zuständigen Behörde zu melden. Diese kann dann die erhaltenen Meldungen überprüfen und wenn nötig beheben. So können teure Kontrollfahrten auf ein Minimum reduziert werden.
 
 % Ziel
 \subsection{Ziel}
-Das Ziel dieses Use Cases war die Erstellung einer \gls{WebApp}, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung dem zuständigen Amt zu melden.
+Das Ziel dieses Use Cases war die Erstellung einer \gls{WebApp}, welche genau dieses Konzept umsetzt. Die Benutzer sollen die Möglichkeit haben Defekte in ihrer Umgebung zu melden.
 
 Google Fusion Table soll dazu als Datenbank verwendet werden, in der die Defekte abgelegt werden. Natürlich sollen auch einige \gls{GIS}-Features der Fusion Table verwendet werden, um beispielsweise nur die Defekte im aktuell sichtbaren Bereich der Karte zu laden.
 
@@ -145,7 +145,7 @@ Der Gemeindearbeiter öffnet die FixMyStreet Fusion Table. Er hat darin die Mög
 \emph{Hinweis: Dieser Use Case wird vom gegebenen Google Fusion Tables Web-GUI abgedeckt und wird nicht in der FixMyStreet-App realisiert.}
 
 \subsection{Paper-Prototype}
-Vor der Implementation der Oberfläche wurde ein Paper-Prototype des GUI-Design erstellt. Dieses wurde von verschiedenen Personen getestet. Der Prototype besteht aus drei verschiedenen Hauptmasken.
+Vor der Implementation der Oberfläche wurde ein Paper-Prototype des GUI-Designs erstellt. Dieses wurde von verschiedenen Personen getestet. Der Prototype besteht aus drei verschiedenen Hauptmasken.
 
 \subsubsection{Maske: Defekt melden}
 Auf dieser Maske können Defekte gemeldet werden. Dazu lässt sich zuerst der Defekt-Typ wählen. Danach kann man auf der Karte den Standort des Defekts auswählen indem man die Defekt-Markierung darauf verschiebt. Abschliessend lässt sich die Meldung absenden.
@@ -203,7 +203,7 @@ Die Applikation verwendet als Haupttabelle die Fusion Table \emph{ftFixMyStreet}
 \end{figure}
 
 \subsection{Package-Struktur}
-Die Package-Struktur wird vom Sencha Touch Framework 2 fix vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}. Diese abstrahieren jeweils einen Datenspeicher. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation verwendet (siehe Abschnitt \ref{fixmystreet-proxy}).
+Die Package-Struktur wird vom Sencha Touch Framework 2 vorgegebenen. Speziell daran ist das Konzept der \emph{Stores}, welche einen beliebigen Datenspeicher abstrahieren. An einen Store wird ein \emph{Model} gebunden, welches die Struktur der beinhaltenden Daten vorgibt. Zudem können Stores über einen \emph{Proxy} an fremde Datenquellen gebunden werden. Einen solchen Proxy haben wir zur Anbindung der Google Fusion Tables an unsere Applikation entwickelt (siehe Abschnitt \ref{fixmystreet-proxy}).
 
 \begin{figure}[H]
 	\centering
@@ -220,7 +220,7 @@ Die Package-Struktur wird vom Sencha Touch Framework 2 fix vorgegebenen. Speziel
 \end{figure}
 
 \subsection{Aufbau der Benutzeroberfläche}
-Wie in Abbildung \ref{fixmystreet-view-classmodel} ersichtlich besteht die Applikation aus den drei verschiedenen Hauptmasken \emph{Report}, \emph{List} und \emph{Map}. Diese werden über den \emph{MainContainer} in einem Tabpanel dargestellt.
+Wie in Abbildung \ref{fixmystreet-view-classmodel} ersichtlich, besteht die Applikation aus den drei verschiedenen Hauptmasken \emph{Report}, \emph{List} und \emph{Map}. Diese werden über den \emph{MainContainer} in einem Tabpanel dargestellt.
 
 \begin{figure}[H]
 	\centering
@@ -231,7 +231,7 @@ Wie in Abbildung \ref{fixmystreet-view-classmodel} ersichtlich besteht die Appli
 
 
 \subsection{Zusammenspiel der Controller}
-Die Applikation wird auf oberster Ebene vom \emph{Main}-Controller gesteuert. Dieser ist dafür zuständig, jeweils die korrekten Masken anzuzeigen. Die einzelnen Masken werden dann von eigenen Controllern gesteuert.
+Die Applikation wird auf oberster Ebene vom \emph{Main}-Controller gesteuert. Dieser ist dafür zuständig, die korrekten Masken anzuzeigen. Die einzelnen Masken werden dann von eigenen Controllern gesteuert.
 
 \begin{figure}[H]
 	\centering
@@ -241,7 +241,7 @@ Die Applikation wird auf oberster Ebene vom \emph{Main}-Controller gesteuert. Di
 \end{figure}
 
 \subsection{Deployment}
-Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fixmystreet-proxy}) auf die GftLib (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den WebService \emph{OAuthTokenService} erstellt. Danach kann mit diesem Token auf die Fusion Table \emph{ftFixMyStreet} zugegriffen werden.
+Die Applikation läuft direkt im Browser des Benutzers. Darin greift die \emph{FusionTablesProxy}-Klasse (siehe Abschnitt \ref{fixmystreet-proxy}) auf die GftLib (siehe Abschnitt \ref{gftlib-js}) zu, welche die Verbindung zur Fusion Table erstellt. Dazu wird beim ersten Zugriff ein Zugriffstoken über den Web Service \emph{OAuthTokenService} geholt. Danach kann mit diesem Token auf die Views \emph{ftFixMyStreet\_Read} und \emph{ftFixMyStreet\_Write} zugegriffen werden.
 
 \begin{figure}[H]
 	\centering
@@ -272,15 +272,15 @@ Der Benutzer startet die Applikation mit dem Zugriff auf die \inlinecode{index}-
 
 % Implementation
 \section{Implementation}
-Die \gls{WebApp} basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen \gls{WebApp}s mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem MVC-Pattern aufzubauen.
+Die \gls{WebApp} basiert auf dem Sencha Touch 2 Framework\footnote{\url{http://www.sencha.com/products/touch/}}. Dieses bietet eine Basis zur Erstellung von mobilen \gls{WebApp}s mit JavaScript. Das Framework bietet die Möglichkeit eine Applikation nach dem \gls{MVC}-Pattern aufzubauen.
 
 Dazu verwendet Sencha Touch unter anderem das Konzept der Component-Queries\footnote{\url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.ComponentQuery}}. Damit lassen sich View-Komponenten über verschiedene Attribute referenzieren. So kann man beispielsweise über deren eindeutige ID eine Referenz auf das Objekt erstellen.
 
-In den Controller-Klassen werden genau über dieses Konzept Referenzen auf die View-Objekte erstellt und darauf zugegriffen. Damit ist es in fast allen Fällen möglich, die View-Klassen frei von Bussinesslogik zu halten.
+In den Controller-Klassen werden genau über dieses Konzept Referenzen auf die View-Objekte erstellt und darauf zugegriffen. Damit ist es in fast allen Fällen möglich, die View-Klassen frei von Businesslogik zu halten.
 
 % Hier wurde bewusst eine subsubsection verwendet, um den Titel nicht in das Inhaltsverzeichnis einzufuegen
 \subsubsection{Beispiel einer Component-Query}
-Das Beispiel \ref{st2-componentquery}\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \emph{nav} via Component-Query die View-Komponente mit der ID \emph{mainNav}.
+Das Beispiel \ref{st2-componentquery}\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \inlinecode{nav} via Component-Query die View-Komponente mit der ID \inlinecode{mainNav}.
 
 \lstset{language=JavaScript}
 \begin{lstlisting}[caption=Beispiel eines Component-Queries in Sencha Touch 2, label=st2-componentquery]
@@ -316,7 +316,7 @@ Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
 \end{itemize}
 \end{itemize}
 
-Eie vollständige Liste der unterstützten Geräte findet man auf der Seite \url{http://www.sencha.com/products/touch/features/} unter \emph{Sencha Touch 2 Device Support}.
+Eine vollständige Liste der unterstützten Geräte findet man auf der Seite \url{http://www.sencha.com/products/touch/features/} unter \emph{Sencha Touch 2 Device Support}.
 
 \subsection{Abhängigkeiten}
 \begin{longtable}{|p{0.25\threecelltabwidth}|p{0.1\threecelltabwidth}|p{0.65\threecelltabwidth}|}
@@ -325,7 +325,7 @@ Eie vollständige Liste der unterstützten Geräte findet man auf der Seite \url
 \hline 
 Sencha Touch 2 & 2.0.1 & Framework zur Erstellung von mobilen \gls{WebApp}s \\ 
 \hline 
-gftlib-js & 1.0 & Kommunikation mit dem Google Fusion Tables via SQL \gls{API} \\ 
+GftLib & 1.0 & Kommunikation mit dem Google Fusion Tables via SQL \gls{API} \\ 
 \hline 
 jQuery & 1.7.1 & Wird von der GftLib verwendet \\ 
 \hline 
@@ -381,8 +381,8 @@ Das Sencha Touch 2 Framework verwendet für den Zugriff auf fremde Datenquellen 
 
 Es gibt bereits vorgefertigte Proxies, welche die meisten Anwendungsfälle abdecken. So ist es möglich über einen LocalStorage-Proxy mit dem internen Browserspeicher (Web Storage\footnote{\url{http://de.wikipedia.org/wiki/Web_Storage}}) zu kommunizieren. Zudem existieren Proxies für \gls{AJAX}-Serveranfragen oder \gls{JSONP}-Anfragen.
 
-Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library \emph{GftLib} (siehe Abschnitt \ref{gftlib-js}), um über das SQL \gls{API} mit der Fusion Table zu kommunizieren.
-Der Proxy implementiert lediglich die in unserem UseCase verwendeten CRUD-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die \gls{WebApp} nicht vorgesehen und wurde deshalb auch nicht implementiert.
+Für den Zugriff auf die Fusion Table als Datenbank mussten wir aber einen eigenen Proxy schreiben. Dieser verwendet unsere selbst geschriebene JavaScript Library GftLib (siehe Abschnitt \ref{gftlib-js}), um über das SQL \gls{API} mit der Fusion Table zu kommunizieren.
+Der Proxy implementiert lediglich die in unserem Use Case verwendeten \gls{CRUD}-Operationen \inlinecode{Create}, \inlinecode{Read} und \inlinecode{Delete}. Ein Änderung (\inlinecode{Update}) von gemeldeten Defekten ist über die \gls{WebApp} nicht vorgesehen und wurde deshalb auch nicht implementiert.
 Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{read()} und \inlinecode{destory()} des Proxies abgebildet.
 
 \begin{figure}[H]
@@ -394,11 +394,11 @@ Die Operationen sind jeweils in den Methoden \inlinecode{create()}, \inlinecode{
 
 \subsection{Wiedererkennung des Benutzers}
 \label{fixmystreet-user-detection}
-Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst Registrieren müssen um diese zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
+Um die Hemmschwelle zur Benutzung der App möglichst klein zu halten, wollten wir möglichst darauf verzichten, dass sich die Benutzer zuerst registrieren müssen um diese zu verwenden. Trotzdem soll die App die Möglichkeit haben einen Benutzer wiederzuerkennen, um ihm seine bereits gemeldeten Defekte anzeigen zu können.
 
-Wir generieren dazu beim ersten Starten der Applikation eine \emph{Version 1 UUID}\footnote{\url{http://de.wikipedia.org/wiki/Universally_Unique_Identifier}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im \emph{Web Storage} des Browsers ab. Die gemeldeten Defekte beinhalten dann jeweils die UUID und können so den Benutzern zugewiesen werden.
+Wir generieren dazu beim ersten Starten der Applikation eine \emph{Version 1 \gls{UUID}} (sequenziell) gemäss RFC 4122\footnote{\url{http://tools.ietf.org/html/rfc4122}}. Diese legen wir im \emph{Web Storage} des Browsers ab. Die gemeldeten Defekte beinhalten dann jeweils die \gls{UUID} und können so den Benutzern zugewiesen werden.
 
-Ein Problem ergibt sich aber aus dieser Vorgehensart. Sobald ein Benutzer den Cache des Browsers löscht oder die App von einem anderen Gerät aus startet, erhält er eine neue UUID. Seine bereits gemeldeten Defekte kann er somit nur auf dem Gerät sehen, mit welchem er sie gemeldet hat. Dadurch können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
+Ein Problem ergibt sich aber aus diesem Vorgehen: Sobald ein Benutzer den Cache des Browsers löscht oder die App von einem anderen Gerät aus startet, erhält er eine neue \gls{UUID}. Seine bereits gemeldeten Defekte kann er somit nur auf dem Gerät sehen, mit welchem er sie gemeldet hat. Dadurch können verwaiste Datensätze in der Datenbank entstehen, welche keinem Benutzer mehr zugeordnet werden können. In unserem Anwendungsfall ist dies aber nicht weiter schlimm, da die gemeldeten Fälle von der zuständigen Behörde direkt via Fusion Tables GUI bearbeitet werden. Darin spielt die Benutzerzuordnung keine Rolle.
 
 \subsection{Automatisches Aktualisieren der Übersichtsmaske}
 \label{fixmystreet-polling}
@@ -418,7 +418,7 @@ Aufgrund der Einschränkung, dass neue Datensätze nicht geocodiert werden (sieh
 Auf der Übersichtsmaske hat man die Möglichkeit alle gemeldeten Defekte als Heatmap darzustellen. Dazu haben wir das eine Fusion Table-Ebene über die Karte gelegt und dessen Heatmap-Feature (siehe Abschnitt \ref{fusiontableslayer-heatmap}) verwendet. 
 
 \section{Testing}
-Das verwendete Framework Sencha Touch 2 machte das Testing der Applikation nicht ganz einfach. Obwohl das Framework den Code sehr stark nach MVC gliedert, haben die einzelnen Teile eine starke Kopplung an das Framework. Dies ist auch der Grund, weshalb wir die Applikation nur punktuell getestet haben\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=FixMyStreet}}.
+Das verwendete Framework Sencha Touch 2 machte das Testing der Applikation nicht ganz einfach. Obwohl das Framework den Code sehr stark nach \gls{MVC} gliedert, haben die einzelnen Teile eine starke Kopplung an das Framework. Dies ist auch der Grund, weshalb wir die Applikation nur punktuell getestet haben\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=FixMyStreet}}.
 
 Zum einen konnten wir prüfen ob alle Teile der Applikation korrekt geladen werden. Dies hilft dafür immer einen konsistenten Stand an Komponenten zu haben, welche so auch zusammen funktionieren können. Zum anderen prüfen wir einige Konfigurationen. Dabei geht es vor allem darum um Änderungen daran zu erkennen.
 
