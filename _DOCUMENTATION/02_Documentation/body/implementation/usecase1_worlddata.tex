@@ -21,14 +21,13 @@ Es sollen verschiedene historische Länderdaten auf einer Weltkarte angezeigt we
 \label{worlddata-vorgehen}
 Um die Daten pro Land zu visualisieren, wurden zuerst die Landesgrenzen als Geometrie-Datensätze in eine Fusion Table importiert. In einer anderen Tabelle wurden dann die historischen Daten, unterteilt nach Land und Jahr, geladen. Aus diese beiden Tabellen entstand dann per \gls{Merge}-Funktion (siehe Abschnitt \ref{merge-table}) eine sogenannte Merged Table, welche die Daten der beiden zugrundeliegenden Tabellen kombiniert. Diese neue Tabelle konnte dann mittels FusionTablesLayer auf der Karte dargestellt werden.
 
-\section{Analyse}
 Die Idee des Use Cases stammt von der Webapplikation \emph{Public Data}\footnote{\url{http://www.google.ch/publicdata/}} von Google. Darin lassen sich bereits öffentliche Daten aus verschiedensten Quellen über das Google Chart \gls{API}\footnote{\url{https://developers.google.com/chart/}} in verschiedenen Diagrammen darstellen.
 
+\section{Analyse}
+\subsection{Datenquellen}
 Als Datenquelle für diesen Use Case wurde der Datenkatalog der Weltbank\footnote{\url{http://data.worldbank.org/}} verwendet. Darin finden sich länderspezifische Daten aufgeteilt in über 7000 Themenbereiche. Diese lassen sich als \gls{XML}- oder Excel-Datei herunterladen. Für unseren Import verwendeten wir die Excel-Dateien, welche wir vorbereitet und als \gls{CSV}-Dateien gespeichert haben. Diese konnten wir anschliessend in Google Fusion Tables importieren.
 
 Die Landesgrenzen wurden als \gls{KML}-Datei von einer inoffiziellen Google Earth Library-Webseite\footnote{\url{http://www.gelib.com/world-borders.htm}} bezogen. 
-
-\section{Design}
 
 \subsection{UseCases}
 Folgende Anwendungsfälle sollen von der Applikation abgedeckt werden.
@@ -81,6 +80,7 @@ Folgende Anwendungsfälle sollen von der Applikation abgedeckt werden.
 \end{longtable} 
 \renewcommand{\arraystretch}{1.3}
 
+\section{Design}
 \subsection{Datenbankschema}
 Wie bereits im Abschnitt \ref{worlddata-vorgehen} beschrieben, verwendet die Applikation die Daten der Merged Table \emph{MERGE-ftWorldBorders\_ftWorldData} (siehe Abschnitt \ref{merge-table}). Diese beinhaltet pro Thema und Land eine Zeile mit Daten. Diese Daten sind wiederum pro Jahr in einer Spalte abgelegt. Dieses Schema ist 1:1 von den Daten der Weltbank übernommen. Durch einen \inlinecode{JOIN} über den Namen des Landes, werden die Geometriedaten dazugenommen.
 
