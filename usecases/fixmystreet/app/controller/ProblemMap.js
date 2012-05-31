@@ -214,7 +214,6 @@ Ext.define("FixMyStreet.controller.ProblemMap", {
 	 * @private
 	 */
 	syncProblemMarkers: function(data) {
-		console.log(data);
 		var dataObjs = FixMyStreet.gftLib.convertToObject(data);
 		
 		var currentRowIds = {};
