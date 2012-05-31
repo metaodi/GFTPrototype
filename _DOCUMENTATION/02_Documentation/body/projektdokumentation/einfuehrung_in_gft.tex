@@ -63,6 +63,33 @@ Views können nur von Base Tables oder anderen Views erstellt werden, Merged Tab
 
 Ein Beispiel für die Verwendung von Views in Google Fusion Tables ist der \emph{Flu Vaccine Finder}\footnote{\url{https://developers.google.com/fusiontables/docs/articles/data_gathering}} von Google selbst.
 
+\subsection{Datentypen}
+Google Fusion Tables unterstützt eine Reihe von Datentypen\footnote{\url{http://support.google.com/fusiontables/bin/answer.py?hl=en&answer=2590990}}. Das Herzstück bildet dabei sicher der Typ \emph{Location}, welcher auf vielseitige Weise geografische Daten speichern kann\footnote{\url{http://support.google.com/fusiontables/bin/answer.py?hl=en&answer=174680}}. Jede Zelle hat eine Begrenzung von maximal 1'000'000 Zeichen.
+
+\begin{longtable}{|p{0.2\twocelltabwidth}|p{0.8\twocelltabwidth}|}
+\hline 
+\textbf{Datentyp} & \textbf{Beschreibung} \\ 
+\hline 
+\inlinecode{Text} & Standard Datentyp, falls es sich dabei um eine URL handelt, wird diese automatisch zu einem Hyperlink oder Bild umgewandelt \\ 
+\hline 
+\inlinecode{Number} & Integer- oder Dezimalzahlen \\ 
+\hline 
+\inlinecode{Date/Time} & Datumswerte, nach welchen sortiert werden kann \\ 
+\hline 
+\inlinecode{Location} & Geografische Daten: 
+\begin{itemize}[noitemsep]
+\item Text: beliebiger Ortsangabe (z.B. Adresse oder Landesname)
+\item Punkte (Point): Latitude/Longitude-Paar mit Leerzeichen getrennt oder KML-Punktdaten
+\item Linien (Line): KML mit LineString-Element
+\item Polygon: KML mit Polygon-Element
+\end{itemize}
+
+Alle Daten dieses Typs werden geocodiert (siehe Abschnitt \ref{gft-geocoding}) \\ 
+\hline 
+\caption{Datentypen von Google Fusion Tables}
+\label{gft-datentypen}
+\end{longtable} 
+
 \subsection{Limiten}
 Da die Google Fusion Tables kostenlos angeboten werden, hat Google einige Limiten für die Nutzung der Datenbank festgelegt. So darf eine einzelne Tabelle maximal 250MB Speicher belegen. Zudem sind die Abfragen pro Benutzer und Tag auf 25'000 beschränkt. Auf der Karte lassen sich maximal 100'000 Elemente gleichzeitig darstellen. Allgemein werden zudem bei Abfragen nur die ersten 100'000 Datensätze der Datenbank für das Erstellen der Antwort berücksichtigt. Diese Einschränkungen können Kunden des Google Maps \gls{API} Premier\footnote{\url{http://www.google.com/enterprise/earthmaps/maps.html}} auf Anfrage verändern. Die Preise dafür starten bei \$10'000 pro Jahr und steigen je nach Bedürfnissen nach oben.\cite{fusion-tables-geo-limits}
 
