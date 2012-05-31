@@ -4,7 +4,7 @@ Die Google Fusion Table JavaScript Library (GftLib) ist eine von uns entwickelte
 
 Die Bibliothek hat Abhängigkeiten zu jQuery\footnote{\url{http://jquery.com/}} (für einige Hilfsfunktionen) sowie dem Google \gls{API} JavaScript Client\footnote{\url{http://code.google.com/p/google-api-javascript-client/}} (für die Authentifizierung und das Abschicken der Requests).
 
-Die Bibliothek besteht aus 2 Klassen (GftLib und SqlBuilder). Die GftLib ist das \gls{API} zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt, auf einfach Art und Weise SQL-Befehle zu generieren.
+Die Bibliothek besteht aus zwei Klassen (GftLib und SqlBuilder). Die GftLib ist das \gls{API} zum Client und steuert dementsprechend die Requests und die Authentifizierung. Der SqlBuilder ist eine Hilfsklasse, welche es erlaubt, auf einfach Art und Weise SQL-Befehle zu generieren.
 
 \subsection{Verwendung}
 Im Code-Beispiel \ref{gftlib-example} sieht man die GftLib und den SqlBuilder im Einsatz. Zuerst werden alle benötigten Werte initialisiert (Zeilen 1-3), dann wird die Ausgabefunktion \inlinecode{printer} definiert, welche später als Callback-Funktion dient für den Request. Das heisst, dass die Funktion aufgerufen wird, sobald die Antwort der Abfrage zurückkommt. 

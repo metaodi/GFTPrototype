@@ -122,23 +122,23 @@ Das SQL \gls{API} bieten zudem eine Reihe von speziellen ortsabhängigen Abfrage
 \end{longtable} 
 
 \section{Client Libraries}
-Google bietet Client Libraries zum \gls{API} in den Sprachen PHP\footnote{\url{http://code.google.com/p/fusion-tables-client-php/}} und Python\footnote{\url{http://code.google.com/p/fusion-tables-client-python/}} an. Da wir eine Webapplikation möglichst ohne Serverteil erstellen wollten, waren wir auf eine Bibliothek in JavaScript angewiesen. Da es bislang noch keine solche gab, haben wir selbst begonnen, die GftLib zu entwickeln (siehe Abschnitt \ref{gftlib-js}).
+Google bietet Client Libraries zum \gls{API} in den Sprachen PHP\footnote{\url{http://code.google.com/p/fusion-tables-client-php/}} und Python\footnote{\url{http://code.google.com/p/fusion-tables-client-python/}} an. Aufgrund der Anforderung, dass unsere Webapplikation möglichst ohne Serverteil auskommt, waren wir auf eine Bibliothek in JavaScript angewiesen. Da es bislang noch keine solche gab, haben wir begonnen, selbst die GftLib zu entwickeln (siehe Abschnitt \ref{gftlib-js}).
 
 Durch die Same-Origin-Policy\footnote{Die Same-Origin-Policy (SOP) ist ein Sicherheitskonzept, das es JavaScript und ActionScript nur dann erlaubt, auf Objekte einer anderen Webseite zuzugreifen, wenn sie aus derselben Quelle (Origin) stammen.\cite{sop} }, wurden wir daran gehindert, \gls{AJAX}-Requests direkt auf das Google \gls{API} abzusetzen. Wir mussten eine Alternative finden, ohne eine Serverkomponente einzuführen.
 
-Schliesslich fanden wir in den Google Groups ein inoffizielles \gls{JSONP} \gls{API}\footnote{\url{https://groups.google.com/forum/?hl=en&fromgroups\#!topic/fusion-tables-users-group/jCiFfqCgCWM}}, welches es erlaubt, \gls{AJAX}-Requests auch über die eigene Domäne hinweg zu senden. Diese Methode funktionierte jedoch nur für lesende Zugriffe. 
+Die Lösung für das Problem fanden wir in den Google Groups. Google bietet ein inoffizielles \gls{JSONP} \gls{API}\footnote{\url{https://groups.google.com/forum/?hl=en&fromgroups\#!topic/fusion-tables-users-group/jCiFfqCgCWM}} an, welches es erlaubt, \gls{AJAX}-Requests auch über die eigene Domäne hinweg zu senden. Diese Methode funktionierte jedoch nur für lesende Zugriffe. 
 
 Für die schreibenden Zugriffe haben wir als Workaround einen \emph{Relay-Dienst} geschrieben, welcher auf unserem Webserver lief. Der Dienst hat lediglich die Requests entgegengenommen und diese dann an das Google \gls{API} weitergeleitet.
 
-Als wir den Zugriff auf das Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt mit ihrem JavaScript \gls{API} Client\footnote{Google APIs Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}} Requests ans \gls{API} zu schicken, somit entfällt die Same-Origin-Policy Problematik.
+Als wir den Zugriff auf das Trusted Tester \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) bekommen haben, konnten wir den Serverteil wieder entfernen. Google hat dort die Möglichkeit hinzugefügt hat, direkt mit ihrem JavaScript \gls{API} Client\footnote{Google APIs Client Library for JavaScript: \url{http://code.google.com/p/google-api-javascript-client/}} Requests ans \gls{API} zu schicken. Dadurch entfällt die Same-Origin-Policy Problematik.
 
 \section{Trusted Tester API}
 \label{trusted-tester-api}
-Es gibt derzeit zwei verschiedene Versionen des \gls{API}s: eine frei öffentlich zugängliche und das sogenannte \emph{Trusted Tester \gls{API}}, welche derzeit im Beta-Stadium ist und nur ausgewählten Personen zur Verfügung steht. Als wir im Sprint 2 davon erfahren haben, haben wir uns für einen Zugang beworben, welchen wir dann auch erhalten haben.
+Es gibt derzeit zwei verschiedene Versionen des \gls{API}s: eine öffentlich zugängliche und das sogenannte \emph{Trusted Tester \gls{API}}, welche derzeit im Beta-Stadium ist und nur ausgewählten Personen zur Verfügung steht. Als wir im Sprint 2 davon erfahren haben, haben wir uns für einen Zugang beworben, welchen wir dann auch erhalten haben.
 
 Das Trusted Tester \gls{API} bietet einige Neuerungen zur alten Schnittstelle. Es handelt sich bei diesem \gls{API} um eine Vorabversion der neuen Schnittstelle, welche zukünftig ebenfalls der Öffentlichkeit zur Verfügung stehen soll. Neben dem \gls{API} gibt es auch eine zugehörige Mailingsliste, auf der die Entwickler von Google Fragen beantworten und Tipps geben.
 
-Zu den Neuerungen des neuen \gls{API}s gehört, dass es auch eine \gls{REST}-Schnittstelle erhalten hat. Damit ist es zum einen möglich, Tabelleninformationen abzufragen und zum anderen ganz klassisch CRUD-Operationen auf dem \gls{API} auszuführen. Da wir uns bemüht haben, unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen \gls{API} \inlinecode{POST}-Requests abzuschicken und so endlich auch Schreiboperationen direkt via Browser zu unterstützen.
+Eine grosse Neuerungen des \gls{API}s, bildet die \gls{REST}-Schnittstelle. Damit ist es möglich, Tabelleninformationen abzufragen oder ganz klassisch CRUD-Operationen auf dem \gls{API} auszuführen. Da wir uns bemüht haben, unsere Beispiele möglichst ohne Server-Code zu schreiben, konnten wir besonders davon profitieren, mit dem neuen \gls{API} \inlinecode{POST}-Requests abzuschicken und so auch Schreiboperationen direkt via Browser zu unterstützen.
 
 Alle Request an das \gls{REST}-\gls{API} haben die folgende Form: \\
 \url{https://www.googleapis.com/fusiontables/<apiVersion>/<resourcePath>?<parameters>}

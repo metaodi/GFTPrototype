@@ -27,17 +27,17 @@ Der Dienst wurde am 10. Juni 2009 der Öffentlichkeit zugänglich gemacht\cite{f
 \subsection{Kollaboration und Nutzung von öffentlichen Daten}
 Der Gedanke der \gls{Cloud} lässt sich abseits vom Technischen noch weiterdenken. Durch die allgemeine Verfügbarkeit der Fusion Tables Datenbank, lassen sich die dort eingetragenen Daten mit anderen Benutzern oder gar der Öffentlichkeit teilen. Google bietet sogar die Möglichkeit öffentliche Tabellen zu durchsuchen\footnote{\url{https://www.google.com/fusiontables/search}}.
 
-Tabellen können zudem mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft gebrauchen, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
+Tabellen können zudem mit anderen Tabellen gemerged werden, wodurch die Vereinigung der Daten wiederum neue Möglichkeiten zur Nutzung der Daten ermöglicht. Eine öffentlich zugängliche Tabelle mit Länderpolygonen lässt sich so beliebig oft verwenden, um Daten mit Ländern zu verknüpfen und diese dann auf einer Karte darzustellen.
 
-Diese passive Kollaboration ermöglicht es, auf eine breite Palette an öffentlichen bzw. veröffentlichten Daten zurückzugreifen. Via Import lassen sich auch andere bereits bestehende Daten mit Fusion Tables nutzen. Unterstützt sind dabei Tabellen (via Google Spreadsheet), \gls{CSV} und \gls{KML} Dateien. Mit unserem im Kapitel \ref{converter-build} vorgestellten Build lassen sich eine breite Palette von Dateiformaten in Google Fusion Tables importieren.
+Diese passive Kollaboration ermöglicht es, auf eine breite Palette an öffentlichen bzw. veröffentlichten Daten zurückzugreifen. Via Import lassen sich auch andere bereits bestehende Daten mit Fusion Tables nutzen. Von Google werden dabei Tabellen (via Google Spreadsheet), \gls{CSV}- und \gls{KML}-Dateien unterstützt. Mit unserem im Kapitel \ref{converter-build} vorgestellten Build, lässt sich zudem eine breite Palette weiterer Dateiformate in Google Fusion Tables importieren.
 
-Um aktiv zu kollaborieren, hat Google auch einige Features angedacht. So ist es möglich, einzelne Datensätze oder gar Zellen in der Tabelle zu kommentieren, sofern man die nötigen Berechtigungen dafür hat. Falls man Daten von mehreren Lieferanten verwalten lassen will, kann eine Partei eine Tabelle erstellen und verschiedene Views darauf erstellen, welche jeweils von den verschiedenen Datenlieferanten gepflegt werden. Durch entsprechend gesetzte Berechtigungen kann so jeder seine Daten zum Ganzen beitragen, ohne Zugriff auf die Daten von anderen Lieferanten zu haben. Einzig der Besitzer der Tabelle hat Berechtigungen auf alle Inhalte. Google hat als Beispiel für diesen Use Case die Applikation \emph{Flu Vaccine Finder} erstellt, welche es den Anbietern von Grippeimpfungen ermöglicht, ihre Lokale selbstständig zu erfassen und zu verwalten.\cite{data-gathering}
+Um aktiv zu kollaborieren, hat Google auch einige Features angedacht. So ist es möglich, einzelne Datensätze oder gar Zellen in der Tabelle zu kommentieren, sofern man die nötigen Berechtigungen dafür hat. Falls man Daten von mehreren Lieferanten verwalten lassen will, kann eine Partei eine Tabelle erstellen und verschiedene Views darauf erstellen. Diese werden jeweils von den verschiedenen Datenlieferanten selbst gepflegt werden. Durch entsprechend gesetzte Berechtigungen kann so jeder seine Daten zum Ganzen beitragen, ohne Zugriff auf die Daten von anderen Lieferanten zu haben. Einzig der Besitzer der Tabelle hat Berechtigungen den ganzen Datenbestand zu verändern. Google hat als Beispiel für diesen Use Case die Applikation \emph{Flu Vaccine Finder} erstellt, welche es den Anbietern von Grippeimpfungen ermöglicht, ihre Lokale selbstständig zu erfassen und zu verwalten.\cite{data-gathering}
 
 \subsection{Verschiedene Tabellenarten}
 Google Fusion Tables unterscheidet grundsätzlich drei verschiedene Tabellenarten\footnote{Tabellenarten in Google Fusion Tables: \url{https://developers.google.com/fusiontables/docs/developers_guide\#Exploring}}. Jede Tabelle hat sowohl einen Namen wie auch eine numerische und \emph{verschlüsselte} ID (\inlinecode{encid}). Angesprochen wird die Tabelle ausschliesslich über deren ID, wobei das neue \gls{API} (siehe Abschnitt \ref{trusted-tester-api}) nur noch die \inlinecode{encid} akzeptiert.
 
 \subsubsection{Base Table}
-Eine normale Tabelle kann kann sowohl über das Web-GUI wie auch über das \gls{API} erstellt werden. Eine Tabelle kann Daten entweder von einer \gls{KML}- oder einer \gls{CSV}-Datei importieren oder von einer bereits vorhandenen Google Spreadsheet-Datei übernehmen.
+Eine normale Tabelle kann sowohl über das Web-GUI, wie auch über das \gls{API} erstellt werden. Eine Tabelle kann Daten entweder von einer \gls{KML}- oder einer \gls{CSV}-Datei importieren oder von einer bereits vorhandenen Google Spreadsheet-Datei übernehmen.
 
 \subsubsection{Merged Table}
 \label{merge-table}
@@ -50,7 +50,7 @@ Merged Tables sind ein Mittel, um zwei Fusion Tables zusammenzuführen. Der Benu
 	\label{create-merge-table}
 \end{figure}
 
-Merged Tables haben einige Einschränkungen. So lassen sie sich bislang nicht via \gls{API} erstellen, sondern aussschliesslich über das Web-GUI. \inlinecode{INSERT}-Befehle sind nicht möglich und \inlinecode{UPDATE} nur auf Attributen, die nicht am Join beteiligt sind.
+Merged Tables haben einige Einschränkungen. So lassen sie sich bislang nicht via \gls{API} erstellen, sondern aussschliesslich über das Web-GUI. \inlinecode{INSERT}-Befehle sind nicht möglich und \inlinecode{UPDATE} nur auf Attributen, die nicht am \inlinecode{JOIN} beteiligt sind.
 
 Wir haben die Merged Tables in unserer erstellen Webapplikation \emph{WorldData} verwendet (siehe Kapitel \ref{worlddata}).
 
@@ -61,10 +61,10 @@ Views sind auch ein ideales Mittel, um die Berechtigungen zu steuern. So kann z.
 
 Views können nur von Base Tables oder anderen Views erstellt werden, Merged Tables werden nicht unterstützt\footnote{\url{https://developers.google.com/fusiontables/docs/developers_guide\#CreatingView}}.
 
-Ein schönes Beispiel für die Verwendung von Views in Google Fusion Tables ist der \emph{Flu Vaccine Finder}\footnote{\url{https://developers.google.com/fusiontables/docs/articles/data_gathering}} von Google selbst.
+Ein Beispiel für die Verwendung von Views in Google Fusion Tables ist der \emph{Flu Vaccine Finder}\footnote{\url{https://developers.google.com/fusiontables/docs/articles/data_gathering}} von Google selbst.
 
 \subsection{Limiten}
-Da die Google Fusion Tables kostenlos angeboten werden, hat Google einige Limiten bei der Benutzung der Datenbank festgelegt. So darf eine einzelne Tabelle maximal 250MB Speicher belegen. Zudem sind die Abfragen pro Benutzer und Tag auf 25'000 beschränkt. Auf der Karte lassen sich maximal 100'000 Elemente gleichzeitig darstellen. Allgemein werden zudem bei Abfragen nur die ersten 100'000 Datensätze der Datenbank für das Erstellen der Antwort berücksichtigt. Diese Einschränkungen können Kunden des Google Maps \gls{API} Premier\footnote{\url{http://www.google.com/enterprise/earthmaps/maps.html}} auf Anfrage verändern. Die Preise dafür starten bei \$10'000 pro Jahr und steigen je nach Bedürfnissen nach oben.\cite{fusion-tables-geo-limits}
+Da die Google Fusion Tables kostenlos angeboten werden, hat Google einige Limiten für die Nutzung der Datenbank festgelegt. So darf eine einzelne Tabelle maximal 250MB Speicher belegen. Zudem sind die Abfragen pro Benutzer und Tag auf 25'000 beschränkt. Auf der Karte lassen sich maximal 100'000 Elemente gleichzeitig darstellen. Allgemein werden zudem bei Abfragen nur die ersten 100'000 Datensätze der Datenbank für das Erstellen der Antwort berücksichtigt. Diese Einschränkungen können Kunden des Google Maps \gls{API} Premier\footnote{\url{http://www.google.com/enterprise/earthmaps/maps.html}} auf Anfrage verändern. Die Preise dafür starten bei \$10'000 pro Jahr und steigen je nach Bedürfnissen nach oben.\cite{fusion-tables-geo-limits}
 
 \begin{longtable}{|l|l|}
 \hline 

@@ -1,16 +1,16 @@
 \section{Geocodierung in Google Fusion Tables}
 \label{gft-geocoding}
 Ein grosser Vorteil der Google Fusion Tables ist die automatische 
-\gls{Geocodierung} von Standortdaten. Sobald eine neue Zeile zu einer Tabelle hinzugefügt wird, werden alle Zellen vom Typ \emph{Location} einem eindeutigen Standort auf der Karte zugewiesen. Ist dies nicht möglich, da beispielsweise eine Adresse in mehreren Orten vorkommen kann, bleibt die Zelle gelb hinterlegt.
+\gls{Geocodierung} von Standortdaten. Sobald eine neue Zeile via Web-GUI zu einer Tabelle hinzugefügt wird, werden alle Zellen vom Typ \emph{Location} einem eindeutigen Standort auf der Karte zugewiesen. Ist dies nicht möglich, da beispielsweise eine Adresse in mehreren Orten vorkommen kann, wird die Zelle nicht geocodiert und der Text wird gelb hinterlegt. In solchen Fällen hat man die Möglichkeit den zugehörigen Ort manuell mit Hilfe einer Karte zu wählen.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\textwidth]{images/einfuehrung/geocoding_failed}
-	\caption{Geocodierung für Ort \emph{Springfield} fehlgeschlagen}
+	\caption{Geocodierung für Ort Springfield fehlgeschlagen}
 	\label{geocoding_failed}
 \end{figure}
 
-Diese geocodierten Standorte werden in der Tabelle hinterlegt. Leider sind diese Daten über das SQL \gls{API} nicht selektierbar. Möchte man die erhaltenen Daten trotzdem auf der Karte positionieren, muss man deshalb für jede Zeile die \gls{Geocodierung} manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirkt.
+Die geocodierten Standorte werden als Metadaten in der Tabelle hinterlegt. Leider sind diese Daten über das SQL \gls{API} nicht selektierbar. Möchte man die erhaltenen Daten auf der Karte positionieren, so muss man für jede Zeile die \gls{Geocodierung} manuell vornehmen, was sich negativ auf die Ladezeit der Karte auswirkt.
 
 \subsection{Geocoding-Dienste}
 Es gibt verschiedene Dienste, welche eine solche \gls{Geocodierung} von Standortdaten anbieten. Die meisten davon haben aber eine Begrenzung der möglichen Anfragen pro Tag.
