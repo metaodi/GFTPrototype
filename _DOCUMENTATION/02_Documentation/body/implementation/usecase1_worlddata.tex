@@ -108,7 +108,9 @@ Die Applikation wurde als Webapplikation implementiert. Für die GUI-Elemente wu
 Da es sich um eine Webapplikation handelt, ist es möglich, die Applikation auf beinahe allen Geräten, welche über einem Browser verfügen, zu starten. Einschränkungen gibt es nur in den unterstützten Browsern. Eine Liste davon findet sich auf der Webseite des jQuery Mobile Frameworks: \url{http://jquerymobile.com/blog/2012/04/06/jquery-mobile-1-1-0-rc2/#platforms}
 
 \subsection{Abhängigkeiten}
-\begin{longtable}{|p{0.35\threecelltabwidth}|p{0.11\threecelltabwidth}|p{0.54\threecelltabwidth}|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.35\threecelltabwidth}|p{0.11\threecelltabwidth}|p{0.54\threecelltabwidth}|}
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
@@ -120,11 +122,14 @@ Google Maps \gls{API} & V3 & Karte mit FusionTablesLayer \\
 \hline 
 Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erscheint \\ 
 \hline 
+\end{tabular}
 \caption{WorldData: Abhängigkeiten}
-\end{longtable} 
+\end{table} 
 
 \subsection{Quellcode-Struktur}
-\begin{longtable}{|p{0.25\twocelltabwidth}|p{0.75\twocelltabwidth}|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\twocelltabwidth}|p{0.75\twocelltabwidth}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
@@ -146,8 +151,9 @@ Cubiq - Add to home screen & 2.0 & Popup welches auf allen iOS Geräten erschein
 \hline
 \inlinecode{index.html} & Startseite der Applikation \\ 
 \hline
+\end{tabular}
 \caption{WorldData: Quellcode-Struktur}
-\end{longtable} 
+\end{table} 
 
 \section{Testing}
 Die Applikationslogik dieses Use Cases befindet sich im Controller und zu kleinen Teilen im Helper. Für diese beiden Komponenten haben wir insgesamt zwölf Tests erstellt\footnote{Ausführbare Tests: \url{http://gft.rdmr.ch/test/js/?filter=WorldData}}.

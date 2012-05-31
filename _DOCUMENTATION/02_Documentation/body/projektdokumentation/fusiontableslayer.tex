@@ -33,7 +33,9 @@ In diesem Beispiel\footnote{Quelle: \url{https://developers.google.com/maps/docu
 \label{fusiontableslayer-styles-restrictions}
 Das Google Maps \gls{API} hat momentan folgende Einschränkungen bezüglich den Ebenenstilen definiert.
 
-\begin{longtable}{|l|l|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
 \hline 
 \textbf{Beschreibung} & \textbf{Limitation} \\ 
 \hline 
@@ -43,9 +45,10 @@ Anzahl Ebenen, auf denen Stile definiert sein dürfen & 1 \\
 \hline 
 Anzahl Stile auf Ebene & 5 \\ 
 \hline 
+\end{tabular} 
 \caption{Limitationen der Stile auf Fusion Table-Ebenen}
 \label{fusiontableslayer-stlyes-limitations}
-\end{longtable} 
+\end{table}
 
 \subsection{Heatmaps}
 Ein weiteres Feature der Fusion Table-Ebenen ist die Möglichkeit, die Daten der Tabelle direkt als Heatmap darzustellen. Dabei werden die Daten automatisch nach der Häufigkeit der Vorkommnisse an einem Ort anders eingefärbt. Der verwendete Farbverlauf geht dabei von \emph{grün} (für wenig Daten) bis \emph{rot} (für viele Daten).

@@ -15,7 +15,9 @@ Die geocodierten Standorte werden als Metadaten in der Tabelle hinterlegt. Leide
 \subsection{Geocoding-Dienste}
 Es gibt verschiedene Dienste, welche eine solche \gls{Geocodierung} von Standortdaten anbieten. Die meisten davon haben aber eine Begrenzung der möglichen Anfragen pro Tag.
 
-\begin{longtable}{|p{0.4\threecelltabwidth}|p{0.14\threecelltabwidth}|p{0.46\threecelltabwidth}|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.4\threecelltabwidth}|p{0.14\threecelltabwidth}|p{0.46\threecelltabwidth}|}
 \hline 
 \textbf{Anbieter} & \textbf{Anfragen pro Tag} & \textbf{URL} \\ 
 \hline 
@@ -25,8 +27,9 @@ Yahoo! PlaceFinder \gls{API} & 50000 & \url{http://developer.yahoo.com/geo/place
 \hline 
 MapQuest Geocoding \gls{API} & keine Begrenzung & \url{http://developer.mapquest.com/web/products/dev-services/geocoding-ws} \\ 
 \hline 
+\end{tabular}
 \caption{Geocoding Limitierungen}
-\end{longtable} 
+\end{table} 
 
 \subsection{Geocoding von neuen Datensätzen nur manuell möglich}
 \label{geocodierung-bug}

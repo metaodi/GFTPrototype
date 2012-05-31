@@ -33,7 +33,9 @@ gft.execSelect(printer, {table:tableId, fields:['name', 'population']});
 \end{lstlisting}
 
 \subsection{Abhängigkeiten}
-\begin{longtable}{|p{0.3\threecelltabwidth}|p{0.2\threecelltabwidth}|p{0.5\threecelltabwidth}|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.3\threecelltabwidth}|p{0.2\threecelltabwidth}|p{0.5\threecelltabwidth}|}
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
@@ -41,7 +43,9 @@ jQuery & 1.7.1-min & Helper-Funktionen und \gls{AJAX}-Requests für den OAuthTok
 \hline 
 Google \gls{API}s Client Library & ALPHA release & \gls{AJAX}-Requests an das Google \gls{API} und Authentifizierung \\ 
 \hline 
-\end{longtable} 
+\end{tabular} 
+\caption{Abhängigkeiten der GftLib}
+\end{table}
 
 \subsection{Methoden}
 \subsubsection{GftLib}
@@ -102,6 +106,7 @@ Google \gls{API}s Client Library & ALPHA release & \gls{AJAX}-Requests an das Go
 \item \inlinecode{gftData}: Antwort auf einen SQL Befehl von Google Fusion Tables
 \end{itemize} \\ 
 \hline 
+\caption{Methoden der GftLib-Klasse}
 \end{longtable} 
 
 \subsubsection{SqlBuilder}
@@ -156,6 +161,7 @@ Die Methoden des SqlBuilders nehmen jeweils ein Parameter-Objekt\footnote{\url{h
 \item \inlinecode{query}: Ein SQL-Query, das der View zugrunde liegt
 \end{itemize}\\
 \hline
+\caption{Methoden der SqlBuilder-Klasse}
 \end{longtable}
 
 \subsection{Implementation}
