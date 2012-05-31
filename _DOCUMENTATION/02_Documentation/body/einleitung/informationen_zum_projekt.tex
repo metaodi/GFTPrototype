@@ -1,0 +1,75 @@
+\chapter{Informationen zum Projekt}
+\label{informationen-projekt}
+Das Ziel dieser Arbeit war das Untersuchen der Möglichkeiten, welche die \gls{Cloud}-Datenbank Google Fusion Tables (GFT) bietet. Es sollen einige Prototypen für verschiedenste Anwendungsfälle im \gls{GIS}-Bereich erstellt werden, welche das Potential der Datenbank aufzeigen.
+
+\section{Problemstellung}
+Die Aufgabenstellung stammt von der GEOINFO AG\footnote{\url{www.geoinfo.ch}}, welche massgeschneiderte \gls{GIS}-Softwarelösungen für ihre Kunden entwickelt.
+
+Für solche Unternehmen wird es nach und nach schwieriger, sich auf dem Markt zu beweisen, da bereits viele cloudbasierte \gls{GIS}-Lösungen sehr günstig oder gar kostenlos erhältlich sind. Durch die zu erstellenden Prototypen soll ersichtlich gemacht werden, welche Anwendungsfälle von bestehenden proprietären \gls{GIS}-Systemen bereits mit Google Fusion Tables realisierbar wären und welchen Aufwand dies darstellen würde.
+
+\section{Aufgabenstellung}
+Im Rahmen dieser Arbeit soll das Potential, aber auch die Einschränkungen von Google Fusion Tables für den Einsatzbereich eines öffentlichen Web \gls{GIS} evaluiert werden. Es ist aufzuzeigen, welche der typischen Anwendungsfälle, wie sie in aktuellen Web \gls{GIS} Lösungen\footnote{z.B. \url{www.geoportal.ch} oder \url{www.stadtplan.stadt-zuerich.ch}} implementiert sind, auf Basis von Google Fusion Tables und Google Maps realisiert werden könnten. Eine Auswahl dieser Grundfunktionen ist anhand eines Prototypen zu implementieren.
+
+\section{Ziele}
+In der Aufgabenstellung der Arbeit wurden folgende Ziele definiert:
+\begin{itemize}
+\item Evaluation von Google Fusion Tables in Kombination mit Google Maps u.a. mit Blick auf deren Funktionalität, Anwendbarkeit, Zuverlässigkeit und Performance
+\item Entwurf und Dokumentation einer \gls{GIS}-Architektur, welche einerseits \gls{Cloud} Services (am Beispiel von Fusion Tables) andererseits die Geodaten- und Serviceinfrastruktur einer Organisation integriert oder migriert.
+\item Analyse verschiedener Use Cases, wobei einer davon als Prototyp einer Webapplikation (voll) implementiert werden soll. 
+\item Implementierung und Bewertung von verschiedenen cloudbasierten \gls{GIS}-Prototypen unter Verwendung der Google Fusion Tables \gls{API}
+\begin{itemize}
+	\item Prototyp(en) aus Use Case-Evaluation (oben). Dabei sollen v.a. auch die Geometrietypen Linestring und Polygon berücksichtigt werden.
+	\item Prototyp einer Datenerfassung/Verwaltung am Beispiel eines Point-of-Interest (POI) Layers mit grossen Datenmengen
+\end{itemize}
+\item Prototyping für zukünftige (\gls{GIS}-) Kollaborationsplattformen. Es soll aufgezeigt werden, wie sich bestehende Konzepte\footnote{z.B. \url{www.mysg.ch/locations} oder \url{http://ch.tilllate.com/de/locations})} verbessern lassen oder weiterentwickeln könnten.
+\end{itemize}
+
+\section{Rahmenbedingungen}
+\begin{itemize}
+\item Es gelten die Rahmenbedingungen, Vorgaben und Termine der HSR
+\item Die Projektabwicklung orientiert sich an einer iterativen, agilen Vorgehensweise. Als Vorgabe dient dabei Scrum, wobei bedingt durch das kleine Projektteam gewisse Vereinfachungen vorgenommen werden. Meilensteine werden bezüglich Termin und Inhalt mit dem verantwortlichen Dozenten und dem Projektpartner vereinbart.
+\item Die Kommunikation in der Projektgruppe, in der Dokumentation und an den Präsentationen erfolgt in Deutsch.
+\item Eine Prototypen-Website ist in HTML/JavaScript zu implementieren und sollte auf verschiedenen Plattformen lauffähig sein.
+\end{itemize}
+
+\section{Vorgehen}
+Die Arbeit umfasst zwei Themenbereiche: Im ersten theoretischen Teil wird untersucht, inwiefern Google Fusion Tables eine Konkurrenz für bestehende proprietäre \gls{GIS}-Lösungen darstellt. Im zweiten Teil sollen verschiedene Anwendungsfälle mit Google Fusion Tables als Prototypen gebaut werden, wobei einer davon als mobile Webapplikation ausprogrammiert werden soll.
+
+\subsection{Potential von Google Fusion Tables}
+Es soll aufgezeigt werden, inwiefern sich Anwendungsfälle aus bestehenden \gls{GIS}-Lösungen mit Google Fusion Tables abbilden lassen.
+
+Zu diesem Zweck sollen Use Cases erarbeitet werden, welche ein möglichst breites Spektrum abbilden können. Wichtige Themen sind dabei das Verwaltung von grösseren Datenmengen, die Verwaltung von Daten aus verschiedenen Quellen und die Kollaboration bei der Bearbeitung der Daten.
+
+Dabei soll aufgezeigt werden, wie Daten nach Google Fusion Tables migriert werden können und anschliessend eine Weiterverarbeitung erfolgen kann. Da sich die Datenstrukturen von bestehenden Lösungen stark unterscheiden können, ist es nicht das Ziel, eine Schritt-für-Schritt Anleitung zu erstellen. Primär geht es darum, die Möglichkeiten aufzuzeigen.
+
+Durch die theoretische und praktische Auseinandersetzung mit Google Fusion Tables soll das gegenwärtige Potential dieses Dienstes abgeschätzt werden. Diese Erkenntnis soll \gls{GIS}-Lösungsprovidern einen Überblick verschaffen, inwiefern Google Fusion Tables bereits eingesetzt werden kann bzw. wo dessen Stärken und Schwächen liegen.
+
+\subsection{Erstellung von Prototypen}
+Der theoretische Teil soll dann schliesslich durch verschiedene Prototypen belegt werden. Es werden mehrere Standard-Anwendungsfälle im \gls{GIS}-Bereich mittels Google Fusion Tables realisiert. Diese Prototypen sollen in Form von Webapplikationen entwickelt werden, um eine grösstmögliche Plattformunabhängigkeit zu erreichen.
+
+Ein Anwendungsfall soll zusätzlich als vollwertige Webapplikation für Mobilgeräte ausprogrammiert werden.
+
+\section{Aufbau der Arbeit}
+Die Arbeit ist in drei Teile gegliedert. Zuerst kommt eine theoretische Einführung ins Thema mit einer Abschätzung des Potentials von Google Fusion Tables (siehe Kapitel \ref{einfuehrung}) und unserer Infrastruktur (siehe Kapitel \ref{infrastruktur}), im zweiten Teil geht es dann um die erstellten Arbeitsresultate (siehe Kapitel \ref{beispielapplikationen}, \ref{worlddata}, \ref{fixmystreet} und \ref{converter-build}) und schliesslich im letzten Teil um das Projektmanagement (siehe Kapitel \ref{projektmanagement}).
+
+Wir haben während dem Semester Sitzungen mit unserem Betreuer durchgeführt und auch unseren Auftraggeber zweimal getroffen. Dort konnten wir jeweils unseren Stand präsentieren und erhielten regelmässig Feedback zu unserem Arbeitsfortschritt.
+
+Neben diesem Dokument umfasst diese Arbeit zahlreiche Beispielanwendungen und zwei Webapplikationen, welche im Internet verfügbar sind. Der dazugehörige Source Code ist ebenfalls frei im Internet zugänglich sowie auf der beigelegten CD zu finden.
+
+\begin{longtable}{|l|l|}
+\hline 
+\textbf{Arbeitsresultat} & \textbf{URL} \\ 
+\hline 
+Übersichtsseite & \url{http://gft.rdmr.ch} \\ 
+\hline 
+WorldData Use Case & \url{http://worlddata.rdmr.ch} \\ 
+\hline 
+FixMyStreet Use Case & \url{http://fixmystreet.rdmr.ch} \\ 
+\hline 
+Converter-Build & \url{http://jenkins.rdmr.ch:8080/job/Convert-GIS-files/} \\ 
+\hline 
+Repository & \url{https://github.com/odi86/GFTPrototype} \\ 
+\hline 
+\caption{Übersicht aller Arbeitsresultate}
+\label{arbeitsresultate}
+\end{longtable} 

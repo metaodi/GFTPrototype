@@ -4,73 +4,73 @@ Um die verschiedenen Features der Google Fusion Tables kennenzulernen, erstellte
 
 Eine Übersicht über alle erstellen Beispiele findet man auf folgender Übersichtsseite: \url{http://gft.rdmr.ch/}
 
-\section{Daten ausgeben}
+\subsubsection{Daten ausgeben}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/data-print/} \\ 
 \textbf{Beschreibung:} & Daten mittels GftLib von FusionTable selektieren und textuell ausgeben. \\ 
 \end{tabular} 
 
-\section{Daten selektieren}
+\subsubsection{Daten selektieren}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/data-select/} \\ 
 \textbf{Beschreibung:} & Queries eingeben und Resultat tabellarisch darstellen \\ 
 \end{tabular} 
 
-\section{Daten selektieren mit ortsbezogener Einschränkung}
+\subsubsection{Daten selektieren mit ortsbezogener Einschränkung}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/spatialquery-condition/} \\ 
 \textbf{Beschreibung:} & Daten mittels GftLib von FusionTable selektieren und textuell ausgeben. Die Daten werden zusätzlich mit dem Spatial-Query \inlinecode{ST\_INTERSECTS} (siehe Abschnitt \ref{sqlapi-spatialqueries}) eingeschränkt. \\ 
 \end{tabular} 
 
-\section{Daten selektieren mit ortsbezogener Sortierung}
+\subsubsection{Daten selektieren mit ortsbezogener Sortierung}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/spatialquery-order/} \\ 
 \textbf{Beschreibung:} & Daten mittels GftLib von FusionTable selektieren und textuell ausgeben. Die zurückgelieferten Daten werden bei der Abfrage mit dem Spatial-Query \inlinecode{ST\_DISTANCE} (siehe Abschnitt \ref{sqlapi-spatialqueries}) sortiert. \\ 
 \end{tabular} 
 
-\section{Google Maps: Daten auf Karte anzeigen}
+\subsubsection{Google Maps: Daten auf Karte anzeigen}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gmap-rawdata/} \\ 
 \textbf{Beschreibung:} & Daten mittels GftLib von FusionTable selektieren und auf Karte anzeigen. \\ 
 \end{tabular} 
 
-\section{Google Maps: Daten auf Karte anzeigen mit manueller Geocodierung}
+\subsubsection{Google Maps: Daten auf Karte anzeigen mit manueller Geocodierung}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gmap-geocoding/} \\ 
 \textbf{Beschreibung:} & Daten mittels GftLib von FusionTable selektieren und auf Karte anzeigen. Um die Markierungen zu positionieren wird der Geocoding-Service des Google Maps \gls{API} verwendet.  \\ 
 \end{tabular} 
 
-\section{Google Maps: Fusion Table-Ebene}
+\subsubsection{Google Maps: Fusion Table-Ebene}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gmap-fusiontableslayer/} \\ 
 \textbf{Beschreibung:} & Anzeigen der Daten aus zwei FusionTables via FusionTablesLayer.  \\ 
 \end{tabular} 
 
-\section{Google Maps: Fusion Table-Ebene Stile}
+\subsubsection{Google Maps: Fusion Table-Ebene Stile}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gmap-fusiontableslayer-clickstyle/} \\ 
 \textbf{Beschreibung:} & Anzeigen der Daten aus einer FusionTable via FusionTablesLayer mit manuell konfiguriertem Stil (siehe Abschnitt \ref{fusiontableslayer-styles}). Sobald auf eine angezeigte Fläche geklickt wird, ändert sich deren Farbe. \\ 
 \end{tabular} 
 
-\section{Google Maps: Dynamische Fusion Table-Ebene}
+\subsubsection{Google Maps: Dynamische Fusion Table-Ebene}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gmap-dynamic-fusiontableslayer/} \\ 
 \textbf{Beschreibung:} & Anzeigen der Daten aus zwei FusionTables via FusionTablesLayer. Per Slider lassen sich zusätzlich die zurückgegebenen Daten nach der Anzahl an Einwohnern einschränken.  \\ 
 \end{tabular} 
 
-\section{Google Maps: Fusion Table-Ebene mit ortsbezogener Einschränkung}
+\subsubsection{Google Maps: Fusion Table-Ebene mit ortsbezogener Einschränkung}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gmap-spatialquery/} \\ 
 \textbf{Beschreibung:} & Anzeigen der Daten aus einer FusionTable via FusionTablesLayer. Es werden nur diejenigen Daten angezeigt, welche im Radius der auf der Karte positionierten Markierung liegen. Die Markierung lässt sich per Drag{\&}Drop auf der Karte verschieben. Zusätzlich lässt sich der Radius per Slider definieren. \\ 
 \end{tabular} 
 
-\section{Google Charts: Daten mit Diagrammen visualisieren}
+\subsubsection{Google Charts: Daten mit Diagrammen visualisieren}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/gchart-fusiontable/} \\ 
 \textbf{Beschreibung:} & Visualisieren der Daten aus einer FusionTable mit Diagrammen. Dazu wird das Google Chart Tool \gls{API} verwendet. \\ 
 \end{tabular} 
 
-\section{Einfügen von Daten}
+\subsubsection{Einfügen von Daten}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/oauth-login/} \\ 
 \textbf{Beschreibung:} & Einfügen von Daten in eine FusionTable. Dazu muss zuerst ein Zugriffs-Token via \gls{OAuth} angefordert werden.
@@ -78,7 +78,7 @@ Eine Übersicht über alle erstellen Beispiele findet man auf folgender Übersic
 \textit{Hinweis: Dieses Beispiel funktioniert nur mit einem Google Account.} \\ 
 \end{tabular} 
 
-\section{Verwendung einer Fusion Table-Ebene in Sencha Touch 2}
+\subsubsection{Verwendung einer Fusion Table-Ebene in Sencha Touch 2}
 \begin{tabular}{p{0.2\twocelltabwidth}p{0.8\twocelltabwidth}}
 \textbf{URL:} & \url{http://gft.rdmr.ch/examples/js/senchatouch-fusiontableslayer/} \\ 
 \textbf{Beschreibung:} & Anzeige einer FusionTableLayer in einer Sencha Touch 2 Applikation. \\ 
