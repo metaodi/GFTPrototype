@@ -47,19 +47,19 @@ Zur Visualisierung der FixMyStreet-Idee wurde vorausgehend ein Storyboard erstel
 % Subfigure counter zuruecksetzen
 \setcounter{subfigure}{0}
 \begin{figure}[H]
-\subfigure[Defekte Strassenlampe entdeckt]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-1}}
+\subfigure[Defekte Strassenlampe entdeckt]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-1}}
 \hfill
-\subfigure[Defekt melden]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-2}}
+\subfigure[Defekt melden]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-2}}
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Neue Meldungen überprüfen]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-3}}
+\subfigure[Neue Meldungen überprüfen]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-3}}
 \hfill
-\subfigure[Defekt reparieren]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-4}}
+\subfigure[Defekt reparieren]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-4}}
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Defekt repariert]{\includegraphics[width=0.45\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-5}}
+\subfigure[Defekt repariert]{\includegraphics[width=0.43\textwidth]{images/usecase2-fixmystreet/storyboard/fixmystreet-storyboard-5}}
 \end{figure}
 
 
@@ -280,10 +280,10 @@ In den Controller-Klassen werden genau über dieses Konzept Referenzen auf die V
 
 % Hier wurde bewusst eine subsubsection verwendet, um den Titel nicht in das Inhaltsverzeichnis einzufuegen
 \subsubsection{Beispiel einer Component-Query}
-Das Beispiel \ref{st2-componentquery}\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \inlinecode{nav} via Component-Query die View-Komponente mit der ID \inlinecode{mainNav}.
+Der Code-Ausschnitt \ref{st2-componentquery}\footnote{Quelle: \url{http://docs.sencha.com/touch/2-0/\#!/api/Ext.app.Controller} (Stand: 24.05.2012)} zeigt einen Teil eines Controllers. Dieser referenziert im Property \inlinecode{nav} via Component-Query die View-Komponente mit der ID \inlinecode{mainNav}.
 
 \lstset{language=JavaScript}
-\begin{lstlisting}[caption=Beispiel eines Component-Queries in Sencha Touch 2, label=st2-componentquery]
+\begin{lstlisting}[float, caption=Beispiel eines Component-Queries in Sencha Touch 2, label=st2-componentquery]
 Ext.define('MyApp.controller.Main', {
 	extend: 'Ext.app.Controller',
 	
@@ -319,7 +319,9 @@ Das Sencha Touch 2 Framework unterstützt alle WebKit-fähigen Browser:
 Eine vollständige Liste der unterstützten Geräte findet man auf der Seite \url{http://www.sencha.com/products/touch/features/} unter \emph{Sencha Touch 2 Device Support}.
 
 \subsection{Abhängigkeiten}
-\begin{longtable}{|p{0.25\threecelltabwidth}|p{0.1\threecelltabwidth}|p{0.65\threecelltabwidth}|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\threecelltabwidth}|p{0.1\threecelltabwidth}|p{0.65\threecelltabwidth}|}
 \hline 
 \textbf{Library} & \textbf{Version} & \textbf{Verwendung} \\ 
 \hline 
@@ -331,12 +333,15 @@ jQuery & 1.7.1 & Wird von der GftLib verwendet \\
 \hline 
 Google Maps \gls{API} & V3 & Anzeige der Karten \\ 
 \hline 
+\end{tabular} 
 \caption{FixMyStreet: Abhängigkeiten}
-\end{longtable} 
+\end{table}
 
 \subsection{Quellcode-Struktur}
 
-\begin{longtable}{|p{0.4\twocelltabwidth}|p{0.6\twocelltabwidth}|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.4\twocelltabwidth}|p{0.6\twocelltabwidth}|}
 \hline 
 \textbf{Datei} & \textbf{Beschreibung} \\ 
 \hline 
@@ -346,7 +351,7 @@ Google Maps \gls{API} & V3 & Anzeige der Karten \\
 \hline 
 \inlinecode{app/controller/Main.js} & Haupt-Controller der Applikation (Steuert die einzelnen Ansichten) \\ 
 \hline 
-\inlinecode{app/controller/Map.js} & Basis-Controller der \emph{Report}-View und der \emph{Map}-View \\ 
+\inlinecode{app/controller/Map.js} & Basis-Controller der \emph{Report} und \emph{Map}-View \\ 
 \hline 
 \inlinecode{app/controller/ProblemMap.js} & Controller der \emph{Map}-View \\ 
 \hline 
@@ -370,10 +375,11 @@ Google Maps \gls{API} & V3 & Anzeige der Karten \\
 \hline 
 \inlinecode{resources/styles/} & CSS-Styles der Applikation \\ 
 \hline 
-\inlinecode{index.html} & Einstiegspunkt der Applikation (Inkludiert \inlinecode{app/app.js}, welches die Applikation startet) \\ 
+\inlinecode{index.html} & Einstiegspunkt der Applikation (inkludiert \inlinecode{app/app.js}, welches die Applikation startet) \\ 
 \hline
+\end{tabular} 
 \caption{FixMyStreet: Quellcode-Struktur}
-\end{longtable} 
+\end{table}
 
 \subsection{Anbindung an Google Fusion Table}
 \label{fixmystreet-proxy}

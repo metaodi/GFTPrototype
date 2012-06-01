@@ -12,7 +12,7 @@ Der Build war schlussendlich eine einfache Lösung, um schnell beliebige Dateien
 \subsection{Technischer Hintergrund}
 Die Konvertierung basiert auf der Open Source Bibliothek GDAL/OGR\footnote{\url{http://www.gdal.org/ogr}}.
 
-Technisch gesehen ist der Converter-Build ein einfaches Ant-Skript welches das Kommandozeilen-Tool ogr2ogr\footnote{\url{http://www.gdal.org/ogr2ogr.html}} abstrahiert. Dieses Tool wird auf dem Server ausgeführt mit den entsprechend eingegebenen Parametern. 
+Technisch gesehen ist der Converter-Build ein einfaches Ant-Skript welches das Kommandozeilen Tool ogr2ogr\footnote{\url{http://www.gdal.org/ogr2ogr.html}} abstrahiert. Dieses Tool wird auf dem Server ausgeführt mit den entsprechend eingegebenen Parametern. 
 
 \subsection{Features}
 Da der Build auf ogr2ogr basiert, sind die Limitation durch dieses Tool gegeben. Es wird eine Vielzahl an \gls{GIS}-Formaten unterstützt\footnote{\url{http://www.gdal.org/ogr/ogr_formats.html}}. Speziell zu erwähnen ist dabei die Unterstützung für Google Fusion Tables, da wir damit die Möglichkeit bekommen haben, Daten direkt in eine Fusion Table zu importieren\footnote{\url{http://www.gdal.org/ogr/drv_gft.html}}.
