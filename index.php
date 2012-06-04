@@ -294,7 +294,7 @@ $fusiontableToUrlMapping = Array(
 				<dt>Continuous Integration:</dt>
 				<dd><a href="http://jenkins.rdmr.ch:8080/job/GFTPrototype/" target="_blank">http://jenkins.rdmr.ch:8080/job/GFTPrototype/</a></dd>
 				<dt>Dokumentation:</dt>
-				<dd><a href="./_DOCUMENTATION/02_Documentation/GFTPrototype.pdf" target="_blank">GFTPrototype.pdf</a></dd>
+				<dd><a href="./_DOCUMENTATION/studienarbeit-gft-soderbol_jhunzike.pdf" target="_blank">studienarbeit-gft-soderbol_jhunzike.pdf</a></dd>
 			</dl>
 		</div>
 	</div>
