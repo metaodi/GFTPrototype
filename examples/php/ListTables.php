@@ -1,7 +1,7 @@
 <?php
 
-require_once '../lib/google-api-php-client/src/Google_Client.php';
-require_once '../lib/google-api-php-client/src/contrib/Google_FusiontablesService.php';
+require_once '../../lib/google-api-php-client/src/Google_Client.php';
+require_once '../../lib/google-api-php-client/src/contrib/Google_FusiontablesService.php';
 
 /* Define all constants */
 const CLIENT_ID = '63601791805-gd5vj9a4pu177krdm9fu5rfhulkcl2bl.apps.googleusercontent.com';
