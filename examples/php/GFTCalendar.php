@@ -14,10 +14,10 @@ $result = $service->query->sql($selectQuery);
 $rows = $result['rows'];
 $cols = $result['columns'];
 
-$ical = "BEGIN:VCALENDAR
-METHOD:PUBLISH
-VERSION:2.0
-PRODID:-//Stefan Oderbolz//GFTCalendar//EN\n";
+$ical  = "BEGIN:VCALENDAR\r\n";
+$ical .= "METHOD:PUBLISH\r\n";
+$ical .= "VERSION:2.0\r\n";
+$ical .= "PRODID:-//Stefan Oderbolz//GFTCalendar//EN\r\n";
  
 foreach ($rows as $row) 
 {
@@ -30,17 +30,17 @@ foreach ($rows as $row)
 	$endDate->add(DateInterval::createFromDateString('1 day'));
 	$now = new DateTime();
 	
-	$ical .= "BEGIN:VEVENT\n";
-	$ical .= "SUMMARY:" . $text . "\n";
-	$ical .= "UID:" . $rowid . "\n";
-	$ical .= "STATUS:CONFIRMED\n";
-	$ical .= "DTSTART;VALUE=DATE:" . $startDate->format(DATE_ICAL_SHORT) . "\n";
-	$ical .= "DTEND;VALUE=DATE:" . $endDate->format(DATE_ICAL_SHORT) . "\n";
-	$ical .= "DTSTAMP:" . $now->format(DATE_ICAL) . "\n";
-	$ical .= "LAST-MODIFIED:" . $now->format(DATE_ICAL) . "\n";
-	$ical .= "LOCATION:" . $location . "\n";
-	$ical .= "DESCRIPTION:" . $text . " (" . $number . ")\n";
-	$ical .= "END:VEVENT\n";
+	$ical .= "BEGIN:VEVENT\r\n";
+	$ical .= "SUMMARY:" . $text . "\r\n";
+	$ical .= "UID:" . $rowid . "\r\n";
+	$ical .= "STATUS:CONFIRMED\r\n";
+	$ical .= "DTSTART;VALUE=DATE:" . $startDate->format(DATE_ICAL_SHORT) . "\r\n";
+	$ical .= "DTEND;VALUE=DATE:" . $endDate->format(DATE_ICAL_SHORT) . "\r\n";
+	$ical .= "DTSTAMP:" . $now->format(DATE_ICAL) . "\r\n";
+	$ical .= "LAST-MODIFIED:" . $now->format(DATE_ICAL) . "\r\n";
+	$ical .= "LOCATION:" . $location . "\r\n";
+	$ical .= "DESCRIPTION:" . $text . " (" . $number . ")\r\n";
+	$ical .= "END:VEVENT\r\n";
 }
  
 // close calendar
