@@ -2,7 +2,7 @@
 require_once 'FTOAuthServiceAccount.class.php';
 
 // the iCal date format
-const DATE_ICAL = 'Ymd\THis\Z';
+const DATE_ICAL = 'Ymd';
 
 //Get data from Google Fusion Tables
 $auth = new FTOAuthServiceAccount("GFTCalendar");
@@ -32,10 +32,10 @@ foreach ($rows as $row)
 	$ical .= "SUMMARY:" . $text . "\n";
 	$ical .= "UID:" . $rowid . "\n";
 	$ical .= "STATUS:CONFIRMED\n";
-	$ical .= "DTSTART:" . $startDate->format(DATE_ICAL) . "\n";
-	$ical .= "DTEND:" . $endDate->format(DATE_ICAL) . "\n";
+	$ical .= "DTSTART;VALUE=DATE:" . $startDate->format(DATE_ICAL) . "\n";
+	$ical .= "DTEND;VALUE=DATE:" . $endDate->format(DATE_ICAL) . "\n";
 	$ical .= "LOCATION:" . $location . "\n";
-	$ical .= "SUMMARY:" . $text . " (" . $number . ")\n";
+	$ical .= "DESCRIPTION:" . $text . " (" . $number . ")\n";
 	$ical .= "END:VEVENT\n";
 }
  
