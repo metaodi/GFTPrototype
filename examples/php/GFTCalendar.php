@@ -26,8 +26,8 @@ foreach ($rows as $row)
 	$ical .= "STATUS:CONFIRMED\n";
 	$ical .= "DTSTART:" . date(DATE_ICAL, strtotime($row[array_search('Date', $cols)])) . "\n";
 	$ical .= "DTEND:" . date(DATE_ICAL, strtotime($row[array_search('Date', $cols)])) . "\n";
-	//$ical .= "LAST-MODIFIED:" . date(DATE_ICAL, strtotime($row[array_search('Last modified', $cols)])) . "\n";
 	$ical .= "LOCATION:" . $row[array_search('Location', $cols)] . "\n";
+	$ical .= "SUMMARY:" . $row[array_search('Text', $cols)] . " (" . $row[array_search('Number', $cols)] . ")\n";
 	$ical .= "END:VEVENT\n";
 }
  
