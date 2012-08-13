@@ -25,7 +25,8 @@ foreach ($rows as $row)
 	$location = $row[array_search('Location', $cols)];
 	$number = $row[array_search('Number', $cols)];
 	$startDate = new DateTime($row[array_search('Date', $cols)]);
-	$endDate = $startDate->add(DateInterval::createFromDateString('1 day'));
+	$endDate = clone $startDate;
+	$endDate->add(DateInterval::createFromDateString('1 day'));
 	
 	$ical .= "BEGIN:VEVENT\n";
 	$ical .= "SUMMARY:" . $text . "\n";
