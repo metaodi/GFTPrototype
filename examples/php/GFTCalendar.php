@@ -2,7 +2,8 @@
 require_once 'FTOAuthServiceAccount.class.php';
 
 // the iCal date format
-const DATE_ICAL = 'Ymd';
+const DATE_ICAL = 'Ymd\THis\Z';
+const DATE_ICAL_SHORT = 'Ymd';
 
 //Get data from Google Fusion Tables
 $auth = new FTOAuthServiceAccount("GFTCalendar");
@@ -27,13 +28,16 @@ foreach ($rows as $row)
 	$startDate = new DateTime($row[array_search('Date', $cols)]);
 	$endDate = clone $startDate;
 	$endDate->add(DateInterval::createFromDateString('1 day'));
+	$now = new DateTime();
 	
 	$ical .= "BEGIN:VEVENT\n";
 	$ical .= "SUMMARY:" . $text . "\n";
 	$ical .= "UID:" . $rowid . "\n";
 	$ical .= "STATUS:CONFIRMED\n";
-	$ical .= "DTSTART;VALUE=DATE:" . $startDate->format(DATE_ICAL) . "\n";
-	$ical .= "DTEND;VALUE=DATE:" . $endDate->format(DATE_ICAL) . "\n";
+	$ical .= "DTSTART;VALUE=DATE:" . $startDate->format(DATE_ICAL_SHORT) . "\n";
+	$ical .= "DTEND;VALUE=DATE:" . $endDate->format(DATE_ICAL_SHORT) . "\n";
+	$ical .= "DTSTAMP:" . $now->format(DATE_ICAL) . "\n";
+	$ical .= "LAST-MODIFIED:" . $now->format(DATE_ICAL) . "\n";
 	$ical .= "LOCATION:" . $location . "\n";
 	$ical .= "DESCRIPTION:" . $text . " (" . $number . ")\n";
 	$ical .= "END:VEVENT\n";
