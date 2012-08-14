@@ -17,7 +17,7 @@ $cols = $result['columns'];
 $ical  = "BEGIN:VCALENDAR\r\n";
 $ical .= "METHOD:PUBLISH\r\n";
 $ical .= "VERSION:2.0\r\n";
-$ical .= "PRODID:-//Stefan Oderbolz//GFTCalendar//EN\r\n";
+$ical .= "PRODID:-//<Enter Company Name Here>//Installer Calendar//EN\r\n";
  
 foreach ($rows as $row) 
 {
@@ -28,10 +28,9 @@ foreach ($rows as $row)
 	$hood = $row[array_search('hood', $cols)];
 	$multiple_locations = $row[array_search('multiple_locations', $cols)];
 	
-	$time = "";
-	//$time = $row[array_search('time_request', $cols)];
-	//echo $row[array_search('scheduled_date', $cols)] + " " + $time;
-	$startDate = new DateTime($row[array_search('scheduled_date', $cols)]);
+	$time = $row[array_search('time_request', $cols)];
+	$scheduled_date = new DateTime($row[array_search('scheduled_date', $cols)]);
+	$startDate = new DateTime($scheduled_date->format('m/d/Y') . " " . $time);
 	$endDate = clone $startDate;
 	$now = new DateTime();
 	
