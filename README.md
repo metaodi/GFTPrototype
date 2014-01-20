@@ -6,7 +6,6 @@ We try to identify the potential of [Google Fusion Tables](http://www.google.com
 The goal of this project is to create prototype applications based on Google Fusion Tables and show how use cases of current WebGIS solutions could be implemented using this alternative technology. 
 The applications are either examples to show a certrain aspect or a use case with more functionality.
 
-All examples / use cases can be found here: http://gft.rdmr.ch
 
 # Further information
 For further information about the project, issue tracker, roadmap etc. please visit our [project management tool Redmine](http://redmine.rdmr.ch) or our [continious integration server Jenkins](http://jenkins.rdmr.ch:8080).
