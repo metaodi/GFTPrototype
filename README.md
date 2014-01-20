@@ -8,7 +8,7 @@ The applications are either examples to show a certrain aspect or a use case wit
 
 
 # Further information
-For further information about the project, issue tracker, roadmap etc. please visit our [project management tool Redmine](http://redmine.rdmr.ch) or our [continious integration server Jenkins](http://jenkins.rdmr.ch:8080).
+For further information about the project please [see our documentation]( https://github.com/metaodi/GFTPrototype/raw/master/_DOCUMENTATION/studienarbeit-gft-soderbol_jhunzike.pdf) (PDF, 5.5MB, German only!)
 
 # License
 
